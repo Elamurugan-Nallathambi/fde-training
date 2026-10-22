@@ -73,4 +73,4 @@ The AI tutor uses the Workers AI binding in `wrangler.toml`.
 
 ## Related
 
-- [AI knowledge chat service](https://github.com/Elamurugan-Nallathambi/ai-knowledge): the Ask button's knowledge graph and search, built from this content.
+- [Simple RAG via a browser model](https://github.com/Elamurugan-Nallathambi/simple-rag-via-browser-model): the Ask chat (knowledge graph, browser-side search model and read-only API), built from this content.
