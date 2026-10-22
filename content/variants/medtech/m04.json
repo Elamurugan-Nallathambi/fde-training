@@ -1,0 +1,556 @@
+{
+  "module": 4,
+  "title": "Domain, business and market analysis for MedTech",
+  "intro": "A device maker will say 'our CAPAs stay open for months' or 'every label change takes six weeks', and before you can help you need to know how the company designs, makes and supports its products, which system holds each record, and which rule governs each step. This module gives you the MedTech value chain and its systems of record, a way to run a gap assessment, a way to size value when validation is part of the cost, a map of buyers and the market, and a way to decide whether to build, buy or configure inside a validated environment.",
+  "lessons": [
+    {
+      "id": "medtech-value-chain",
+      "title": "The MedTech value chain and its systems of record",
+      "summary": "You will be able to trace a medical device from idea to the field and name the system of record and the main rule at each step.",
+      "why": "A client will ask you to 'speed up engineering changes' or 'help with complaints'. Those words point at very different parts of the company, owned by different people, held in different systems and governed by different rules. This lesson lets you place any request on the chain in the first conversation, so you know who owns it, where the data lives and what evidence the regulators expect.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A medical device company makes money by selling devices, consumables and service. What makes it different from other manufacturers is that every step from design to the field leaves a regulated record. The FDA and EU regulators can inspect those records, and missing or inconsistent records are a finding in their own right.",
+            "People in the industry often call the whole chain the total product lifecycle: design and development, regulatory submission, manufacturing, supply chain, distribution, and postmarket activities such as complaints and corrective actions. A system of record is the one system the company treats as the official source for a type of data. In MedTech you must also know which rule says that record has to exist."
+          ]
+        },
+        {
+          "h": "Design and development",
+          "p": [
+            "Design controls are the required, documented way of designing a device. In plain words: write down what the device must do (design inputs, from user needs), design it (design outputs such as drawings and specifications), check the outputs meet the inputs (verification), check the device meets the user needs (validation), hold formal design reviews, and transfer the design into production. ISO 13485, now part of the FDA QMSR, requires all of this. The collected evidence is the design history file (DHF); ISO 13485 calls it the design and development file.",
+            "The system of record here is usually PLM (product lifecycle management), for example Oracle Agile PLM, PTC Windchill, Siemens Teamcenter or Veeva. PLM holds parts, bills of materials (BOMs), drawings, specifications and engineering change orders (ECOs). Risk management under ISO 14971 runs alongside design: hazards, risk estimates and risk controls, often in PLM, a requirements tool or controlled spreadsheets. Software in or as a device follows IEC 62304, which sets the software lifecycle activities by safety class."
+          ]
+        },
+        {
+          "h": "Regulatory and clinical",
+          "p": [
+            "Before a device is sold, the company needs permission. In the US the main routes are a 510(k), which shows the device is substantially equivalent to one already legally marketed, a De Novo request for new low to moderate risk devices, and premarket approval (PMA) for most high risk devices. In the EU, the company prepares technical documentation and a clinical evaluation under the EU MDR, Regulation (EU) 2017/745, and for most classes a notified body reviews it.",
+            "Systems here are often a regulatory information management (RIM) tool, a document management system and many shared folders. Submissions pull heavily from the DHF and risk file, which is why a messy PLM shows up as a slow submission."
+          ]
+        },
+        {
+          "h": "Manufacturing, supply chain and the field",
+          "list": [
+            "Manufacturing: the manufacturing execution system (MES) or paper travelers record how each lot or serial number was built, tested and released. This is the device history record (DHR); ISO 13485 asks for a record for each device or batch.",
+            "Supply chain: the ERP (for example SAP or Oracle) holds suppliers, purchase orders, inventory and costs. Supplier controls, meaning evaluating and monitoring suppliers, live partly in ERP and partly in the QMS as supplier audits and supplier corrective action requests (SCARs).",
+            "Quality: the QMS (for example Veeva QMS, or modules inside a PLM) holds nonconformances (NCs), deviations, CAPAs (corrective and preventive actions), audits, training records and controlled documents.",
+            "Field: complaints, service records and adverse event reports. In the US, 21 CFR Part 803 requires manufacturers to report certain deaths, serious injuries and malfunctions. Postmarket surveillance under the EU MDR asks for an active plan to collect and review field data."
+          ],
+          "p": [
+            "Notice how the same product appears in every system under a different key: a part number in PLM, a material number in ERP, a lot number in MES, a product code in the complaint record. Matching them is a large share of any AI project here."
+          ]
+        },
+        {
+          "h": "Questions to ask in week one",
+          "list": [
+            "Which system is the official record for designs, for production records, for complaints and for CAPAs?",
+            "How does an engineering change in PLM reach ERP and MES, and who checks it arrived?",
+            "Which records were cited in the last audit or inspection, and what was the finding?",
+            "Which steps need a qualified person's electronic signature?",
+            "Which documents are still on paper or in shared drives?"
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Total product lifecycle and its records",
+        "caption": "Read left to right; each note names the usual system of record and the record it holds.",
+        "steps": [
+          {"label": "Design and development", "note": "PLM: BOM, specs, DHF; risk file per ISO 14971"},
+          {"label": "Regulatory submission", "note": "RIM and DMS: 510(k), PMA or EU technical file"},
+          {"label": "Supplier and purchasing", "note": "ERP plus QMS supplier records"},
+          {"label": "Manufacture and release", "note": "MES or paper: device history record"},
+          {"label": "Distribution and service", "note": "ERP and service tools, UDI on labels"},
+          {"label": "Complaints and reporting", "note": "QMS: complaint file, Part 803 reports"},
+          {"label": "CAPA and change", "note": "QMS CAPA, then ECO back in PLM"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: one problem, five systems (fictional)",
+        "p": [
+          "A maker of blood glucose meters receives complaints that some test strips give low readings. Follow the record trail. The complaint lands in the QMS with a product code and a lot number. An investigator pulls the lot's production record from MES to check test results at release. She checks the strip's supplier lots in ERP. She opens the strip specification and its last change in PLM. She checks the risk file to see whether low readings were a known hazard and how severe the harm could be. If the cause is confirmed, a CAPA opens in the QMS and may trigger an ECO in PLM.",
+          "Every hop between systems is manual: copy a lot number, search, screenshot, paste into the investigation. That is where an FDE looks first."
+        ],
+        "list": [
+          "System of record for the complaint and CAPA: QMS.",
+          "For production evidence: MES. For supplier lots: ERP. For the specification: PLM.",
+          "Rule touched: complaint handling and CAPA under the QMSR and ISO 13485; reportability under Part 803.",
+          "Candidate for AI: gather the evidence from the four systems into one draft investigation for the investigator to check and sign."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Trace a real device through public FDA records",
+          "time": "45 min",
+          "goal": "Practise placing a real product on the value chain using only public data.",
+          "steps": [
+            "Open the FDA Product Classification database and look up a device type you know, such as an infusion pump. Note its class and product code.",
+            "Open the 510(k) database, search that product code and open one clearance. Note the predicate device it was compared with.",
+            "Open the MAUDE database and search the same product code for adverse event reports. Read two of them.",
+            "Draw the value chain for this device on paper, from design to complaints, and write the likely system of record under each step.",
+            "Ask Claude which records an investigator would need to answer one of the MAUDE reports you read, and mark which system holds each one."
+          ],
+          "done_when": "You have a one-page chain for one real device type with its class, one 510(k), two field reports and a named system of record at every step."
+        }
+      ],
+      "pitfalls": [
+        "Treating PLM, ERP and MES part numbers as the same key. Ask how they are mapped and who maintains the mapping.",
+        "Assuming the DHF is one file. It is usually a set of linked records across PLM, document control and shared folders.",
+        "Learning the chain only from IT. Quality, regulatory and manufacturing engineers know which records auditors ask for.",
+        "Forgetting the field. Complaints and service data feed back into design and risk, and that loop is where many findings come from."
+      ],
+      "check": [
+        "Name the usual system of record for a BOM, a device history record, a supplier purchase order and a CAPA.",
+        "What are design controls, in plain words, and where does the evidence live?",
+        "What is the difference between a 510(k) and a PMA?",
+        "Why does matching keys across systems take so much effort on a MedTech project?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Overview of Device Regulation", "source": "FDA", "url": "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance/overview-device-regulation", "cost": "free"},
+        {"type": "docs", "title": "Product Classification database", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpcd/classification.cfm", "cost": "free"},
+        {"type": "docs", "title": "Windchill PLM Software", "source": "PTC", "url": "https://www.ptc.com/en/products/windchill", "cost": "free"},
+        {"type": "docs", "title": "Product Lifecycle Management software", "source": "Oracle", "url": "https://www.oracle.com/scm/product-lifecycle-management/", "cost": "free"},
+        {"type": "docs", "title": "Unify Total Product Lifecycle - Veeva MedTech", "source": "Veeva", "url": "https://www.veeva.com/medtech/", "cost": "free"},
+        {"type": "video", "title": "DHF vs. DMR vs. DHR: Understanding the Differences & How They Interact", "source": "Greenlight Guru", "url": "https://www.youtube.com/watch?v=r4KzJ9bMQdg", "cost": "free"},
+        {"type": "video", "title": "Design Control for Medical Devices - Online introductory course", "source": "Medical Device HQ", "url": "https://www.youtube.com/watch?v=rt0jmVCdpSU", "cost": "free"}
+      ]
+    },
+    {
+      "id": "medtech-gap-assessment",
+      "title": "Gap assessment: where cost, delay and compliance risk hide",
+      "summary": "You will be able to run a gap assessment on a MedTech process and find the handoffs where cost, delay and compliance risk collect.",
+      "why": "Device makers ask for gap assessments all the time: against a new regulation such as the QMSR or EU MDR, against their own procedures after an audit finding, or before a new system goes live. A gap assessment is also the cleanest way for an FDE to find where AI can help, because it lists what the process should do, what it actually does and where the difference costs time or risk.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A gap assessment compares the current state of a process with a required or target state and lists every difference. The target can be a regulation (for example the QMSR, which brings ISO 13485 into US law), a standard (ISO 14971 for risk), the company's own procedure, or a better process the client wants.",
+            "Each gap gets a description, the evidence, the requirement it fails, a risk rating, an owner and a proposed action. Done well, it is both a compliance tool and a map of waste."
+          ]
+        },
+        {
+          "h": "Where cost and delay hide in a device company",
+          "p": [
+            "Delay collects at handoffs between teams and systems. These are the common ones. Each is also a place where a missed step becomes an audit finding."
+          ],
+          "list": [
+            "Complaint to investigation: complaint text arrives by email, phone or a service tool and is re-typed into the QMS. Investigators then search MES, ERP and PLM by hand.",
+            "Investigation to CAPA: deciding whether a CAPA is needed, and writing a root cause that holds up, can take weeks. Old CAPAs are a common audit finding.",
+            "Engineering change: an ECO in PLM must update drawings, the BOM in ERP, work instructions in MES, labels, and sometimes the regulatory file. Each update is a separate manual task.",
+            "Labeling: one change to a warning or symbol can touch many labels and instructions for use across languages and markets.",
+            "Supplier changes: a supplier notifies a material or process change, and someone must judge its impact on every affected part and product.",
+            "Document review: controlled documents go through review and approval cycles where reviewers wait on each other."
+          ]
+        },
+        {
+          "h": "How to run a gap assessment step by step",
+          "list": [
+            "Pick the scope: one process (for example complaint handling) and the requirement set (for example the client's complaint procedure plus ISO 13485 and Part 803).",
+            "Turn the requirements into a checklist of plain statements: 'every complaint is evaluated for reportability', 'the evaluation is recorded with a reason', and so on.",
+            "Collect evidence: read the procedure, sample 20 to 30 real records, interview the people who do the work, and pull timestamps from the system.",
+            "For each statement, mark met, partly met or not met, and write the evidence. Never mark a gap without evidence.",
+            "Rate each gap by risk to the patient and product, compliance exposure, and effort or delay caused.",
+            "Agree the list with the process owner and quality assurance, then propose actions: fix the procedure, train, change the system, or automate."
+          ]
+        },
+        {
+          "h": "Reading the gaps for AI opportunities",
+          "p": [
+            "Not every gap needs AI. A missing field in a form is fixed by changing the form. Look for gaps with three features: high volume, unstructured input such as free text or PDFs, and a decision a qualified person can check quickly once the evidence is laid out. Complaint intake, investigation evidence gathering, change impact analysis and label comparison often fit. Root cause decisions and reportability decisions stay with people, but AI can draft them for review.",
+            "Keep compliance gaps and efficiency gaps in one list. A tool that saves time but creates a new compliance gap, for example by writing records outside the QMS, is a net loss."
+          ]
+        },
+        {
+          "h": "Presenting the result",
+          "p": [
+            "Keep it short. One table: requirement, current state, evidence, risk rating, owner, action. Then one page with the top five gaps by risk and effort, and which ones you propose to fix first. Quality leaders read gap assessments every week, so a clear, evidenced table earns trust quickly."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "Gap assessment loop",
+        "caption": "Start at the top and go round; the last step feeds the next assessment.",
+        "steps": [
+          {"label": "Choose scope and requirements", "note": "One process, named rules and procedures"},
+          {"label": "Write checklist statements", "note": "Plain, testable sentences"},
+          {"label": "Collect evidence", "note": "Records, interviews, timestamps"},
+          {"label": "Mark met or not met", "note": "Evidence for every mark"},
+          {"label": "Rate and rank gaps", "note": "Patient risk, compliance, delay"},
+          {"label": "Agree actions with owner and QA", "note": "Fix, train, change system or automate"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: complaint handling gap assessment (fictional)",
+        "p": [
+          "A maker of surgical staplers asks for a gap assessment of complaint handling after an internal audit. You take its complaint procedure and the complaint handling requirements of ISO 13485 and Part 803 as the target, and sample 25 complaints from the last quarter.",
+          "Example findings, written as they would appear in the table."
+        ],
+        "list": [
+          "Requirement: each complaint is evaluated for reportability with a documented reason. Current state: 25 of 25 evaluated, but 6 give no reason. Risk: high. Action: make the reason field mandatory and train investigators.",
+          "Requirement: complaints are processed in a timely way per procedure. Current state: median 9 working days from receipt to entry in the QMS because service emails are re-typed. Risk: medium. Action: candidate for AI intake that drafts the QMS entry from the email for a person to check.",
+          "Requirement: investigations link to the production record. Current state: lot numbers are found by hand in MES. Risk: medium. Action: candidate for an evidence-gathering assistant.",
+          "Requirement: trends reviewed monthly. Current state: done in a spreadsheet, categories inconsistent. Risk: medium. Action: fix the category list first, then consider AI coding suggestions."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Run a mini gap assessment from public warning letters",
+          "time": "60 min",
+          "goal": "Practise turning requirements and evidence into a gap table.",
+          "steps": [
+            "Open the FDA Warning Letters page, filter or search for a medical device manufacturer, and open one letter that mentions complaints or CAPA.",
+            "List each observation in the letter as a requirement statement in plain words.",
+            "For each one, write the current state the FDA described, the risk you think it carries, and one action.",
+            "Mark which gaps could be helped by an AI assistant and which need a procedure or training fix instead.",
+            "Ask Claude to review your table and point out any statement that is not testable."
+          ],
+          "done_when": "You have a gap table with at least five rows, each with requirement, current state, risk, action and an AI or non-AI tag."
+        }
+      ],
+      "pitfalls": [
+        "Marking gaps from opinions. Every gap needs evidence from records, timestamps or observation.",
+        "Assessing against a vague target. Write requirements as testable statements before collecting evidence.",
+        "Treating efficiency and compliance as separate lists. A faster process that creates a new compliance gap is not an improvement.",
+        "Proposing AI for gaps that a form change or training would fix."
+      ],
+      "check": [
+        "What goes into each row of a gap assessment table?",
+        "Name three handoffs in a device company where delay collects.",
+        "What three features make a gap a good candidate for an AI assistant?",
+        "Why must quality assurance agree the gap list before actions start?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Quality Management System Regulation (QMSR)", "source": "FDA", "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr", "cost": "free"},
+        {"type": "docs", "title": "21 CFR Part 820 - Quality Management System Regulation", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820", "cost": "free"},
+        {"type": "docs", "title": "21 CFR Part 803 - Medical Device Reporting", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-803", "cost": "free"},
+        {"type": "docs", "title": "Warning Letters", "source": "FDA", "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters", "cost": "free"},
+        {"type": "docs", "title": "Guidance - MDCG endorsed documents and other guidance", "source": "European Commission", "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en", "cost": "free"},
+        {"type": "video", "title": "What is ISO 13485?", "source": "Qualio", "url": "https://www.youtube.com/watch?v=y6ZTCyO6R38", "cost": "free"},
+        {"type": "video", "title": "Complaint Handling and Reporting Process for Medical Devices", "source": "WMDO", "url": "https://www.youtube.com/watch?v=LIw4it9Pbd0", "cost": "free"}
+      ],
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "Example scenario: the client hands you last year's gap assessment from a consultant. Read it before you start your own. It tells you which gaps leadership already knows about, which actions were promised and not done, and which records the quality team already pulled. Building on it saves a week and shows respect for work already paid for."
+        ]
+      }
+    },
+    {
+      "id": "medtech-value-sizing",
+      "title": "Sizing value when validation is part of the cost",
+      "summary": "You will be able to put a range on the value of a MedTech AI use case, counting time saved, quality and compliance benefits, and the cost of validation and change control.",
+      "why": "A quality leader will not fund an AI tool because it is clever. She will fund it if it reduces open CAPAs, shortens complaint cycle time, or frees engineers from searching, and if the validation effort does not eat the gain. This lesson gives you a simple, honest way to size that before anyone writes code.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Start with the plain formula: volume times touch time saved times loaded cost per hour. Volume is how many cases a year. Touch time is the hands-on time a person spends on each case. Loaded cost is salary plus overhead. This gives the time value.",
+            "In MedTech add two more columns. Quality and compliance value: fewer late or weak records, fewer audit findings, faster detection of a trend that matters to patients. And cost: building, validating, maintaining and re-validating the tool after every meaningful change. A use case is worth doing when the first two clearly beat the third, using ranges, not single numbers."
+          ]
+        },
+        {
+          "h": "Where the numbers come from",
+          "list": [
+            "Volume: count records in the system of record, for example complaints per month in the QMS or ECOs per quarter in PLM. Never use a guess when a query will do.",
+            "Touch time: time real cases while shadowing, and compare with timestamps. Touch time is not cycle time; a CAPA may be open 90 days but touched for 12 hours.",
+            "Loaded cost: ask finance for a loaded hourly rate per role. If they will not share, use a range and say so.",
+            "Cycle time and backlog: pull open and close dates from the QMS. Ageing CAPAs and complaints are measures quality leaders already track.",
+            "Validation cost: ask the client's computer system validation (CSV) or quality team how long a validation package takes for a tool of similar risk."
+          ]
+        },
+        {
+          "h": "Quality and compliance value, honestly",
+          "p": [
+            "Do not put a dollar value on avoided warning letters or recalls unless the client's own finance team gives you one. These events are rare and their costs vary hugely. Instead, describe the effect in terms the quality team measures: percentage of complaints entered on time, percentage of reportability decisions with a documented reason, median CAPA age, number of repeat findings. These are credible, and they are what the sponsor will report upward anyway.",
+            "Patient safety benefits, such as spotting a trend in complaints earlier, are real but should be stated as a qualitative benefit with a clear mechanism, not as a number."
+          ]
+        },
+        {
+          "h": "The cost side",
+          "p": [
+            "Count four things. Build effort for the pilot. Validation effort, scaled to risk: a tool that only searches records needs far less evidence than one that drafts a reportability decision, under the risk-based approach of FDA CSA guidance. Run cost: model usage, hosting and support. Change cost: every model upgrade or prompt change needs an impact assessment and some re-testing under change control. Teams often forget the last one, and it can make a cheap pilot expensive to keep alive."
+          ]
+        },
+        {
+          "h": "Putting it together",
+          "p": [
+            "Write a low, likely and high case. State every assumption next to the number it drives. Show the payback period for the likely case. Then show the quality measures separately, not converted to money. The small script below shows the arithmetic with example numbers only."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "# Example numbers only, not industry data\ncases = {\"low\": 3000, \"likely\": 4200, \"high\": 5000}   # complaints a year\nminutes_saved = {\"low\": 10, \"likely\": 18, \"high\": 25}\nrate = 85        # loaded cost per hour, example\nbuild = 60000    # pilot build, example\nvalidate = 40000 # first validation, example\nrun = 15000      # per year: model, hosting, support\nchange = 10000   # per year: re-testing after changes\n\nfor case in (\"low\", \"likely\", \"high\"):\n    value = cases[case] * minutes_saved[case] / 60 * rate\n    yearly_cost = run + change\n    net = value - yearly_cost\n    payback = (build + validate) / net if net > 0 else None\n    print(case, round(value), round(net), payback and round(payback, 1))"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Three columns of a MedTech value case",
+        "caption": "Time and quality value on the left must clearly beat the full cost on the right.",
+        "columns": [
+          {"title": "Time value", "items": ["Volume from the system of record", "Touch time from shadowing", "Loaded cost per hour", "Low, likely, high"]},
+          {"title": "Quality and compliance", "items": ["On-time complaint entry", "Documented reasons", "Median CAPA age", "Stated, not converted to money"]},
+          {"title": "Full cost", "items": ["Build", "Validation scaled to risk", "Run cost", "Change control and re-testing"]}
+        ]
+      },
+      "example": {
+        "title": "Worked example: complaint intake assistant (fictional numbers)",
+        "p": [
+          "An orthopedic implant maker receives about 4,200 complaints a year through email and its service tool. Shadowing shows intake takes 25 to 40 minutes per complaint: reading, finding the product and lot, typing into the QMS. A drafting assistant that pre-fills the QMS entry for a person to check might save 10 to 25 minutes per complaint.",
+          "With the example script's numbers the likely case is worth about 107,000 a year in time, against 25,000 a year to run and maintain and 100,000 to build and validate, so payback is a little over a year. The low case still pays back, but slowly. Alongside the money you show the quality measure the sponsor cares about: complaints entered into the QMS within the procedure's time limit, which the gap assessment found at 70 percent in this example."
+        ],
+        "list": [
+          "Every number is labeled as an example or traced to a query.",
+          "Validation and change cost are in the case from the start.",
+          "Quality value is shown as the client's own measure, not as dollars."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Size a use case with ranges",
+          "time": "45 min",
+          "goal": "Build a low, likely, high value case that includes validation and change cost.",
+          "steps": [
+            "Pick one MedTech use case from this module, such as CAPA evidence gathering or label comparison.",
+            "Write down volume, touch time saved and loaded cost as ranges, and label each as an example assumption.",
+            "Add build, validation, run and change costs as example ranges.",
+            "Run the script above in Python with your numbers and note the payback for each case.",
+            "Write two quality measures the sponsor could track that are not money.",
+            "Ask Claude to find the weakest assumption in your case and suggest how to measure it in week one."
+          ],
+          "done_when": "You have a one-page value case with three scenarios, every assumption labeled, and two non-money quality measures."
+        }
+      ],
+      "pitfalls": [
+        "Confusing cycle time with touch time. Time saved comes from touch time; cycle time is a separate quality measure.",
+        "Putting a dollar figure on avoided recalls or warning letters without the client's own finance input.",
+        "Leaving validation and change control out of the cost. They are often a large share of the total in regulated work.",
+        "Using a single number instead of a range. Ranges are more honest and easier to defend."
+      ],
+      "check": [
+        "What is the basic time value formula and where does each input come from?",
+        "Why should quality and compliance value usually stay in the client's own measures rather than dollars?",
+        "Name the four parts of the cost side.",
+        "Why does a prompt or model change add cost in a validated environment?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "docs", "title": "Medical Device Reporting (MDR): How to Report Medical Device Problems", "source": "FDA", "url": "https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting-mdr-how-report-medical-device-problems", "cost": "free"},
+        {"type": "docs", "title": "Device adverse event API", "source": "openFDA", "url": "https://open.fda.gov/apis/device/event/", "cost": "free"},
+        {"type": "docs", "title": "What is Root Cause Analysis (RCA)?", "source": "ASQ", "url": "https://asq.org/quality-resources/root-cause-analysis", "cost": "free"},
+        {"type": "video", "title": "Root Cause and CAPA Process Explained!!!", "source": "CQE Academy", "url": "https://www.youtube.com/watch?v=IV9LRXCgtK0", "cost": "free"}
+      ]
+    },
+    {
+      "id": "medtech-market-buyers",
+      "title": "Market and buyer map for MedTech",
+      "summary": "You will be able to map who buys, approves and uses an AI solution at a device maker, and scan the market and public FDA data before your first meeting.",
+      "why": "At a device company the person who feels the pain, the person who pays and the person who can say no are often three different people. Quality assurance can stop any tool that touches a regulated record. This lesson helps you find all of them early and arrive at the first meeting already knowing the client's products, their regulatory history and what their current vendors offer.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A buyer map lists everyone who influences the decision: the economic buyer who owns the budget, the users, the process owner, the approvers from quality, regulatory, IT and security, and the people who validate computer systems. A market scan lists what the client could already buy or switch on, so your proposal fits next to it rather than competing with it by accident.",
+            "MedTech gives you an unusual advantage: a lot of regulatory history is public. You can read a client's clearances, recalls, field reports and warning letters before you meet them."
+          ]
+        },
+        {
+          "h": "Who is who at a device maker",
+          "list": [
+            "VP or head of quality: owns the QMS, complaints, CAPA and audits. Often the economic buyer for quality use cases, and always an approver.",
+            "Head of regulatory affairs (RA): owns submissions, labeling content and reporting decisions. Approver for anything touching submissions or reportability.",
+            "R&D or engineering lead: owns design controls, PLM data and engineering changes. Buyer for design and change use cases.",
+            "Operations and manufacturing engineering: own MES, device history records and nonconformances on the line.",
+            "Supply chain and procurement: own ERP supplier data and supplier quality with the quality team.",
+            "IT and computer system validation (CSV) team: own system access, integration and the validation approach. Their early support saves months.",
+            "Clinical affairs: own clinical evaluation and literature review, and often postmarket clinical follow-up in the EU."
+          ]
+        },
+        {
+          "h": "Reading the client from public data",
+          "p": [
+            "Use the FDA databases. The 510(k) and PMA databases show which products the company has cleared or approved and when. The recalls database shows recent recalls and their stated reasons. MAUDE shows adverse event reports for their product codes. The Warning Letters page shows whether the FDA has cited them, and for what. The list of AI-enabled medical devices shows whether they already ship AI in their products.",
+            "Read these as context, not as accusations. A recall for a labeling error tells you labeling is probably a sensitive area. A warning letter citing CAPA tells you CAPA is a priority, and that the quality team is under pressure. Use this to choose your first questions, not to open the meeting."
+          ]
+        },
+        {
+          "h": "Scanning the market",
+          "p": [
+            "Most device makers already run a PLM, a QMS and an ERP from large vendors, and those vendors are adding AI features to their products. Before proposing a custom build, check what the client's current PLM and QMS vendors offer or plan, and whether the client has licensed it. Also note specialised vendors for regulatory information, labeling and complaint handling.",
+            "Build a simple table: option, what it does, what the client already owns, how it handles validation (does the vendor provide validation documentation and a release process), where data is processed, and rough cost. Ask the CSV team how they validated the last vendor tool; it shows you the path."
+          ]
+        },
+        {
+          "h": "Turning the map into a plan",
+          "p": [
+            "Mark each person as supporter, neutral or blocker, and what each needs to say yes. The quality head needs evidence the tool will not create findings. RA needs reportability decisions to stay with qualified people. IT needs the tool inside the security boundary. Users need it to save time on their worst cases. Plan one short conversation with each before the pilot starts."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "Buyer map for a quality use case",
+        "caption": "Read top to bottom: who pays, who must approve, who builds the path, who uses it.",
+        "layers": [
+          {"label": "Economic buyer", "note": "Head of quality or R&D, owns the budget"},
+          {"label": "Approvers", "note": "QA, regulatory affairs, security"},
+          {"label": "Validation and IT", "note": "CSV team, system owners, integration"},
+          {"label": "Process owner", "note": "Complaint, CAPA or change process lead"},
+          {"label": "Users", "note": "Investigators, engineers, specialists"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: preparing for a first meeting (fictional client)",
+        "p": [
+          "You will meet the quality team of a fictional maker of infusion pumps next week. You search the FDA databases for their product codes. You find several 510(k) clearances over the past decade, two recalls in recent years both citing software issues, and a steady flow of MAUDE reports mentioning occlusion alarms. You find no warning letter.",
+          "From this you prepare three questions: how complaints mentioning alarms are coded and trended, how software problem reports in the field connect to the IEC 62304 problem resolution process, and which system holds the link between a complaint and the software version on the pump. You also note that the client runs Windchill as PLM, from a job posting, and check what that vendor documents about AI features."
+        ],
+        "list": [
+          "Economic buyer: head of quality.",
+          "Approvers: QA, RA (reportability), IT security.",
+          "Hidden stakeholder: the software engineering lead who owns field problem resolution."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Build a public profile of a device maker",
+          "time": "60 min",
+          "goal": "Practise preparing for a MedTech first meeting from public sources.",
+          "steps": [
+            "Pick a device maker you know by name and find two of its products in the 510(k) database.",
+            "Search the recalls database for the company and note the reasons for any recent recalls.",
+            "Check the Warning Letters page for the company name.",
+            "Check whether any of its products appear on the FDA list of AI-enabled medical devices.",
+            "Write a buyer map with the roles above and what each would need to say yes to a complaint intake assistant.",
+            "Write three first-meeting questions that follow from what you found."
+          ],
+          "done_when": "You have a one-page profile with products, recalls, any warning letters, AI device status, a buyer map and three questions."
+        }
+      ],
+      "pitfalls": [
+        "Leaving quality assurance out until the end. QA can stop any tool that touches a regulated record.",
+        "Opening a meeting with the client's recalls or warning letters. Use public data to choose questions, not to make a point.",
+        "Proposing a custom build without checking what the client's PLM or QMS vendor already offers.",
+        "Forgetting the CSV team. They decide how much evidence the tool needs."
+      ],
+      "check": [
+        "Who is usually the economic buyer and who are the approvers for a complaint handling tool?",
+        "Name four public FDA sources you can read before a first meeting and what each tells you.",
+        "What columns belong in a market scan table for a regulated client?",
+        "Why should you ask the CSV team how they validated the last vendor tool?"
+      ],
+      "links": [
+        {"type": "docs", "title": "510(k) Premarket Notification database", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm", "cost": "free"},
+        {"type": "docs", "title": "Medical Device Recalls database", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRES/res.cfm", "cost": "free"},
+        {"type": "docs", "title": "MAUDE - Manufacturer and User Facility Device Experience", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm", "cost": "free"},
+        {"type": "docs", "title": "Warning Letters", "source": "FDA", "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters", "cost": "free"},
+        {"type": "docs", "title": "List of Artificial Intelligence-Enabled Medical Devices", "source": "FDA", "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/list-artificial-intelligence-enabled-medical-devices", "cost": "free"},
+        {"type": "video", "title": "Key differences between 510(k) and PMA pathways at the FDA", "source": "Stanford Biodesign", "url": "https://www.youtube.com/watch?v=05kw8zA27Cg", "cost": "free"}
+      ]
+    },
+    {
+      "id": "medtech-build-buy-configure",
+      "title": "Build, buy or configure in a validated environment",
+      "summary": "You will be able to choose between building custom, buying a vendor tool or configuring an existing PLM or QMS, with the validation effort of each in view.",
+      "why": "In most industries the build, buy or configure choice is about cost, speed and fit. At a device maker there is a fourth factor that often decides it: who carries the validation burden, and what happens every time the software changes. Getting this right in week two avoids a pilot that works but can never be released into the quality system.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Configure means switching on or setting up features in a system the client already owns and has validated, such as its QMS or PLM. Buy means licensing a new vendor product. Build means writing custom software, such as an agent that reads the QMS and drafts records.",
+            "In a validated environment, configure is often the cheapest to validate because the platform's validation already exists and you extend it. Buy can be fast if the vendor supplies good validation documentation and a controlled release process. Build gives the most fit, but the client owns all the validation and change control for it."
+          ]
+        },
+        {
+          "h": "How GAMP 5 frames the choice",
+          "p": [
+            "GAMP 5, published by ISPE (second edition 2022), is a widely used guide for a risk-based approach to computerised systems in GxP work. It sorts software into categories. Category 1 is infrastructure software. Category 3 is non-configured products used as supplied. Category 4 is configured products. Category 5 is custom software. Effort rises from 3 to 5, because the more you configure or write, the more you must specify and test.",
+            "FDA CSA guidance points the same way for production and quality system software: focus assurance effort on features whose failure could affect product quality or patient safety, and use the vendor's own evidence where it is good. Both let you scale effort to risk, but neither removes the need for an intended use statement and evidence."
+          ]
+        },
+        {
+          "h": "Questions that decide it",
+          "p": [
+            "Ask these in week two, with the process owner, the system owner and someone from the CSV team in the room. The answers usually make the choice obvious, and writing them down gives QA the reasoning they will want to see later."
+          ],
+          "list": [
+            "Does the client's current PLM or QMS already offer this, or will it soon? Ask the vendor and read the release notes.",
+            "What is the intended use, and how risky is it? Drafting text for review is lower risk than deciding reportability.",
+            "Who will own validation and change control after you leave?",
+            "How often does the software change? A vendor that pushes model updates monthly forces regular impact assessment.",
+            "Where is data processed, and is that inside the client's security and data residency rules?",
+            "Does the tool write to a system of record? Write-back raises risk and testing effort."
+          ]
+        },
+        {
+          "h": "AI-specific points",
+          "p": [
+            "AI features change the usual reasoning in two ways. First, models change. A vendor or model provider can update a model behind the same name, and outputs shift. Ask whether the model version can be pinned, and whether you are told before it changes. Second, AI output varies with input, so testing must use a realistic set of cases rather than a few scripted steps. Module 9 covers how to treat that test set as a validation protocol.",
+            "A common pattern is hybrid: configure the QMS for the workflow, signatures and audit trail, and build a small service that drafts content and passes it into the QMS for a person to review and sign. The regulated record and approval stay in the validated platform."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "Choosing in a validated environment",
+        "caption": "Start with what the client already owns, then let risk and ownership decide.",
+        "start": "A MedTech use case with a named owner",
+        "question": "Can the validated PLM or QMS do it with configuration?",
+        "branches": [
+          {"answer": "Yes", "result": "Configure: GAMP category 4"},
+          {"answer": "No, but a vendor tool fits", "result": "Buy: assess supplier and releases"},
+          {"answer": "No, and the fit is specific", "result": "Build small: records stay in QMS"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: CAPA drafting at a catheter maker (fictional)",
+        "p": [
+          "A catheter maker wants help writing CAPA investigation summaries. Its QMS vendor has announced an AI summary feature, but it only summarises the CAPA record itself and cannot read MES or PLM. A specialised vendor offers a CAPA assistant but processes data outside the client's approved region. The FDE proposes a hybrid.",
+          "Configure: the QMS keeps the CAPA workflow, the electronic signature and the audit trail, with a new field for the AI-drafted summary and a checkbox recording that the investigator reviewed it. Build: a small service, inside the client's cloud, that gathers the linked MES records and PLM change history and drafts the summary into that field. The validation plan covers the configured fields as a change to the existing validated QMS, and the service as custom software with a test set of past CAPAs."
+        ],
+        "list": [
+          "Regulated record and signature stay in the validated QMS.",
+          "Custom code is kept small and read-only on MES and PLM.",
+          "The client's CSV team agreed the split before the build started."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Score three options for one use case",
+          "time": "40 min",
+          "goal": "Practise the build, buy or configure decision with validation in view.",
+          "steps": [
+            "Pick a use case: label comparison, complaint intake or change impact analysis.",
+            "Write one realistic option for configure, buy and build in a spreadsheet.",
+            "Score each from 1 to 5 on fit, time to pilot, validation effort, change frequency, data location and ownership after handover.",
+            "Assign each option a GAMP software category and explain why in one line.",
+            "Ask Claude to argue for the option you scored lowest, and update your scores if it makes a fair point."
+          ],
+          "done_when": "You have a scored table, a GAMP category per option and a one-paragraph recommendation."
+        }
+      ],
+      "pitfalls": [
+        "Building custom when the client's validated QMS or PLM could do it with configuration.",
+        "Buying a vendor AI tool without asking how it controls and announces model updates.",
+        "Putting the regulated record or signature in a new custom system instead of the validated platform.",
+        "Leaving after the pilot with nobody named to own validation and change control."
+      ],
+      "check": [
+        "What do GAMP categories 3, 4 and 5 mean, and how does effort change between them?",
+        "Why is configure often cheapest to validate?",
+        "Name two ways AI features change the usual validation reasoning.",
+        "What is the hybrid pattern and why is it common in MedTech?"
+      ],
+      "links": [
+        {"type": "docs", "title": "GAMP 5 Guide 2nd Edition", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition", "cost": "paid"},
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "docs", "title": "Quality Management Software - Veeva MedTech", "source": "Veeva", "url": "https://www.veeva.com/medtech/products/quality/", "cost": "free"},
+        {"type": "docs", "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application", "cost": "free"},
+        {"type": "course", "title": "Computer Software Assurance (CSA)", "source": "Udemy", "url": "https://www.udemy.com/course/computer-software-assurance-csa/", "cost": "paid"},
+        {"type": "video", "title": "Computer System Validation (CSV) Testing Explained | GAMP 5 (2nd Ed), FDA CSA & EU Annex 11", "source": "Pharmalytics", "url": "https://www.youtube.com/watch?v=qkKdbO9C9Yk", "cost": "free"}
+      ]
+    }
+  ]
+}

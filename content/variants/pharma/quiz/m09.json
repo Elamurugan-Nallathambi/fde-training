@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "pharma-m09-q01",
+      "lesson": "pharma-eval-validation",
+      "q": "When should the acceptance criteria for an AI validation run be agreed?",
+      "options": [
+        "After the run, based on the results",
+        "Before the run, with QA",
+        "At go-live",
+        "Only if the run fails"
+      ],
+      "answer": 1,
+      "why": "Criteria set after seeing results are not credible evidence. Agree them with QA in the plan."
+    },
+    {
+      "id": "pharma-m09-q02",
+      "lesson": "pharma-eval-validation",
+      "q": "Who should set the expected answers for the test cases?",
+      "options": [
+        "The developer who wrote and tuned the prompt",
+        "The AI model itself, on a first run of the cases",
+        "Qualified people, or closed approved records",
+        "The vendor's sales team, who know the product best"
+      ],
+      "answer": 2,
+      "why": "Expected outcomes must come from qualified people or approved records, not from the people building the tool."
+    },
+    {
+      "id": "pharma-m09-q03",
+      "lesson": "pharma-eval-validation",
+      "q": "A prompt fix makes two failed cases pass. What do you rerun before approval?",
+      "options": [
+        "The full protocol",
+        "Only the two failed cases",
+        "Nothing, the fix is small",
+        "A random three cases"
+      ],
+      "answer": 0,
+      "why": "A fix can break other cases. Rerun the full protocol and compare with the last approved results."
+    },
+    {
+      "id": "pharma-m09-q04",
+      "lesson": "pharma-eval-validation",
+      "q": "Under a risk-based approach, how should a low-risk formatting function be tested compared with a root cause suggestion?",
+      "options": [
+        "Exactly the same way",
+        "Not at all",
+        "More deeply, since formatting is visible",
+        "Lighter testing if procedures allow it"
+      ],
+      "answer": 3,
+      "why": "Effort follows risk. The root cause function needs scripted tests; low-risk formatting can be tested more lightly."
+    },
+    {
+      "id": "pharma-m09-q05",
+      "lesson": "pharma-eval-validation",
+      "q": "Three months after go-live, reviewers start rejecting more AI drafts. What should already be in place?",
+      "options": [
+        "A plan to switch the tool off on the first complaint",
+        "Monitoring thresholds that trigger an investigation",
+        "A brand new evaluation set built again from scratch",
+        "A note telling users to ignore the drafts for now"
+      ],
+      "answer": 1,
+      "why": "Agreed thresholds on signals such as rejection rate should open an investigation, as for any GMP system."
+    },
+    {
+      "id": "pharma-m09-q06",
+      "lesson": "pharma-eval-validation",
+      "q": "The model vendor announces it will retire the version you validated. What do you do?",
+      "options": [
+        "Swap to the new version quietly over a weekend",
+        "Keep using the retired model through an unofficial route",
+        "Raise a change, rerun the protocol, get QA approval",
+        "Stop validating this tool, since the vendor changed it"
+      ],
+      "answer": 2,
+      "why": "A model change is a configuration change. It goes through change control with the protocol rerun and QA approval."
+    }
+  ]
+}

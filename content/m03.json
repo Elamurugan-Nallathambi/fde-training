@@ -1,0 +1,1216 @@
+{
+  "module": 3,
+  "title": "Building blocks: code, APIs, data and Git",
+  "intro": "A client says 'here is an export from our system, can you show us something working by Friday?'. This module gives you the hands-on basics for that: how the web carries requests, enough Python for client files, calling APIs, SQL, Git, and using an AI coding assistant well, all with free tools on your own machine.",
+  "lessons": [
+    {
+      "id": "how-the-web-works",
+      "title": "How the web works",
+      "summary": "You will be able to explain what happens between typing an address and seeing a page, and read any HTTP request and response.",
+      "why": "A client will say 'the integration with our ticketing system stopped working last night'. The first question is always what was sent, to where, and what came back. This lesson teaches you to read requests and responses, so you can debug most integration problems yourself instead of waiting days for someone else.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "The web is a conversation between two programs. The client asks for something and the server answers. Your browser is a client. A Python script that calls an API is also a client. The server is a program on another computer that waits for requests and sends back responses.",
+            "Think of it like an internal request form in a company. You fill in a form with what you want (the request), send it to the right department (the server), and get back a reply with a result code and some content (the response). HTTP, the Hypertext Transfer Protocol, is the agreed format for that form. Because everyone uses the same format, any client can talk to any server."
+          ]
+        },
+        {
+          "h": "Step by step: from address to page",
+          "p": [
+            "Take the address https://shop.example.com/orders. It has three parts: the scheme (https), the host name (shop.example.com) and the path (/orders). Here is what happens when you press Enter."
+          ],
+          "list": [
+            "DNS lookup. Computers find each other by IP address, a number such as 93.184.215.14. The Domain Name System (DNS) is the internet's phone book. Your computer asks a DNS resolver for the IP address of shop.example.com and gets one back.",
+            "Connection. The browser opens a connection to that IP address. With https it also runs TLS (Transport Layer Security): the server shows a certificate that proves who it is, and both sides agree on encryption keys.",
+            "Request. The browser sends an HTTP request: a method (GET), the path (/orders), and headers such as which browser it is and which formats it accepts.",
+            "Response. The server sends back a status code (200 means OK), response headers (for example Content-Type: text/html) and a body, the actual content.",
+            "More requests. The HTML page mentions images, stylesheets and scripts. The browser sends a separate request for each one, which is why one page can make dozens of requests."
+          ]
+        },
+        {
+          "h": "Methods, status codes and headers",
+          "p": [
+            "The method says what you want to do. GET reads data. POST creates something new or submits data. PUT replaces a record and PATCH changes part of one. DELETE removes it. A safe habit: GET should never change anything on the server.",
+            "The status code is a three digit number that tells you how it went. Learn the families, not every number. 2xx means success (200 OK, 201 Created). 3xx means look elsewhere (301 moved permanently). 4xx means the client made a mistake: 400 bad request, 401 not authenticated, 403 not allowed, 404 not found, 429 too many requests. 5xx means the server failed: 500 internal error, 503 unavailable. The family tells you where to look first: 4xx means check what you sent, 5xx means the other side has a problem.",
+            "Headers are name and value pairs that carry extra information. Request headers include Authorization (who you are), Content-Type (the format of the body you are sending) and Accept (the format you want back). Response headers include Content-Type, Cache-Control (how long the response can be reused) and Set-Cookie."
+          ]
+        },
+        {
+          "h": "HTTPS and why it matters",
+          "p": [
+            "Plain HTTP sends everything as readable text, so anyone on the network path could read passwords or customer data. HTTPS is HTTP sent inside a TLS encrypted connection. The certificate check also proves you are talking to the real server and not an impostor. For client work the rule is simple: anything with credentials or business data goes over HTTPS only. If a client system only offers plain HTTP, raise it as a risk."
+          ]
+        },
+        {
+          "h": "Where this shows up on an engagement",
+          "p": [
+            "Inside a client's company the path between client and server is often longer than on the public internet. Requests may pass through a VPN, a corporate proxy or a firewall before they reach the server. A call that works from your laptop at home can fail on the client's network with a timeout, a certificate error or a 407 status (proxy authentication required). When that happens, the code is usually fine; the network path is different. Ask the client's IT team early which outbound addresses are allowed, especially for cloud LLM APIs.",
+            "Two more ideas come up all the time. A cookie is a small piece of data the server asks the browser to store and send back on later requests; it is how a site remembers that you are logged in. A session is the server's record of that logged in state. When you automate a system that normally needs a browser login, you usually need an API key or token instead, because scripts do not log in the way people do.",
+            "Finally, keep the browser's developer tools in mind as a free debugging tool. The Network tab shows every request a web application makes, which often reveals the internal API behind a screen the client uses every day. That can be the fastest route to the data you need for a proof of concept, but always ask the system owner before you call it directly."
+          ]
+        },
+        {
+          "h": "Going deeper: see it from the command line",
+          "p": [
+            "curl is a command line client installed on macOS, Linux and recent Windows. It lets you send a request and see the raw response without a browser. The -I option asks for headers only. nslookup shows the DNS step on its own."
+          ],
+          "code": {
+            "lang": "bash",
+            "text": "nslookup example.com\ncurl -I https://example.com\ncurl -i https://example.com"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "What happens when you open a page",
+        "caption": "Read top to bottom: each step happens in the lane of the program doing the work.",
+        "lanes": [
+          "Browser",
+          "DNS resolver",
+          "Web server"
+        ],
+        "steps": [
+          {
+            "lane": 0,
+            "label": "You type shop.example.com/orders"
+          },
+          {
+            "lane": 1,
+            "label": "Looks up name, returns IP address"
+          },
+          {
+            "lane": 0,
+            "label": "Opens TLS connection to that IP"
+          },
+          {
+            "lane": 2,
+            "label": "Sends certificate to prove identity"
+          },
+          {
+            "lane": 0,
+            "label": "Sends GET /orders with headers"
+          },
+          {
+            "lane": 2,
+            "label": "Checks request, builds the page"
+          },
+          {
+            "lane": 2,
+            "label": "Returns 200 OK, headers and HTML"
+          },
+          {
+            "lane": 0,
+            "label": "Reads HTML, asks for images and CSS"
+          },
+          {
+            "lane": 2,
+            "label": "Returns each extra file"
+          },
+          {
+            "lane": 0,
+            "label": "Shows the finished page"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: reading a real response",
+        "p": [
+          "Run curl -I https://example.com in a terminal. The response below is real output from that command, shortened. Read it line by line."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "HTTP/2 200\ncontent-type: text/html; charset=utf-8\nserver: cloudflare\nallow: GET, HEAD\ncf-cache-status: HIT"
+        },
+        "list": [
+          "HTTP/2 200: the protocol version and the status code. 200 means the request worked.",
+          "content-type: the body is an HTML page using UTF-8 text encoding.",
+          "server: the software or service that answered. Here it is a content delivery network sitting in front of the real site.",
+          "allow: this address only accepts GET and HEAD requests. A POST here would be refused.",
+          "cf-cache-status: HIT means a cached copy was served, so the request may never have reached the original server. When a client says 'I changed it but nobody sees the change', caching is a common reason."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Inspect a real request",
+          "time": "20 min",
+          "goal": "See every part of an HTTP exchange yourself in the browser.",
+          "steps": [
+            "Open any website you use at work, then open the browser developer tools (F12 or right click then Inspect) and choose the Network tab.",
+            "Reload the page and click the first request in the list.",
+            "Write down the method, the status code, two request headers and two response headers.",
+            "Count how many requests the page made in total (shown at the bottom of the Network tab).",
+            "Find one request that returned something other than 200 and write down its status code family."
+          ],
+          "done_when": "You can explain to a colleague what each value you wrote down means and why the page needed more than one request."
+        },
+        {
+          "title": "Trace a page from the terminal",
+          "time": "15 min",
+          "goal": "Connect DNS, HTTPS and the response using only the command line.",
+          "steps": [
+            "Open a terminal and run nslookup example.com. Write down one IP address.",
+            "Run curl -I https://example.com and note the status code and content-type.",
+            "Run curl -I http://example.com (plain http) and compare the status code and headers.",
+            "Ask a free LLM chat such as Claude to explain any header you do not recognise, then check its answer on the MDN HTTP headers page."
+          ],
+          "done_when": "You have a short note listing the IP address, the two status codes and one sentence on the difference between the http and https results."
+        }
+      ],
+      "pitfalls": [
+        "Treating every error the same. A 4xx means fix your request; a 5xx means the server failed. Check the family before you start changing code.",
+        "Using GET to change data. Browsers, caches and link previews may repeat GET requests, so use POST, PUT, PATCH or DELETE for changes.",
+        "Ignoring caching. If a change does not appear, check Cache-Control and cache headers before assuming the deploy failed.",
+        "Sending credentials over plain HTTP. Always confirm the address starts with https before any key, password or customer data is sent."
+      ],
+      "check": [
+        "What does DNS do, and what would you see if it failed?",
+        "Name the five parts of an HTTP exchange from request to response.",
+        "An API returns 403. Is the problem more likely on your side or the server side, and what would you check first?",
+        "What does HTTPS protect against, and what does the certificate prove?",
+        "Why does one web page usually produce many requests?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Overview of HTTP",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "How the web works",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "HTTP request methods",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "HTTP response status codes",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "HTTP headers",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Transport Layer Security (TLS)",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Transport_Layer_Security",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "APIs for Beginners - How to use an API (Full Course / Tutorial)",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=GZvSYJDk-us",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "CS50x 2026",
+          "source": "Harvard University",
+          "url": "https://cs50.harvard.edu/x/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "python-essentials",
+      "title": "Python essentials for FDEs",
+      "summary": "You will be able to read and write short Python scripts that load a CSV or JSON file, apply business rules and save a result.",
+      "why": "A supply chain analyst will send you a spreadsheet of late orders and say 'we sort this by hand every Monday'. Most proof of concept work starts with files like that, and Python is the usual tool for them and for calling LLM APIs. This lesson gives you enough Python to read a script, change a rule and run it with confidence.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A Python script is a list of instructions the computer runs from top to bottom. If you have written a spreadsheet formula, you already think this way: take some values, apply a rule, produce a result. Python lets you do the same thing on thousands of rows, repeat it every day, and connect it to other systems.",
+            "You run a script by saving it as a file, for example report.py, and typing python3 report.py in a terminal. Lines starting with # are comments for humans; Python ignores them."
+          ]
+        },
+        {
+          "h": "Variables and types",
+          "p": [
+            "A variable is a named box that holds a value: supplier = \"Acme Parts\". The type says what kind of value it is. The four you will use every day are str (text, in quotes), int (whole numbers), float (decimal numbers) and bool (True or False).",
+            "Types matter because Python treats them differently. \"120\" + \"5\" gives the text \"1205\", while 120 + 5 gives 125. Data read from a CSV file always arrives as text, so you must convert numbers with float() or int() before doing maths. This is the most common beginner bug in data scripts."
+          ]
+        },
+        {
+          "h": "Lists, dicts, functions and loops",
+          "p": [
+            "A list holds items in order, like a single column: amounts = [120.0, 75.5, 300.0]. A dict maps keys to values, like one row with named columns: {\"id\": \"INV-001\", \"amount\": 120.0}. You read a value with its key: invoice[\"amount\"]. A list of dicts is the Python shape of a table, and it is exactly what most APIs return.",
+            "A function is a named, reusable rule. You define it once with def, give it inputs, and it returns an output. A for loop repeats the same steps for each item in a list. An if statement runs steps only when a condition is true. Indentation (four spaces) shows which lines belong inside the function, loop or if."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "# Variables and types\nsupplier = \"Acme Parts\"      # str (text)\ninvoice_count = 3            # int (whole number)\nvat_rate = 0.2               # float (decimal number)\nis_approved = False          # bool (True or False)\n\n# A list keeps items in order\namounts = [120.0, 75.5, 300.0]\n\n# A dict maps keys to values, like one row of a spreadsheet\ninvoice = {\"id\": \"INV-001\", \"supplier\": supplier, \"amount\": 120.0}\n\ndef add_vat(amount, rate=vat_rate):\n    \"\"\"Return the amount including VAT.\"\"\"\n    return round(amount * (1 + rate), 2)\n\ntotal = 0\nfor amount in amounts:\n    with_vat = add_vat(amount)\n    print(f\"{amount} becomes {with_vat}\")\n    total += with_vat\n\nprint(\"Total with VAT:\", total)\nprint(invoice[\"supplier\"], \"has\", invoice_count, \"invoices\")\nif total > 500 and not is_approved:\n    print(\"Needs approval\")"
+          }
+        },
+        {
+          "h": "Reading CSV and JSON files",
+          "p": [
+            "CSV (comma separated values) is the format almost every business system can export. JSON (JavaScript Object Notation) is the format of APIs and config files: text made of objects in curly braces and lists in square brackets. Python reads both with built in modules, so nothing extra needs installing.",
+            "Use with open(...) as f: to open a file; it closes the file for you when the block ends. csv.DictReader turns each CSV row into a dict keyed by the header line. json.load turns JSON text into dicts and lists, and json.dump writes them back out. The two small files below are used in the worked example; save them exactly as shown."
+          ],
+          "code": {
+            "lang": "text",
+            "text": "invoices.csv\ninvoice_id,supplier,amount,status\nINV-001,Acme Parts,120.00,paid\nINV-002,Brightline Ltd,75.50,open\nINV-003,Acme Parts,300.00,open\n\nconfig.json\n{\"approval_limit\": 250, \"currency\": \"GBP\", \"approvers\": [\"finance\", \"ops\"]}"
+          }
+        },
+        {
+          "h": "Reading error messages",
+          "p": [
+            "Every script you write will fail at some point, and that is normal. When Python stops with an error it prints a traceback: the chain of lines that led to the problem. Read it from the bottom up. The last line names the error type and gives a short message; the lines above show the file and line number where it happened.",
+            "A few error types cover most of what you will see in data work. FileNotFoundError means the file is not where the script looked, often because you ran the script from a different folder. KeyError: 'amount' means a dict has no key with that name, usually a column header spelled differently, with a space, or with different capital letters. ValueError: could not convert string to float means a value such as 'n/a' or an empty cell reached float(). TypeError usually means you mixed text and numbers, for example adding a str to a float. NameError means you used a variable before creating it or misspelled it.",
+            "When you are stuck, add print() lines to show the values just before the failing line, then run again. Change one thing at a time. You can also paste the full traceback, with no confidential data in it, into an AI assistant and ask what it means, but check its fix by running the script yourself."
+          ]
+        },
+        {
+          "h": "Virtual environments and pip",
+          "p": [
+            "Python's built in modules cover a lot, but you will often need extra packages, such as requests for calling APIs. pip is the tool that installs them. A virtual environment is a private folder of packages for one project, so two projects can use different versions without breaking each other. Create one per project, activate it before you work, and record the packages in requirements.txt so anyone can rebuild the same setup with pip install -r requirements.txt."
+          ],
+          "code": {
+            "lang": "bash",
+            "text": "python3 -m venv .venv              # create the environment once per project\nsource .venv/bin/activate          # Windows: .venv\\Scripts\\activate\npython -m pip install requests     # install a package into this project only\npython -m pip freeze > requirements.txt\npython -c \"import requests; print(requests.__version__)\"\ndeactivate                         # leave the environment"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Shape of a typical FDE data script",
+        "caption": "Most small scripts follow this path from left to right; you rerun it after each change.",
+        "steps": [
+          {
+            "label": "Create and activate a venv",
+            "note": "One per project, packages listed in requirements.txt"
+          },
+          {
+            "label": "Read input files",
+            "note": "csv.DictReader for exports, json.load for config"
+          },
+          {
+            "label": "Convert types",
+            "note": "Text from CSV becomes float or int"
+          },
+          {
+            "label": "Apply rules in loops",
+            "note": "Functions hold the business rules"
+          },
+          {
+            "label": "Write the output",
+            "note": "A JSON or CSV file someone else can use"
+          },
+          {
+            "label": "Run and check by hand",
+            "note": "Compare a few results with the source data"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: flag invoices over an approval limit",
+        "p": [
+          "A finance team keeps an approval limit in a small config file and exports invoices as CSV. They want the open total and a list of invoices above the limit. Save the two input files shown earlier and this script in the same folder and run python3 read_files.py."
+        ],
+        "list": [
+          "Inputs: invoices.csv and config.json from the section above, in the same folder as the script.",
+          "Expected output: Over limit: INV-003 300.0, then Open total: 375.50 GBP, and a new summary.json file.",
+          "Check by hand: the open invoices are 75.50 and 300.00, which add up to 375.50. Only 300.00 is above 250. Always do this sanity check on a few rows before trusting a script."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import csv\nimport json\n\nwith open(\"config.json\", encoding=\"utf-8\") as f:\n    config = json.load(f)          # JSON text becomes a Python dict\n\nlimit = config[\"approval_limit\"]\n\nopen_total = 0.0\nwith open(\"invoices.csv\", newline=\"\", encoding=\"utf-8\") as f:\n    for row in csv.DictReader(f):  # each row is a dict keyed by the header\n        amount = float(row[\"amount\"])  # CSV values arrive as text\n        if row[\"status\"] == \"open\":\n            open_total += amount\n        if amount > limit:\n            print(\"Over limit:\", row[\"invoice_id\"], amount)\n\nprint(f\"Open total: {open_total:.2f} {config['currency']}\")\n\nsummary = {\"open_total\": open_total, \"checked_by\": config[\"approvers\"][0]}\nwith open(\"summary.json\", \"w\", encoding=\"utf-8\") as f:\n    json.dump(summary, f, indent=2)"
+        }
+      },
+      "practice": [
+        {
+          "title": "Run and change the invoice script",
+          "time": "30 min",
+          "goal": "Get Python running on your machine and change a business rule yourself.",
+          "steps": [
+            "Install Python 3.11 or newer from python.org if python3 --version shows an older version or nothing.",
+            "Create a folder, then create invoices.csv, config.json and read_files.py from the worked example.",
+            "Run python3 read_files.py and confirm the output matches the expected result.",
+            "Change approval_limit in config.json to 100 and run again. Predict the output before you run it.",
+            "Add a fourth invoice row with your own values and check the new open total by hand."
+          ],
+          "done_when": "Your script prints the correct open total for your edited file and you predicted the over-limit list correctly."
+        },
+        {
+          "title": "Write your own small script",
+          "time": "30 min",
+          "goal": "Apply loops, dicts and a function to data from your own field.",
+          "steps": [
+            "Export or type a small CSV of 5 to 10 rows from work you know (tickets, orders, timesheets), with no personal or confidential data.",
+            "Write a function that applies one rule, for example is_overdue(days_open).",
+            "Loop over the rows with csv.DictReader and count how many rows match the rule.",
+            "Save the count and the matching IDs to a JSON file with json.dump.",
+            "Paste the script into a free LLM chat such as Claude and ask it to explain each line back to you; correct anything you disagree with."
+          ],
+          "done_when": "The script runs without errors and the JSON file contains a count you have checked by hand."
+        }
+      ],
+      "pitfalls": [
+        "Forgetting that CSV values are text. Convert with float() or int() before comparing or adding, or 9 will look bigger than 10.",
+        "Mixing tabs and spaces, or getting indentation wrong. Use four spaces and let your editor handle it.",
+        "Installing packages without a virtual environment. Packages end up in the system Python and clash between projects.",
+        "Not checking results by hand. A script that runs is not the same as a script that is right; compare a few rows with the source."
+      ],
+      "check": [
+        "What is the difference between a list and a dict, and when would you use each?",
+        "Why does float(row[\"amount\"]) appear in the example, and what would go wrong without it?",
+        "What does a virtual environment solve, and what is requirements.txt for?",
+        "Which built in module reads JSON, and what Python types does JSON turn into?",
+        "How would you sanity check the output of a script before showing it to a client?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "The Python Tutorial",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/tutorial/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "csv - CSV file reading and writing",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/csv.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "json - JSON encoder and decoder",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/json.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "12. Virtual Environments and Packages",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/tutorial/venv.html",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Python for Beginners - Learn Coding with Python in 1 Hour",
+          "source": "Programming with Mosh",
+          "url": "https://www.youtube.com/watch?v=kqtD5dpn9C8",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Learn Python - Full Course for Beginners [Tutorial]",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "AI Python for Beginners",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/ai-python-for-beginners",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Programming for Everybody (Getting Started with Python)",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/python",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "apis-and-json",
+      "title": "Calling APIs and working with JSON",
+      "summary": "You will be able to call a REST API with curl and Python, pass keys safely, and handle errors, rate limits and paging.",
+      "why": "A support lead will ask 'can it pull our open tickets, summarise them and post the result back?'. Every step of that is an API call, and most failures come from login, errors and paging that nobody handled. This lesson shows you how to make those calls work against real systems, which is what the client judges you on.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "An API (Application Programming Interface) is a way for one program to ask another program for data or actions. A web API uses HTTP, the same request and response you saw in the previous lesson. Instead of an HTML page, the server returns data, usually as JSON.",
+            "REST is the most common style. Each kind of thing has an address, called an endpoint, for example /customers or /orders/4471. You use HTTP methods on those endpoints: GET /orders lists orders, GET /orders/4471 reads one, POST /orders creates one, PATCH /orders/4471 changes one. The API's documentation lists every endpoint, the parameters it accepts and the shape of the JSON it returns. Reading that documentation first saves hours."
+          ]
+        },
+        {
+          "h": "Endpoints, query parameters and JSON",
+          "p": [
+            "Query parameters filter or shape a request. They go after a ? in the address, joined by &: /todos?userId=1&completed=false. In Python you pass them as a dict and the library builds the address for you, including escaping spaces and special characters.",
+            "JSON is text with a small set of building blocks: objects in curly braces with \"key\": value pairs, lists in square brackets, strings in double quotes, numbers, true, false and null. In Python, objects become dicts and lists become lists, so response.json()[0][\"title\"] means the title of the first item."
+          ]
+        },
+        {
+          "h": "Authentication and API keys",
+          "p": [
+            "Most real APIs need to know who is calling. The usual way is an API key or token sent in a header, often Authorization: Bearer YOUR_API_KEY or a vendor header such as x-api-key. A key is like a password: anyone who has it can act as you. Keep keys in environment variables or a .env file that is never committed, never paste them into chat tools or tickets, and ask the client for a key with the least access the proof of concept needs.",
+            "A 401 status usually means the key is missing or wrong. A 403 means the key is valid but not allowed to do this action."
+          ]
+        },
+        {
+          "h": "Errors, rate limits and pagination",
+          "p": [
+            "Always check the status code before using the body. A failed call often still returns JSON, just an error message instead of data. In Python, response.raise_for_status() stops the script with a clear error on any 4xx or 5xx.",
+            "Rate limits cap how many calls you can make in a period. When you go over, the API returns 429 Too Many Requests, often with a Retry-After header saying how many seconds to wait. Many APIs also send headers showing how many calls you have left. Respect them: a proof of concept that hammers a client's system will get its key blocked.",
+            "Pagination means a big list is split into pages. You ask for page 1, then page 2, until a page comes back empty or the API says there are no more. If you forget, you silently process only the first page and your totals are wrong. Different APIs page differently (page numbers, offsets, cursors or a next link), so check the documentation."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import time\nimport requests\n\nBASE_URL = \"https://jsonplaceholder.typicode.com\"\n\ndef get_with_retry(url, params, attempts=3):\n    \"\"\"GET a URL, waiting and retrying if the API says slow down (429).\"\"\"\n    for attempt in range(attempts):\n        response = requests.get(url, params=params, timeout=10)\n        if response.status_code == 429:\n            wait = int(response.headers.get(\"Retry-After\", \"5\"))\n            print(f\"Rate limited, waiting {wait} seconds\")\n            time.sleep(wait)\n            continue\n        response.raise_for_status()  # stops with an error on 4xx or 5xx\n        return response\n    raise RuntimeError(\"Gave up after repeated rate limits\")\n\nall_posts = []\npage = 1\nwhile True:\n    resp = get_with_retry(f\"{BASE_URL}/posts\", {\"_page\": page, \"_limit\": 25})\n    batch = resp.json()\n    if not batch:  # an empty page means we have everything\n        break\n    all_posts.extend(batch)\n    print(f\"Page {page}: {len(batch)} posts\")\n    page += 1\n\nprint(\"Total posts:\", len(all_posts), \"| API says:\", resp.headers.get(\"X-Total-Count\"))"
+          }
+        },
+        {
+          "h": "Habits for proof of concept integrations",
+          "p": [
+            "Before you write a loop that calls an API thousands of times, make one call by hand with curl and read the whole response. Then make the same call from Python and print it. Only then build the loop, and run it first with a small limit such as two pages.",
+            "Keep the key out of the code. Set it as an environment variable in your terminal (export MY_API_KEY=YOUR_API_KEY on macOS or Linux) and read it in Python with os.environ[\"MY_API_KEY\"]. This means the script can be shared and committed without the secret, and the client's team can use their own key after handover.",
+            "Save raw responses to a file while you develop. You can then work on the processing steps without calling the API again, which is faster, avoids rate limits and gives you test data. Log every call's status code and timing so you can show the client what happened when something fails.",
+            "Be careful with calls that change data. A GET can be repeated safely, but repeating a POST may create the same order or ticket twice. Before writing to a client system, agree with its owner which test environment to use."
+          ]
+        },
+        {
+          "h": "Trying it with curl",
+          "p": [
+            "JSONPlaceholder is a free fake REST API for practice; it needs no key. Its POST requests return a realistic reply but nothing is actually saved. The first command below lists two tasks; -i shows the status line and headers. The second sends JSON with POST."
+          ],
+          "code": {
+            "lang": "bash",
+            "text": "curl -i \"https://jsonplaceholder.typicode.com/todos?userId=1&_limit=2\"\n\ncurl -X POST https://jsonplaceholder.typicode.com/posts \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"title\": \"Late delivery\", \"body\": \"Order 4471 arrived 3 days late\", \"userId\": 1}'"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "What to do with the status code",
+        "caption": "Check the status family before you read the body, then follow the matching branch.",
+        "start": "Send the API request",
+        "question": "Which status code came back?",
+        "branches": [
+          {
+            "answer": "2xx success",
+            "result": "Read the JSON and use the data"
+          },
+          {
+            "answer": "401 or 403",
+            "result": "Check the key and its permissions"
+          },
+          {
+            "answer": "429 too many requests",
+            "result": "Wait for Retry-After, then retry"
+          },
+          {
+            "answer": "5xx server error",
+            "result": "Log it, retry later, then escalate"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: get open tasks for one user in Python",
+        "p": [
+          "Install requests inside a virtual environment (python -m pip install requests), save this as api_get.py and run it. It sends a GET with two query parameters and an Authorization header. The demo API ignores the header, but this is exactly where a real key would go.",
+          "When run, it prints Status: 200, the final address with ?userId=1&completed=false added, Open tasks for user 1: 9, the first task title, and Missing record status: 404 for an ID that does not exist."
+        ],
+        "list": [
+          "params: requests builds the query string for you, so you never glue text together by hand.",
+          "timeout=10: without a timeout a call to a stuck server can hang your script forever.",
+          "The if check on status_code: decide what to do before you trust the body.",
+          "The 404 call: shows that a missing record is not a crash, just a status you handle."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import requests\n\nBASE_URL = \"https://jsonplaceholder.typicode.com\"\nheaders = {\"Authorization\": \"Bearer YOUR_API_KEY\"}  # real APIs need this; this demo API ignores it\n\nresponse = requests.get(\n    f\"{BASE_URL}/todos\",\n    params={\"userId\": 1, \"completed\": \"false\"},  # becomes ?userId=1&completed=false\n    headers=headers,\n    timeout=10,\n)\nprint(\"Status:\", response.status_code)\nprint(\"Final URL:\", response.url)\n\nif response.status_code == 200:\n    todos = response.json()  # JSON text becomes a list of dicts\n    print(\"Open tasks for user 1:\", len(todos))\n    print(\"First title:\", todos[0][\"title\"])\nelse:\n    print(\"Request failed:\", response.text[:200])\n\nmissing = requests.get(f\"{BASE_URL}/todos/9999\", timeout=10)\nprint(\"Missing record status:\", missing.status_code)"
+        }
+      },
+      "practice": [
+        {
+          "title": "Call a public API three ways",
+          "time": "30 min",
+          "goal": "Make the same API call from a browser, curl and Python and compare the results.",
+          "steps": [
+            "Open https://jsonplaceholder.typicode.com/todos?userId=2 in your browser and count the items.",
+            "Run the same address with curl -i in a terminal and write down the status code and the X-Total-Count header if present.",
+            "Change api_get.py to ask for userId 2 and completed true, then run it.",
+            "Request /todos/0 and record the status code; explain in one sentence what it means.",
+            "Run api_pages.py and confirm the total number of posts matches the X-Total-Count header it prints."
+          ],
+          "done_when": "You have one note with the item counts from all three methods agreeing, and the status codes you saw explained."
+        },
+        {
+          "title": "Read a real API's documentation",
+          "time": "20 min",
+          "goal": "Find the facts you need before integrating with any API.",
+          "steps": [
+            "Open the GitHub REST API pages on rate limits and pagination (links below).",
+            "Write down how the API tells you how many requests you have left.",
+            "Write down how it tells you there is a next page.",
+            "Write down which status code it uses when you go over the limit.",
+            "Draft three questions you would ask a client about their own internal API, based on what you found."
+          ],
+          "done_when": "You have answers to the three lookups and three client questions written down."
+        }
+      ],
+      "pitfalls": [
+        "Only processing the first page of results. Always check the API's paging rules and loop until there are no more pages.",
+        "Putting API keys in code, screenshots or chat messages. Load them from environment variables and keep .env out of Git.",
+        "Reading the body without checking the status. An error reply can look like data; check the status code first.",
+        "Retrying instantly in a tight loop after a 429 or 5xx. Wait as the API asks, and cap the number of retries.",
+        "Calling without a timeout. Set one on every request so a stuck server cannot freeze your job."
+      ],
+      "check": [
+        "What is an endpoint, and how do query parameters change a request?",
+        "What is the difference between a 401 and a 403?",
+        "Your script reports 100 records but the client says there are 2,400. What is the most likely cause?",
+        "Where should an API key live in a proof of concept, and where should it never appear?",
+        "What should your code do when it gets a 429 response?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Quickstart",
+          "source": "Requests documentation",
+          "url": "https://requests.readthedocs.io/en/latest/user/quickstart/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Working with JSON",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "HTTP authentication",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Rate limits for the REST API",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Using pagination in the REST API",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "JSONPlaceholder - Free Fake REST API",
+          "source": "JSONPlaceholder",
+          "url": "https://jsonplaceholder.typicode.com/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "APIs for Beginners - How to use an API (Full Course / Tutorial)",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=GZvSYJDk-us",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "data-and-sql",
+      "title": "Data and SQL",
+      "summary": "You will be able to read how tables, rows and keys fit together and write SELECT queries with WHERE, JOIN and GROUP BY in SQLite.",
+      "why": "A finance manager will ask 'how many invoices went out late last quarter, and which customers?'. The answer sits in a database, not in the spreadsheet someone copied last month. This lesson teaches you enough SQL to ask that directly, check whether the data supports the idea, and prove numbers from the source.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A relational database stores data in tables. A table is like a spreadsheet tab with fixed columns: each row is one record (one invoice), and each column is one field (amount, status). SQL (Structured Query Language) is the language for asking questions of those tables. The same basic SQL works in SQLite, PostgreSQL, SQL Server, Snowflake and most other databases, with small differences.",
+            "SQLite is a full database stored in a single file, with nothing to install on macOS and most Linux systems. It is ideal for learning and for small proofs of concept. Python can also use it through its built in sqlite3 module.",
+            "You do not need to become a database administrator. For an FDE the goal is narrower: read a client's tables, answer questions from them, check that the numbers match what the business sees in its reports, and explain any difference. Those skills transfer to whatever database the client runs."
+          ]
+        },
+        {
+          "h": "Tables, rows and keys",
+          "p": [
+            "A primary key is a column whose value is unique for every row, such as invoice_id. It is how you point at exactly one record. A foreign key is a column in one table that holds the primary key of another table. In the example below, invoices.supplier_id points to suppliers.supplier_id. This lets you store each supplier's details once instead of repeating them on every invoice.",
+            "When you meet a new client database, your first job is to find the tables that matter, their primary keys, and how they link. Ask for a data dictionary or an entity relationship diagram; if none exists, that is worth knowing too."
+          ]
+        },
+        {
+          "h": "Asking questions: SELECT, WHERE, JOIN, GROUP BY",
+          "list": [
+            "SELECT picks the columns you want. FROM names the table.",
+            "WHERE keeps only the rows that match a condition, like a filter in a spreadsheet. Text goes in single quotes.",
+            "ORDER BY sorts the result. DESC means largest first.",
+            "JOIN combines rows from two tables where the keys match, so each invoice can show its supplier's name.",
+            "GROUP BY collapses rows into one row per group, with totals from COUNT, SUM, AVG, MIN or MAX. It is a pivot table in SQL.",
+            "HAVING filters groups after they are totalled, while WHERE filters rows before."
+          ],
+          "p": [
+            "SQL describes what you want, not how to get it. The database works out the steps. A useful habit is to write the question in plain words first, for example 'open invoice total per supplier, biggest first', then translate each phrase into a clause."
+          ]
+        },
+        {
+          "h": "Building a small database",
+          "p": [
+            "CREATE TABLE defines a table and its columns. INSERT adds rows. Save the script below as setup.sql and run sqlite3 shop.db < setup.sql. This creates the file shop.db with two linked tables. The numbers are made up for practice."
+          ],
+          "code": {
+            "lang": "sql",
+            "text": "CREATE TABLE suppliers (\n  supplier_id INTEGER PRIMARY KEY,\n  name        TEXT NOT NULL,\n  country     TEXT\n);\n\nCREATE TABLE invoices (\n  invoice_id  TEXT PRIMARY KEY,\n  supplier_id INTEGER NOT NULL REFERENCES suppliers(supplier_id),\n  amount      REAL NOT NULL,\n  status      TEXT NOT NULL,\n  issued_on   TEXT NOT NULL\n);\n\nINSERT INTO suppliers (supplier_id, name, country) VALUES\n  (1, 'Acme Parts', 'UK'),\n  (2, 'Brightline Ltd', 'IE'),\n  (3, 'Northwind Foods', 'UK');\n\nINSERT INTO invoices (invoice_id, supplier_id, amount, status, issued_on) VALUES\n  ('INV-001', 1, 120.00, 'paid', '2025-01-05'),\n  ('INV-002', 2,  75.50, 'open', '2025-01-09'),\n  ('INV-003', 1, 300.00, 'open', '2025-02-02'),\n  ('INV-004', 3, 980.00, 'open', '2025-02-14'),\n  ('INV-005', 2, 410.00, 'paid', '2025-02-20');"
+          }
+        },
+        {
+          "h": "Data problems to look for first",
+          "p": [
+            "Real client data is messier than practice data, and SQL is the quickest way to find out how messy. Run a few checks before you build anything on top of a table.",
+            "Count the rows, then count the distinct values of the key: SELECT COUNT(*), COUNT(DISTINCT invoice_id) FROM invoices. If the numbers differ, there are duplicates, and every total built on that table will be wrong. Look for empty values: in SQL a missing value is NULL, and you test for it with IS NULL, not = NULL. Check the smallest and largest values of amounts and dates with MIN and MAX; a negative amount or a date in the year 1900 tells you something about how the source system is used.",
+            "An ordinary JOIN keeps only rows that match on both sides, so an invoice with an unknown supplier silently disappears from the result. A LEFT JOIN keeps every row from the first table and fills the missing side with NULL, which makes these gaps visible. Dates are another trap: SQLite stores them as text, so they only sort and compare correctly in the year-month-day format used in this lesson. Write down every problem you find. A short list of data quality issues is valuable to the client on its own, and it explains later why some numbers differ from their reports."
+          ]
+        },
+        {
+          "h": "Using SQL from Python",
+          "p": [
+            "In a proof of concept you often run queries from a script. Use ? placeholders for values instead of building the SQL text yourself. This prevents SQL injection, where input text is mistaken for SQL commands, and handles quotes in values for you. Run this after setup.sql; it prints INV-003 300.0 and INV-004 980.0."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import sqlite3\n\nconn = sqlite3.connect(\"shop.db\")\nrows = conn.execute(\n    \"SELECT invoice_id, amount FROM invoices WHERE status = ? AND amount > ?\",\n    (\"open\", 250),  # placeholders keep user input out of the SQL text\n).fetchall()\nfor invoice_id, amount in rows:\n    print(invoice_id, amount)\nconn.close()"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From business question to query",
+        "caption": "Translate the question into clauses in this order, then check the result against a known number.",
+        "steps": [
+          {
+            "label": "Write the question in plain words",
+            "note": "Open invoice total per supplier"
+          },
+          {
+            "label": "Find the tables and keys",
+            "note": "invoices.supplier_id links to suppliers"
+          },
+          {
+            "label": "JOIN the tables",
+            "note": "Match rows on the key columns"
+          },
+          {
+            "label": "Filter rows with WHERE",
+            "note": "status = 'open'"
+          },
+          {
+            "label": "Group and total",
+            "note": "GROUP BY with COUNT or SUM"
+          },
+          {
+            "label": "Sort and check",
+            "note": "ORDER BY, then compare with a known figure"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: three questions on the invoice data",
+        "p": [
+          "After running setup.sql, save the queries below as queries.sql and run sqlite3 shop.db < queries.sql. The first two lines are SQLite shell settings that print neat columns with headers."
+        ],
+        "list": [
+          "Query 1 returns INV-004 at 980.0 and INV-003 at 300.0. INV-002 is open but only 75.50, so WHERE drops it.",
+          "Query 2 returns the three open invoices with supplier names from the other table: Brightline Ltd, Acme Parts and Northwind Foods.",
+          "Query 3 returns Brightline Ltd with 2 invoices totalling 485.5 and Acme Parts with 2 totalling 420.0. Northwind Foods has only one invoice, so HAVING removes it.",
+          "Check by hand: Acme Parts has INV-001 (120.00) and INV-003 (300.00), which is 420.00. Always verify one group yourself."
+        ],
+        "code": {
+          "lang": "sql",
+          "text": ".headers on\n.mode column\n\n-- 1. Filter rows: open invoices over 100, biggest first\nSELECT invoice_id, amount\nFROM invoices\nWHERE status = 'open' AND amount > 100\nORDER BY amount DESC;\n\n-- 2. Join: put the supplier name next to each open invoice\nSELECT i.invoice_id, s.name AS supplier, i.amount\nFROM invoices AS i\nJOIN suppliers AS s ON s.supplier_id = i.supplier_id\nWHERE i.status = 'open';\n\n-- 3. Group: count and total per supplier, only suppliers with 2 or more\nSELECT s.name AS supplier, COUNT(*) AS invoices, SUM(i.amount) AS total\nFROM invoices AS i\nJOIN suppliers AS s ON s.supplier_id = i.supplier_id\nGROUP BY s.name\nHAVING COUNT(*) > 1\nORDER BY total DESC;"
+        }
+      },
+      "practice": [
+        {
+          "title": "Build and query the invoice database",
+          "time": "30 min",
+          "goal": "Create a SQLite database and answer business questions with SQL.",
+          "steps": [
+            "Open a terminal and run sqlite3 --version. On Windows, download the command line tools from sqlite.org first.",
+            "Save setup.sql and queries.sql from this lesson and run both against shop.db.",
+            "Write a query for the total of paid invoices per supplier.",
+            "Write a query that lists invoices issued in February 2025 (hint: issued_on >= '2025-02-01').",
+            "Add one new supplier and two invoices with INSERT, then rerun query 3 and explain how the result changed."
+          ],
+          "done_when": "Your two new queries return results you have checked by hand against the INSERT data."
+        },
+        {
+          "title": "Model a table from your own work",
+          "time": "25 min",
+          "goal": "Practise thinking in tables and keys before writing SQL.",
+          "steps": [
+            "Pick a process you know, such as purchase orders, support cases or training records.",
+            "On paper, sketch two tables, list their columns, mark each primary key and the foreign key that links them.",
+            "Write the CREATE TABLE statements and five INSERT rows of made up data.",
+            "Write one JOIN with GROUP BY query that answers a question your manager would ask.",
+            "Ask a free LLM chat such as Claude to review your design and query; run any change it suggests before accepting it."
+          ],
+          "done_when": "Your script runs in sqlite3 without errors and the grouped query answers the question you wrote down."
+        }
+      ],
+      "pitfalls": [
+        "Joining without the right key, or with a key that is not unique. Rows multiply and totals come out too high. Count rows before and after a join.",
+        "Mixing up WHERE and HAVING. WHERE filters rows before grouping; HAVING filters totals after grouping.",
+        "Building SQL by gluing user text into the query. Use ? placeholders to avoid SQL injection.",
+        "Trusting a number without checking one group by hand. A query that runs can still answer the wrong question."
+      ],
+      "check": [
+        "What is the difference between a primary key and a foreign key?",
+        "Write in words what this does: SELECT status, COUNT(*) FROM invoices GROUP BY status.",
+        "Why might totals go up after a JOIN, and how would you check?",
+        "When would you use HAVING instead of WHERE?",
+        "Why use ? placeholders when running SQL from Python?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Query Language Understood by SQLite",
+          "source": "SQLite",
+          "url": "https://www.sqlite.org/lang.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Command Line Shell For SQLite",
+          "source": "SQLite",
+          "url": "https://www.sqlite.org/cli.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "sqlite3 - DB-API 2.0 interface for SQLite databases",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/sqlite3.html",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "SQL Tutorial - Full Database Course for Beginners",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=HXV3zeQKqGY",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "CS50's Introduction to Databases with SQL",
+          "source": "Harvard University",
+          "url": "https://cs50.harvard.edu/sql/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "git-and-github",
+      "title": "Git and GitHub",
+      "summary": "You will be able to work with repositories, commits, branches and pull requests, and make a reviewed change without leaking secrets.",
+      "why": "A client engineer will ask 'what did you change, why, and can we undo it if it breaks?'. Everything you build gets handed over, and their team has to review and own it. This lesson shows you how Git and GitHub (or a similar service such as GitLab or Azure DevOps) give them that history, and how to avoid leaking a key, one of the fastest ways to lose trust.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Git is version control: it records snapshots of a folder of files over time. Think of the 'track changes' feature in a document, but for a whole project, with a clear label on every change. GitHub is a website that hosts Git repositories so a team can share them, discuss changes and review them before they go in.",
+            "Git runs on your computer and works without the internet. GitHub is a separate service you push your history to. You need both words, because people mix them up."
+          ]
+        },
+        {
+          "h": "The core ideas",
+          "list": [
+            "Repository (repo): a project folder whose history Git tracks. It lives on your machine and usually also on GitHub.",
+            "Commit: a saved snapshot with a message that says what changed and why. Small commits with clear messages make history easy to read and easy to undo.",
+            "Staging: before a commit you choose which changed files go in with git add. This lets you leave out files that are not ready.",
+            "Branch: a separate line of work. You create a branch for each change so the main branch stays working while you experiment.",
+            "Push and pull: push sends your commits to GitHub; pull brings other people's commits to your machine.",
+            "Pull request (PR): a request on GitHub to merge your branch into main. It shows the exact lines changed and is where review happens.",
+            "Merge: bringing a branch's commits into another branch, normally after the pull request is approved."
+          ],
+          "p": [
+            "Most teams protect the main branch so nobody can push to it directly. Every change arrives through a reviewed pull request."
+          ]
+        },
+        {
+          "h": "Reviews and pull requests",
+          "p": [
+            "A pull request is a conversation about a change. Write a title that says what it does, and a description that says why, how you tested it and anything the reviewer should look at closely. Keep it small: a reviewer can check 50 lines properly but will skim 2,000. Reviewers leave comments on specific lines, you push more commits to the same branch to address them, and once approved the branch is merged. Automated checks, such as tests, often run on every pull request too.",
+            "When you review someone else's pull request, read the description first, then the changes, and ask questions rather than making demands. The goal is a correct change, not a perfect one."
+          ]
+        },
+        {
+          "h": "Commands you will use every day",
+          "p": [
+            "You can do most daily work with about ten commands. Each one is typed in a terminal inside the project folder. Editors such as VS Code and Cursor also have buttons for all of them, but knowing the commands helps you understand what the buttons do."
+          ],
+          "list": [
+            "git clone URL: copy a repository from GitHub to your machine, with its full history.",
+            "git pull: bring in new commits from GitHub for the branch you are on.",
+            "git status: show which files are changed, staged or untracked. Run it all the time.",
+            "git switch -c NAME: create a new branch and move to it. git switch NAME moves to an existing branch.",
+            "git add FILE and git commit -m \"message\": stage a file, then save a snapshot.",
+            "git diff: show the lines you changed that are not yet staged.",
+            "git push -u origin NAME: send your branch to GitHub under its own name.",
+            "git log --oneline: show the history, one line per commit.",
+            "git restore FILE: throw away uncommitted changes to a file. Use it with care; those changes are gone."
+          ]
+        },
+        {
+          "h": "Keeping secrets out",
+          "p": [
+            "Anything committed stays in the history, even if you delete the file in a later commit. If an API key, password or customer data file is pushed, treat it as leaked: tell the owner, revoke the key and create a new one. Deleting it from the repo is not enough.",
+            "Prevent this with a .gitignore file, a list of file patterns Git should never track. Put secrets in a .env file and list .env in .gitignore. Also ignore virtual environments, local databases and large data exports. Run git status before every commit and read the list of files. GitHub also offers secret scanning, which can warn when a known key format is pushed, but it is a safety net, not a plan.",
+            "At handover, the repository is the product. Make sure the README says how to install and run the work, which settings and keys are needed (by name, never by value) and where the data comes from. A client engineer should be able to clone the repository and run it without calling you."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "The everyday change cycle",
+        "caption": "Each change goes around this loop once; after the merge you start again from an up to date main.",
+        "steps": [
+          {
+            "label": "Pull the latest main",
+            "note": "Start from what everyone else has"
+          },
+          {
+            "label": "Create a branch",
+            "note": "One branch per change"
+          },
+          {
+            "label": "Edit, check git status, commit",
+            "note": "Small commits with clear messages"
+          },
+          {
+            "label": "Push the branch",
+            "note": "Send it to GitHub by its own name"
+          },
+          {
+            "label": "Open a pull request",
+            "note": "Say what changed, why and how you tested"
+          },
+          {
+            "label": "Review and fix",
+            "note": "Answer comments with new commits"
+          },
+          {
+            "label": "Merge to main",
+            "note": "Then delete the branch"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a first repository with a branch and a merge",
+        "p": [
+          "Run these commands in a terminal, line by line, in an empty folder. They create a repository, keep a fake secret out of it, make a change on a branch and merge it. Everything happens locally, so nothing is published. The two git config lines set your name for this repository only.",
+          "To share it, create an empty repository on GitHub, then follow the commands GitHub shows to add it as origin and run git push -u origin add-totals for your branch. Open a pull request from that branch on the GitHub website."
+        ],
+        "list": [
+          "git status --short lists only .gitignore and report.py. The .env file with the key is ignored, which is what you want.",
+          "git diff shows the one added line before you commit it. Reading your own diff is the first review.",
+          "git log --oneline shows two commits with their messages, newest first."
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "mkdir invoice-report && cd invoice-report\ngit init -b main\ngit config user.name \"Your Name\"\ngit config user.email \"you@example.com\"\n\n# Tell Git which files to never track\nprintf '.env\\n.venv/\\n__pycache__/\\n*.db\\n' > .gitignore\necho \"API_KEY=YOUR_API_KEY\" > .env\necho \"print('Invoice report')\" > report.py\n\ngit status --short            # .env is not listed: it is ignored\ngit add .gitignore report.py\ngit commit -m \"Add invoice report script\"\n\ngit switch -c add-totals      # new branch for the change\necho \"print('Open total: 375.50')\" >> report.py\ngit diff                      # review exactly what changed\ngit commit -am \"Print open total\"\n\ngit switch main\ngit merge add-totals\ngit log --oneline"
+        }
+      },
+      "practice": [
+        {
+          "title": "Make your first pull request",
+          "time": "40 min",
+          "goal": "Go round the full change cycle on GitHub once.",
+          "steps": [
+            "Create a free GitHub account if you do not have one, and follow the GitHub Hello World guide to create a repository.",
+            "Add a README and a .gitignore that lists .env, then commit it to main.",
+            "Create a branch called update-readme and add a paragraph describing a process from your work.",
+            "Open a pull request with a title and a description that says what changed and why.",
+            "Review your own pull request: leave one comment on a line, fix it with a new commit, then merge."
+          ],
+          "done_when": "Your repository shows a merged pull request with at least two commits and one review comment."
+        },
+        {
+          "title": "Prove a secret stays out",
+          "time": "15 min",
+          "goal": "Confirm that .gitignore protects a secrets file before you rely on it.",
+          "steps": [
+            "Run the worked example commands in a new empty folder.",
+            "Run git check-ignore -v .env and read which .gitignore line matches.",
+            "Create a file called customers.csv and run git status; decide whether it should be ignored.",
+            "Add a pattern to .gitignore for it, run git status again and confirm it has gone from the list."
+          ],
+          "done_when": "git status shows neither .env nor customers.csv, and you can explain which .gitignore line covers each."
+        }
+      ],
+      "pitfalls": [
+        "Committing a secret and then deleting the file. It is still in history; revoke and replace the key.",
+        "Working directly on main. Use a branch for every change so main always works and every change gets reviewed.",
+        "Giant pull requests. Split work so each pull request does one thing a reviewer can check properly.",
+        "Vague commit messages such as 'fix' or 'update'. Say what changed and why so the client can follow the history after handover.",
+        "Using git add . without reading git status first. You may add data files or secrets by accident."
+      ],
+      "check": [
+        "What is the difference between Git and GitHub?",
+        "Why do teams use a branch and a pull request instead of committing straight to main?",
+        "You pushed a file with an API key yesterday and deleted it today. Is the key safe? What do you do?",
+        "What goes in a .gitignore file for a Python proof of concept?",
+        "What should a good pull request description contain?"
+      ],
+      "links": [
+        {
+          "type": "book",
+          "title": "Git",
+          "source": "Pro Git book, git-scm.com",
+          "url": "https://git-scm.com/book/en/v2",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Hello World - GitHub Docs",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/get-started/using-github/hello-world",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Pull requests - GitHub Docs",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/pull-requests/reference/pull-requests",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Ignoring files - GitHub Docs",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/get-started/git-basics/ignoring-files",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Secret scanning - GitHub Docs",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Git and GitHub for Beginners - Crash Course",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "The Git & Github Bootcamp",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/git-and-github-bootcamp/",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "GitHub Learn",
+          "source": "GitHub",
+          "url": "https://learn.github.com/certifications",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "coding-with-ai",
+      "title": "Coding with an AI assistant",
+      "summary": "You will be able to use an AI coding assistant to plan, write, test and explain code, and check what it produces before you trust it.",
+      "why": "A client will say 'can you build us a quick tool for this by next week?'. An AI coding assistant makes that possible, but it also writes code that looks right and is wrong, with full confidence. This lesson shows you how to give it clear requests and check the result, because you own every line you hand over.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "An AI coding assistant is an LLM connected to your code. It can read files, suggest changes, write new code, run commands and explain what code does. Three common tools work in slightly different ways. GitHub Copilot sits inside your editor and suggests code as you type, with a chat panel for bigger requests. Cursor is a code editor built around AI, with an agent that can edit several files. Claude Code is an agent that works in your terminal or IDE: it reads the project, plans, edits files and runs commands such as tests, asking permission as it goes.",
+            "They all follow the same pattern: you describe what you want, the assistant proposes changes, and you accept, reject or ask for changes. Treat it like a fast, well read junior colleague who has never seen this client before. It needs context, clear instructions and review."
+          ]
+        },
+        {
+          "h": "Plan, write, test, explain",
+          "list": [
+            "Plan: before any code, ask the assistant to read the relevant files and propose a plan. Correct the plan; it is much cheaper than correcting code.",
+            "Write: ask for one small change at a time, with the inputs, outputs and rules spelled out.",
+            "Test: ask for tests that cover normal cases, edge cases and bad input, and run them yourself. Tests are how you know it works, not the assistant's word.",
+            "Explain: ask it to explain any line you do not understand. If you cannot explain the code to the client, you are not ready to hand it over."
+          ],
+          "p": [
+            "Give it context the way you would brief a contractor: what the business process is, an example of real input, what good output looks like, and any rule it must follow. Claude Code and Cursor can also read a project instruction file (CLAUDE.md for Claude Code, rules files for Cursor) so you do not repeat the same context every time."
+          ]
+        },
+        {
+          "h": "How to review AI-written code",
+          "p": [
+            "Read every change as a diff before accepting it. Use this checklist each time:"
+          ],
+          "list": [
+            "Does it do what I asked, and only that? Look for extra changes you did not request.",
+            "Do I understand every line? Ask for an explanation of anything unclear.",
+            "Did I run it, and did the tests pass on my machine? Do the tests check real cases or just restate the code?",
+            "What happens with blank, wrong or unexpected input? Does it fail loudly or guess silently?",
+            "Does it invent anything? Check that every library, function, API endpoint and field name really exists in the docs.",
+            "Are secrets, customer data and keys kept out of code, logs and prompts?",
+            "Would the client's engineers be comfortable maintaining this?"
+          ]
+        },
+        {
+          "h": "When the assistant gets stuck",
+          "p": [
+            "Sometimes the assistant goes in circles: each fix breaks something else, or it keeps saying the problem is solved when it is not. Stop and change the approach instead of repeating the same request. Paste the exact error message and the command you ran. Ask it to explain what it thinks is wrong before it changes anything. Break the task into a smaller step you can test on its own.",
+            "Long conversations also drift. The assistant can lose track of earlier decisions or mix in old versions of a file. Starting a fresh session with a short summary of the goal, the current state and the next step often works better than pushing on. Claude Code's best practices guide recommends this: run /clear between unrelated tasks, and after two failed corrections, clear the session and write a better first request using what you learned.",
+            "Finally, know when to stop using it for a task. If you cannot judge whether the answer is right, because the topic is new to you, use the assistant to explain the concept and point you to official documentation, then decide yourself. The assistant speeds up work you can check. It does not replace your judgement about what the client needs."
+          ]
+        },
+        {
+          "h": "Working safely with client code",
+          "p": [
+            "Check the client's policy before you use any AI tool on their code or data. Some clients allow only approved tools or accounts, and some forbid sending certain data outside their network. Never paste customer records, keys or confidential documents into a prompt to 'just test'. Use made up sample data instead, shaped like the real data, so the code still meets the real cases. Keep Git as your safety net: commit before asking the assistant for a big change, so you can see exactly what it did and undo it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "The AI pair programming loop",
+        "caption": "Go round once per small change; never skip the review and run steps.",
+        "steps": [
+          {
+            "label": "Brief with context and examples",
+            "note": "Business rule, sample input, expected output"
+          },
+          {
+            "label": "Agree a plan",
+            "note": "Correct the approach before any code is written"
+          },
+          {
+            "label": "Ask for one small change",
+            "note": "One function or one file at a time"
+          },
+          {
+            "label": "Run the code and tests",
+            "note": "On your machine, with your own test cases"
+          },
+          {
+            "label": "Review the diff",
+            "note": "Use the checklist, ask it to explain"
+          },
+          {
+            "label": "Commit with a clear message",
+            "note": "Then start the next change"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a good request and its review",
+        "p": [
+          "A finance export has amounts written as text: \"1,234.50\", \"  75.5 \", and negatives in brackets such as \"(120.00)\". A weak request would be 'write a function to parse amounts'. A good request gives the rule, examples and what to do with bad data:",
+          "'Write a Python function parse_amount(text) that turns amounts from our finance export into a float. Examples: \"1,234.50\" gives 1234.5, \"(120.00)\" gives -120.0, \"-20\" gives -20.0. Strip spaces. For blank or non-numeric text such as \"n/a\", raise ValueError; do not return 0. Add plain assert tests for every example and for blank input. Explain any line that is not obvious.'",
+          "The first version the assistant returns may handle commas but not brackets, or quietly return 0 for blanks. Returning 0 is dangerous because it hides bad rows inside a total. In review you run the tests, spot the gap, and ask for a fix. The reviewed version below runs and prints All tests passed."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "def parse_amount(text):\n    \"\"\"Turn an amount from a finance export into a float.\n\n    Handles \"1,234.50\", \"  75.5 \", \"-20\" and accounting negatives \"(120.00)\".\n    Raises ValueError for blank or non-numeric text instead of guessing.\n    \"\"\"\n    cleaned = text.strip().replace(\",\", \"\")\n    if not cleaned:\n        raise ValueError(\"blank amount\")\n    negative = cleaned.startswith(\"(\") and cleaned.endswith(\")\")\n    if negative:\n        cleaned = cleaned[1:-1]\n    value = float(cleaned)  # raises ValueError on text like \"n/a\"\n    return -value if negative else value\n\n\n# Tests the reviewer asked for: normal, edge and bad inputs\nassert parse_amount(\"1,234.50\") == 1234.5\nassert parse_amount(\"  75.5 \") == 75.5\nassert parse_amount(\"-20\") == -20.0\nassert parse_amount(\"(120.00)\") == -120.0\nfor bad in [\"\", \"   \", \"n/a\"]:\n    try:\n        parse_amount(bad)\n    except ValueError:\n        pass\n    else:\n        raise AssertionError(f\"expected ValueError for {bad!r}\")\nprint(\"All tests passed\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Brief, build and review a small function",
+          "time": "40 min",
+          "goal": "Use an AI assistant to write a tested function and review it with the checklist.",
+          "steps": [
+            "Pick a small rule from your own work, such as 'a ticket is overdue if open more than 5 working days'.",
+            "Write a request with the rule, three or more examples, and what to do with bad input, like the worked example.",
+            "Give it to a free LLM chat such as Claude, or to Claude Code, Cursor or Copilot if you have access.",
+            "Save the code to a file and run it with python3. Note any test that fails or any case it missed.",
+            "Go through the review checklist line by line and write down one issue you found or one question you asked.",
+            "Ask for a fix, rerun, and keep going until all your own tests pass."
+          ],
+          "done_when": "You have a function that passes tests you wrote yourself, plus a short note of what the review caught."
+        },
+        {
+          "title": "Make the assistant explain code",
+          "time": "20 min",
+          "goal": "Use the assistant to understand code you did not write.",
+          "steps": [
+            "Take api_pages.py from the APIs lesson.",
+            "Ask an AI assistant to explain it line by line in plain English for a finance colleague.",
+            "Check two of its claims against the Requests Quickstart or the MDN status codes page.",
+            "Ask it what would happen if the API never returned an empty page, and how to guard against that."
+          ],
+          "done_when": "You can explain the pagination loop and the retry logic to someone else without notes."
+        }
+      ],
+      "pitfalls": [
+        "Accepting code you have not run. Run it and your own tests every time.",
+        "Vague requests. Without rules and examples the assistant fills gaps with guesses that look reasonable.",
+        "Trusting invented details. Assistants sometimes use functions, options or API fields that do not exist; check them in the docs.",
+        "Pasting real customer data or keys into prompts. Use made up samples and follow the client's AI policy.",
+        "Letting it change many files at once without a commit first. Commit before big changes so you can review and undo."
+      ],
+      "check": [
+        "What three things make a request to a coding assistant a good one?",
+        "Why is returning 0 for a blank amount worse than raising an error?",
+        "Name four items from the review checklist.",
+        "How does Git help you work safely with an AI assistant?",
+        "What should you check before using an AI tool on a client's code?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Overview - Claude Code Docs",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Best practices for Claude Code - Claude Code Docs",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/best-practices",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Cursor Docs - Agent, Rules, MCP, Skills & CLI",
+          "source": "Cursor",
+          "url": "https://cursor.com/docs",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "GitHub Copilot documentation - GitHub Docs",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/copilot",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Claude Code in Action",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/claude-code-in-action",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

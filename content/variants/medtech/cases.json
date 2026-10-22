@@ -1,0 +1,98 @@
+[
+  {
+    "id": "medtech-case-design-traceability",
+    "title": "Design traceability gap check",
+    "area": "R&D and product design",
+    "client": "A fictional maker of a Class II infusion pump using a PLM for parts and changes, a requirements tool export and a shared folder for verification reports.",
+    "pain": "Before each design review and submission, engineers spend days checking by hand that every user need traces to design inputs, outputs, verification and risk controls. Gaps are found late and delay the review.",
+    "data": "Synthetic export of 120 requirements (id, level, parent, text), 90 verification test records (id, requirement link, result) and 40 risk controls (hazard id, control, verifying test), with planted broken links, orphan tests and vague requirements.",
+    "deliver": [
+      "A script that builds the trace matrix from the exports and lists broken links, orphan tests and requirements with no verification.",
+      "An LLM step that flags requirements that are vague or not testable, with a short reason and a suggested rewrite.",
+      "A gap table in the format used in module 4, ready for the design review owner.",
+      "A test report showing every planted gap was found, with the false flag rate for the vague requirement check."
+    ],
+    "approval": "The design owner reviews every flagged gap and rewrite; changes to requirements go through the normal design change and review in the PLM.",
+    "measure": "Share of planted gaps found (target: all), false flags per 100 requirements, and engineer hours to prepare the trace matrix compared with a timed baseline."
+  },
+  {
+    "id": "medtech-case-complaint-intake",
+    "title": "Complaint intake and reportability draft",
+    "area": "Quality and regulatory",
+    "client": "A fictional orthopedic implant maker that receives complaints by email and a service portal and records them in a validated QMS.",
+    "pain": "Complaints wait days before entry into the QMS because coordinators re-type emails, and some reportability decisions lack a documented reason.",
+    "data": "Synthetic set of 200 complaint emails and service notes, a synthetic product and lot table, and a synthetic list of 40 past complaints with expert-confirmed category and reportability outcome.",
+    "deliver": [
+      "A data profile of the synthetic complaints showing missing lot numbers, unknown products and inconsistent categories.",
+      "An assistant that drafts the QMS complaint entry and a reportability assessment with evidence, into a marked draft field.",
+      "An audit record per draft with model version, prompt version, inputs, output and the human edits.",
+      "A validation-style test report on the 40 expert cases against three acceptance criteria agreed in advance."
+    ],
+    "approval": "The complaint coordinator checks and signs the complaint entry; a regulatory specialist makes and signs the reportability decision in the QMS.",
+    "measure": "All expert-marked reportable cases flagged for review, share of correct product and lot fields, and minutes from receipt to QMS entry in a timed trial."
+  },
+  {
+    "id": "medtech-case-dhr-review",
+    "title": "Device history record review by exception",
+    "area": "Manufacturing",
+    "client": "A fictional maker of disposable catheters with an MES for most steps and paper travelers for two manual assembly stations.",
+    "pain": "Quality reviews every line of every device history record before release, and release review is the longest wait between end of production and shipment.",
+    "data": "Synthetic device history records for 50 lots as JSON (steps, specs, measured values, operator IDs, timestamps, comments, linked nonconformances), with planted exceptions such as out-of-spec values, missing signatures and late entries.",
+    "deliver": [
+      "Rules that flag structured exceptions such as values out of spec, missing checks and entries made long after the step.",
+      "An LLM step that reads free-text operator comments and flags those that may need quality attention, with a reason.",
+      "A review screen mock-up that shows flags first and links each one to the source entry.",
+      "A test report showing every planted exception was flagged, and the false flag rate."
+    ],
+    "approval": "The quality reviewer reviews the flags and the record as the procedure requires and signs the release in the MES.",
+    "measure": "Share of planted exceptions caught (target: all), false flags per lot, and reviewer minutes per lot in a timed trial."
+  },
+  {
+    "id": "medtech-case-supplier-change",
+    "title": "Supplier change notification impact",
+    "area": "Supply chain",
+    "client": "A fictional maker of patient monitors with parts and suppliers in ERP, BOMs and specifications in PLM, and supplier records in the QMS.",
+    "pain": "When a supplier announces a material or process change, supplier quality engineers spend days finding every affected part, product and specification, and some notices sit unread in a shared mailbox.",
+    "data": "Synthetic set of 30 supplier change notices (PDF text), a synthetic ERP extract of suppliers and part numbers, a synthetic PLM BOM for 6 products, and a part number mapping table with planted mismatches.",
+    "deliver": [
+      "An intake step that reads each notice and extracts supplier, parts, change type and effective date into a structured record.",
+      "A lookup that maps affected supplier parts to internal parts and every product BOM that uses them, listing mapping gaps.",
+      "A drafted impact summary per notice with links to each affected record, for the supplier quality engineer.",
+      "An evaluation on 15 notices with expected affected parts, scored for missed and extra items."
+    ],
+    "approval": "The supplier quality engineer confirms the impact and decides the action; any resulting change goes through change control in the PLM and QMS.",
+    "measure": "Share of expected affected parts found, missed parts (target: none on the test set), and days from notice receipt to impact assessment."
+  },
+  {
+    "id": "medtech-case-label-change",
+    "title": "Label and IFU change comparison",
+    "area": "Regulatory and labeling",
+    "client": "A fictional maker of surgical staplers that sells in the US and EU with labels and instructions for use (IFU) in several languages.",
+    "pain": "A single change to a warning or symbol must be checked across many labels and IFUs. Reviewers compare documents by eye, and missed instances lead to rework.",
+    "data": "Synthetic English IFU and label texts for 8 products in two versions each, a synthetic change request describing the intended edits, and planted unintended differences.",
+    "deliver": [
+      "A comparison that lists every difference between old and new versions of each document.",
+      "An LLM step that labels each difference as intended by the change request, unintended, or unclear, with the matching request line.",
+      "A report listing documents the change request names but where the edit is missing.",
+      "A test report showing every planted unintended difference and missing edit was caught."
+    ],
+    "approval": "The labeling specialist reviews every flagged difference; regulatory affairs approves the labels through document control with electronic signatures.",
+    "measure": "Share of planted issues caught (target: all), false flags per document, and reviewer hours per change compared with a timed baseline."
+  },
+  {
+    "id": "medtech-case-literature-screening",
+    "title": "Literature screening for clinical evaluation",
+    "area": "Clinical evaluation and postmarket",
+    "client": "A fictional maker of a wound care device that updates its EU clinical evaluation and postmarket reports on a fixed cycle.",
+    "pain": "Clinical specialists screen hundreds of literature abstracts by hand each cycle to find those relevant to the device and its safety and performance, and the screening reasons are not always recorded consistently.",
+    "data": "A synthetic set of 300 abstracts (title, abstract, year) with planted relevant and irrelevant papers, a synthetic search protocol with inclusion and exclusion criteria, and 60 abstracts with expert screening decisions.",
+    "deliver": [
+      "A screening step that applies the protocol's criteria to each abstract and drafts include, exclude or unsure with the criterion that decided it.",
+      "A record per abstract keeping the AI suggestion, the reason and the specialist's final decision apart.",
+      "A summary table in the format the clinical evaluation report uses.",
+      "An evaluation on the 60 expert abstracts, scored for missed relevant papers and wrong exclusions."
+    ],
+    "approval": "The clinical specialist makes and records every final screening decision; the clinical evaluation report is approved through document control.",
+    "measure": "Relevant abstracts missed on the test set (target: none), share of agreement with expert decisions, and specialist hours per cycle."
+  }
+]

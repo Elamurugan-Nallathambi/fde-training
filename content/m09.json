@@ -1,0 +1,1041 @@
+{
+  "module": 9,
+  "title": "Evaluate, deploy and operate",
+  "intro": "A client says 'the demo looked great, but how do we know it works on our cases, and who keeps it running?'. This module gives you the way to prove it with real cases, put a person in the loop, ship it where the client can reach it, and keep it healthy and affordable once people depend on it.",
+  "lessons": [
+    {
+      "id": "eval-sets",
+      "title": "Building an evaluation set from real cases",
+      "summary": "You will be able to build a small, labeled set of real cases that tells you whether an AI solution does the job.",
+      "why": "The quality manager asks 'does it work on our complaints, not your examples?'. You need evidence, not opinion. This lesson shows you how to collect and label real cases, so you can answer that question now and recheck it after every prompt or model change.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "An evaluation set (eval set) is a list of example inputs, each with the output a competent person would expect. You run your AI solution on every input, compare its answers to the expected ones, and count how often it is right. It is the same idea as a unit test in software or a sample check in a quality team: a fixed set of known cases you can rerun at any time.",
+            "The value comes from the word real. Cases you invent at your desk tend to be clean and easy. Cases pulled from the client's actual work contain the messy spelling, missing fields and odd exceptions that break systems in production."
+          ]
+        },
+        {
+          "h": "Where the cases come from",
+          "p": [
+            "Start where the work already leaves a trail. Most teams have one or more of these, and you should ask for them in discovery:"
+          ],
+          "list": [
+            "Historical records: last month's tickets, invoices, claims or emails, together with what a person decided.",
+            "Exception and error logs: the cases that were escalated, reworked or complained about. These are your edge cases.",
+            "Shadowing notes: cases you watched a person handle, where you also wrote down why they decided as they did.",
+            "Expert-written cases: a small number of cases a subject matter expert (SME, the person who knows the work best) writes to cover a rule that rarely appears in the history.",
+            "Production traffic, later: once a pilot runs, sample real requests each week and add the interesting ones."
+          ]
+        },
+        {
+          "h": "Labeling expected outputs",
+          "p": [
+            "A label is the correct answer for a case. For a classification task the label is a category such as approve, hold or reject. For a free text task, such as a summary, the label is usually a short list of things the output must contain and must not contain, because there is rarely one correct wording.",
+            "Labels must come from the people who own the work, not from you. Sit with the SME for an hour, go through cases together, and record the reason next to each label. When two experts disagree on a case, that is a finding: the process itself is ambiguous, and the client needs to decide a rule before any AI can follow it. Keep a column for who labeled each case so disputes can be traced."
+          ]
+        },
+        {
+          "h": "Coverage and size",
+          "p": [
+            "Coverage means the set contains every kind of case the solution will meet. Write down the case types first, for example normal invoice, price mismatch, partial delivery, duplicate, foreign currency and missing purchase order. Then make sure each type has several cases. A set with many easy cases and no edge cases will give a high score that means very little.",
+            "There is no magic size. A useful starting point for a proof of concept is a few dozen cases that cover every type, which you can label in an afternoon with an SME. Grow it as you learn: every bug found in testing or in the pilot becomes a new case, so the same mistake cannot return unnoticed. Keep a small held-back group of cases you never look at while tuning prompts, so you have an honest final check."
+          ]
+        },
+        {
+          "h": "Keeping the set healthy",
+          "p": [
+            "Store the set as a plain file (CSV or JSON) in the same repository as the code, so it is versioned with every change. Remove or mask personal data such as names, account numbers and addresses before the file leaves the client's systems, and agree with the client where the file may live. Review the set every few weeks: business rules change, and an expected output that was right in March can be wrong in June.",
+            "Write each input exactly as the solution will receive it: the full email text, or a path to the real PDF, not your summary of it. If the eval input is cleaner than production input, the score will be too."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "How an eval set grows",
+        "caption": "Read clockwise: each round of testing finds failures that become new cases.",
+        "steps": [
+          {
+            "label": "Collect real cases",
+            "note": "History, exception logs, shadowing notes"
+          },
+          {
+            "label": "Label with the SME",
+            "note": "Expected output plus the reason"
+          },
+          {
+            "label": "Check coverage",
+            "note": "Every case type has several cases"
+          },
+          {
+            "label": "Run the solution",
+            "note": "Score every case the same way"
+          },
+          {
+            "label": "Study failures",
+            "note": "Turn each new failure into a case"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: an eval table for invoice matching",
+        "p": [
+          "A finance team wants an assistant that reads a supplier invoice, compares it to the purchase order (PO) and the goods receipt, and suggests approve, hold, reject or needs_review. The FDE pulls cases from two months of the accounts payable (AP) inbox and from the exception log, then labels them with the AP lead.",
+          "The table below is the start of that set. Notice the source column (so you know which cases are real), the case_type column (so you can check coverage), the reason (so the label can be challenged), and the labeled_by column. Row 6 is expert-written because the history had no scanned invoices without a PO number, and the team knows they arrive."
+        ],
+        "code": {
+          "lang": "csv",
+          "text": "id,source,case_type,input_summary,expected_decision,expected_reason,labeled_by\n1,AP inbox March,normal,Invoice matches PO and receipt,approve,All three documents agree,finance clerk\n2,AP inbox March,normal,Price per unit above PO,hold,Price differs from PO,finance clerk\n3,Exception log,edge,Invoice in a foreign currency,needs_review,Currency rule not covered,AP lead\n4,Exception log,edge,Same invoice number sent twice,reject,Duplicate invoice,AP lead\n5,AP inbox April,normal,Partial delivery received,hold,Quantity differs from receipt,finance clerk\n6,Made up by team,edge,Scanned invoice with no PO number,needs_review,PO missing,AP lead"
+        }
+      },
+      "practice": [
+        {
+          "title": "Build a 20-case eval set",
+          "time": "60 min",
+          "goal": "Turn real or realistic work into a labeled set you can score against.",
+          "steps": [
+            "Pick a task you know from your own work, such as sorting support emails or checking expense claims.",
+            "List 4 to 6 case types on paper, including at least two edge cases.",
+            "Open a spreadsheet with the columns id, source, case_type, input, expected_output, reason, labeled_by.",
+            "Write or copy 20 cases, with at least 3 for every case type. Remove any personal data.",
+            "Ask a colleague or a free LLM chat to label 5 of your cases without seeing your labels, then compare.",
+            "Save the sheet as CSV."
+          ],
+          "done_when": "You have a CSV of 20 labeled cases, every case type has at least 3 cases, and you have written down any case where the second labeler disagreed and why."
+        }
+      ],
+      "pitfalls": [
+        "Only using cases you invented. They are too clean; always mix in real history and exception logs.",
+        "Labeling the cases yourself. You will label what you think the rule is; the SME knows what the rule really is.",
+        "Tuning prompts on every case. Keep a held-back group you only run at the end, or the score will flatter you.",
+        "Letting the set go stale. Add each new failure and review labels when business rules change.",
+        "Copying personal data into a file on your laptop. Mask it and agree a storage location with the client first."
+      ],
+      "check": [
+        "Why does an eval set built from real cases give a more honest score than one you wrote yourself?",
+        "What should you do when two experts give different labels for the same case?",
+        "How would you show that your set covers the edge cases, not only normal cases?",
+        "What is a held-back group and why keep one?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Your AI Product Needs Evals",
+          "source": "Hamel's Blog",
+          "url": "https://hamel.dev/blog/posts/evals/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Define success criteria and build evaluations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Evaluating AI Agents",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/evaluating-ai-agents",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "LLM Eval Office Hours #3: The Importance Of Starting With Error Analysis",
+          "source": "Hamel Husain",
+          "url": "https://www.youtube.com/watch?v=ZEvXvyY17Ys",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to Build AI Evals in 2026 (Step-by-Step, No Hype)",
+          "source": "Aakash Gupta",
+          "url": "https://www.youtube.com/watch?v=J7N9FMouSKg",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "csv - CSV File Reading and Writing",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/csv.html",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "measuring-quality",
+      "title": "Measuring quality: pass rates, error analysis and LLM-as-judge",
+      "summary": "You will be able to score a solution against an eval set, read the failures to find the real problems, and use an LLM judge carefully for free-text output.",
+      "why": "The sponsor asks 'so how accurate is it?' and wants one number. That number hides where it fails and whether those failures are safe. This lesson helps you produce the score, explain what sits behind it, and use the failures to decide what to fix next.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Measuring quality has three parts. First, a metric: a rule that turns each output into pass or fail, or a score, and then sums the results. Second, error analysis: reading the failed cases one by one and grouping them by cause. Third, for outputs that are hard to check with code, a judge: a person or an LLM that grades each output against written rules.",
+            "The number tells you how good it is. The error analysis tells you why it is not better. You need both."
+          ]
+        },
+        {
+          "h": "Choosing a metric",
+          "p": [
+            "Pick the simplest metric that matches the business question. Common choices:"
+          ],
+          "list": [
+            "Pass rate (accuracy): the share of cases where the output matches the expected label. Good for classification and extraction.",
+            "Pass rate by case type: the same, split by group. A 90 percent overall rate can hide 40 percent on the edge cases that matter most.",
+            "Field-level match: for extraction, check each field (invoice number, amount, date) separately so you see which field breaks.",
+            "Rule checks: for free text, check things code can verify, such as 'mentions the invoice number' or 'is under 100 words'.",
+            "Cost of errors: some mistakes are worse than others. Approving a duplicate invoice costs money; sending a clean one to review only costs time. Count the dangerous kind separately."
+          ]
+        },
+        {
+          "h": "Error analysis: reading the failures",
+          "p": [
+            "Open every failed case and write one short note on what went wrong. After 20 or 30 notes, patterns appear: the model ignores currency, misreads dates in one format, or the label itself was wrong. Group the notes into causes and count them. Fix the biggest cause first, rerun, and repeat.",
+            "Error analysis also finds problems that are not the model's fault: bad source data, a missing business rule, or a label the SME now thinks was wrong. These are often the most valuable findings to report to the client, because they improve the process even without AI."
+          ]
+        },
+        {
+          "h": "Comparing runs and reporting",
+          "p": [
+            "A score only means something next to another score. Keep a results file for every run with the date, the prompt version, the model and the pass rate per case type, so you can say 'version 4 fixed the currency cases but broke two partial deliveries'. Change one thing at a time between runs, or you cannot tell which change helped.",
+            "LLM output can vary between runs even with the same input. For a small set, run it two or three times and look at whether the same cases fail; a case that passes and fails at random is a sign the instructions are unclear. When you report to the client, give the pass rate, the number of cases behind it, the dangerous errors, and the main failure causes in plain words."
+          ]
+        },
+        {
+          "h": "LLM-as-judge and its limits",
+          "p": [
+            "When the output is free text, such as a summary or a reply draft, code cannot easily say whether it is good. An LLM-as-judge is a second model call that reads the input, the output and a list of rules, and returns pass or fail with a reason. It is fast and cheap enough to run on every case each time you change the prompt.",
+            "Judges have limits. They can be inconsistent between runs, they may prefer longer answers, and they can miss facts that were made up if the rules do not ask about them. Treat the judge as a measuring tool that must itself be checked: have the SME grade 20 or 30 outputs by hand, run the judge on the same outputs, and see how often they agree. Only trust the judge on the kinds of cases where it agrees with the human. Keep each rule narrow and yes or no; a vague question such as 'is this good?' gives vague grades.",
+            "Here is a simple judge prompt for grading summaries of supplier dispute emails. The words in curly brackets are placeholders your script fills in for each case."
+          ],
+          "code": {
+            "lang": "text",
+            "text": "You are grading a summary of a supplier dispute email.\n\nEmail:\n<email>{email}</email>\n\nSummary to grade:\n<summary>{summary}</summary>\n\nCheck each rule and answer PASS or FAIL for each:\n1. States the invoice number if the email has one.\n2. States what the supplier is asking for.\n3. Adds no facts that are not in the email.\n\nGive a one-line reason for every FAIL. Then on the last line write\nOVERALL: PASS only if all three rules pass, otherwise OVERALL: FAIL."
+          }
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From raw outputs to the next fix",
+        "caption": "Read left to right: scoring gives the number, error analysis picks the next change.",
+        "steps": [
+          {
+            "label": "Run every eval case",
+            "note": "Same prompt, model and settings"
+          },
+          {
+            "label": "Score each output",
+            "note": "Code checks, or a validated judge"
+          },
+          {
+            "label": "Pass rate by case type",
+            "note": "Overall and per group"
+          },
+          {
+            "label": "Read every failure",
+            "note": "One note per failed case"
+          },
+          {
+            "label": "Group and count causes",
+            "note": "Largest cause first"
+          },
+          {
+            "label": "Fix and rerun",
+            "note": "Compare with the last run"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: scoring predictions with Python",
+        "p": [
+          "The script below uses only the Python standard library. It holds eight example cases from the invoice task, with the expected decision and the model's prediction. It prints the overall pass rate, the pass rate for each case type, and the most common kinds of mistake. In a real project you would read the CSV from a file instead of a string.",
+          "Running it prints a pass rate of 6/8 = 75%, with normal cases at 4/5 and edge cases at 2/3. The two failures are different in kind. Getting needs_review wrong as approve is the dangerous one, because a case that should have reached a person went straight through. That one line tells you more than the overall score."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import csv, io\nfrom collections import Counter\n\n# Each row: case id, case type, expected label, model prediction\nDATA = \"\"\"id,case_type,expected,predicted\n1,normal,approve,approve\n2,normal,reject,reject\n3,normal,approve,approve\n4,edge,needs_review,approve\n5,edge,reject,reject\n6,normal,approve,reject\n7,edge,needs_review,needs_review\n8,normal,reject,reject\n\"\"\"\n\nrows = list(csv.DictReader(io.StringIO(DATA)))\npassed = [r for r in rows if r[\"expected\"].strip() == r[\"predicted\"].strip()]\nfailed = [r for r in rows if r not in passed]\nprint(f\"Pass rate: {len(passed)}/{len(rows)} = {len(passed)/len(rows):.0%}\")\n\nfor case_type in sorted({r[\"case_type\"] for r in rows}):\n    group = [r for r in rows if r[\"case_type\"] == case_type]\n    ok = sum(r in passed for r in group)\n    print(f\"  {case_type}: {ok}/{len(group)}\")\n\nerrors = Counter((r[\"expected\"], r[\"predicted\"]) for r in failed)\nfor (exp, pred), n in errors.most_common():\n    print(f\"  expected {exp} but got {pred}: {n}\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Score your eval set",
+          "time": "45 min",
+          "goal": "Produce a pass rate and an error analysis from your own cases.",
+          "steps": [
+            "Take the 20-case CSV from the previous lesson, or the example table above.",
+            "Paste each input into a free LLM chat such as Claude with one fixed prompt, and add the answer in a new column called predicted.",
+            "Save the file and change the score.py script to read it with csv.DictReader(open('yourfile.csv')).",
+            "Run python3 score.py and note the overall and per case type pass rates.",
+            "Write one note for every failed case and group the notes into causes."
+          ],
+          "done_when": "You have a pass rate per case type and a ranked list of failure causes with a count for each."
+        },
+        {
+          "title": "Check a judge against yourself",
+          "time": "30 min",
+          "goal": "See how often an LLM judge agrees with a human.",
+          "steps": [
+            "Write 10 short summaries of emails or documents, some good and some with a made-up fact.",
+            "Grade each one yourself with the three rules in the judge prompt above.",
+            "Paste the judge prompt with each case into a free LLM chat and record its OVERALL result.",
+            "Count how many of the 10 agree with your grade."
+          ],
+          "done_when": "You can state the agreement count and describe the cases where the judge was wrong."
+        }
+      ],
+      "pitfalls": [
+        "Reporting only the overall pass rate. Always split by case type and show the dangerous errors separately.",
+        "Skipping error analysis and changing the prompt at random. Read the failures first; fix the largest cause.",
+        "Trusting an LLM judge you have not checked against human grades.",
+        "Changing the eval set and the prompt at the same time, so you cannot tell which change moved the score.",
+        "Assuming a failure is the model's fault. Check the source data and the label too."
+      ],
+      "check": [
+        "Why can a high overall pass rate still hide a serious problem?",
+        "What does error analysis give you that a pass rate does not?",
+        "How would you check that an LLM judge can be trusted for a task?",
+        "In the worked example, which failure is more dangerous and why?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Your AI Product Needs Evals",
+          "source": "Hamel's Blog",
+          "url": "https://hamel.dev/blog/posts/evals/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Define success criteria and build evaluations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Evaluating AI Agents",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/evaluating-ai-agents",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Eugene Yan on Using LLMs as Judges: Insights, Challenges, and Best Practices",
+          "source": "Jason Liu",
+          "url": "https://www.youtube.com/watch?v=7EGF0Mc0_os",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Why AI evals are the hottest new skill for product builders | Hamel Husain & Shreya Shankar",
+          "source": "Lenny's Podcast",
+          "url": "https://www.youtube.com/watch?v=BsWxPI9UM4c",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "csv - CSV File Reading and Writing",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/csv.html",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "human-review-audit",
+      "title": "Human review gates and audit trail",
+      "summary": "You will be able to decide where a person must approve AI output, and design a log that shows later who decided what and why.",
+      "why": "A compliance lead says 'our auditors will not accept the AI decided'. In finance, pharma, insurance and the public sector, a named person has to own each important decision. This lesson shows you how to place review steps and keep an audit trail from day one, so the solution can get approved.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A human review gate is a point in the workflow where the AI's output waits until a person approves, edits or rejects it. An audit trail is the record of what happened at each step: the input, what the AI produced, which version of the prompt and model produced it, who reviewed it, what they decided and why.",
+            "Together they let a client use AI while keeping a person responsible, and let anyone reconstruct a decision months later."
+          ]
+        },
+        {
+          "h": "Where a person should approve",
+          "p": [
+            "Not every output needs a person. Review costs time, so place gates where the risk is. Ask three questions about each AI step: what is the harm if it is wrong, can the harm be undone, and does a rule or regulation require a named approver?"
+          ],
+          "list": [
+            "Always review: actions that move money, change a customer record, send something to a customer or regulator, or affect a person's rights.",
+            "Review when unsure: let the AI pass clear cases but route low-confidence or rule-flagged cases to a person.",
+            "Sample review: for low-risk output, a person checks a random sample each week to catch drift.",
+            "No review: internal drafts the user reads and edits anyway, such as a meeting summary."
+          ]
+        },
+        {
+          "h": "What to log",
+          "p": [
+            "Log enough to answer 'what did the system know, what did it say, and who decided?' for any single case. That usually means:"
+          ],
+          "list": [
+            "A case or request id that links every step together.",
+            "The input or a pointer to it, and the AI output exactly as shown to the reviewer.",
+            "The model name and version, and the prompt version (keep prompts in Git so a version maps to exact text).",
+            "The reviewer's identity, their decision (approved, edited, rejected), the final output and a short reason.",
+            "Timestamps for each step."
+          ]
+        },
+        {
+          "h": "Why it matters in regulated work",
+          "p": [
+            "Regulated teams must often show that controls work, not just that they exist. An audit trail lets an auditor pick any case and follow it end to end. It also gives you data: the share of AI suggestions that reviewers edit or reject is one of the best quality signals you will get after go-live. A rising edit rate is an early warning that something has changed.",
+            "Design the trail with the client's compliance or risk team, not alone. They know how long records must be kept, who may see them, and whether personal data may sit in a log. Make the log append-only where possible, so entries are added but never changed."
+          ]
+        },
+        {
+          "h": "Making review easy",
+          "p": [
+            "A gate only works if reviewers use it properly. Show the AI output next to the source, highlight what the AI relied on, and make approve, edit and reject one click each with a required reason for edits and rejections. If review is slow or confusing, people will click approve on everything, and the gate becomes theatre.",
+            "A common pattern for review when unsure is a routing rule. The AI returns its decision plus the evidence it used, and code (not the model) applies the client's rules: any amount above an agreed limit, any new supplier, any mismatch between the invoice and the PO, or any case the model marks as needs_review goes to a person. Clear matches below the limit can pass, with a weekly sample still checked by hand. Because the rule is in code, the client can read it, change it and show it to an auditor.",
+            "Agree with the client what a reviewer should do when the AI is wrong. An edit with a reason is better than a silent fix in another system, because only the first one reaches the audit log and the eval set."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "An invoice passing a review gate",
+        "caption": "Read top to bottom: each row is one step, the column shows who does it.",
+        "lanes": [
+          "System",
+          "AI model",
+          "AP reviewer",
+          "Audit log"
+        ],
+        "steps": [
+          {
+            "lane": 0,
+            "label": "Invoice arrives with PO and receipt"
+          },
+          {
+            "lane": 1,
+            "label": "Suggests decision with a reason"
+          },
+          {
+            "lane": 3,
+            "label": "Stores input, output, versions"
+          },
+          {
+            "lane": 0,
+            "label": "Routes to review queue"
+          },
+          {
+            "lane": 2,
+            "label": "Approves, edits or rejects"
+          },
+          {
+            "lane": 3,
+            "label": "Stores reviewer, decision, reason"
+          },
+          {
+            "lane": 0,
+            "label": "Posts approved invoice for payment"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: an audit table in SQLite",
+        "p": [
+          "Here is a simple audit table for the invoice assistant. It runs as written in SQLite (sqlite3 :memory: then paste it). The CHECK constraint stops anyone writing a decision outside the three allowed values. The reviewer changed the AI's 'approve' to a hold because the quantity on the invoice was 120 against 100 on the PO, and the reason is saved next to it.",
+          "The last query is the start of a quality report: how many suggestions were approved, edited or rejected. Over weeks, that edit rate is a live measure of how well the AI is doing on real work."
+        ],
+        "code": {
+          "lang": "sql",
+          "text": "CREATE TABLE audit_log (\n  id INTEGER PRIMARY KEY,\n  case_id TEXT NOT NULL,\n  model_version TEXT NOT NULL,\n  prompt_version TEXT NOT NULL,\n  ai_output TEXT NOT NULL,\n  reviewer TEXT,\n  decision TEXT CHECK (decision IN ('approved', 'edited', 'rejected')),\n  final_output TEXT,\n  reason TEXT,\n  created_at TEXT DEFAULT CURRENT_TIMESTAMP\n);\nINSERT INTO audit_log (case_id, model_version, prompt_version, ai_output,\n  reviewer, decision, final_output, reason)\nVALUES ('INV-1042', 'model-2026-05', 'p3', 'Approve: matches PO 7781',\n  'a.khan', 'edited', 'Hold: quantity differs from PO', 'Qty 120 vs PO 100');\nSELECT case_id, decision, reviewer, reason FROM audit_log;\nSELECT decision, COUNT(*) FROM audit_log GROUP BY decision;"
+        }
+      },
+      "practice": [
+        {
+          "title": "Design gates and a log for one workflow",
+          "time": "45 min",
+          "goal": "Decide where people approve and prove you can reconstruct a decision.",
+          "steps": [
+            "Draw a workflow you know with 5 to 8 steps on paper, marking which steps an AI would do.",
+            "For each AI step, write the harm if it is wrong and whether it can be undone, then mark it always review, review when unsure, sample, or none.",
+            "Copy the SQL above into SQLite and change the columns to fit your workflow.",
+            "Insert three cases: one approved, one edited, one rejected, each with a reason.",
+            "Write a query that shows the full history of one case id."
+          ],
+          "done_when": "Your query returns one case end to end, and you can explain why each gate sits where it does."
+        }
+      ],
+      "pitfalls": [
+        "Putting a person on every step. Review fatigue leads to rubber-stamping; place gates by risk.",
+        "Logging the output but not the prompt and model version, so you cannot explain why it changed.",
+        "Letting reviewers approve without a reason when they edit or reject. The reason is the data you learn from.",
+        "Writing personal data into logs without agreeing retention and access with the client's risk team.",
+        "Designing the audit trail after the build. Agree it early with compliance."
+      ],
+      "check": [
+        "What three questions help you decide whether a step needs a human gate?",
+        "Name five things an audit record should hold.",
+        "Why is the reviewer edit rate a useful quality signal after go-live?",
+        "How can a review gate fail even when it exists?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "AI Risk Management Framework",
+          "source": "NIST",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "CREATE TABLE",
+          "source": "SQLite documentation",
+          "url": "https://www.sqlite.org/lang_createtable.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "logging - Logging facility for Python",
+          "source": "Python documentation",
+          "url": "https://docs.python.org/3/library/logging.html",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Blameless Postmortem for System Resilience",
+          "source": "Google SRE book",
+          "url": "https://sre.google/sre-book/postmortem-culture/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Anthropic Courses",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "deployment-options",
+      "title": "Deployment options: static pages, serverless and containers",
+      "summary": "You will understand the three common ways to run a proof of concept where users can reach it, and pick the right one for a client.",
+      "why": "The client's team says 'can we try it ourselves?', and IT asks 'where does it run and who looks after it?'. A demo on your laptop answers neither. This lesson walks through static pages, serverless and containers, so you pick the option that fits cost, security review and who maintains it after you leave.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Deploying means putting your software on a computer that is always on and reachable by its users. There are three common shapes. A static page is a set of files (HTML, CSS, JavaScript) served as they are. Serverless means you upload a function and the platform runs it only when a request arrives. A container packs your app and everything it needs into one image that runs the same way on any machine with a container runtime.",
+            "Each shape trades control for simplicity. Static is simplest and does least. Containers give the most control and need the most care."
+          ]
+        },
+        {
+          "h": "Static pages",
+          "p": [
+            "A static site has no code running on the server. The host simply sends files. That makes it cheap, fast and hard to break. Hosts such as Cloudflare Pages or GitHub Pages can publish a folder from a Git repository in minutes.",
+            "Use it for a demo front end, a report, documentation or a dashboard that reads from an API. Do not use it for anything that needs a secret, such as an LLM API key: everything in a static page is visible to anyone who opens it."
+          ]
+        },
+        {
+          "h": "Serverless functions",
+          "p": [
+            "Serverless platforms such as AWS Lambda or Cloudflare Workers run your code on demand. You do not manage a server; you pay per request or per amount of compute time, and the platform scales up and down for you. This is a good fit for an API that calls an LLM: the function holds the API key safely on the server side, takes a request, calls the model and returns the answer.",
+            "Limits to know: each run has a maximum duration and memory, there may be a short delay when a function starts after being idle (a cold start), and long-running jobs or large libraries can be awkward. Each provider documents its own limits."
+          ]
+        },
+        {
+          "h": "Containers",
+          "p": [
+            "A container image is built from a recipe called a Dockerfile. It contains the operating system libraries, the language runtime, your code and its dependencies. Because the image is the same everywhere, 'it works on my machine' becomes 'it works on every machine'. Containers run on services such as AWS ECS, Google Cloud Run, Azure Container Apps, or a Kubernetes cluster the client already runs.",
+            "Use containers when you need a long-running process, specific system libraries, a background worker, or when the client's IT team requires everything to run inside their own cloud account. Many enterprise clients prefer containers because their security and platform teams already know how to review and operate them.",
+            "Here is a complete Dockerfile for the small Python service in the worked example below. Each line is one instruction: start from an official Python image, set the working folder, copy the code in, set a default port and say which command starts the app."
+          ],
+          "code": {
+            "lang": "dockerfile",
+            "text": "FROM python:3.12-slim\nWORKDIR /app\nCOPY app.py .\nENV PORT=8000\nEXPOSE 8000\nCMD [\"python\", \"app.py\"]"
+          }
+        },
+        {
+          "h": "How to choose",
+          "p": [
+            "Start from the client, not from your favourite tool. Ask where their other apps run, what their security team approves, and who will maintain it. Then pick the simplest option that meets the need. A common shape for an AI proof of concept is a static front end plus one serverless or container API that holds the secrets and calls the model.",
+            "Expect the client's IT and security teams to ask the same questions whatever you choose: which cloud account it runs in and who owns that account, where the data is stored and processed, how users sign in, which outside services receive data (including the LLM provider), how it is backed up, and how it is patched. Write the answers on one page early. It shortens the security review and makes the hand-over easier, because the next owner gets the same page."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Three ways to deploy",
+        "caption": "Read across each column: what it is, what it suits, what to watch.",
+        "columns": [
+          {
+            "title": "Static pages",
+            "items": [
+              "Files served as they are",
+              "Cheapest and simplest",
+              "Demo front ends, reports, docs",
+              "No server code, no secrets",
+              "Example: Cloudflare Pages"
+            ]
+          },
+          {
+            "title": "Serverless",
+            "items": [
+              "Function runs per request",
+              "Pay per use, scales itself",
+              "Small APIs that call an LLM",
+              "Time and memory limits",
+              "Example: AWS Lambda, Workers"
+            ]
+          },
+          {
+            "title": "Containers",
+            "items": [
+              "Image with app and runtime",
+              "Same on every machine",
+              "Long jobs, workers, custom libs",
+              "More to secure and operate",
+              "Example: Cloud Run, ECS"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a small API in a container",
+        "p": [
+          "Below is a tiny Python web service that answers every GET request with a JSON status, using only the standard library. It reads its port and environment name from environment variables, which is how a container platform passes settings in. The Dockerfile in the Containers section packs it into an image.",
+          "To try it, save app.py and Dockerfile in one folder, then run docker build -t fde-demo-app . followed by docker run --rm -p 8000:8000 -e APP_ENV=test fde-demo-app. Opening http://localhost:8000 returns {\"status\": \"ok\", \"env\": \"test\"}. The same image can be pushed to a registry and run on any container service."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import json, os\nfrom http.server import BaseHTTPRequestHandler, HTTPServer\n\nPORT = int(os.environ.get(\"PORT\", \"8000\"))\n\nclass Handler(BaseHTTPRequestHandler):\n    def do_GET(self):\n        body = json.dumps({\"status\": \"ok\", \"env\": os.environ.get(\"APP_ENV\", \"dev\")})\n        self.send_response(200)\n        self.send_header(\"Content-Type\", \"application/json\")\n        self.end_headers()\n        self.wfile.write(body.encode())\n\nif __name__ == \"__main__\":\n    HTTPServer((\"0.0.0.0\", PORT), Handler).serve_forever()"
+        }
+      },
+      "practice": [
+        {
+          "title": "Run the same app two ways",
+          "time": "45 min",
+          "goal": "Feel the difference between running locally and running in a container.",
+          "steps": [
+            "Save app.py from the example and run python3 app.py; open http://localhost:8000.",
+            "Install Docker Desktop (free for personal use) or another container runtime.",
+            "Save the Dockerfile from the Containers section next to app.py, then build and run the image as shown.",
+            "Change APP_ENV in the docker run command and confirm the response changes without rebuilding.",
+            "Write three sentences on which option you would pick for a client demo and why."
+          ],
+          "done_when": "The container answers on localhost and you can explain why settings come from environment variables."
+        }
+      ],
+      "pitfalls": [
+        "Putting an API key in a static page or front-end JavaScript. Anyone can read it; keep keys on a server or function.",
+        "Picking the platform you like instead of the one the client's IT team can approve and support.",
+        "Ignoring serverless time limits for long LLM calls or batch jobs.",
+        "Building images on your laptop by hand with no recipe in Git, so nobody can rebuild them.",
+        "Forgetting who pays for the hosting account after hand-over."
+      ],
+      "check": [
+        "Why can a static page never safely hold a secret?",
+        "When would you choose a container over a serverless function?",
+        "What does a Dockerfile describe?",
+        "What questions do you ask the client before choosing where to deploy?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Get started",
+          "source": "Docker Docs",
+          "url": "https://docs.docker.com/get-started/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Dockerfile reference",
+          "source": "Docker Docs",
+          "url": "https://docs.docker.com/reference/dockerfile/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Overview",
+          "source": "Cloudflare Pages docs",
+          "url": "https://developers.cloudflare.com/pages/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is AWS Lambda?",
+          "source": "AWS Lambda documentation",
+          "url": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Docker Tutorial for Beginners - A Full DevOps Course on How to Run Applications in Containers",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=fqMOX6JJhGo",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Docker & Kubernetes: The Practical Guide",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/docker-kubernetes-the-practical-guide/",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "AWS Certified Cloud Practitioner",
+          "source": "AWS",
+          "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+          "cost": "paid"
+        },
+        {
+          "type": "course",
+          "title": "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2026",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/aws-certified-cloud-practitioner-new/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "cicd-secrets",
+      "title": "CI/CD, environments and secrets",
+      "summary": "You will be able to set up separate environments, an automatic test and eval check on every change, and safe handling of API keys.",
+      "why": "Once the support team relies on the tool, they ask 'will your next change break what we use every day?'. Security will also ask where the API keys live. This lesson shows you how to test every change before it reaches users and keep secrets out of code, so you and the client's team can change things safely.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "CI (continuous integration) means every change pushed to the shared code repository is automatically built and tested. CD (continuous delivery or deployment) means changes that pass are automatically made ready to release, or released. Environments are separate copies of the system for different purposes. Secrets are values such as API keys and passwords that must never appear in code.",
+            "Put together: a developer pushes a change, CI runs the tests and the eval set, and only if they pass does the change move to a test environment and then to production."
+          ]
+        },
+        {
+          "h": "Dev, test and prod",
+          "p": [
+            "Most teams use at least three environments:"
+          ],
+          "list": [
+            "Dev (development): where builders try things. It can break. It uses fake or masked data.",
+            "Test (also called staging or QA): a copy that looks like production, where the client's users check a release before it goes live.",
+            "Prod (production): what real users rely on. Changes arrive only after passing test, and access is limited."
+          ]
+        },
+        {
+          "h": "GitHub Actions basics",
+          "p": [
+            "GitHub Actions is GitHub's built-in CI/CD service. You describe a workflow in a YAML file under .github/workflows/ in your repository. A workflow has triggers (on: when to run, such as on a pull request), jobs (groups of steps that run on a fresh virtual machine, the runner), and steps (each either a shell command with run: or a ready-made action with uses:).",
+            "For an AI project the most useful step is an eval gate: a script that runs the eval set and exits with an error if the pass rate drops below an agreed threshold. A failed step marks the pull request red, so a prompt change that breaks quality cannot be merged by accident."
+          ]
+        },
+        {
+          "h": "Secrets management",
+          "p": [
+            "The rule is simple: secrets live outside code and are injected at run time. In code, read them from environment variables. Locally, keep them in a .env file listed in .gitignore. In CI, store them as repository or environment secrets in GitHub and pass them in with ${{ secrets.NAME }}; GitHub masks them in logs. In the cloud, use the provider's secret store, such as AWS Secrets Manager, Azure Key Vault or Google Secret Manager.",
+            "Use a different key for each environment, so a leaked dev key cannot touch production, and give each key the smallest permissions it needs. If a key is ever committed to Git, assume it is leaked: revoke it and issue a new one. Deleting the commit is not enough, because the history and any copies still hold it.",
+            "The same habit inside the code: read the key from the environment and stop with a clear message if it is missing, without ever printing the value."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import os, sys\n\ndef require(name: str) -> str:\n    value = os.environ.get(name)\n    if not value:\n        sys.exit(f\"Missing required setting {name}. Set it in the environment, not in code.\")\n    return value\n\nAPP_ENV = os.environ.get(\"APP_ENV\", \"dev\")\nAPI_KEY = require(\"ANTHROPIC_API_KEY\")\nprint(f\"Running in {APP_ENV}; key loaded ({len(API_KEY)} chars, value not printed)\")"
+          }
+        },
+        {
+          "h": "Configuration the same way",
+          "p": [
+            "Settings that differ between environments, such as the model name, a database address or a feature flag, should also come from environment variables, not from edited code. The Twelve-Factor App calls this storing config in the environment. It means the exact same build can move from test to prod with only its settings changed.",
+            "Plan the way back as well as the way forward. A rollback is returning to the last version that worked. If every release is a tagged build that was tested, rolling back is just deploying the previous tag. Prompts are part of the release too: keep them in Git with the code, so a prompt change goes through the same pull request, eval gate and review as any other change, and can be rolled back the same way."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "A change on its way to production",
+        "caption": "Read left to right: a change moves on only if the step before it passes.",
+        "steps": [
+          {
+            "label": "Push a branch",
+            "note": "Open a pull request"
+          },
+          {
+            "label": "CI runs tests",
+            "note": "Unit tests on a fresh runner"
+          },
+          {
+            "label": "CI runs eval gate",
+            "note": "Fails below the agreed pass rate"
+          },
+          {
+            "label": "Review and merge",
+            "note": "A second person approves"
+          },
+          {
+            "label": "Deploy to test",
+            "note": "Client users check the release"
+          },
+          {
+            "label": "Promote to prod",
+            "note": "Same build, prod settings"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a workflow with an eval gate",
+        "p": [
+          "This workflow runs on every pull request and on every push to main. It checks out the code, installs Python and the dependencies, runs the unit tests, then runs an eval script with a minimum pass rate of 0.9. The API key comes from a GitHub secret named ANTHROPIC_API_KEY. The script evals/run_evals.py is your own; it should exit with a non-zero code when the rate is too low. Save the file as .github/workflows/ci.yml.",
+          "Before you push it, the file can be checked locally with a linter such as actionlint, which catches wrong keys and bad expressions. Note that the workflow does not deploy anything; deployment steps come later and usually run only from main into a named GitHub environment that needs approval."
+        ],
+        "code": {
+          "lang": "yaml",
+          "text": "name: ci\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\njobs:\n  test-and-eval:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - run: pip install -r requirements.txt\n      - run: python -m unittest discover -s tests\n      - name: Run eval set and fail below threshold\n        run: python evals/run_evals.py --min-pass-rate 0.9\n        env:\n          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}"
+        }
+      },
+      "practice": [
+        {
+          "title": "Add CI to a repository",
+          "time": "60 min",
+          "goal": "See a workflow pass and fail on GitHub.",
+          "steps": [
+            "Create a free GitHub repository and add a file tests/test_basic.py with one unittest test that passes.",
+            "Add an empty requirements.txt and the workflow above, removing the eval step for now.",
+            "Push and open the Actions tab; confirm the run is green.",
+            "Change the test so it fails, push again, and confirm the run is red.",
+            "Add a repository secret under Settings, Secrets and variables, Actions, using a placeholder value, and print only its length in a step."
+          ],
+          "done_when": "You have one green run and one red run, and the secret's value never appears in the logs."
+        }
+      ],
+      "pitfalls": [
+        "Committing a .env file or pasting a key into code. Add .env to .gitignore before the first commit.",
+        "Using one API key for dev, test and prod.",
+        "Testing only in dev, then surprising users in prod. Let the client check releases in test.",
+        "Building a different artifact for prod instead of promoting the tested one.",
+        "Having no eval gate, so a prompt tweak silently lowers quality."
+      ],
+      "check": [
+        "What is the difference between CI and CD?",
+        "What is each of dev, test and prod for, and what data should each use?",
+        "What do on, jobs, runs-on and steps mean in a GitHub Actions workflow?",
+        "What should you do if an API key is committed to Git?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "GitHub Actions documentation",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/actions",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Quickstart for GitHub Actions",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/actions/get-started/quickstart",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Using secrets in GitHub Actions",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Managing environments for deployment",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "The Twelve-Factor App",
+          "source": "12factor.net",
+          "url": "https://12factor.net/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to use GitHub Actions | GitHub for Beginners",
+          "source": "GitHub",
+          "url": "https://www.youtube.com/watch?v=BQrohJ3PT7I",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "DevOps Roadmap: Learn to become a DevOps Engineer or SRE",
+          "source": "roadmap.sh",
+          "url": "https://roadmap.sh/devops",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "observability",
+      "title": "Observability: logs, traces, cost and alerts",
+      "summary": "You will be able to decide what to record in an LLM application, work out cost per request, and set alerts that catch problems before users report them.",
+      "why": "After go-live the questions are 'is it working, what is it costing, and why did it give that answer yesterday?'. Without logs and traces you cannot answer any of them. This lesson shows you what to record and alert on, so you can debug one bad answer quickly and show real usage and cost.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Observability means being able to understand what a running system is doing from the data it records. Three kinds of data matter. Logs are timestamped records of events. Traces link all the steps of one request together, such as retrieve documents, call the model, run a tool, so you can see where time and errors went. Metrics are numbers over time, such as requests per hour, error rate, latency and cost.",
+            "Alerts sit on top: rules that notify a person when a metric crosses a limit."
+          ]
+        },
+        {
+          "h": "What to trace in an LLM app",
+          "p": [
+            "For each request, record enough to replay and judge it:"
+          ],
+          "list": [
+            "A trace id shared by every step, and the user or case id.",
+            "The prompt version and model name, so changes can be tied to results.",
+            "The input and the output (or masked versions if they hold personal data).",
+            "Retrieved documents or tool calls and their results, for RAG and agent apps.",
+            "Input and output token counts, latency per step, and any error.",
+            "The outcome: was it accepted, edited or rejected by the user or reviewer, and any feedback score."
+          ]
+        },
+        {
+          "h": "Cost per request",
+          "p": [
+            "LLM providers charge per token, with different prices for input and output tokens. Cost per request is input tokens times the input price plus output tokens times the output price. Multiply by expected volume to get a monthly figure, and compare it with the cost of the manual work it replaces. Prices change, so read the current numbers from the provider's pricing page and keep them in configuration, not in code.",
+            "Watch for cost drivers: long system prompts sent on every call, many retrieved documents, agent loops that make several calls per request, and retries. Features such as prompt caching and smaller models for simple steps can cut cost; measure before and after.",
+            "Report cost in the client's terms, not only in tokens. 'About one cent per invoice at today's example prices, against several minutes of a clerk's time' is a sentence a sponsor can act on. Track cost per successful outcome too: if one request in five is retried or rejected, the real cost per useful answer is higher than the cost per call."
+          ]
+        },
+        {
+          "h": "Monitoring drift",
+          "p": [
+            "Drift is a slow change in inputs or results over time. New invoice layouts, a new product line or a model update can all lower quality without any error appearing. Watch signals that move when quality moves: the reviewer edit or reject rate, user feedback, the share of cases sent to needs_review, and the pass rate when you rerun the eval set each week on fresh sampled cases. Add the surprising cases to the eval set."
+          ]
+        },
+        {
+          "h": "Tools and alerts",
+          "p": [
+            "You can start with structured logs (one JSON object per line) sent to whatever log system the client already uses. LLM-specific tools add trace views, cost dashboards and eval scoring. Langfuse is one open source example that can be self-hosted or used as a cloud service; OpenTelemetry is an open standard for traces that many tools accept. Pick what the client can run and keep after you leave.",
+            "Set a few alerts that a person will act on: error rate above a limit, latency above a limit, daily cost above budget, and edit rate rising week on week. Each alert needs an owner and a first step written in the runbook. Too many alerts get ignored."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "Observability stack for an LLM app",
+        "caption": "Read top to bottom: each layer is built from the data in the layer below.",
+        "layers": [
+          {
+            "label": "Alerts",
+            "note": "Notify an owner when a limit is crossed"
+          },
+          {
+            "label": "Dashboards",
+            "note": "Usage, cost, latency, edit rate over time"
+          },
+          {
+            "label": "Metrics",
+            "note": "Numbers summed from traces and logs"
+          },
+          {
+            "label": "Traces",
+            "note": "Every step of one request linked by id"
+          },
+          {
+            "label": "Structured logs",
+            "note": "One JSON record per event"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: logging a request with its cost",
+        "p": [
+          "The script writes one structured log line for a request and works out its cost. The prices are example values only, not any provider's real rates. With 2,400 input tokens and 350 output tokens the cost is 0.0072 plus 0.00525, so 0.01245 dollars, and 1,000 such requests would cost 12.45 dollars. Change the prices to the current ones from your provider's pricing page.",
+          "Each line is valid JSON, so a log system or a short script can sum cost per day, find slow requests, or follow one trace_id end to end."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import json, time, uuid\n\n# Example prices in USD per million tokens. Check the provider pricing page for real values.\nPRICE_IN, PRICE_OUT = 3.00, 15.00\n\ndef cost_usd(input_tokens: int, output_tokens: int) -> float:\n    return input_tokens / 1e6 * PRICE_IN + output_tokens / 1e6 * PRICE_OUT\n\ndef log_request(case_id, prompt_version, input_tokens, output_tokens, latency_ms, outcome):\n    record = {\n        \"trace_id\": str(uuid.uuid4()),\n        \"ts\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"case_id\": case_id,\n        \"prompt_version\": prompt_version,\n        \"input_tokens\": input_tokens,\n        \"output_tokens\": output_tokens,\n        \"latency_ms\": latency_ms,\n        \"cost_usd\": round(cost_usd(input_tokens, output_tokens), 6),\n        \"outcome\": outcome,\n    }\n    print(json.dumps(record))\n    return record\n\nr = log_request(\"INV-1042\", \"p3\", 2400, 350, 1830, \"sent_to_review\")\nprint(f\"Cost per 1,000 such requests: ${r['cost_usd'] * 1000:.2f}\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Estimate monthly cost and pick alerts",
+          "time": "40 min",
+          "goal": "Turn token counts into a budget and an alert plan.",
+          "steps": [
+            "Run cost.py and confirm the output.",
+            "Open the provider pricing page linked below and replace the example prices with real ones for one model.",
+            "In a spreadsheet, estimate requests per day for a workflow you know and calculate monthly cost.",
+            "Change the token counts to show a version with a prompt twice as long and compare.",
+            "Write four alerts, each with a limit, an owner and the first thing that owner should check."
+          ],
+          "done_when": "You have a monthly cost estimate for two prompt sizes and four alerts with owners."
+        }
+      ],
+      "pitfalls": [
+        "Logging only errors. Successful requests are what you need to explain a wrong answer.",
+        "Logging raw personal data without agreement. Mask fields or log pointers instead.",
+        "Hardcoding prices or forgetting output tokens cost more than input tokens for many models.",
+        "Watching only uptime. An LLM app can be up and still be quietly wrong; track edit rate and eval scores.",
+        "Setting so many alerts that people mute them."
+      ],
+      "check": [
+        "What is the difference between a log, a trace and a metric?",
+        "List five things to record for each LLM request.",
+        "How do you calculate cost per request, and what makes it grow?",
+        "Which signals tell you quality is drifting when there are no errors?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Open Source AI Engineering Platform",
+          "source": "Langfuse",
+          "url": "https://langfuse.com/docs",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "LLM Observability & Application Tracing (Open Source)",
+          "source": "Langfuse",
+          "url": "https://langfuse.com/docs/observability/overview",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Langfuse Intro - Observability & Tracing Deep Dive",
+          "source": "Langfuse",
+          "url": "https://www.youtube.com/watch?v=pTneXS_m1rk",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is OpenTelemetry?",
+          "source": "OpenTelemetry",
+          "url": "https://opentelemetry.io/docs/what-is-opentelemetry/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Pricing",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Defining slo: service level objective meaning",
+          "source": "Google SRE book",
+          "url": "https://sre.google/sre-book/service-level-objectives/",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Site reliability engineering book index",
+          "source": "Google SRE",
+          "url": "https://sre.google/sre-book/table-of-contents/",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

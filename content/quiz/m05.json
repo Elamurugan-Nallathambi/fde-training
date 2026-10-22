@@ -1,0 +1,273 @@
+{
+  "module": 5,
+  "questions": [
+    {
+      "id": "m05-q01",
+      "lesson": "discovery-interviews",
+      "q": "Which question is most likely to get useful facts from an AP clerk?",
+      "options": [
+        "Would you use a tool that explains exceptions?",
+        "How do you usually handle exceptions?",
+        "Walk me through the last invoice exception you handled.",
+        "How much time would an AI tool save you?",
+        "Isn't it frustrating to chase buyers?"
+      ],
+      "answer": 2,
+      "why": "Asking about a specific recent case gets real details, real systems and real time spent."
+    },
+    {
+      "id": "m05-q02",
+      "lesson": "discovery-interviews",
+      "q": "A user says 'we always have to chase the buyer'. What should you do next?",
+      "options": [
+        "Ask about the last time it happened",
+        "Write down 'always' as a fact",
+        "Show them your planned solution",
+        "Move to the next topic since it is clear",
+        "Ask how much a fix would be worth to them"
+      ],
+      "answer": 0,
+      "why": "When someone says always or usually, ask for the last real case to get checkable facts."
+    },
+    {
+      "id": "m05-q03",
+      "lesson": "discovery-interviews",
+      "q": "Which question is NOT leading?",
+      "options": [
+        "Isn't it frustrating to chase buyers by email?",
+        "Wouldn't it be easier if approvals were automatic?",
+        "Don't you think the ERP is hard to use?",
+        "What happens after you email the buyer?"
+      ],
+      "answer": 3,
+      "why": "A leading question hints at the answer you want; an open question about what happens does not."
+    },
+    {
+      "id": "m05-q04",
+      "lesson": "discovery-interviews",
+      "q": "In your interview notes you write 'Waiting on buyer may be most of elapsed time'. How should this line be marked?",
+      "options": [
+        "As a fact, since the clerk implied it",
+        "As your own interpretation, kept apart from facts and quotes",
+        "As a quote from the clerk",
+        "It should not be written down at all"
+      ],
+      "answer": 1,
+      "why": "Keeping interpretations separate lets you later tell what was said from what you concluded."
+    },
+    {
+      "id": "m05-q05",
+      "lesson": "shadowing-evidence",
+      "q": "A clerk says exceptions take about ten minutes, but the event log shows cases open for several days. What explains this?",
+      "options": [
+        "The clerk is wrong and the log is right",
+        "Ten minutes is touch time; days is elapsed time spent waiting",
+        "The log timestamps are in the wrong time zone",
+        "The log is wrong and the clerk is right"
+      ],
+      "answer": 1,
+      "why": "Touch time is active work while elapsed time includes waiting, and both can be true."
+    },
+    {
+      "id": "m05-q06",
+      "lesson": "shadowing-evidence",
+      "q": "What are the three minimum fields an event log needs?",
+      "options": [
+        "Case ID, user name and password",
+        "Activity name, cost and owner",
+        "Timestamp, department and SOP version",
+        "Case ID, activity name and timestamp"
+      ],
+      "answer": 3,
+      "why": "With case ID, activity and timestamp you can compute elapsed time, rework and paths."
+    },
+    {
+      "id": "m05-q07",
+      "lesson": "shadowing-evidence",
+      "q": "The SOP requires a manager approval step, but the logs show it is often skipped. What do you do?",
+      "options": [
+        "Raise it with the team without blame and ask whether it matches what they see",
+        "Report the team to compliance",
+        "Ignore the logs and map the SOP",
+        "Assume the logs are broken",
+        "Delete the step from your notes"
+      ],
+      "answer": 0,
+      "why": "Disagreement between documents and logs is a finding, and the team's explanation reveals the real rule."
+    },
+    {
+      "id": "m05-q08",
+      "lesson": "process-mapping",
+      "q": "On a swimlane map, why do lines that cross between lanes matter?",
+      "options": [
+        "They show where the process ends",
+        "They mark steps that can be deleted",
+        "Each crossing is a handoff, where delay and errors collect",
+        "They show which steps are automated"
+      ],
+      "answer": 2,
+      "why": "Every lane crossing is a handoff, and handoffs are where delay and errors collect."
+    },
+    {
+      "id": "m05-q09",
+      "lesson": "process-mapping",
+      "q": "In BPMN, how do you show an email sent from the client company to an outside supplier?",
+      "options": [
+        "A sequence flow (solid arrow) inside a lane",
+        "An exclusive gateway (diamond)",
+        "An end event (thick circle)",
+        "A message flow (dashed arrow) between pools",
+        "A new lane inside the client pool"
+      ],
+      "answer": 3,
+      "why": "Message flows show communication between pools; sequence flows show order inside a pool."
+    },
+    {
+      "id": "m05-q10",
+      "lesson": "process-mapping",
+      "q": "The process has many exceptions. In what order should you draw them?",
+      "options": [
+        "Draw every exception first so nothing is missed",
+        "Draw the happy path first, then add the exceptions",
+        "Draw only the exceptions, since that is where pain is",
+        "Draw the future state first, then the exceptions"
+      ],
+      "answer": 1,
+      "why": "Starting with every exception makes the map unreadable before anyone understands the main flow."
+    },
+    {
+      "id": "m05-q11",
+      "lesson": "process-mapping",
+      "q": "The sponsor wants to see the future state map in week one. The current state has not been agreed. What do you do?",
+      "options": [
+        "Draw the future state from the SOP",
+        "Skip the current state since it is changing",
+        "Get the current state agreed first, then draw the future state",
+        "Draw both at once to save time"
+      ],
+      "answer": 2,
+      "why": "The future state should show exactly what changes, which only works once the current state is right."
+    },
+    {
+      "id": "m05-q12",
+      "lesson": "stakeholders-raci",
+      "q": "A RACI row for 'Approve pilot go-live' has two people marked A. What is the problem?",
+      "options": [
+        "If two people are accountable, nobody is; each row needs exactly one A",
+        "Nothing, more owners means more support",
+        "There should be no A on approval rows",
+        "It should have two Rs instead",
+        "A can only be the FDE"
+      ],
+      "answer": 0,
+      "why": "Exactly one A per row; two means unclear ownership and none means the decision drifts."
+    },
+    {
+      "id": "m05-q13",
+      "lesson": "stakeholders-raci",
+      "q": "What is the difference between C and I in a RACI?",
+      "options": [
+        "C gives input before the decision (two-way); I is told after (one-way)",
+        "C does the work; I signs off",
+        "C is told after; I gives input before",
+        "C and I mean the same thing"
+      ],
+      "answer": 0,
+      "why": "Consulted is a two-way input before the decision; Informed is one-way after it."
+    },
+    {
+      "id": "m05-q14",
+      "lesson": "stakeholders-raci",
+      "q": "Your PoC will send invoice data to an outside LLM API. When should you involve security?",
+      "options": [
+        "The week before the pilot",
+        "Only if they ask",
+        "In the first two weeks, with a short note on what data goes where",
+        "After go-live, once results are proven",
+        "Never, IT covers security"
+      ],
+      "answer": 2,
+      "why": "Finding security rules in week one costs a day; finding them in week eight can cost the pilot."
+    },
+    {
+      "id": "m05-q15",
+      "lesson": "one-page-brief",
+      "q": "Which acceptance criterion is testable?",
+      "options": [
+        "The assistant is accurate",
+        "On the 50-case evaluation set, the stated cause matches the AP lead in at least 45 cases",
+        "The summaries are good",
+        "Users like the tool",
+        "The AI understands the exceptions"
+      ],
+      "answer": 1,
+      "why": "Criteria must be specific enough that two people would agree whether they pass."
+    },
+    {
+      "id": "m05-q16",
+      "lesson": "one-page-brief",
+      "q": "Which part of the one-page brief prevents the most disputes later?",
+      "options": [
+        "The title",
+        "The risks and assumptions",
+        "The data and systems list",
+        "The out-of-scope list"
+      ],
+      "answer": 3,
+      "why": "Stating what will not be done stops people assuming it will be; read it out loud at sign-off."
+    },
+    {
+      "id": "m05-q17",
+      "lesson": "one-page-brief",
+      "q": "The team wants to pick the evaluation cases after seeing the first results. Why is that a problem?",
+      "options": [
+        "It makes the set too large to run",
+        "Cases chosen later are always too easy to label",
+        "The test is no longer fair; agree how the set is built before building",
+        "Evaluation sets must be picked by the FDE alone"
+      ],
+      "answer": 2,
+      "why": "Choosing cases after seeing results biases the test; a fixed rule such as every case from a recent week keeps it fair."
+    },
+    {
+      "id": "m05-q18",
+      "lesson": "change-adoption",
+      "q": "Two experienced clerks barely use the new assistant. They know the causes already and say the tool slows them down. Which ADKAR stage is missing?",
+      "options": [
+        "Awareness",
+        "Knowledge",
+        "Reinforcement",
+        "Desire",
+        "Ability"
+      ],
+      "answer": 3,
+      "why": "They know why and how to change but do not want to, so Desire is the first stage they have not reached."
+    },
+    {
+      "id": "m05-q19",
+      "lesson": "change-adoption",
+      "q": "Usage spiked after training but has fallen each week since, and the old spreadsheet is still in use. What should you do?",
+      "options": [
+        "Find which ADKAR stage is missing and talk to two users about their last real case with the tool",
+        "Run the same training again for everyone",
+        "Ask the sponsor to make use mandatory",
+        "Add five new features to win users back"
+      ],
+      "answer": 0,
+      "why": "These are failing signs, so go back to ADKAR to find the gap and hear from users directly."
+    },
+    {
+      "id": "m05-q20",
+      "lesson": "change-adoption",
+      "q": "Where should the assistant appear to help adoption?",
+      "options": [
+        "In a separate new window they must remember to open",
+        "Inside the screen people already use, such as the ERP or ticket view",
+        "Only in a weekly email report",
+        "On the FDE's laptop during office hours"
+      ],
+      "answer": 1,
+      "why": "Putting the tool where people already work removes a step and helps it become part of the routine."
+    }
+  ]
+}

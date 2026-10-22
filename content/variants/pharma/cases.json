@@ -1,0 +1,98 @@
+[
+  {
+    "id": "pharma-case-deviation-assistant",
+    "title": "Deviation investigation assistant",
+    "area": "Quality and compliance",
+    "client": "A fictional oral solid dose manufacturer with one site, a validated eQMS and an MES.",
+    "pain": "Deviations close late, root causes often say 'human error', and repeat deviations are rising. Investigators spend much of their time searching for similar past events and chasing lab data.",
+    "data": "Synthetic export of 300 closed deviations (id, dates, area, product, batch, description, root cause category, CAPA link) with deliberate messy categories, plus 20 synthetic LIMS results linked to some batches.",
+    "deliver": [
+      "A profile of the deviation data with a list of quality issues and a cleaned category list.",
+      "A search that returns the five most similar past deviations for a new one.",
+      "An assistant that drafts a summary and candidate root causes into a separate, attributed field, never into the approved record.",
+      "An evaluation set of 30 cases with expected root causes and a scored run against agreed acceptance criteria."
+    ],
+    "approval": "The investigator writes and submits the final investigation; QA approves it in the eQMS with an electronic signature.",
+    "measure": "Share of drafts whose candidate root cause matches the investigator's final cause, and investigator time per deviation compared with a baseline sample."
+  },
+  {
+    "id": "pharma-case-batch-record-review",
+    "title": "Batch record review by exception",
+    "area": "Technical operations and digital",
+    "client": "A fictional sterile injectables CDMO using electronic batch records for most steps and paper for a few.",
+    "pain": "QA reviews every page of every batch record, and review is the longest wait between end of manufacture and release.",
+    "data": "Synthetic batch records for 40 batches as JSON (steps, set points, recorded values, operator IDs, timestamps, free-text comments), with planted exceptions such as out-of-range values, missing second-person checks and late entries.",
+    "deliver": [
+      "Rules that flag structured exceptions such as values outside limits, missing checks and entries made long after the step.",
+      "An LLM step that reads free-text comments and flags those that may need QA attention, with a short reason.",
+      "A review screen mock-up that shows flags first and links each flag to the source entry.",
+      "A test report showing every planted exception was flagged, and the false flag rate."
+    ],
+    "approval": "The QA reviewer reviews flags and the full record as the SOP requires, and signs the batch record review in the MES.",
+    "measure": "Share of planted exceptions caught (target: all of them), false flags per batch, and reviewer minutes per batch in a timed trial."
+  },
+  {
+    "id": "pharma-case-validation-protocols",
+    "title": "IQ/OQ protocol drafting from a URS",
+    "area": "Engineering and validation",
+    "client": "A fictional API manufacturer installing a new dryer and updating its validation templates.",
+    "pain": "Validation engineers write IQ and OQ protocols by hand from the URS and vendor documents, and traceability between requirements and tests is kept in a spreadsheet that drifts.",
+    "data": "A synthetic URS with 40 requirements, a synthetic vendor functional specification, and two approved protocol templates.",
+    "deliver": [
+      "A traceability matrix generated from the URS, linking each requirement to a proposed test.",
+      "Draft IQ and OQ test steps in the client's template, each citing the requirement it covers.",
+      "A gap report listing requirements with no test and tests with no requirement.",
+      "A review checklist the validation lead uses to approve or reject each drafted test."
+    ],
+    "approval": "The validation engineer edits and owns the protocol; QA approves it before execution.",
+    "measure": "Share of requirements covered by an accepted test, number of drafted steps the validation lead rejects, and drafting time compared with the last manual protocol."
+  },
+  {
+    "id": "pharma-case-change-control-impact",
+    "title": "Change control impact assessment helper",
+    "area": "Quality and compliance",
+    "client": "A fictional multi-product tablet site with about 1,500 controlled documents.",
+    "pain": "Every change request needs an impact assessment listing affected SOPs, batch records, validation documents and training. Reviewers often miss affected documents, and changes come back for rework.",
+    "data": "Synthetic document index (id, title, type, owner, linked equipment and products) for 300 documents, and 25 synthetic past change requests with the documents they actually affected.",
+    "deliver": [
+      "A search that proposes affected documents for a new change request, with the reason for each.",
+      "A draft impact assessment in the client's change control form layout.",
+      "An evaluation against the 25 past changes showing which affected documents were found and which were missed.",
+      "A one-page design note covering intended use, approval point, audit trail and change control for the tool itself."
+    ],
+    "approval": "The change owner confirms the list and writes the assessment; QA approves the change request in the eQMS.",
+    "measure": "Recall of truly affected documents on past changes (missed documents matter most), and rework rate of change requests in a pilot."
+  },
+  {
+    "id": "pharma-case-cdmo-release-review",
+    "title": "CDMO batch documentation review for IMP release",
+    "area": "Clinical quality",
+    "client": "A fictional small sponsor running two clinical trials with drug product made at an outside CDMO.",
+    "pain": "The sponsor's quality team checks each batch package (batch record summary, certificate of analysis, deviations, shipping temperature data) against specifications and the quality agreement by hand, and release dates slip.",
+    "data": "Ten synthetic batch packages with certificates of analysis as text, a synthetic specification table, deviation summaries and shipping temperature logs, with planted issues such as a result at the limit, an unclosed deviation and a temperature excursion.",
+    "deliver": [
+      "Extraction of CoA results into a table and comparison against the specification.",
+      "A checklist review that flags open deviations, missing documents and temperature excursions.",
+      "A one-page review summary per batch, with every flag linked to its source page.",
+      "A test report showing each planted issue was found."
+    ],
+    "approval": "The sponsor's qualified quality reviewer makes the release decision and signs it; the tool only prepares the review.",
+    "measure": "Planted issues found (target: all), extraction accuracy of CoA values, and review time per batch package."
+  },
+  {
+    "id": "pharma-case-cpv-trending",
+    "title": "CPV trending and signal summary",
+    "area": "Technical operations and digital",
+    "client": "A fictional generic drug manufacturer with one high-volume product in continued process verification.",
+    "pain": "Engineers pull assay, dissolution and process data from LIMS and the historian into spreadsheets each quarter, so trends are spotted late and the CPV report takes weeks.",
+    "data": "Synthetic results for 120 batches (assay, dissolution, hardness, key process parameters) with a planted upward drift in one parameter and two batches out of trend.",
+    "deliver": [
+      "A script that builds control charts with limits from the first 30 batches and flags rule breaks.",
+      "A plain-language draft of the signal summary for the CPV report, citing the batches and charts behind each statement.",
+      "A data check report confirming every value traces back to a source record.",
+      "A short note on what would need validating before the scripts are used for the real CPV report."
+    ],
+    "approval": "The process engineer reviews the charts and draft, and the CPV report is approved under the site's procedure.",
+    "measure": "Planted drift and out-of-trend batches detected, statements in the draft that trace to data (target: all), and time to produce the quarterly report."
+  }
+]

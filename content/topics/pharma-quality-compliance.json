@@ -1,0 +1,1632 @@
+{
+  "id": "pharma-quality-compliance",
+  "title": "Quality and Compliance",
+  "category": "Pharma",
+  "track": "Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How a pharmaceutical quality system works day to day, from SOPs and deviations to CAPA, audits, inspections and record review.",
+  "audience": "Engineers and quality staff who are new to a quality or compliance role at a drug, API or contract manufacturing site, and FDEs who build tools that touch quality records.",
+  "sections": [
+    {
+      "id": "quality-management-systems",
+      "title": "Quality management systems",
+      "summary": "What a pharmaceutical quality management system is, which rules shape it, and how its parts connect.",
+      "outline": [
+        "QMS framework and governance",
+        "Deviation and CAPA management",
+        "Quality risk management (ICH Q9)",
+        "SOP and document control",
+        "Change control",
+        "Management review and quality metrics"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-qms-foundations",
+          "title": "How a pharmaceutical quality system works",
+          "summary": "You will be able to name the parts of a pharmaceutical QMS, link each one to the rule behind it, and follow one problem through the whole system.",
+          "why": "Almost every record in a drug plant passes through the quality system: SOPs, deviations, CAPAs, change requests, batch record reviews. If you build or support a tool in this space and do not know how these parts connect, you will automate one step and break the next. Knowing the system also tells you where a person must sign, and where software can only help.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A quality management system (QMS) is the set of procedures, records, roles and reviews a company uses to make sure every batch of medicine is made the same way, meets its specification, and can be proven to have done so. In pharma, the word GMP (good manufacturing practice) means the legal minimum for that system. In the US the rules are 21 CFR Parts 210 and 211 for finished drugs. For active pharmaceutical ingredients (APIs) the main GMP guide is ICH Q7. In the EU the rules are in EudraLex Volume 4, the EU GMP guide.",
+                "ICH Q10 describes a pharmaceutical quality system (PQS) that sits on top of GMP. It names four elements: a system to monitor process performance and product quality, a CAPA (corrective and preventive action) system, a change management system, and management review. Two enablers support all four: knowledge management and quality risk management."
+              ]
+            },
+            {
+              "h": "What the rules ask for, in plain words",
+              "p": [
+                "21 CFR 211.22 says the site must have a quality control unit with the authority to approve or reject components, materials and finished product, and to review production records. Its duties must be written down. This is why quality has the final say on release, and why no tool should ever release a batch on its own.",
+                "21 CFR 211.100 asks for written procedures for production and process control, and says deviations from them must be recorded and justified. 21 CFR 211.192 says production records must be reviewed before release, and any unexplained discrepancy must be thoroughly investigated, including other batches that may be affected, with a written record of the conclusion and follow-up.",
+                "ICH Q9(R1) on quality risk management says the effort, formality and documentation of a risk activity should match the level of risk, and that risk to quality is ultimately about protecting the patient. That is the logic behind risk-based thinking everywhere in the QMS."
+              ]
+            },
+            {
+              "h": "The parts and how they connect",
+              "p": [
+                "Think of the QMS as a set of linked records. One event usually touches several of them.",
+                "Because the records are linked, a weakness in one part shows up somewhere else. A vague SOP leads to repeat deviations. A CAPA that changes an SOP without change control leaves people trained on an old version. When you look at any single record, ask which other records it should point to, and check that those links really exist. The other sections of this topic go deeper into each part."
+              ],
+              "list": [
+                "SOPs and document control: approved, versioned procedures. Only the current version may be in use, and staff must be trained on it.",
+                "Deviation: a record that something did not go as the procedure says. It starts an investigation sized to the risk.",
+                "CAPA: the corrective action fixes the cause of this event; the preventive action stops it or a similar event happening again. Effectiveness is checked later.",
+                "Change control: any change to a process, document, system or equipment is assessed for impact before it is made, then approved and recorded.",
+                "Training records: proof that each person was trained on the current version of what they do.",
+                "Management review and quality metrics: leadership looks at trends such as open deviations, overdue CAPAs and repeat events, and decides on actions and resources."
+              ]
+            },
+            {
+              "h": "Data integrity and electronic systems",
+              "p": [
+                "Most QMS records now live in an electronic QMS (eQMS). 21 CFR Part 11 sets the rules for electronic records and electronic signatures in the US, including secure, computer-generated, time-stamped audit trails. EU GMP Annex 11 covers computerised systems used in GMP work and asks for risk management across the system lifecycle. GAMP 5 from ISPE is the industry guide for a risk-based approach to validating such systems.",
+                "Data integrity is usually summed up as ALCOA+: records must be attributable (who did it), legible, contemporaneous (recorded at the time), original and accurate, plus complete, consistent, enduring and available. FDA explains its expectations in its data integrity questions and answers guidance."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI is useful for reading and drafting: finding similar past deviations, suggesting a likely category, drafting an investigation summary from the record, checking an SOP against a template, or spotting overdue CAPAs in a trend. It is not a decision maker. Classifying risk, approving a CAPA, closing a deviation and releasing a batch remain human decisions by trained, authorised people with their own e-signature. Any AI tool used on GMP records is itself a computerised system: it needs a defined intended use, a risk assessment, validation sized to that risk, and change control when the model or prompt changes."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "One problem moving through the QMS",
+            "caption": "Read clockwise; after management review the learning feeds back into the SOPs.",
+            "steps": [
+              {
+                "label": "Work done to approved SOP",
+                "note": "Document control, training records"
+              },
+              {
+                "label": "Deviation recorded",
+                "note": "21 CFR 211.100: record and justify"
+              },
+              {
+                "label": "Investigation sized to risk",
+                "note": "ICH Q9(R1), 21 CFR 211.192"
+              },
+              {
+                "label": "CAPA raised",
+                "note": "Fix the cause, prevent recurrence"
+              },
+              {
+                "label": "Change control",
+                "note": "Assess impact before changing SOP or equipment"
+              },
+              {
+                "label": "Effectiveness check and trend",
+                "note": "Management review, ICH Q10"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a tablet weight deviation (fictional)",
+            "p": [
+              "Imagine a small site that makes tablets. During compression, an operator sees that in-process tablet weights drift above the upper limit for about twenty minutes before the press is adjusted. The operator records a deviation in the eQMS, as the SOP requires.",
+              "Quality assesses the risk: were any out-of-limit tablets mixed into the batch? The investigation finds that a hopper level sensor was not working, so powder feed varied. The affected tablets were segregated, so the batch impact is assessed as low, but the cause is real."
+            ],
+            "list": [
+              "Correction: affected tablets rejected, sensor repaired and calibrated.",
+              "Corrective action: add a check of the sensor to the start-up checklist.",
+              "Preventive action: review the same sensor type on the other presses.",
+              "Change control: the start-up SOP is revised, impact assessed, approved, and operators are trained on the new version.",
+              "Effectiveness check: after an agreed period, quality checks whether the same deviation has come back.",
+              "Management review: the event appears in the monthly metrics as one closed deviation and one CAPA with its effectiveness result."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Trace one deviation through the rules",
+              "time": "45 min",
+              "goal": "Connect each QMS step to the regulation that asks for it.",
+              "steps": [
+                "Open 21 CFR Part 211 on ecfr.gov and read sections 211.22, 211.100 and 211.192.",
+                "Open the ICH Q10 page on fda.gov and note the four PQS elements and two enablers.",
+                "In a spreadsheet, make rows for: SOP, deviation, investigation, CAPA, change control, training, management review.",
+                "For each row, add a column for the rule or guideline that drives it and a column for who signs.",
+                "Ask Claude to draft a deviation form for the tablet example, then mark each field that must be filled or approved by a person and say why."
+              ],
+              "done_when": "You have a seven-row table with a rule and a signer per row, and a marked-up deviation form."
+            }
+          ],
+          "pitfalls": [
+            "Treating the QMS as paperwork. Each record exists so that someone can later prove what happened to a batch.",
+            "Closing a deviation with 'human error' as the root cause and retraining as the only action. Ask why the error was possible.",
+            "Changing an SOP or a system without change control because the change looks small.",
+            "Letting an AI tool make or appear to make a quality decision. Drafts are fine; approvals belong to authorised people.",
+            "Forgetting that the eQMS and tools around it must meet Part 11 and Annex 11."
+          ],
+          "check": [
+            "What does 21 CFR 211.22 give the quality control unit the authority to do?",
+            "Name the four elements of a pharmaceutical quality system in ICH Q10.",
+            "What is the difference between a corrective action and a preventive action?",
+            "Why must a change to an SOP go through change control?",
+            "Give two tasks where AI can help in a QMS and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 211: Current Good Manufacturing Practice for Finished Pharmaceuticals",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex Volume 4: EU GMP guidelines",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11: Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality Management Maturity: FDA Vision & Expectations (8/15) Global Quality",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=sGSKq_SmCgE",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "pqc-q01",
+          "lesson": "pharma-qms-foundations",
+          "q": "A planner asks if a new scheduling tool can mark batches as released once all lab results pass. What is the right answer?",
+          "options": [
+            "Yes, if all lab results are within specification",
+            "Yes, as long as IT has validated the scheduling tool",
+            "No, release is the quality unit decision (211.22)",
+            "No, only the production manager can release a batch"
+          ],
+          "answer": 2,
+          "why": "21 CFR 211.22 gives the quality control unit the authority to approve or reject drug products."
+        },
+        {
+          "id": "pqc-q02",
+          "lesson": "pharma-qms-foundations",
+          "q": "An operator follows a step in a different order than the SOP says because it is faster. What should happen first?",
+          "options": [
+            "The step is recorded as a deviation and justified",
+            "The SOP is updated to match the faster order",
+            "Nothing, if the batch passes testing",
+            "The operator is retrained and the event is not recorded"
+          ],
+          "answer": 0,
+          "why": "21 CFR 211.100 says deviations from written procedures must be recorded and justified."
+        },
+        {
+          "id": "pqc-q03",
+          "lesson": "pharma-qms-foundations",
+          "q": "Which list matches the four elements of the pharmaceutical quality system in ICH Q10?",
+          "options": [
+            "Training, audits, complaints, recalls and returns",
+            "SOPs, batch records, labels, stability and samples",
+            "Risk management, knowledge management, validation, release",
+            "Product monitoring, CAPA, change, management review"
+          ],
+          "answer": 3,
+          "why": "ICH Q10 names these four elements; knowledge management and quality risk management are the enablers."
+        },
+        {
+          "id": "pqc-q04",
+          "lesson": "pharma-qms-foundations",
+          "q": "A sensor fault caused a deviation on press 1. The team also checks the same sensor on presses 2 and 3. What kind of action is that check?",
+          "options": [
+            "A correction",
+            "A preventive action",
+            "A change control",
+            "A management review"
+          ],
+          "answer": 1,
+          "why": "A preventive action stops the same or a similar problem from happening elsewhere."
+        },
+        {
+          "id": "pqc-q05",
+          "lesson": "pharma-qms-foundations",
+          "q": "During batch record review, a reviewer finds a yield that cannot be explained. What does 21 CFR 211.192 expect?",
+          "options": [
+            "Note it and release if the final tests pass",
+            "Hold it for the next annual product review",
+            "Investigate fully, including other affected batches",
+            "Ask the operator to correct the number in the record"
+          ],
+          "answer": 2,
+          "why": "Unexplained discrepancies must be thoroughly investigated and extended to other possibly affected batches."
+        },
+        {
+          "id": "pqc-q06",
+          "lesson": "pharma-qms-foundations",
+          "q": "A minor typo fix in an SOP and a new cleaning agent both need approval. How should the effort differ?",
+          "options": [
+            "More review for the cleaning agent, as its risk is higher",
+            "Both get exactly identical effort, forms and paperwork",
+            "The typo needs more effort because SOPs are legal records",
+            "Neither change needs any change control at all"
+          ],
+          "answer": 0,
+          "why": "ICH Q9(R1) says effort, formality and documentation should match the level of risk."
+        },
+        {
+          "id": "pqc-q07",
+          "lesson": "pharma-qms-foundations",
+          "q": "An analyst types results into a spreadsheet at the end of the week from memory. Which ALCOA+ principle is most clearly broken?",
+          "options": [
+            "Legible, because it is typed",
+            "Enduring, because it is saved",
+            "Available, because it is shared",
+            "Contemporaneous"
+          ],
+          "answer": 3,
+          "why": "Contemporaneous means recorded at the time the work was done."
+        },
+        {
+          "id": "pqc-q08",
+          "lesson": "pharma-qms-foundations",
+          "q": "You add an AI assistant that drafts deviation summaries inside the eQMS. Which statement is correct?",
+          "options": [
+            "It is exempt from validation because a person reads every draft",
+            "It needs intended use, risk review and validation sized to risk",
+            "It only needs a signed certificate from the AI vendor",
+            "It needs validation only if it approves the records itself"
+          ],
+          "answer": 1,
+          "why": "Under Annex 11 and GAMP 5 thinking, any system used on GMP records needs risk-based validation and change control."
+        },
+        {
+          "id": "pqc-q09",
+          "lesson": "pharma-qms-foundations",
+          "q": "Which US regulation asks for secure, computer-generated, time-stamped audit trails for electronic records?",
+          "options": [
+            "21 CFR Part 211 Subpart C",
+            "ICH Q7",
+            "21 CFR Part 11",
+            "EU GMP Annex 15"
+          ],
+          "answer": 2,
+          "why": "21 CFR Part 11 sets rules for electronic records and signatures, including audit trails."
+        },
+        {
+          "id": "pqc-q10",
+          "lesson": "pharma-qms-foundations",
+          "q": "A deviation investigation concludes 'human error' and the only action is retraining. What is the better next step?",
+          "options": [
+            "Close it, since retraining is always enough",
+            "Ask why the error was possible and fix that",
+            "Escalate it straight to the regulator as a report",
+            "Delete the deviation since no product was harmed"
+          ],
+          "answer": 1,
+          "why": "Human error is rarely a root cause on its own; the system that allowed it usually needs a fix."
+        }
+      ]
+    },
+    {
+      "id": "training-and-quality-culture",
+      "title": "Training and quality culture",
+      "summary": "How sites build role-based GMP training and a culture where people raise problems early.",
+      "outline": [
+        "GMP training architecture and the 21 CFR 211.25 expectation for trained staff",
+        "Annual compliance training and role-based curricula",
+        "Training records and the link to SOP versions",
+        "Coaching investigators and subject matter experts",
+        "Leadership accountability for quality (ICH Q10 management responsibility)",
+        "Quality culture workshops and speaking up",
+        "Where AI can help: drafting quizzes and finding training gaps; who still signs off training"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-quality-compliance-training-and-quality-culture",
+          "title": "GMP training and quality culture",
+          "summary": "You will be able to design a role-based GMP training matrix linked to SOP versions, tell training activity from proof of competence, and explain what leaders do to build a culture where people raise problems early.",
+          "why": "Training records are among the first things an inspector asks for, and 'retrain the operator' is a very familiar CAPA. FDEs are often asked to build training dashboards, match SOP changes to people, or generate quizzes. Those tools only help if they reflect how training is meant to work: the right people, trained on the current version, and able to do the job, in a place where they feel safe to say when something is wrong.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A GMP site must show that every person doing GMP work has the education, training and experience to do it. In practice, that means three things. Each role has a defined set of procedures and skills, called a curriculum. Each person is trained on the current version of every procedure in their curriculum before they work alone. And the site can prove both, from records, on the day an inspector asks.",
+                "Quality culture is the part that records cannot fully show. It is whether people report deviations, near misses and mistakes promptly, whether they follow procedures when nobody is watching, and whether leaders reward that behaviour. A site with perfect training records and a culture of hiding problems is still a high-risk site."
+              ]
+            },
+            {
+              "h": "What the rules ask for, in plain words",
+              "p": [
+                "21 CFR 211.25 says each person engaged in manufacturing, processing, packing or holding a drug product must have the education, training and experience to perform their assigned functions. Training must cover the particular operations the person does and current good manufacturing practice, must be conducted by qualified individuals, and must be repeated often enough that employees stay familiar with the requirements.",
+                "EU GMP Chapter 2 on personnel asks for initial and continuing training based on a written programme, with training records kept and the practical effectiveness of training assessed periodically. ICH Q10 makes senior management responsible for the pharmaceutical quality system: setting a quality policy, providing resources, making sure communication flows, and leading management review. Culture starts there.",
+                "Many sites also run an annual compliance training cycle covering GMP basics, data integrity and documentation practice. Annual training keeps the basics fresh, but it cannot replace role training on the procedures a person actually uses. When an inspector looks at a training file, they usually check both: that the basics are current, and that the person was trained on the exact SOP versions in force when they did the work they are being asked about."
+              ]
+            },
+            {
+              "h": "Building a training architecture",
+              "list": [
+                "Role curricula: list the roles on site, such as operator, line lead, QC analyst, QA reviewer and engineer, and the SOPs and skills each needs.",
+                "Link to document control: when an SOP version changes, everyone in the affected curricula gets a training task, and the change should not take effect for a person until they complete it.",
+                "Choose the method by risk: a minor wording change may need read-and-understand; a new critical step needs hands-on training and an observed demonstration.",
+                "GMP basics and annual refreshers: general GMP, data integrity and good documentation practice for everyone, repeated on a set cycle.",
+                "Qualify trainers and investigators: people who train others or lead investigations need their own training, coaching and assessment.",
+                "Measure effectiveness: look beyond completion rates to error trends, deviations linked to training gaps, and observed practice."
+              ],
+              "p": [
+                "Most training systems can report completion. Fewer can show that a person is competent. Read-and-sign proves someone opened a document; it does not prove they can perform the task. For critical tasks, an observed demonstration or a practical check is stronger evidence."
+              ]
+            },
+            {
+              "h": "Quality culture and leadership",
+              "p": [
+                "Culture shows in small daily choices. Does an operator stop the line when something looks wrong, or keep going to hit the shift target? Does a supervisor thank the person who reported a mistake, or blame them? Are investigations looking for system causes, or ending with 'human error, retrain'? When the honest answer is the second option, people learn to hide problems, and the quality system only sees the ones it cannot miss.",
+                "Leaders shape this through what they ask about and what they reward. They walk the floor, ask about problems before output, give time and people to fix causes, and review quality metrics such as repeat deviations and overdue CAPAs with the same attention as production numbers. Workshops on speaking up help, but only if what people raise is acted on. FDA's quality management maturity work encourages sites to look beyond minimum compliance in this way."
+              ]
+            },
+            {
+              "h": "Where AI can help and who still signs",
+              "p": [
+                "AI can draft quiz questions from a revised SOP, highlight what changed between two versions so training focuses on the difference, find people whose curriculum is missing a new SOP, and summarise trends in deviations that mention training. A qualified trainer must check every quiz question against the procedure, because a wrong question teaches the wrong practice. The decision that a person is qualified to work alone, and the approval of curricula and training content, stay with authorised people under site procedures."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From SOP change to a qualified person",
+            "caption": "Read left to right; the person works on the new version only after the last step.",
+            "steps": [
+              {
+                "label": "SOP revised and approved",
+                "note": "Document control issues new version"
+              },
+              {
+                "label": "Affected roles identified",
+                "note": "From the role curricula"
+              },
+              {
+                "label": "Training method chosen by risk",
+                "note": "Read, classroom or hands-on"
+              },
+              {
+                "label": "Training delivered",
+                "note": "By a qualified trainer"
+              },
+              {
+                "label": "Competence checked",
+                "note": "Quiz or observed demonstration"
+              },
+              {
+                "label": "Record updated",
+                "note": "Person may work to new version"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a labelling mix-up (fictional)",
+            "p": [
+              "A packaging line has two labelling deviations in three months, both with the same cause: an operator used a label roll from the wrong lot. Both investigations closed with 'human error' and read-and-sign retraining on the line clearance SOP.",
+              "A new QA reviewer looks at the two events together. She finds that the line clearance SOP changed four months ago to add a label reconciliation step, that read-and-sign was the only training, and that one of the operators was on leave when the change went live and worked a shift before training was complete."
+            ],
+            "list": [
+              "The training system is changed so that a person's status for a revised SOP is blocked until training is complete.",
+              "For steps with high risk such as label checks, training now includes an observed line clearance, signed by a qualified trainer.",
+              "The investigation template is updated to ask why the error was possible, not only who made it.",
+              "The supervisor holds a short team talk to thank the operator who first reported the mix-up.",
+              "Effectiveness check: labelling deviations are tracked for six months after the change."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a role training matrix",
+              "time": "45 min",
+              "goal": "Link roles, SOP versions and training methods in one place.",
+              "steps": [
+                "In a spreadsheet, list four roles and eight fictional SOPs with version numbers.",
+                "Mark which SOPs each role needs, and for each pair choose a method: read, classroom or hands-on with observation. Write one line on why.",
+                "Add five fictional people with their current trained version of each SOP.",
+                "Change two SOP versions and use a formula to flag every person who is now out of date.",
+                "Ask Claude to draft five quiz questions for one changed SOP, then check each one against your SOP text and fix or reject the weak ones."
+              ],
+              "done_when": "Your matrix flags every out-of-date person automatically, every training method has a reason, and you have a checked set of quiz questions with notes on what you changed."
+            }
+          ],
+          "pitfalls": [
+            "Treating read-and-sign as proof of competence for critical, hands-on tasks.",
+            "Letting a revised SOP take effect before the people who use it are trained on the new version.",
+            "Closing investigations with 'human error, retrain' without asking why the error was possible.",
+            "Measuring training only by completion rate, which says nothing about whether practice changed.",
+            "Talking about speaking up while blaming or ignoring the people who report problems."
+          ],
+          "check": [
+            "What does 21 CFR 211.25 require of people doing GMP work?",
+            "Why must training records link to SOP versions?",
+            "When is read-and-sign enough, and when is it not?",
+            "Name two things leaders do that build or damage quality culture.",
+            "What can AI do for training, and what decision stays with authorised people?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 211.25: Personnel qualifications",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-B/section-211.25",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex Volume 4: EU GMP guidelines",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality Metrics, Quality Culture, and Data-Driven Decisions (16of33) Quality - Oct. 16-17, 2019",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=xbSjzSy4vu0",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality Management Maturity Program 2022 Public Workshop - Part 1 - Session 2",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=Fz4qKg3GWV4",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "Pharmaceutical GMP Professional Certification (CPGP)",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/pharmaceutical-gmp",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "training-and-quality-culture-q01",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "An SOP for line clearance is revised. When may an operator work to the new version?",
+          "options": [
+            "As soon as the new SOP is approved by QA",
+            "Once trained on the new version",
+            "After the next annual GMP refresher",
+            "Whenever the supervisor feels it is fine"
+          ],
+          "answer": 1,
+          "why": "People must be trained on the current version before they perform the task."
+        },
+        {
+          "id": "training-and-quality-culture-q02",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "A new step in a critical sterile gowning SOP is added. Which training method fits best?",
+          "options": [
+            "Hands-on training with an observed check",
+            "Read-and-sign of the new SOP version only",
+            "An email to the team with the SOP attached",
+            "No training, because it is a small change"
+          ],
+          "answer": 0,
+          "why": "High-risk, hands-on tasks need stronger evidence of competence than read-and-sign."
+        },
+        {
+          "id": "training-and-quality-culture-q03",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "Training completion is at 100 percent, but the same deviation keeps coming back. What does this suggest?",
+          "options": [
+            "The training system software is broken",
+            "The deviations are being raised wrongly",
+            "Completion does not prove competence",
+            "The SOP must be withdrawn at once"
+          ],
+          "answer": 2,
+          "why": "Completion rates show activity; effectiveness is shown by changed practice and fewer repeat events."
+        },
+        {
+          "id": "training-and-quality-culture-q04",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "What does 21 CFR 211.25 require?",
+          "options": [
+            "That every operator holds a university degree",
+            "That training is only given by the regulator",
+            "That training happens once, at hiring only",
+            "Suitable education, training and experience"
+          ],
+          "answer": 3,
+          "why": "211.25 asks for education, training and experience for assigned functions, with ongoing GMP training."
+        },
+        {
+          "id": "training-and-quality-culture-q05",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "Two deviations both closed as 'human error, retrain'. What should a reviewer ask?",
+          "options": [
+            "Why was the error possible?",
+            "Which operator should be disciplined?",
+            "Can the deviations be merged into one?",
+            "Can retraining be skipped next time?"
+          ],
+          "answer": 0,
+          "why": "Good investigations look for system causes, not only the person involved."
+        },
+        {
+          "id": "training-and-quality-culture-q06",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "Under ICH Q10, who is responsible for the pharmaceutical quality system?",
+          "options": [
+            "Only the QA department staff",
+            "Senior management",
+            "The regulator that inspects the site",
+            "Each operator on their own"
+          ],
+          "answer": 1,
+          "why": "ICH Q10 places responsibility for the PQS with senior management."
+        },
+        {
+          "id": "training-and-quality-culture-q07",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "An operator reports her own labelling mistake. What response builds quality culture?",
+          "options": [
+            "Record a warning on her personnel file",
+            "Keep the report quiet to protect the metrics",
+            "Thank her and fix the cause",
+            "Retrain only her and move on"
+          ],
+          "answer": 2,
+          "why": "Rewarding honest reporting keeps problems visible to the quality system."
+        },
+        {
+          "id": "training-and-quality-culture-q08",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "An AI tool drafts quiz questions from a revised SOP. What must happen before they are used?",
+          "options": [
+            "Nothing, because AI questions are always correct",
+            "Operators vote on which ones they like",
+            "The AI tool signs them off as reviewed",
+            "A trainer checks them against the SOP"
+          ],
+          "answer": 3,
+          "why": "A wrong question teaches the wrong practice; a qualified person must review them."
+        },
+        {
+          "id": "training-and-quality-culture-q09",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "Which is the best measure of training effectiveness?",
+          "options": [
+            "The number of slides in the course",
+            "Fewer related errors and good observed practice",
+            "The total hours spent in classrooms",
+            "The number of signatures collected"
+          ],
+          "answer": 1,
+          "why": "Effectiveness is shown by outcomes and observed practice, not by activity counts."
+        },
+        {
+          "id": "training-and-quality-culture-q10",
+          "lesson": "pharma-quality-compliance-training-and-quality-culture",
+          "q": "Who decides that a person is qualified to perform a GMP task alone?",
+          "options": [
+            "The AI training assistant",
+            "The person, by self-declaring",
+            "Authorised staff under site procedure",
+            "The software that hosts the course"
+          ],
+          "answer": 2,
+          "why": "Qualification decisions stay with authorised people as defined in site procedures."
+        }
+      ]
+    },
+    {
+      "id": "investigations-and-capa",
+      "title": "Investigations and CAPA",
+      "summary": "How to run a scientific investigation, find the real root cause and prove the CAPA worked.",
+      "outline": [
+        "Root cause analysis tools: 5 whys, fishbone, fault tree",
+        "OOS and OOT results in the laboratory (FDA OOS guidance)",
+        "Deviation investigations sized to risk",
+        "Writing CAPAs that address the root cause",
+        "CAPA effectiveness verification",
+        "Investigator coaching and common report weaknesses",
+        "Where AI can help: searching past events and drafting reports; why the conclusion stays human"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-quality-compliance-investigations-and-capa",
+          "title": "Investigations, root cause and CAPA that works",
+          "summary": "You will be able to size a deviation investigation to risk, separate facts from hypotheses, use common root cause tools, explain the boundary of an OOS investigation, and write a CAPA with a real effectiveness check.",
+          "why": "Investigations and CAPAs are where a quality system either learns or repeats itself. They are also where AI tools are most tempting: searching past events, suggesting causes, drafting reports. An FDE who understands what a sound investigation looks like can build tools that keep evidence and guesses apart, rather than tools that write confident reports with weak foundations.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "When something goes wrong, the site must find out what happened, why, what it affected and how to stop it happening again. The deviation records the event. The investigation finds the cause and the impact. The CAPA (corrective and preventive action) removes the cause and prevents recurrence. The effectiveness check, done later, proves whether the CAPA worked.",
+                "21 CFR 211.192 asks that any unexplained discrepancy or failure of a batch to meet its specifications be thoroughly investigated, that the investigation extend to other batches that may be affected, and that a written record include the conclusions and follow-up. ICH Q10 names CAPA as one of the four elements of the pharmaceutical quality system. Both say the same thing in different words: investigate properly, and learn."
+              ]
+            },
+            {
+              "h": "Sizing and running an investigation",
+              "p": [
+                "Not every deviation needs the same effort. A missing signature on a log that was clearly done on time is minor. A sterility failure is critical. Sites classify deviations by risk to product and patient, following ICH Q9(R1) thinking, and the depth, team and timeline follow from that.",
+                "A sound investigation keeps three things apart. Facts are what the records, data and interviews show. Hypotheses are possible causes still being tested. Conclusions are hypotheses that the evidence supports and that alternatives have been tested against. Writing a hypothesis as a fact is a common weakness in investigation reports, and one that reviewers and inspectors look for.",
+                "Timing matters too. Site procedures set target times for each step, because evidence fades: logs get overwritten, people forget details, and affected batches may move on to customers. If an investigation needs more time, the extension is requested and justified on the record, rather than the deadline being quietly missed."
+              ],
+              "list": [
+                "Contain first: stop, segregate or hold affected material so the problem does not spread.",
+                "Collect facts: batch records, equipment logs, audit trails, interviews, photos, timelines.",
+                "List possible causes with a tool such as a fishbone, then test each one against the facts.",
+                "Assess impact on this batch and on other batches, products or sites that share the same cause.",
+                "Write the conclusion with the evidence for it, and say plainly what remains uncertain."
+              ]
+            },
+            {
+              "h": "Root cause tools",
+              "p": [
+                "Five whys asks 'why' repeatedly until you reach a cause you can act on. It is quick, but it follows one path, so it can miss parallel causes. A fishbone, or Ishikawa, diagram groups possible causes under headings such as people, method, machine, material, measurement and environment, so the team considers each area. A fault tree works backwards from the failure through logical AND and OR conditions, which helps when several conditions must combine.",
+                "Whatever tool you use, the test is the same: does the evidence support this cause, and would removing it have prevented the event? If the answer is 'human error', keep asking why the error was possible. Unclear instructions, poor equipment design, time pressure and missing checks are system causes that a CAPA can fix."
+              ]
+            },
+            {
+              "h": "OOS and OOT in the laboratory",
+              "p": [
+                "An out-of-specification (OOS) result is a test result outside its approved specification. FDA's guidance on investigating OOS results describes a structured approach. Phase I is a laboratory investigation that looks for an obvious lab error, such as a calculation mistake, wrong standard or instrument problem, and the analyst and supervisor review it promptly. If no lab error is confirmed, Phase II is a full-scale investigation that extends to manufacturing. Retesting and resampling are only done under predefined, justified rules. Testing a sample again and again until a passing result appears, sometimes called testing into compliance, is not acceptable.",
+                "An out-of-trend (OOT) result is within specification but unusual compared with previous results, for example a stability assay that drops faster than earlier batches. There is no single regulatory definition, so sites define OOT rules in their procedures. Detailed laboratory investigation practice and analytical method questions need specialist training beyond this lesson."
+              ]
+            },
+            {
+              "h": "CAPA, effectiveness and where AI fits",
+              "p": [
+                "A good CAPA addresses the confirmed root cause, has an owner and a due date, and goes through change control when it changes a procedure, system or piece of equipment. The effectiveness check is planned when the CAPA is approved, with a measurable criterion and a time window, for example 'no recurrence of this deviation type on any line in six months'. 'Training completed' is evidence the action happened, not that it worked.",
+                "AI can search past deviations for similar events, build a timeline from records, suggest fishbone categories and draft the report. It must not decide the root cause, the impact or the batch disposition. Every AI-drafted statement must be traced to evidence by the investigator, and unsupported claims removed."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From event to proven fix",
+            "caption": "Read left to right; the effectiveness check closes the loop or reopens it.",
+            "steps": [
+              {
+                "label": "Deviation recorded",
+                "note": "Contain and segregate"
+              },
+              {
+                "label": "Classified by risk",
+                "note": "Sets depth, team and timeline"
+              },
+              {
+                "label": "Facts collected",
+                "note": "Records, audit trails, interviews"
+              },
+              {
+                "label": "Causes tested",
+                "note": "Fishbone, five whys, fault tree"
+              },
+              {
+                "label": "Root cause and impact",
+                "note": "Other batches assessed"
+              },
+              {
+                "label": "CAPA approved",
+                "note": "Owner, date, change control"
+              },
+              {
+                "label": "Effectiveness check",
+                "note": "Measurable criterion and window"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a dissolution OOS (fictional)",
+            "p": [
+              "A tablet batch gives a dissolution result below its specification at release testing. The analyst records an OOS and the Phase I lab investigation starts.",
+              "Phase I checks the calculation, the standard, the dissolution bath temperature, the paddle speed log and the analyst's training. All are correct. No lab error is found, so Phase II starts, with production and QA joining."
+            ],
+            "list": [
+              "Fact: the batch used a new lot of a binder from the approved supplier. Fact: granulation drying time was at the top of its range.",
+              "Hypothesis 1: the new binder lot behaves differently. Hypothesis 2: longer drying hardened the granules.",
+              "Testing: retained samples from earlier batches with the same binder lot pass; the granulation record shows drying at the upper limit only in this batch.",
+              "Conclusion: drying time at the upper limit is the most likely cause; the binder hypothesis is not supported. Remaining uncertainty is stated.",
+              "Impact: two other batches dried near the upper limit are tested and pass. The OOS batch is rejected by QA.",
+              "CAPA: narrow the drying time range through change control. Effectiveness check: dissolution trend for the next 20 batches, with a defined review criterion."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Separate facts from hypotheses",
+              "time": "60 min",
+              "goal": "Write the core of an investigation that a reviewer can trust.",
+              "steps": [
+                "Take the tablet weight or dissolution example from this topic, or invent a simple deviation of your own.",
+                "Write a timeline of 6 to 10 facts, each with the record it comes from.",
+                "Draw a fishbone with at least two possible causes under four headings.",
+                "Pick the two strongest hypotheses and write what evidence would confirm or rule out each one.",
+                "Ask Claude to draft a conclusion, then mark every sentence as fact, hypothesis or unsupported, and delete the unsupported ones.",
+                "Write one CAPA with an owner, a due date and an effectiveness check with a measurable criterion."
+              ],
+              "done_when": "Your investigation has a sourced timeline, a fishbone, tested hypotheses, a conclusion with no unsupported sentences, and a CAPA whose effectiveness check can be passed or failed."
+            }
+          ],
+          "pitfalls": [
+            "Writing a hypothesis as if it were a proven fact in the investigation report.",
+            "Closing with 'human error' and retraining without asking why the error was possible.",
+            "Retesting an OOS sample until a passing result appears instead of following predefined retest rules.",
+            "Forgetting to assess other batches or products that share the same cause.",
+            "Using 'training completed' as the effectiveness check, which shows the action happened but not that it worked."
+          ],
+          "check": [
+            "What does 21 CFR 211.192 require when a batch fails its specification?",
+            "What is the difference between a fact, a hypothesis and a conclusion in an investigation?",
+            "What happens in Phase I and Phase II of an OOS investigation?",
+            "What makes a CAPA effectiveness check meaningful?",
+            "Name two investigation tasks AI can help with and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Investigating Out-of-Specification (OOS) Test Results for Pharmaceutical Production",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/investigating-out-specification-oos-test-results-pharmaceutical-production-level-2-revision",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.192: Production record review",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.192",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is Root Cause Analysis (RCA)?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/root-cause-analysis",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is a Fishbone Diagram? Ishikawa Cause and Effect Diagram",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fishbone",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Basics of GMP: Deviations, Root Cause Analysis (RCA) Tools and Corrective and Preventive Action",
+              "source": "Biology Lectures",
+              "url": "https://www.youtube.com/watch?v=jJ4rN0JgFP4",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Out of Specification & Out of Trend Investigations",
+              "source": "Hitendrakumar Shah",
+              "url": "https://www.youtube.com/watch?v=J3HHycD6rsI",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "investigations-and-capa-q01",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "A missing signature on a log that was clearly done on time, and a sterility failure, are both deviations. How should they be handled?",
+          "options": [
+            "Exactly the same depth for both",
+            "Investigation depth sized to risk",
+            "Neither needs a written investigation",
+            "Only the minor one, since it is quick"
+          ],
+          "answer": 1,
+          "why": "Sites classify deviations by risk; the depth of investigation follows from that."
+        },
+        {
+          "id": "investigations-and-capa-q02",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "An investigation report says 'the new binder lot caused the failure' before any testing. What is wrong?",
+          "options": [
+            "A hypothesis is written as a fact",
+            "Binder lots can never cause failures",
+            "The report names the material supplier",
+            "Nothing, this is a normal first step"
+          ],
+          "answer": 0,
+          "why": "Hypotheses must be tested against evidence before being stated as conclusions."
+        },
+        {
+          "id": "investigations-and-capa-q03",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "Which tool groups possible causes under headings such as method, machine, material and people?",
+          "options": [
+            "A control chart with action limits",
+            "A Gantt chart of the CAPA actions",
+            "A fishbone (Ishikawa) diagram",
+            "A requirements traceability matrix"
+          ],
+          "answer": 2,
+          "why": "The fishbone diagram organises possible causes by category so none is missed."
+        },
+        {
+          "id": "investigations-and-capa-q04",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "An investigation ends with 'operator error, retrain'. What should the reviewer ask?",
+          "options": [
+            "Who will discipline the operator?",
+            "Can we skip the effectiveness check?",
+            "Can the deviation be reclassified as minor?",
+            "Why was the error possible?"
+          ],
+          "answer": 3,
+          "why": "Human error usually has system causes that a CAPA can fix."
+        },
+        {
+          "id": "investigations-and-capa-q05",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "In an OOS investigation, what is Phase I?",
+          "options": [
+            "A lab check for an obvious analytical error",
+            "A batch recall started by the regulator",
+            "A full manufacturing review that comes first",
+            "An automatic retest until the result passes"
+          ],
+          "answer": 0,
+          "why": "Phase I is the laboratory investigation; Phase II extends to manufacturing if no lab error is confirmed."
+        },
+        {
+          "id": "investigations-and-capa-q06",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "An analyst retests an OOS sample five times and reports the one passing result. What is this?",
+          "options": [
+            "Good practice to confirm the true value",
+            "Testing into compliance",
+            "An approved form of averaging data",
+            "Required by every OOS procedure"
+          ],
+          "answer": 1,
+          "why": "Retesting follows predefined rules; repeating until a pass appears is not acceptable."
+        },
+        {
+          "id": "investigations-and-capa-q07",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "A stability result is inside specification but much lower than earlier batches at the same time point. What is it usually called?",
+          "options": [
+            "An out-of-specification result",
+            "A critical manufacturing deviation",
+            "An out-of-trend (OOT) result",
+            "A planned change to the method"
+          ],
+          "answer": 2,
+          "why": "OOT results are within specification but unusual compared with history; sites define OOT rules."
+        },
+        {
+          "id": "investigations-and-capa-q08",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "What does 21 CFR 211.192 ask an investigation to cover besides the failing batch?",
+          "options": [
+            "Only the failing batch and nothing else",
+            "The training file of each operator",
+            "The supplier's financial records",
+            "Other batches that may be affected"
+          ],
+          "answer": 3,
+          "why": "211.192 says the investigation extends to other batches that may have been affected."
+        },
+        {
+          "id": "investigations-and-capa-q09",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "Which is the strongest CAPA effectiveness check?",
+          "options": [
+            "Training completed by all staff",
+            "CAPA record closed in the eQMS",
+            "No recurrence on any line in a set period",
+            "Supervisor says the problem is gone"
+          ],
+          "answer": 2,
+          "why": "An effectiveness check needs a measurable criterion and a time window that shows the CAPA worked."
+        },
+        {
+          "id": "investigations-and-capa-q10",
+          "lesson": "pharma-quality-compliance-investigations-and-capa",
+          "q": "An AI tool drafts an investigation conclusion. What must the investigator do?",
+          "options": [
+            "Sign it as written, AI is objective",
+            "Trace each claim to evidence and remove the rest",
+            "Send it to the regulator first",
+            "Ask the AI to approve the CAPA"
+          ],
+          "answer": 1,
+          "why": "AI drafts; the investigator checks every statement against evidence and owns the conclusion."
+        }
+      ]
+    },
+    {
+      "id": "auditing-and-inspection-readiness",
+      "title": "Auditing and inspection readiness",
+      "summary": "How internal audits, supplier audits and mock inspections prepare a site for regulators and customers.",
+      "outline": [
+        "Internal GMP audit programs",
+        "Supplier and CDMO audits",
+        "Mock regulatory inspections",
+        "Pre-approval inspection (PAI) readiness",
+        "Front room and back room roles during an inspection",
+        "Inspection documentation readiness and data integrity checks",
+        "Where AI can help: finding records fast; why answers to inspectors come from people"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "title": "Audits, mock inspections and inspection readiness",
+          "summary": "You will be able to explain the kinds of GMP audit, plan a simple internal audit, describe how a site runs an inspection, and build an index that lets the back room find records quickly.",
+          "why": "Every pharma site lives with audits: its own internal audits, audits of its suppliers, audits by its customers and inspections by regulators. FDEs are often asked to help find records faster, prepare evidence packs or track audit findings. Knowing how audits and inspections actually run tells you which records matter, how fast they are needed, and why the answers to an inspector must always come from people.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "An audit is a planned, independent check of whether work is done the way the procedures and rules say, using evidence. An inspection is an audit done by a regulator, such as FDA or an EU national authority, with legal weight. Customers, including the companies a contract manufacturer works for, also audit their suppliers.",
+                "Inspection readiness is not a project that starts when the regulator calls. It is the daily state of a site whose records are complete, whose open deviations and CAPAs are under control, and whose people can explain their work. Internal audits and mock inspections are how a site tests that state honestly before someone else does."
+              ]
+            },
+            {
+              "h": "The kinds of audit and what the rules say",
+              "list": [
+                "Internal audits, also called self-inspections: the site checks its own departments against its procedures and GMP. EU GMP Chapter 9 asks for self-inspections to monitor GMP compliance and propose corrective measures, and ICH Q7 expects regular internal audits for API makers.",
+                "Supplier and contract manufacturer audits: the site checks the companies that supply materials or make product for it. 21 CFR 211.84 sets testing and approval rules for incoming components, and audits are a common part of qualifying a supplier whose results the site relies on. A quality agreement defines who does what.",
+                "Mock inspections: a rehearsal that follows the style and pace of a real inspection, often run by people from outside the site.",
+                "Pre-approval inspections (PAI): FDA may inspect a site named in a new drug application before approval, to check it can make the product as described and that its data are reliable. FDA's compliance program for preapproval inspections sets out how these are planned and run.",
+                "Regulatory inspections: routine or for-cause inspections by a regulator."
+              ],
+              "p": [
+                "Audits are planned on a risk basis. Areas with high risk, past findings or recent changes are audited more often and more deeply.",
+                "Supplier audits deserve extra care when a site outsources manufacturing or testing. The site that markets the product stays responsible for its quality, even when another company makes it. An audit, a written quality agreement and ongoing review of the supplier's performance, such as deviations, complaints and on-time delivery of records, are how that responsibility is carried in practice."
+              ]
+            },
+            {
+              "h": "How an audit runs",
+              "p": [
+                "An auditor prepares by reading procedures, past findings and quality metrics, then writes a plan with scope, areas and times. On site, they walk the process, interview people and sample records. Good auditors follow one thread end to end, for example a batch from receipt of materials to release, because that shows how the parts connect.",
+                "A finding states the requirement, what was observed and the evidence, in neutral words. Findings are usually graded by risk, for example critical, major or minor, using the site's or auditor's own definitions. The audited area responds with a CAPA plan, and the audit is closed only when the actions are done and checked. An auditor must be independent of the area they audit."
+              ]
+            },
+            {
+              "h": "During a regulatory inspection",
+              "p": [
+                "Many sites run an inspection with a front room and a back room. The front room is where the inspector works with a host, usually a senior quality person, and subject matter experts who answer questions about their area. The back room is the support team that finds, checks and copies documents, tracks every request, and prepares experts before they go in.",
+                "Each request is logged with time, requester and what was provided. Documents are checked for completeness before they go to the front room, but never changed. Answers are short, true and limited to the question, and people say 'I will find out' rather than guess. At the end of an FDA inspection, observations may be listed on a Form FDA 483. The site responds in writing with its investigation and corrective actions; FDA's Form 483 FAQ explains the process. Responding to a 483 or a Warning Letter at scale is specialist remediation work beyond this lesson."
+              ]
+            },
+            {
+              "h": "Readiness checks and where AI fits",
+              "p": [
+                "Practical readiness checks include: open deviations and CAPAs past due, training records for people in high-risk roles, recent changes and their validation status, audit trail reviews for key systems, and whether the documents an inspector usually asks for first can be produced quickly. Data integrity gets special attention, because inspectors look at raw data and audit trails, not only signed reports.",
+                "AI and search tools can find records fast, build an index of evidence by topic, check a document pack for missing pages or signatures, and summarise past audit findings. They must not write answers to inspectors or decide what to disclose. Statements to a regulator come from qualified people who know the facts and are accountable for them."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "Handling one inspector request",
+            "caption": "Read top to bottom; every request is logged and checked before it reaches the front room.",
+            "lanes": [
+              "Inspector",
+              "Front room",
+              "Back room"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Asks for batch record and deviations"
+              },
+              {
+                "lane": 1,
+                "label": "Host logs request and confirms scope"
+              },
+              {
+                "lane": 2,
+                "label": "Request tracked with time and owner"
+              },
+              {
+                "lane": 2,
+                "label": "Records found and checked, not changed"
+              },
+              {
+                "lane": 2,
+                "label": "Expert briefed on the records"
+              },
+              {
+                "lane": 1,
+                "label": "Documents handed over and logged"
+              },
+              {
+                "lane": 1,
+                "label": "Expert answers the question asked"
+              },
+              {
+                "lane": 0,
+                "label": "Reviews and may ask follow-up"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a mock inspection finds a slow back room (fictional)",
+            "p": [
+              "A site expecting a pre-approval inspection runs a two-day mock inspection with an outside auditor. The auditor asks for the executed batch records of the registration batches, the related deviations and the cleaning validation summary.",
+              "The batch records arrive in 20 minutes. The deviations take two hours, because they are filed under three different product codes. The cleaning validation summary arrives with an open deviation from last year that nobody in the room can explain."
+            ],
+            "list": [
+              "Finding 1 (major): records for one product cannot be retrieved promptly because of inconsistent product codes.",
+              "Finding 2 (major): an open validation deviation with no owner and no recent update.",
+              "Actions: build an evidence index by product, mapping all codes; assign and progress the open deviation; prepare a subject matter expert to explain it.",
+              "Readiness check: a second, shorter mock request run two weeks later is answered within the target time.",
+              "The site does not change any past record to make it look better; it fixes the retrieval and the open item."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build an inspection response index",
+              "time": "60 min",
+              "goal": "Organise evidence so a back room can answer requests quickly and safely.",
+              "steps": [
+                "In a spreadsheet, list ten document types an inspector often asks for, such as batch records, deviations, CAPAs, change controls, training records, validation reports and SOPs.",
+                "For each, add columns: where it is stored, who owns it, how it is searched, and the target time to produce it.",
+                "Add a request log tab with columns for time, requester, request, documents provided, checked by and time delivered.",
+                "Write three mock requests and fill the log as if you answered them.",
+                "Ask Claude to suggest five more document types for a pre-approval inspection, then check each against the FDA compliance program or your notes and keep only the ones you can justify."
+              ],
+              "done_when": "You have an index of at least ten document types with owners and target times, and a request log with three complete entries."
+            }
+          ],
+          "pitfalls": [
+            "Treating inspection readiness as a project that starts when the regulator calls, instead of a daily state.",
+            "Changing or tidying a record before handing it to an inspector. Records are checked for completeness, never altered.",
+            "Letting experts guess or volunteer opinions beyond the question asked.",
+            "Auditing your own area, which removes the independence that makes an audit credible.",
+            "Using an AI tool to write answers for inspectors. Statements to a regulator come from accountable people."
+          ],
+          "check": [
+            "What is the difference between an internal audit, a supplier audit and a regulatory inspection?",
+            "What do the front room and back room do during an inspection?",
+            "What should a well-written audit finding contain?",
+            "What is a Form FDA 483?",
+            "Name two readiness tasks AI can help with and one thing it must not do."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "FDA Form 483 Frequently Asked Questions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/fda-form-483-frequently-asked-questions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Investigations Operations Manual",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/investigations-operations-manual",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Compliance Program 7346.832: Preapproval Inspections (PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/193382/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex Volume 4: EU GMP guidelines",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What to Expect after an Inspection: 483s, Responses and Beyond",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=LU_4vTx03IU",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "A GMP Audit Explained | Planning, Evidence and Quality-System Review",
+              "source": "Help Me GxP",
+              "url": "https://www.youtube.com/watch?v=22dhDLmyaMk",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "CQA Certification: Certified Quality Auditor",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/quality-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "auditing-and-inspection-readiness-q01",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "A QA manager plans to audit the QA document control team she leads. What is the main problem?",
+          "options": [
+            "Document control is never audited",
+            "She is not independent of the area",
+            "Audits must be done by the regulator",
+            "Only suppliers can be audited"
+          ],
+          "answer": 1,
+          "why": "Auditors must be independent of the area they audit for the audit to be credible."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q02",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "During an inspection, who usually finds, checks and tracks requested documents?",
+          "options": [
+            "The back room team",
+            "The inspector themselves",
+            "The equipment vendors",
+            "The AI assistant, unsupervised"
+          ],
+          "answer": 0,
+          "why": "The back room supports the front room by finding, checking and logging documents."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q03",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "A requested batch record has a missing page number. What should the back room do?",
+          "options": [
+            "Write in the page number before handing it over",
+            "Print a clean copy that hides the error",
+            "Flag it and hand it over unchanged",
+            "Hold the record back from the inspector"
+          ],
+          "answer": 2,
+          "why": "Records are checked but never altered; issues are flagged and explained by the right person."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q04",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "An inspector asks a question the expert is not sure about. What is the best answer?",
+          "options": [
+            "A confident guess to keep things moving",
+            "A long answer covering related topics",
+            "A reply drafted by an AI tool",
+            "I will find out and come back to you"
+          ],
+          "answer": 3,
+          "why": "Answers are true and limited; it is better to check than to guess."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q05",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "What is a Form FDA 483?",
+          "options": [
+            "A list of inspection observations",
+            "An approval letter for a new drug product",
+            "A form used to order product samples",
+            "A template for site training records"
+          ],
+          "answer": 0,
+          "why": "FDA may list observations on a Form 483 at the end of an inspection."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q06",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "A site is named in a new drug application. Which inspection might FDA perform before approval?",
+          "options": [
+            "A for-cause inspection after a recall",
+            "A pre-approval inspection (PAI)",
+            "A customer audit of the site's suppliers",
+            "A building and fire safety inspection"
+          ],
+          "answer": 1,
+          "why": "FDA may run a pre-approval inspection to check the site can make the product as described."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q07",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "Which is the best description of inspection readiness?",
+          "options": [
+            "A project that starts when FDA calls",
+            "A binder kept in the QA office",
+            "Everyday control of records and work",
+            "A yearly event run by consultants"
+          ],
+          "answer": 2,
+          "why": "Readiness is the everyday state of the site, tested by audits and mock inspections."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q08",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "A well-written audit finding should contain which elements?",
+          "options": [
+            "The name of the person who caused it",
+            "Opinions about the site's managers",
+            "A promise of the CAPA that will follow",
+            "Requirement, observation and evidence"
+          ],
+          "answer": 3,
+          "why": "Findings state the requirement, what was seen and the evidence, in neutral words."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q09",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "Which area should an internal audit programme visit more often?",
+          "options": [
+            "High risk areas with recent changes",
+            "The areas with the fewest staff on shift",
+            "The areas that were audited most recently",
+            "Areas chosen at random from a list each year"
+          ],
+          "answer": 0,
+          "why": "Audits are planned on a risk basis, with more focus on high-risk and changed areas."
+        },
+        {
+          "id": "auditing-and-inspection-readiness-q10",
+          "lesson": "pharma-quality-compliance-auditing-and-inspection-readiness",
+          "q": "An AI tool can draft replies to inspector questions in seconds. How should a site use it?",
+          "options": [
+            "Let it answer inspectors directly",
+            "Use it to find records, not to answer",
+            "Send its drafts to FDA unreviewed",
+            "Let it decide what to disclose"
+          ],
+          "answer": 1,
+          "why": "AI can find and index records; statements to a regulator come from accountable people."
+        }
+      ]
+    },
+    {
+      "id": "documentation-and-quality-oversight",
+      "title": "Documentation and quality oversight",
+      "summary": "How quality reviews batch records, specifications, stability and validation documents before they are relied on.",
+      "outline": [
+        "Batch record review before release (21 CFR 211.188 and 211.192)",
+        "Specifications review",
+        "Quality agreements with contract partners",
+        "Stability documentation",
+        "Validation documentation review",
+        "Regulatory documentation support",
+        "Where AI can help: first-pass completeness checks; who signs the review"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "title": "Quality review of batch, specification, stability and validation records",
+          "summary": "You will be able to explain what quality checks in a batch record before release, how specifications, stability data and quality agreements are reviewed, and where a first-pass check by software helps and where it stops.",
+          "why": "Quality review is where documents become decisions: a batch is released, a specification is approved, a shelf life is supported, a contract partner is trusted. It is also the slowest, most repetitive part of many quality teams' day, so it is a frequent target for automation. An FDE who knows what a reviewer is really looking for can build checks that save time without removing the judgement that release depends on.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Quality oversight means a trained, independent person checks critical GMP records before anyone relies on them. The main record types are batch records, specifications, stability data, validation documents and the agreements with contract partners. For each, the reviewer asks the same core questions: is it complete, is it correct, does it match what was approved, and is every exception explained and closed?",
+                "21 CFR 211.22 gives the quality control unit the authority and the duty to review production records and to approve or reject product. That is why a batch cannot be released until quality has reviewed its record, and why no tool can release a batch on its own.",
+                "For an FDE, the useful mindset is that review is a search for exceptions. Most of a good record is routine and correct. The value of the reviewer is in noticing the few things that are not: the missing check, the late entry, the result that is in limit but out of pattern, the deviation that is still open. Good tools make those exceptions easier to see, and leave the routine parts for quick confirmation."
+              ]
+            },
+            {
+              "h": "Batch record review before release",
+              "p": [
+                "21 CFR 211.188 lists what a batch production and control record must contain, such as dates, identity of equipment and lines, weights and measures of components, in-process and lab results, labelling checks, yields and the signatures of the people who did and checked each step. 21 CFR 211.192 says these records, including packaging and labelling, must be reviewed and approved by the quality control unit before release, and any unexplained discrepancy must be investigated.",
+                "In practice, a reviewer checks that every step is done and signed in the right order, every entry is legible and corrected properly, every result is within its limit, yields reconcile, every deviation is closed or assessed for release, and the lab results are complete. Review by exception, used with validated electronic batch records, lets the system confirm routine entries so reviewers focus on flagged exceptions. It depends on the system being validated for exactly that purpose."
+              ]
+            },
+            {
+              "h": "Specifications, stability and validation documents",
+              "p": [
+                "A specification lists the tests, methods and acceptance criteria a material or product must meet. 21 CFR 211.160 asks for scientifically sound and appropriate specifications. Reviewing one means checking that each limit is justified, matches the registered file, and uses a method that is validated for that purpose.",
+                "Stability data support the shelf life and storage conditions on the label. 21 CFR 211.166 asks for a written stability testing program, and ICH Q1A(R2) describes the standard study design for new drug substances and products. A reviewer checks that pulls were done on time, results are complete, trends are examined, and any out-of-trend or out-of-specification result was investigated.",
+                "Validation documents, such as protocols and reports, are reviewed for the points covered in the engineering and validation topic: predefined criteria, traceability, executed evidence and closed deviations. Annual product reviews, called product quality reviews in the EU, pull these strands together for each product every year."
+              ]
+            },
+            {
+              "h": "Quality agreements with contract partners",
+              "p": [
+                "When a company uses a contract manufacturer or laboratory, it remains responsible for product quality. FDA's guidance on quality agreements explains that the parties should write down who does what: who approves batch records, who handles deviations and OOS results, who releases, how changes are notified, and how records are shared and kept.",
+                "Reviewing a quality agreement means checking that every GMP activity has exactly one owner, that the agreement matches how work is really done, and that it is updated when the work changes. A gap here usually shows up later as an investigation that nobody owned or a change that nobody was told about. Regulatory documentation support, such as reviewing sections of a submission, builds on these skills but needs specialist training."
+              ]
+            },
+            {
+              "h": "Where software and AI can help, and who signs",
+              "p": [
+                "Software and AI can do a strong first pass: find blank fields and missing signatures, check results against limits, compare a specification with the registered version, list open deviations linked to a batch, and flag stability pulls that are late. That first pass is most useful when it lists exactly what it checked and what it did not.",
+                "It cannot judge whether a deviation's impact assessment is sound, whether an unusual but in-limit result needs investigation, or whether a batch should be released. The reviewer who signs is responsible for the whole record, including anything the tool missed. Any tool used this way is a computerised system with an intended use, and needs validation sized to its risk."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "Batch record review to release",
+            "caption": "Read left to right; release happens only after quality signs the final step.",
+            "steps": [
+              {
+                "label": "Executed batch record",
+                "note": "Production complete and signed"
+              },
+              {
+                "label": "First-pass completeness check",
+                "note": "Blanks, signatures, limits"
+              },
+              {
+                "label": "Deviations and lab results",
+                "note": "All closed or assessed"
+              },
+              {
+                "label": "Reviewer judgement",
+                "note": "Exceptions explained, yields reconcile"
+              },
+              {
+                "label": "Quality disposition",
+                "note": "Release or reject, per 211.22"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a clean-looking batch record (fictional)",
+            "p": [
+              "A first-pass tool reviews an executed batch record for a capsule product and reports 'no issues found': every field is filled, every signature is present and every in-process result is within limits.",
+              "The QA reviewer still reads the record. She notices the yield is within its limit but lower than the last ten batches, that the line clearance before packaging was signed by the same person who did it, which the SOP does not allow, and that a minor deviation on a scale calibration is still open."
+            ],
+            "list": [
+              "Yield: she asks production to explain the lower yield; a spill during transfer is found that was not recorded, so a deviation is raised.",
+              "Line clearance: the second-person check is missing, so the clearance is assessed through a deviation before release.",
+              "Open deviation: the calibration deviation must be closed or assessed for impact on this batch before disposition.",
+              "Tool feedback: the first-pass rules gain a check for same-person do-and-check signatures and a link to open deviations.",
+              "The batch is released only after all three items are resolved and the reviewer signs."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Review a fictional batch record",
+              "time": "45 min",
+              "goal": "Practise a structured review and see what a simple tool misses.",
+              "steps": [
+                "In a spreadsheet, build a 15-step fictional batch record with columns for step, result, limit, done by, checked by and time.",
+                "Plant five problems: a blank field, a result out of limit, a same-person do-and-check, steps out of time order, and a yield lower than usual but within limit.",
+                "Write a simple formula-based check that flags blanks and out-of-limit results.",
+                "Note which of the five problems your check found and which it missed.",
+                "Ask Claude to review the same record, compare its findings with yours, and note any problem it invented that is not there."
+              ],
+              "done_when": "You have a list of all five planted problems marked as found by the formula, found by AI, found only by you, and any false findings."
+            }
+          ],
+          "pitfalls": [
+            "Trusting a 'no issues found' result from a first-pass tool without reading the record.",
+            "Releasing a batch while a related deviation is still open and unassessed.",
+            "Accepting a specification limit without checking it matches the registered file.",
+            "Reading a quality agreement once at signature and never checking it against how work is really done.",
+            "Ignoring a result that is within limits but unusual, which is often the first sign of a change."
+          ],
+          "check": [
+            "What do 21 CFR 211.188 and 211.192 require about batch records?",
+            "What does a reviewer check in a specification?",
+            "What does 21 CFR 211.166 require for stability?",
+            "What should a quality agreement make clear?",
+            "What can a first-pass tool check, and what must the reviewer still judge?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 211.188: Batch production and control records",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.188",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.192: Production record review",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.192",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Contract Manufacturing Arrangements for Drugs: Quality Agreements",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/contract-manufacturing-arrangements-drugs-quality-agreements-guidance-industry",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q1A(R2) Stability Testing of New Drug Substances and Products",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q1ar2-stability-testing-new-drug-substances-and-products",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.166: Stability testing",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-I/section-211.166",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Batch Record Review Process in Pharmaceutical Manufacturing. GMP Batch Release and Disposition.",
+              "source": "GMP-SOP Videos",
+              "url": "https://www.youtube.com/watch?v=9xh4pvDURHE",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Batch Record Review-What to Look For",
+              "source": "The Windshire Group",
+              "url": "https://www.youtube.com/watch?v=ndTF82qBVMI",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "documentation-and-quality-oversight-q01",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "Who has the authority to approve or reject a drug product batch under 21 CFR 211.22?",
+          "options": [
+            "The production manager on shift",
+            "The quality control unit",
+            "The software that holds the batch record",
+            "The site's finance director"
+          ],
+          "answer": 1,
+          "why": "211.22 gives the quality control unit that authority and duty."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q02",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "A first-pass tool reports 'no issues found' on a batch record. What should the reviewer do?",
+          "options": [
+            "Still read the record and judge it",
+            "Sign at once, the tool has checked it",
+            "Ask the tool to release the batch",
+            "Send it straight to the customer"
+          ],
+          "answer": 0,
+          "why": "Tools help with a first pass; the reviewer is responsible for the whole record."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q03",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "A deviation linked to the batch is still open. Can the batch be released?",
+          "options": [
+            "Yes, open deviations never affect release",
+            "Yes, if production signs a note saying so",
+            "Not until it is closed or assessed",
+            "Only if the deviation is classed as minor"
+          ],
+          "answer": 2,
+          "why": "Deviations must be closed or their impact on the batch assessed before disposition."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q04",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "The yield is within its limit but lower than the last ten batches. What is the best response?",
+          "options": [
+            "Ignore it, since it is within limit",
+            "Change the yield limit to match",
+            "Reject the batch straight away",
+            "Ask why the yield is lower"
+          ],
+          "answer": 3,
+          "why": "Unusual in-limit results can be the first sign of a change or an unrecorded event."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q05",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "What does 21 CFR 211.166 require?",
+          "options": [
+            "A written stability testing program",
+            "A stability chamber in every warehouse",
+            "Stability tests only for sterile products",
+            "Shelf life set by the marketing team"
+          ],
+          "answer": 0,
+          "why": "211.166 asks for a written program for assessing stability."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q06",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "A quality agreement does not say who handles OOS results at the contract lab. What is the risk?",
+          "options": [
+            "None, OOS results are always handled by the lab",
+            "An OOS may be handled by nobody",
+            "The lab will stop testing any samples",
+            "The regulator will write the missing clause"
+          ],
+          "answer": 1,
+          "why": "Every GMP activity needs exactly one clear owner, or it can fall through the gap."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q07",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "When reviewing a specification, what should a reviewer confirm?",
+          "options": [
+            "That the limits are as wide as possible",
+            "That every test is done by one analyst",
+            "That limits are justified and match the file",
+            "That the font matches the SOP template"
+          ],
+          "answer": 2,
+          "why": "Limits must be scientifically sound and consistent with the registered specification."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q08",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "A line clearance was done and checked by the same person, which the SOP forbids. What is it?",
+          "options": [
+            "A formatting issue to fix later",
+            "Normal, if the person is experienced",
+            "Acceptable on night shifts only",
+            "A GMP gap to assess before release"
+          ],
+          "answer": 3,
+          "why": "Missing independent checks must be assessed through a deviation before release."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q09",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "Review by exception is used with an electronic batch record. What does it depend on?",
+          "options": [
+            "The reviewer skipping the exceptions",
+            "A system validated for that purpose",
+            "Paper copies of every screen",
+            "Fewer entries in the batch record"
+          ],
+          "answer": 1,
+          "why": "Review by exception is only trustworthy if the system is validated to confirm routine entries."
+        },
+        {
+          "id": "documentation-and-quality-oversight-q10",
+          "lesson": "pharma-quality-compliance-documentation-and-quality-oversight",
+          "q": "Which task is a good fit for an AI first-pass check?",
+          "options": [
+            "Deciding the batch disposition",
+            "Judging a deviation's impact",
+            "Finding blanks and missing signatures",
+            "Signing the review for QA"
+          ],
+          "answer": 2,
+          "why": "Completeness checks suit tools; judgement and signature stay with the reviewer."
+        }
+      ]
+    }
+  ]
+}

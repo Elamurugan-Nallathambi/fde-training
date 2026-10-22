@@ -1,0 +1,2274 @@
+{
+  "id": "medtech-design-controls",
+  "title": "Design controls and product development",
+  "category": "MedTech",
+  "track": "MedTech",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How medical devices are designed under control: from user needs to design inputs and outputs, verification and validation, design reviews, the design file and transfer to production.",
+  "audience": "Engineers, product people and FDEs who join a medical device development team or build tools that support design, test and traceability work.",
+  "sections": [
+    {
+      "id": "design-controls-overview",
+      "title": "The design control process end to end",
+      "summary": "What design controls are, why regulators require them, and how each element links from user needs to a product ready for production.",
+      "outline": [
+        "Why design controls exist: building the right device and building it right",
+        "The elements: planning, inputs, outputs, review, verification, validation, transfer, changes, design file",
+        "Where the rules come from: ISO 13485 clause 7.3 and the FDA QMSR",
+        "Traceability from user need to test evidence",
+        "What this means for an engineer writing requirements, code or test tools"
+      ],
+      "lessons": [
+        {
+          "id": "mtdc-design-controls-overview",
+          "title": "The design control process end to end",
+          "summary": "You will be able to name each design control element, explain verification versus validation, and trace a user need through to test evidence.",
+          "why": "On a device project, the code or hardware you build is only half the deliverable. The other half is the evidence that it was designed under control: requirements that were reviewed, outputs that trace to them, tests that prove them, and reviews that were held. If your work does not fit into this chain, it cannot ship, however good it is. Understanding design controls tells you what to write down, when, and why the regulatory team keeps asking for traceability.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Design controls are a set of linked practices that make sure a medical device meets the needs of its users and its intended use. They were added to US device rules after reviews of recalls found that many problems came from poor design rather than poor manufacturing. Today the requirements sit in ISO 13485 clause 7.3 (design and development), which the FDA Quality Management System Regulation (QMSR) incorporates by reference.",
+                "Two questions sum it up. Did we build the device right, meaning does it meet the specifications we wrote? That is verification. Did we build the right device, meaning does it meet the user's needs in real use? That is validation. Design controls make sure both questions are answered with evidence."
+              ]
+            },
+            {
+              "h": "The elements",
+              "p": [
+                "Each element produces something you can show an auditor. They are not strictly one after another; real projects loop back many times, but the links must hold at the end."
+              ],
+              "list": [
+                "Planning: a design and development plan that sets stages, responsibilities, reviews and how the design will be verified, validated and transferred.",
+                "Inputs: the requirements the device must meet, drawn from user needs, intended use, regulatory requirements, standards and risk controls. They must be complete, clear and not contradict each other.",
+                "Outputs: what the design team produces, such as drawings, specifications, source code, labelling and manufacturing instructions. Outputs must meet inputs and be in a form that can be checked.",
+                "Reviews: planned, documented meetings at suitable stages where the people concerned look at the design and decide whether it is ready to move on.",
+                "Verification: tests, inspections and analyses that show the outputs meet the inputs.",
+                "Validation: evidence that the finished device meets user needs and its intended use, in real or simulated use, on units made the way production will make them.",
+                "Transfer: making sure the design is correctly turned into production specifications and processes.",
+                "Changes: changes to the design are identified, reviewed, verified or validated as needed, and approved before they are put in place.",
+                "Design file: ISO 13485 calls it the design and development file, and the older FDA rule called it the design history file (DHF). It holds or points to the records of all of the above."
+              ]
+            },
+            {
+              "h": "Traceability, the thread through it all",
+              "p": [
+                "Traceability means you can follow a line from each user need to the design inputs that came from it, the outputs that meet those inputs, and the verification and validation evidence that proves it. You can also follow it backwards: every test should exist for a reason, and every requirement should be tested.",
+                "Teams usually keep this in a traceability matrix, a table or a tool that links IDs: user need UN-3 links to inputs DI-7 and DI-8, which link to software requirement SRS-21 and drawing D-104, which link to test cases. Gaps in this table are among the first things a reviewer or auditor looks for. The short script below shows the idea: it lists inputs with no output or no verification."
+              ],
+              "code": {
+                "lang": "python",
+                "text": "inputs = {\n    \"DI-1\": \"Count each dose within 1 second of actuation\",\n    \"DI-2\": \"Battery lasts at least 12 months\",\n    \"DI-3\": \"Dose count visible in daylight\",\n}\noutputs = {\"DI-1\": [\"SRS-4\", \"FW-1.2\"], \"DI-2\": [\"D-110\"]}\nverification = {\"DI-1\": [\"TC-12\"], \"DI-3\": [\"TC-30\"]}\n\nfor di, text in inputs.items():\n    gaps = []\n    if not outputs.get(di):\n        gaps.append(\"no output\")\n    if not verification.get(di):\n        gaps.append(\"no verification\")\n    if gaps:\n        print(f\"{di} ({text}): {', '.join(gaps)}\")\n# DI-2 (Battery lasts at least 12 months): no verification\n# DI-3 (Dose count visible in daylight): no output"
+              }
+            },
+            {
+              "h": "Reviews and independence",
+              "p": [
+                "Design reviews are where the team stops and checks the design against the plan, the inputs and the risk file before committing more effort. Good reviews include the functions that will live with the result, such as quality, manufacturing, service and regulatory, and someone who is not directly responsible for the stage being reviewed. The former FDA quality system rule required that independent reviewer, and it remains common practice.",
+                "A review produces a record: who attended, what was reviewed, decisions and actions. An action that is opened in a review and never closed is a classic audit finding."
+              ]
+            },
+            {
+              "h": "What it means for your work",
+              "p": [
+                "If you write requirements, give each one an ID, make it testable and link it to its source. If you write code, link commits or pull requests to requirement or change IDs. If you write tests, link each test to the requirement it verifies and keep the signed results. If you build a tool that helps with any of this, such as an AI assistant that drafts requirements or test cases, its output is a draft for a person to review and approve, and the tool itself may need to be validated for that use.",
+                "The rest of this course takes each element in turn: user needs and inputs, outputs and traceability, verification and validation, design reviews, the design file and transfer, and changes after launch. Each lesson ends with practice that builds on the one before, so keep your work from each exercise."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From user need to a device in production",
+            "caption": "Read left to right; verification checks outputs against inputs, validation checks the device against user needs.",
+            "steps": [
+              {
+                "label": "User needs",
+                "note": "What users need and the intended use"
+              },
+              {
+                "label": "Design inputs",
+                "note": "Testable requirements, incl. risk controls"
+              },
+              {
+                "label": "Design process",
+                "note": "Planned work with design reviews"
+              },
+              {
+                "label": "Design outputs",
+                "note": "Drawings, code, specs, labelling"
+              },
+              {
+                "label": "Verification",
+                "note": "Do outputs meet inputs?"
+              },
+              {
+                "label": "Validation",
+                "note": "Does the device meet user needs in use?"
+              },
+              {
+                "label": "Design transfer",
+                "note": "Into production specs and processes"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one user need for a smart inhaler add-on (example scenario)",
+            "p": [
+              "A team is designing a small clip-on device that counts doses from an asthma inhaler and sends the count to a phone app. Follow one user need through the chain.",
+              "The validation step found something verification could not: the device met its written requirement, but the requirement was not quite what users needed. That is exactly why both steps exist."
+            ],
+            "list": [
+              "User need UN-2: the patient needs to know how many doses remain so they do not run out unexpectedly.",
+              "Design inputs: DI-1 the device counts each actuation within 1 second; DI-3 the remaining dose count is readable in daylight; DI-5 the app warns when 20 doses remain. DI-5 is also a risk control in the risk file.",
+              "Design outputs: firmware requirement SRS-4, firmware release FW-1.2, display drawing D-104, app requirement APP-9.",
+              "Verification: bench test TC-12 actuates the inhaler 1,000 times and checks every count; TC-30 checks the display at set light levels; app test TC-41 checks the warning fires at 20.",
+              "Validation: a usability study with representative patients in simulated use finds several could not read the display outdoors. The design is changed, the change is reviewed, and TC-30 and the usability test are repeated.",
+              "Design file: holds the plan, the trace matrix, the review records, the test reports and the change record."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a mini traceability matrix",
+              "time": "60 min",
+              "goal": "Practise turning a user need into testable inputs and linking them to outputs and tests.",
+              "steps": [
+                "Pick a simple device you know, such as a digital thermometer or a pill reminder app.",
+                "Write three user needs in plain words.",
+                "For each need, write two testable design inputs with IDs. Make each one measurable.",
+                "In a spreadsheet, add columns for design output and verification test, and fill in what you would expect.",
+                "Copy the Python script from this lesson, enter your IDs and run it to find gaps.",
+                "Ask Claude to review your inputs for anything vague or untestable, then fix them."
+              ],
+              "done_when": "Every design input in your sheet has an ID, a linked output and a linked verification test, and the script prints nothing."
+            }
+          ],
+          "pitfalls": [
+            "Writing inputs that cannot be tested, such as 'easy to use' or 'fast'. Put a number or a pass condition on each one.",
+            "Treating verification as validation. Passing every bench test does not prove the device works for real users in real use.",
+            "Building the trace matrix at the end. Gaps found late are expensive; keep links current as you work.",
+            "Changing a design after verification without change control. The change must be reviewed and the affected tests repeated or justified."
+          ],
+          "check": [
+            "What is the difference between verification and validation?",
+            "Name five design control elements and the record each one produces.",
+            "Where do design control requirements sit now for a device sold in the US?",
+            "What is a traceability matrix and what gaps does it reveal?",
+            "Why should a design review include someone not directly responsible for the stage?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "QMSR - Design and Development (presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/189041/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Design Controls (CDRH presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/116762/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Medical Device Design Control",
+              "source": "GlobalCompliance Panel",
+              "url": "https://www.youtube.com/watch?v=aMKch4-qAfw",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "mtdc-q01",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "A bench test confirms the display meets its brightness spec. Which activity is this?",
+          "options": [
+            "Design validation in real use",
+            "Design verification",
+            "Design transfer to production",
+            "A management review"
+          ],
+          "answer": 1,
+          "why": "Verification checks that design outputs meet design inputs, such as a written brightness specification."
+        },
+        {
+          "id": "mtdc-q02",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "Every bench test passed, but patients in a usability study could not read the screen outdoors. What does this show?",
+          "options": [
+            "Validation showed the inputs missed part of the need",
+            "Verification was done wrongly and must be repeated in full",
+            "The device is ready to ship because all bench tests passed",
+            "The study should be taken out of the design file entirely"
+          ],
+          "answer": 0,
+          "why": "Validation checks the device against user needs in use; it can reveal inputs that were incomplete."
+        },
+        {
+          "id": "mtdc-q03",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "Which design input is written well?",
+          "options": [
+            "The device should be easy to use for all patients at home",
+            "The battery should last a long time between charges",
+            "The app must be fast and responsive on every phone",
+            "Each actuation is counted within 1 second"
+          ],
+          "answer": 3,
+          "why": "Good inputs are clear and testable, with a measurable pass condition."
+        },
+        {
+          "id": "mtdc-q04",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "Where do design control requirements now sit for a device maker selling in the US?",
+          "options": [
+            "Only in internal company policy and local procedures",
+            "In ISO 9001 clause 8, which covers operations generally",
+            "ISO 13485 clause 7.3, via the FDA QMSR",
+            "In IEC 62304 alone, since most devices contain software"
+          ],
+          "answer": 2,
+          "why": "The QMSR incorporates ISO 13485:2016, whose clause 7.3 covers design and development."
+        },
+        {
+          "id": "mtdc-q05",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "A traceability check shows a design input with no linked test. What is the risk?",
+          "options": [
+            "None, as long as the code compiles and the build passes",
+            "No evidence the requirement is met",
+            "The next design review is no longer needed for that stage",
+            "The linked user need must be deleted from the matrix"
+          ],
+          "answer": 1,
+          "why": "Every input needs verification evidence; an untested input is a gap auditors look for."
+        },
+        {
+          "id": "mtdc-q06",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "After verification is complete, the team changes a firmware timing value. What should happen?",
+          "options": [
+            "Nothing, since verification already passed for that release",
+            "Update the code and let the team know in a chat message",
+            "Wait for field complaints to decide whether it mattered",
+            "Approve it via change control and retest as needed"
+          ],
+          "answer": 3,
+          "why": "Design changes are reviewed, verified or validated as needed, and approved before use."
+        },
+        {
+          "id": "mtdc-q07",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "What does the design and development file (the older FDA term was DHF) hold?",
+          "options": [
+            "Only the final released drawings for the device",
+            "Records showing the design was controlled",
+            "Customer invoices and shipping records for the device",
+            "Only the marketing claims approved for the launch"
+          ],
+          "answer": 1,
+          "why": "It holds or points to plans, inputs, outputs, reviews, verification, validation and changes."
+        },
+        {
+          "id": "mtdc-q08",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "An AI assistant drafts test cases from the requirements. How should the team treat these drafts?",
+          "options": [
+            "As drafts that a person reviews, links and approves",
+            "As approved tests, since the AI read every requirement",
+            "As validation evidence on their own",
+            "As a replacement for the trace matrix"
+          ],
+          "answer": 0,
+          "why": "Tool output is a draft; people own approval, and the tool may need validating for that use."
+        },
+        {
+          "id": "mtdc-q09",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "Which step makes sure the design is correctly turned into production specifications and processes?",
+          "options": [
+            "Design verification",
+            "Design inputs",
+            "Design transfer",
+            "Design review"
+          ],
+          "answer": 2,
+          "why": "Design transfer moves the design into production specifications and processes."
+        },
+        {
+          "id": "mtdc-q10",
+          "lesson": "mtdc-design-controls-overview",
+          "q": "A design review closes with three open actions that are never followed up. Why does this matter?",
+          "options": [
+            "It does not matter as long as the device ships on time",
+            "Reviews are informal meetings that leave no record anyway",
+            "Open actions are closed automatically by the review tool",
+            "Open review actions are a common audit finding"
+          ],
+          "answer": 3,
+          "why": "Review records include actions; leaving them open breaks the control the review was meant to provide."
+        }
+      ]
+    },
+    {
+      "id": "user-needs-and-inputs",
+      "title": "User needs and design inputs",
+      "summary": "How to turn intended use and user needs into complete, testable design inputs, and how to handle gaps and conflicts before the baseline is approved.",
+      "outline": [
+        "Intended use, users and use environments",
+        "Sources of inputs: users, standards, regulations, risk controls",
+        "Writing testable requirements",
+        "Resolving incomplete or conflicting inputs",
+        "System, software and hardware requirement levels"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-user-needs-and-inputs",
+          "title": "User needs and design inputs",
+          "summary": "You will be able to write a user need, derive testable design inputs from it, reject a weak requirement with a clear reason, and record open values instead of inventing them.",
+          "why": "Design inputs are the contract for the whole project. Every output is built against them and every verification test checks them. If an input is vague, missing or wrong, the team can pass every test and still ship the wrong device. FDEs are often asked to build requirement tools, review requirement sets or draft inputs with AI help, so you need to know what a good input looks like and when to say an input is not ready.",
+          "sections": [
+            {
+              "h": "From user need to design input",
+              "p": [
+                "A user need describes an outcome for a person in a setting: who uses the device, what they must achieve and under which conditions. It is written in the user's language, not the engineer's. 'A patient can tell how many doses remain before leaving home' is a user need. 'The display uses a 1.3 inch OLED panel' is not; it is a design choice.",
+                "A design input is a requirement the device must meet, written so that it can be verified. One user need usually produces several inputs. If you come from software, think of the user need as a user story and the design inputs as acceptance criteria that a tester could check without asking anyone what was meant.",
+                "Both depend on the intended use: what the device is for, who the intended users are (patients, nurses, surgeons, lay carers), and the use environments (home, ambulance, operating room, outdoors). Write these down first. A dose counter for adults at home and one for children in a school bag lead to different inputs, even if the hardware looks the same."
+              ]
+            },
+            {
+              "h": "Where inputs come from",
+              "p": [
+                "ISO 13485 expects design inputs to cover more than features. A useful way to check a requirement set is to ask whether each of these sources has been considered and either produced inputs or been recorded as not applicable."
+              ],
+              "list": [
+                "Intended use and user needs: functional, performance and usability requirements.",
+                "Safety: requirements that come out of risk management, including every risk control that the design must implement.",
+                "Regulatory requirements for the target markets, such as labelling and unique device identification rules.",
+                "Applicable standards, for example electrical safety, usability engineering (IEC 62366-1) or software lifecycle (IEC 62304).",
+                "Information from previous similar designs: complaints, service records and lessons learned.",
+                "Interfaces: other devices, phones, networks or accessories the device must work with."
+              ]
+            },
+            {
+              "h": "Writing a testable requirement",
+              "p": [
+                "ISO 13485 asks for inputs that are complete, unambiguous, able to be verified or validated, and not in conflict with each other. In practice a good input has a stable ID, one requirement per statement, the conditions that apply, a measurable acceptance criterion, its source (which user need, risk control or standard), a short rationale, and the planned verification method (test, inspection or analysis).",
+                "Reject a requirement when a tester could not decide pass or fail from the text alone. Common weak forms are adjectives without numbers ('fast', 'clear', 'robust'), several requirements joined by 'and', design solutions stated as needs, and words such as 'should', 'where possible' or 'etc.' that hide whether the requirement is mandatory.",
+                "Rejecting a requirement is normal and useful. Record the reason, keep the original text in the history, and replace it with one or more inputs that can be checked."
+              ]
+            },
+            {
+              "h": "Incomplete and conflicting inputs",
+              "p": [
+                "Early on, some values are unknown. The honest way to handle this is to mark the value as TBD (to be determined) with an owner and the evidence needed, for example user research, a bench study or a risk review. Do not quietly pick a number so the document looks finished. A guessed threshold that gets approved becomes the acceptance criterion for every later test.",
+                "Inputs can also conflict. A brighter display helps outdoor reading but shortens battery life. A strong child-resistant cap helps safety but may fail older users with weak grip. Resolve conflicts through a recorded trade-off decision with the right people involved, often engineering, human factors, clinical and risk management. Then the inputs are reviewed and approved as a baseline, and later changes go through change control."
+              ]
+            },
+            {
+              "h": "Requirement levels",
+              "p": [
+                "Larger devices split requirements into levels. System requirements describe the whole device. They are then allocated to subsystems: hardware requirements, software requirements (the software requirements specification that IEC 62304 expects for device software) and sometimes mechanical, packaging or labelling requirements. Each lower-level requirement should trace up to the system requirement it supports.",
+                "Keep each level at the right altitude. A system requirement says what the device must do; a software requirement can say how the firmware detects a dose. If a system requirement already names a sensor part number, the team has lost the freedom to change the design without changing the requirement."
+              ]
+            },
+            {
+              "h": "Where an FDE fits",
+              "p": [
+                "You may build a requirements tool, an import from a spreadsheet into a requirements system, or an AI assistant that flags vague words and missing fields. These are useful, but the tool should report problems, not fill in thresholds. A model that suggests '2 seconds' for a response time is inventing a number that needs evidence. Present such suggestions as questions for the owner, and keep the human review and approval in the record."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From intended use to an approved input baseline",
+            "caption": "Read left to right; review can send an input back to an earlier step before it is approved.",
+            "steps": [
+              {
+                "label": "Intended use",
+                "note": "Purpose, users and use environments"
+              },
+              {
+                "label": "User needs",
+                "note": "Outcomes in the user's own words"
+              },
+              {
+                "label": "Collect input sources",
+                "note": "Risk controls, standards, regulations, history"
+              },
+              {
+                "label": "Draft design inputs",
+                "note": "ID, condition, criterion, source, method"
+              },
+              {
+                "label": "Review and resolve",
+                "note": "Reject weak inputs, settle conflicts, mark TBDs"
+              },
+              {
+                "label": "Approved baseline",
+                "note": "Changes after this go through change control"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: rejecting a weak input for a dose counter (example scenario)",
+            "p": [
+              "A team designs a clip-on dose counter for an asthma inhaler, used by adults at home and outdoors. User need UN-02 says: a patient can tell how many doses remain before leaving home. The first draft input reads 'The display must be clear and the battery must last a long time'.",
+              "The reviewer rejects it for three reasons: it joins two requirements, 'clear' has no measurable criterion, and 'a long time' has no number or conditions. The team replaces it with separate inputs. Values in brackets are proposed and stay marked TBD until evidence supports them."
+            ],
+            "list": [
+              "DI-07: The remaining dose count shall be readable by intended users at a viewing distance of [TBD, from user research] under illumination from [TBD] to [TBD] lux. Source: UN-02. Method: test plus usability evaluation.",
+              "DI-08: The device shall operate for at least [TBD, proposed 12] months of typical use defined in use profile UP-1. Source: UN-02, UN-05. Method: analysis plus accelerated test.",
+              "DI-09: The app shall warn the user when 20 doses remain. Source: UN-02 and risk control RC-04. Method: test.",
+              "Review note: glare in direct sunlight was not covered, so a condition is added to DI-07 and the validation plan is updated before the baseline is approved."
+            ]
+          },
+          "field": {
+            "title": "From the field (example scenario)",
+            "p": [
+              "An FDE is asked to use an AI assistant to clean up a 300-row requirement spreadsheet before it is loaded into a requirements tool. The assistant rewrites vague rows and adds numbers that look sensible. The FDE stops the import, changes the prompt so the assistant only flags problems and suggests questions, and sends the flagged rows to the requirement owners. The tool now speeds up review without creating unsupported acceptance criteria."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write inputs and reject a weak one",
+              "time": "45 min",
+              "goal": "Turn one user need into testable inputs, and practise rejecting a weak requirement with a reason.",
+              "steps": [
+                "Pick a simple device such as a home blood pressure monitor and write its intended use, two user groups and two use environments.",
+                "Write one user need in plain words.",
+                "Derive three design inputs in a spreadsheet with columns: ID, statement, conditions, acceptance criterion, source, rationale, verification method.",
+                "Write one deliberately weak requirement, then record a rejection reason in a column called review comment.",
+                "Mark any value you do not have evidence for as TBD and name who would supply the evidence.",
+                "Ask Claude to find vague words or combined requirements in your sheet, and decide yourself which comments to accept."
+              ],
+              "done_when": "Your sheet has at least three inputs with every column filled or marked TBD with an owner, plus one rejected requirement with a written reason."
+            }
+          ],
+          "pitfalls": [
+            "Writing a design solution, such as a part number or screen type, as a user need. This locks the design before the real need is understood.",
+            "Joining several requirements in one sentence. A combined statement cannot pass or fail cleanly and is hard to trace.",
+            "Filling unknown thresholds with plausible guesses to make the document look complete. Mark them TBD with an owner and the evidence needed.",
+            "Forgetting risk controls as a source of inputs. Every risk control the design must implement should appear as an input and trace to the risk file.",
+            "Letting an AI tool rewrite requirements and add numbers without review. Use it to flag problems and keep the owner's decision on record."
+          ],
+          "check": [
+            "What is the difference between a user need and a design input?",
+            "Name four sources of design inputs besides the user.",
+            "Give three signs that a requirement is not testable.",
+            "What should the team do with a threshold that has no evidence yet?",
+            "Why should a system requirement not name a specific part?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Design Controls (CDRH presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/116762/download",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "User Needs and Requirements",
+              "source": "Innolitics",
+              "url": "https://www.youtube.com/watch?v=_KkBBwIWpJQ",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "When Design Input Requirements Go Wrong",
+              "source": "Greenlight Guru",
+              "url": "https://www.youtube.com/watch?v=vqWAOBh_ips",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "user-needs-and-inputs-q01",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "Which of these is a user need rather than a design input or design choice?",
+          "options": [
+            "The display uses a 1.3 inch OLED panel chosen for its brightness",
+            "A patient can tell how many doses remain",
+            "The firmware is written in C for the chosen microcontroller",
+            "The dose count updates within 1 second of each actuation"
+          ],
+          "answer": 1,
+          "why": "A user need states an outcome for a user in a setting; the others are design choices or testable inputs."
+        },
+        {
+          "id": "user-needs-and-inputs-q02",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "A draft input says 'The display must be clear and the battery must last a long time'. What is the best review decision?",
+          "options": [
+            "Approve it, since everyone on the team knows what clear means",
+            "Approve it and let the test engineers choose suitable numbers later",
+            "Reject it: two requirements, no measurable criteria",
+            "Move it unchanged into the user needs list for the next phase"
+          ],
+          "answer": 2,
+          "why": "It combines two requirements and neither has conditions or a pass criterion, so it cannot be verified."
+        },
+        {
+          "id": "user-needs-and-inputs-q03",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "The risk file says the app must warn when 20 doses remain. Where does this belong?",
+          "options": [
+            "As a design input that traces to the risk control",
+            "Only in the risk file, since it does not belong in the requirements",
+            "In the marketing brochure as a feature that patients will like",
+            "In the user manual only, so that patients know it exists"
+          ],
+          "answer": 0,
+          "why": "Risk controls the design must implement are a source of design inputs and should trace both ways."
+        },
+        {
+          "id": "user-needs-and-inputs-q04",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "Nobody yet knows the right minimum viewing distance for the display. What should the input say?",
+          "options": [
+            "A typical number taken from a similar product on the market",
+            "Nothing; leave the condition out until the test protocol is written",
+            "Whatever value the lead engineer prefers on the day",
+            "TBD, with an owner and the evidence needed"
+          ],
+          "answer": 3,
+          "why": "Unknown values should be visible and owned, not guessed; an approved guess becomes every later test's criterion."
+        },
+        {
+          "id": "user-needs-and-inputs-q05",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "A brighter display helps outdoor use but shortens battery life. How should the team handle this?",
+          "options": [
+            "Let the firmware team decide alone, since they own the battery code",
+            "Record a reviewed trade-off and update the inputs",
+            "Keep both inputs as they are and hope that the tests will pass",
+            "Remove the battery requirement because it is the harder one to meet"
+          ],
+          "answer": 1,
+          "why": "Conflicting inputs must be resolved with the right people and the decision recorded before the baseline is approved."
+        },
+        {
+          "id": "user-needs-and-inputs-q06",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "Which word in a requirement is a warning sign that it may not be testable?",
+          "options": [
+            "robust",
+            "shall",
+            "seconds",
+            "lux"
+          ],
+          "answer": 0,
+          "why": "Adjectives like robust have no pass condition; units and 'shall' are signs of a checkable requirement."
+        },
+        {
+          "id": "user-needs-and-inputs-q07",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "Why write down intended users and use environments before drafting inputs?",
+          "options": [
+            "Regulators only read that section of the requirements document",
+            "It replaces the need to write user needs at all",
+            "Inputs depend on who uses the device and where",
+            "It makes the design plan longer and more complete"
+          ],
+          "answer": 2,
+          "why": "Inputs depend on who uses the device and where; a child outdoors and an adult at home lead to different requirements."
+        },
+        {
+          "id": "user-needs-and-inputs-q08",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "A system requirement names a specific sensor part number. What is the problem?",
+          "options": [
+            "Part numbers are confidential and must not appear in requirements",
+            "Nothing is wrong; naming the part makes the requirement more precise",
+            "Sensors cannot be verified at system level, only at component level",
+            "It locks a design choice into a system requirement"
+          ],
+          "answer": 3,
+          "why": "System requirements should say what the device must do; naming a part removes design freedom and forces a requirement change for a part change."
+        },
+        {
+          "id": "user-needs-and-inputs-q09",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "Your AI assistant rewrote vague requirements and added numbers that look sensible. What should you do?",
+          "options": [
+            "Import them, since the numbers look reasonable for this kind of device",
+            "Treat the numbers as questions for the owners",
+            "Delete the original rows so that only the clean versions remain",
+            "Ask the AI to double-check its own numbers, then import them"
+          ],
+          "answer": 1,
+          "why": "Thresholds need evidence and an owner's decision; the tool should flag, not invent."
+        },
+        {
+          "id": "user-needs-and-inputs-q10",
+          "lesson": "medtech-design-controls-user-needs-and-inputs",
+          "q": "A reviewer rejects a requirement. What should happen to the original text?",
+          "options": [
+            "Keep it in the history with the reason",
+            "Delete it so nobody is confused",
+            "Copy it into the user needs",
+            "Leave it in the baseline marked rejected"
+          ],
+          "answer": 0,
+          "why": "Keeping the original and the reason shows how the input evolved and why the new wording was chosen."
+        }
+      ]
+    },
+    {
+      "id": "outputs-and-traceability",
+      "title": "Design outputs and traceability",
+      "summary": "What counts as a design output, how to identify and baseline it, and how a trace matrix links needs, inputs, outputs and evidence in both directions.",
+      "outline": [
+        "Outputs for hardware, software and labelling",
+        "Essential outputs for proper function and safety",
+        "Traceability matrices and requirement management tools",
+        "Linking code, tests and change records",
+        "Where AI can help check trace gaps"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-outputs-and-traceability",
+          "title": "Design outputs and traceability",
+          "summary": "You will be able to list the outputs of a device design, explain why each needs a controlled ID and revision, and read a trace matrix for missing, stale or failed links.",
+          "why": "Traceability is the part of design controls that FDEs touch most often. Teams ask for tools that import requirements, link tests to code, generate a trace report for a submission or find gaps before an audit. To build those tools well, you need to know what an output is, what a trace link should carry, and why a populated matrix is not the same as proof.",
+          "sections": [
+            {
+              "h": "What a design output is",
+              "p": [
+                "Design outputs are the results of design work in a form that someone else can build, check, buy or service from. They are the things a factory, a supplier or a test lab will actually use. Typical outputs are:"
+              ],
+              "list": [
+                "Hardware: drawings, specifications, the bill of materials (BOM, the list of every part and quantity), material and supplier specifications.",
+                "Software: architecture and detailed design documents, source code, and the released build with its version.",
+                "Labelling: device labels, packaging labels and instructions for use (IFU).",
+                "Production and service: assembly instructions, inspection and test methods, acceptance criteria, service manuals.",
+                "Algorithms and configuration: parameter files, thresholds and calibration tables that change device behaviour."
+              ]
+            },
+            {
+              "h": "What a good output must do",
+              "p": [
+                "ISO 13485 expects outputs to meet the input requirements, give the information needed for purchasing, production and service, contain or reference acceptance criteria, and specify the characteristics essential for safe and proper use. Outputs are approved before release.",
+                "That last point is easy to miss. Some characteristics matter much more than others: a seal that keeps fluid out of the electronics, the torque on a needle hub, the alarm volume. Mark these essential characteristics in the drawing or specification, link them to the risk controls they implement, and make sure production has a way to check them. If a characteristic cannot be fully checked on the finished unit, the process that creates it needs extra control, which the design transfer lesson covers.",
+                "Every output needs a controlled identity: a document or part number, a revision, an approval and a release state. A file called final_v3_really_final.pdf is not an output baseline. Without a revision you cannot say which version was tested, built or shipped.",
+                "Outputs are released as a set, called a baseline. A release baseline lists every output and its revision that together define one version of the device: the drawings, the BOM, the firmware build, the labels and the production instructions. Verification and validation results are only meaningful against a baseline. When one output changes, the baseline changes, and the team must decide which evidence still applies. This is why trace tools need revisions, not just document names."
+              ]
+            },
+            {
+              "h": "How a trace matrix works",
+              "p": [
+                "A trace matrix links IDs across the chain: user need to design input, input to output, output and input to verification, and user need to validation. Links are many to many. One input can need a drawing, a firmware requirement and a label; one test can verify several inputs.",
+                "A useful row carries more than two IDs. It names the requirement and its version, the output and its revision, the test or analysis, the configuration that was tested, the result and any open issue. Read the matrix in both directions. Forward tracing (from need to evidence) finds requirements with no output or no test. Backward tracing (from evidence to need) finds tests that verify nothing and features that no requirement asked for, which may mean scope creep or a missing requirement.",
+                "A link is not a result. A test can be planned, running, failed, obsolete, or run on an older revision. The check below shows the kind of gaps a simple script can find."
+              ],
+              "code": {
+                "lang": "python",
+                "text": "rows = [\n    {\"input\": \"DI-07\", \"output\": \"DR-12\", \"out_rev\": \"C\", \"test\": \"T-44\", \"tested_rev\": \"B\", \"result\": \"pass\"},\n    {\"input\": \"DI-08\", \"output\": \"FW-2.1\", \"out_rev\": \"2.1\", \"test\": None, \"tested_rev\": None, \"result\": None},\n    {\"input\": \"DI-09\", \"output\": \"APP-9\", \"out_rev\": \"1.4\", \"test\": \"T-51\", \"tested_rev\": \"1.4\", \"result\": \"fail\"},\n]\ntests = {\"T-44\", \"T-51\", \"T-60\"}\n\nfor r in rows:\n    if not r[\"test\"]:\n        print(f\"{r['input']}: no verification linked\")\n    elif r[\"tested_rev\"] != r[\"out_rev\"]:\n        print(f\"{r['input']}: tested rev {r['tested_rev']}, released rev {r['out_rev']}\")\n    elif r[\"result\"] != \"pass\":\n        print(f\"{r['input']}: linked test {r['test']} result is {r['result']}\")\n\nlinked = {r[\"test\"] for r in rows if r[\"test\"]}\nfor t in sorted(tests - linked):\n    print(f\"{t}: test with no requirement\")\n# DI-07: tested rev B, released rev C\n# DI-08: no verification linked\n# DI-09: linked test T-51 result is fail\n# T-60: test with no requirement"
+              }
+            },
+            {
+              "h": "Linking code, tests and change records",
+              "p": [
+                "In software-heavy devices the trace runs through everyday engineering tools. Commits and pull requests reference a requirement, anomaly or change ID. Test cases in a test management tool reference the requirement they verify, and each test run records the build number it ran on. The released build is tied to a version that appears in the trace report and on the device. Change records reference the inputs and outputs they touch.",
+                "Requirement management tools hold these links natively, but many teams still keep part of the matrix in spreadsheets. Spreadsheet matrices drift: rows are copied from the last release, IDs are typed by hand and revisions go stale. If you build an export or sync, keep IDs stable, never key on row numbers or file names, and log what changed between runs."
+              ]
+            },
+            {
+              "h": "Where AI can help, and where it cannot",
+              "p": [
+                "AI tools are good at the tedious parts: suggesting likely links between a new test and existing requirements, spotting requirements with no test, comparing revisions in a test report with the released baseline, and flagging tests whose text does not mention anything in the requirement they claim to verify.",
+                "They cannot decide whether evidence is adequate. A test can be linked and passed and still not exercise the worst-case condition the requirement names. Treat AI-suggested links as proposals that an engineer accepts or rejects, record who accepted them, and keep the final judgement with the technical reviewer."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "layers",
+            "title": "The trace chain, top to bottom",
+            "caption": "Each layer links to the one below; read down to find missing evidence and up to find work no requirement asked for.",
+            "layers": [
+              {
+                "label": "User needs",
+                "note": "Outcomes for users in their setting"
+              },
+              {
+                "label": "Design inputs",
+                "note": "Testable requirements, incl. risk controls"
+              },
+              {
+                "label": "Design outputs",
+                "note": "Drawings, code, BOM, labels, each with a revision"
+              },
+              {
+                "label": "Verification evidence",
+                "note": "Tests, inspections, analyses on a stated revision"
+              },
+              {
+                "label": "Validation evidence",
+                "note": "Device meets user needs in real or simulated use"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a matrix that looked complete (example scenario)",
+            "p": [
+              "A dose counter team prepares for a release review. The trace report shows every input linked to an output and a test, and a dashboard reports 100 percent coverage. A reviewer reads three rows in detail."
+            ],
+            "list": [
+              "DI-07 links to display drawing DR-12 revision C and test T-44, which passed. The T-44 report names drawing revision B. Revision C changed the display window material, so the pass does not cover the released design. The row is reopened.",
+              "DI-08 links to firmware FW-2.1 and to test T-50. T-50 was written for an earlier firmware and has been marked obsolete. The link exists but the evidence does not. The row becomes an open gap.",
+              "Backward trace finds test T-60 with no requirement. It checks a sleep mode added late by firmware. The team either writes and reviews an input for the feature or removes it.",
+              "Outcome: the coverage figure is replaced with a list of open items with owners. The old T-44 result stays in the file as history, and the new result is linked when it is approved."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Find the gaps in a small trace matrix",
+              "time": "45 min",
+              "goal": "Practise reading a trace matrix for missing, stale and failed evidence in both directions.",
+              "steps": [
+                "Copy the Python script from this lesson into a file and run it with Python 3.",
+                "Add two more rows: one input linked to a passing test on the right revision, and one linked to a test marked obsolete.",
+                "Extend the script to treat obsolete results as gaps and run it again.",
+                "In a spreadsheet, build the same matrix with columns for need, input, output, output revision, test, tested revision, result and open issue.",
+                "Write one sentence per flagged row saying what evidence would close it."
+              ],
+              "done_when": "Your script flags every stale, failed, obsolete and missing link, and your sheet has a closing action written for each flagged row."
+            }
+          ],
+          "pitfalls": [
+            "Treating a populated trace matrix as proof. A link can point to a failed, obsolete or wrong-revision result.",
+            "Identifying outputs by file name, such as final, instead of a controlled number and revision. Nobody can then tell which version was tested.",
+            "Tracing only forward. Backward tracing finds features no requirement asked for and tests that verify nothing.",
+            "Not marking the characteristics essential for safe and proper use. Production then has no reason to control them more tightly than any other dimension.",
+            "Accepting AI-suggested trace links in bulk. Each link is a claim about evidence and needs an engineer's acceptance on record."
+          ],
+          "check": [
+            "Name four kinds of design output for a device with hardware, software and a label.",
+            "What extra fields should a trace row carry besides the two linked IDs?",
+            "What does backward tracing find that forward tracing does not?",
+            "Why can a linked, passed test still fail to verify a requirement?",
+            "What can an AI tool safely do in trace review, and what must stay with a person?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "QMSR - Design and Development (presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/189041/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Content of Premarket Submissions for Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA Expectations for Traceability in Device & Diagnostic Design",
+              "source": "seapineview",
+              "url": "https://www.youtube.com/watch?v=iB8JDuHTdIk",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Requirements Traceability for Medical Device Development",
+              "source": "TECHNIA",
+              "url": "https://www.youtube.com/watch?v=Ym7iFHvvAH0",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Traceability Matrix Webinar for 510(k) Software Documentation",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=g7cMsk9YWn8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "outputs-and-traceability-q01",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "Which of these is a design output?",
+          "options": [
+            "The user need that patients can read the count outdoors",
+            "The released firmware build FW-2.1",
+            "The intended use statement written by the clinical team",
+            "The project schedule agreed at the kick-off meeting"
+          ],
+          "answer": 1,
+          "why": "Outputs are what the team produces for building, checking or servicing the device, such as a released build."
+        },
+        {
+          "id": "outputs-and-traceability-q02",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "A test passed, but its report names drawing revision B. The released drawing is revision C. What is the status?",
+          "options": [
+            "Verified, because the test is linked and marked as passed",
+            "Verified, as long as the change from B to C looks small",
+            "Not shown for rev C until the change is assessed",
+            "Closed, since revision letters do not matter for testing"
+          ],
+          "answer": 2,
+          "why": "Evidence must cover the released revision, or the team must justify why the change does not affect the result."
+        },
+        {
+          "id": "outputs-and-traceability-q03",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "Backward tracing finds a test linked to no requirement. What could it mean?",
+          "options": [
+            "A feature or check exists that no input asked for",
+            "Nothing, because extra tests can never cause problems",
+            "The test result can be deleted from the design file",
+            "The matrix is complete and ready for the release review"
+          ],
+          "answer": 0,
+          "why": "Backward tracing exposes work without a reason: scope creep or a missing requirement."
+        },
+        {
+          "id": "outputs-and-traceability-q04",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "Why do outputs need a controlled number and revision?",
+          "options": [
+            "So that the file names look tidy in the shared drive",
+            "Because suppliers refuse documents without a part number",
+            "So that the trace report has more columns to show auditors",
+            "To know which version was tested, built and shipped"
+          ],
+          "answer": 3,
+          "why": "Without controlled identity, nobody can tie evidence to the version that went into production."
+        },
+        {
+          "id": "outputs-and-traceability-q05",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "A dashboard shows 100 percent trace coverage. What should a reviewer still check?",
+          "options": [
+            "Nothing; full coverage means the evidence is adequate",
+            "That results are current, passed and on the right revision",
+            "Only that the dashboard colours are configured correctly",
+            "Only the rows that were added since the last release"
+          ],
+          "answer": 1,
+          "why": "Coverage counts links, not adequacy; links can point to failed, obsolete or stale results."
+        },
+        {
+          "id": "outputs-and-traceability-q06",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "A seal keeps fluid out of the electronics. How should the drawing treat its key dimension?",
+          "options": [
+            "Like any other dimension, since all of them are checked anyway",
+            "Leave it off the drawing so that the supplier can choose",
+            "Mark it essential and link it to its risk control",
+            "Describe it only in the user manual for service staff"
+          ],
+          "answer": 2,
+          "why": "Outputs should identify characteristics essential for safe and proper use so production controls them."
+        },
+        {
+          "id": "outputs-and-traceability-q07",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "Your sync job keys trace rows on spreadsheet row numbers. What is the risk?",
+          "options": [
+            "Links break or point to the wrong item when rows move",
+            "Row numbers are too long for most databases to store",
+            "Auditors do not accept spreadsheets in any form at all",
+            "The sync will run too slowly on large spreadsheets"
+          ],
+          "answer": 0,
+          "why": "Row numbers change when rows are sorted or inserted; stable IDs are needed."
+        },
+        {
+          "id": "outputs-and-traceability-q08",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "An AI tool suggests 200 new links between tests and requirements. What is the right handling?",
+          "options": [
+            "Accept them all, since the tool read every document",
+            "Accept only the links with a high confidence score shown",
+            "Reject them all, since AI cannot be used near design files",
+            "Review each as a proposal and record who accepted it"
+          ],
+          "answer": 3,
+          "why": "Each link is a claim about evidence; an engineer judges it and the acceptance is recorded."
+        },
+        {
+          "id": "outputs-and-traceability-q09",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "Which item does NOT belong in a useful trace row?",
+          "options": [
+            "The tested configuration or revision",
+            "The name of the person who wrote the user manual",
+            "The test result and any open issue",
+            "The requirement ID and its version"
+          ],
+          "answer": 1,
+          "why": "Trace rows carry IDs, versions, tested configuration, result and open issues; authorship of other documents is not part of the link."
+        },
+        {
+          "id": "outputs-and-traceability-q10",
+          "lesson": "medtech-design-controls-outputs-and-traceability",
+          "q": "How should a test run in a software project be tied to the trace?",
+          "options": [
+            "By the date of the run noted in a shared team calendar",
+            "By the name of the tester written in a team chat message",
+            "By its build number and the requirement it verifies",
+            "By the folder name where the test screenshots were stored"
+          ],
+          "answer": 2,
+          "why": "The build number ties the result to a version, and the requirement link ties it to the input it verifies."
+        }
+      ]
+    },
+    {
+      "id": "verification-and-validation",
+      "title": "Verification and validation",
+      "summary": "How verification shows outputs meet inputs, how validation shows the device meets user needs, and how to plan, sample, record and handle failures for both.",
+      "outline": [
+        "Verification methods: test, inspection, analysis",
+        "Sample sizes and statistical rationale",
+        "Design validation on production-equivalent units",
+        "Human factors and usability validation",
+        "Software validation and the link to IEC 62304"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-verification-and-validation",
+          "title": "Verification and validation",
+          "summary": "You will be able to choose a verification method, explain where a sample size comes from, say what makes a validation study credible, and handle a failed result without losing evidence.",
+          "why": "Most of the evidence in a design file comes from verification and validation. FDEs build test automation, data pipelines for test results, report generators and AI tools that draft protocols. If you mix up the two activities, test the wrong configuration or quietly rerun a failure until it passes, the evidence will not survive review. Knowing the rules lets you build tools that make good evidence easy and bad evidence visible.",
+          "sections": [
+            {
+              "h": "Two different questions",
+              "p": [
+                "Verification asks: did we build the device right? It confirms that design outputs meet design inputs. Validation asks: did we build the right device? It confirms that the finished device meets user needs and its intended use. Both often involve testing, which is why they are confused, but they answer different questions and use different evidence.",
+                "A display can pass a bench test for brightness and contrast and still be misread by tired patients at dawn. The bench test is verification against a written number. The study with real users doing real tasks is validation. Neither replaces the other."
+              ]
+            },
+            {
+              "h": "Verification methods",
+              "p": [
+                "There are three common methods, and a requirement's planned method should be written next to it from the start."
+              ],
+              "list": [
+                "Test: operate the device or part under defined conditions and measure the result, such as a drop test or a firmware timing test.",
+                "Inspection: examine or measure without operating, such as checking a dimension, a label against its approved artwork, or code against a coding standard.",
+                "Analysis: show compliance by calculation, simulation or review of data, such as a battery life calculation or a tolerance stack-up. Analysis must state its assumptions and inputs."
+              ]
+            },
+            {
+              "h": "Plans, sample sizes and records",
+              "p": [
+                "ISO 13485 expects verification and validation to be planned and documented, with methods, acceptance criteria and, where appropriate, statistical techniques with a rationale for the sample size. So the protocol is written and approved before testing starts. It names the configuration under test, the equipment, the acceptance criteria and how many units or runs are needed and why.",
+                "Sample sizes come from the risk of the requirement and the confidence the team needs. One common method for pass or fail tests is the success-run approach: if n units are tested and none fail, you can claim reliability R with confidence C when n is at least ln(1 - C) / ln(R). The short script below shows the arithmetic. Choosing confidence and reliability levels is a risk-based decision that a statistician or experienced reliability engineer should review; this lesson gives literacy, not specialist readiness.",
+                "The report records what actually happened: units and serial numbers, software versions, equipment and calibration status, raw results, deviations from the protocol and their assessment. Never change an acceptance limit after seeing the data and present the run as if the original plan passed."
+              ],
+              "code": {
+                "lang": "python",
+                "text": "import math\n\ndef success_run(confidence, reliability):\n    # units to test with zero failures allowed\n    return math.ceil(math.log(1 - confidence) / math.log(reliability))\n\nfor c, r in [(0.95, 0.95), (0.95, 0.90), (0.90, 0.90)]:\n    print(f\"C={c} R={r}: test {success_run(c, r)} units, 0 failures\")\n# C=0.95 R=0.95: test 59 units, 0 failures\n# C=0.95 R=0.9: test 29 units, 0 failures\n# C=0.9 R=0.9: test 22 units, 0 failures"
+              }
+            },
+            {
+              "h": "What makes validation credible",
+              "p": [
+                "Validation is done on units that represent production: initial production units, batches or their equivalents, with the reason for the choice recorded. A hand-built prototype with a different enclosure material may behave differently from the device patients will get. Validation includes representative users, real or simulated use environments and the full intended use. If the device connects to other devices, such as a phone app, validation covers the connected system.",
+                "Human factors validation is a large part of validation for many devices. The FDA human factors guidance describes testing with representative users performing the critical tasks, those where a use error could cause serious harm, under realistic conditions, and analysing every use error and difficulty for its root cause. Some devices also need clinical evaluation or performance evaluation as part of validation, depending on the market rules."
+              ]
+            },
+            {
+              "h": "Software verification and validation",
+              "p": [
+                "For device software, IEC 62304 sets lifecycle processes: planning, requirements, architecture, unit and integration verification, software system testing, release, maintenance, configuration management and problem resolution. It covers verifying the software against its requirements. Validation of the device as a whole, including when the device is only software, sits at the system level under design controls. The FDA General Principles of Software Validation guidance explains the wider idea that software validation builds confidence across the lifecycle, not only through a final test run."
+              ]
+            },
+            {
+              "h": "When a result fails",
+              "p": [
+                "A failure is information. Record it, assess the impact on the product and on safety, and find out whether the cause is the design, the test method, the equipment or the requirement itself. Fix the right thing, then retest with a documented reason and scope. Rerunning until a pass appears, or dropping a failed unit as an outlier without investigation, removes exactly the evidence a reviewer needs. Keep the failed run in the record and link it to the investigation and the change that followed.",
+                "If you build test automation or a results pipeline, design for this from the start. Store every run with its build, unit serial numbers and equipment, never overwrite an earlier result, and make the report show failed and repeated runs next to the final one. A tool that only keeps the latest green run makes the evidence look cleaner than it is and will not hold up in review."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Verification versus validation",
+            "caption": "Compare the two columns row by row; both are needed and neither replaces the other.",
+            "columns": [
+              {
+                "title": "Verification",
+                "items": [
+                  "Did we build it right?",
+                  "Outputs checked against inputs",
+                  "Test, inspection or analysis",
+                  "Bench, lab or code level",
+                  "Pass criteria from the requirement"
+                ]
+              },
+              {
+                "title": "Validation",
+                "items": [
+                  "Did we build the right device?",
+                  "Device checked against user needs",
+                  "Use studies and clinical evidence",
+                  "Representative users and settings",
+                  "Production-equivalent units"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a stale value on the phone (example scenario)",
+            "p": [
+              "A dose counter sends its count to a phone app. Input DI-11 says the app shows a new count within 1 second of the device sending it. Bench test T-61 passes on every run.",
+              "In a simulated-use validation session, participants walk out of Bluetooth range and back. Several read an old count as current because nothing on screen says the data is stale. Verification passed its written requirement; validation found that the requirement set missed a need."
+            ],
+            "list": [
+              "The failed validation scenario is recorded as observed, with the participants' comments, not removed from the report.",
+              "A new input DI-14 is written: the app shows a clear stale-data state when the last update is older than a defined limit, value TBD from the use study.",
+              "The change is reviewed; risk management adds the use error to the risk file and links DI-14 as a risk control.",
+              "New verification test T-70 checks DI-14, regression tests rerun on the new app build, and the validation scenario is repeated with new participants.",
+              "The validation report shows the original failure, the change and the new result together."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Plan verification and validation for one need",
+              "time": "45 min",
+              "goal": "Practise choosing methods, sample sizes and acceptance criteria and keeping the two activities separate.",
+              "steps": [
+                "Take one user need and two design inputs from your earlier practice, or use UN-02 and DI-07 from this course.",
+                "For each input, choose test, inspection or analysis and write a one-line acceptance criterion.",
+                "Run the success-run script for one pass or fail test and write down the confidence and reliability you chose and why.",
+                "Write one validation question for the user need, naming the users, the setting and the units you would use.",
+                "Write what you would do if the validation failed while every verification test passed."
+              ],
+              "done_when": "You have a one-page plan with a method and criterion for each input, a sample size with stated assumptions, and a separate validation question tied to the user need."
+            }
+          ],
+          "pitfalls": [
+            "Assuming that passing every verification test proves the device meets user needs. Validation with representative users can still find gaps.",
+            "Validating on hand-built prototypes that differ from production without recording why they are equivalent.",
+            "Changing an acceptance limit after seeing a failure and reporting the run as a pass.",
+            "Rerunning a failed test until it passes, or discarding a failed unit without an investigation.",
+            "Picking a sample size because it is convenient. The number needs a rationale tied to risk and confidence."
+          ],
+          "check": [
+            "State the question verification answers and the question validation answers.",
+            "Give an example of verification by test, by inspection and by analysis.",
+            "Where does a sample size rationale come from, and who should review it?",
+            "Why must validation use production-equivalent units and representative users?",
+            "What should happen to a failed result in the test record?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "General Principles of Software Validation",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/general-principles-software-validation",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Does the proportion of defectives meet requirements?",
+              "source": "NIST",
+              "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc24.htm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Verification vs Validation in Medical Devices | explained in 3 mins",
+              "source": "StarFish Medical",
+              "url": "https://www.youtube.com/watch?v=by8xTJkbHgY",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is the difference between Design Verification and Design Validation?",
+              "source": "DeviceTalks",
+              "url": "https://www.youtube.com/watch?v=i69wqPtaRF0",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Why Design Validation Is More Than Testing: How Do We Validate Our Validation",
+              "source": "Greenlight Guru",
+              "url": "https://www.youtube.com/watch?v=zTgQAQOC3h4",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "verification-and-validation-q01",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "A team checks a label against its approved artwork without operating the device. Which method is this?",
+          "options": [
+            "Verification by test under defined conditions",
+            "Validation with representative users in use",
+            "Verification by inspection",
+            "Verification by analysis of field data"
+          ],
+          "answer": 2,
+          "why": "Inspection examines or measures without operating the device."
+        },
+        {
+          "id": "verification-and-validation-q02",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "Every bench test passed, but users in a simulated-use study misread a stale value as current. What does this show?",
+          "options": [
+            "The inputs missed a user need",
+            "The bench tests were all run wrongly and must be repeated",
+            "The study should be dropped because bench tests passed",
+            "The device is ready, since verification is complete"
+          ],
+          "answer": 0,
+          "why": "Validation checks the device against user needs; it can find needs the inputs did not capture."
+        },
+        {
+          "id": "verification-and-validation-q03",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "A team wants to validate using hand-built prototypes with a different enclosure material. What is needed?",
+          "options": [
+            "Nothing, since any working unit is good enough for validation",
+            "A larger number of prototypes to make up for the difference",
+            "Only a note in the meeting minutes that prototypes were used",
+            "A recorded rationale that they represent production"
+          ],
+          "answer": 3,
+          "why": "Validation uses production units or equivalents, with the rationale for the choice recorded."
+        },
+        {
+          "id": "verification-and-validation-q04",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "Using the success-run method with 95 percent confidence and 95 percent reliability, how many units must pass with zero failures?",
+          "options": [
+            "5 units, one per percent of risk",
+            "59 units",
+            "95 units, matching the confidence level",
+            "Any number agreed by the project manager"
+          ],
+          "answer": 1,
+          "why": "n = ln(1 - 0.95) / ln(0.95) is about 58.4, rounded up to 59."
+        },
+        {
+          "id": "verification-and-validation-q05",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "A test fails by a small margin. An engineer proposes widening the limit and reporting a pass. What is right?",
+          "options": [
+            "Widen it, since the margin was small and the device is fine",
+            "Widen it but keep the change out of the report",
+            "Record the failure, investigate, and change limits only through review",
+            "Rerun the test until it passes and report that run"
+          ],
+          "answer": 2,
+          "why": "Changing criteria after seeing data and hiding it destroys the evidence; any change needs review and justification."
+        },
+        {
+          "id": "verification-and-validation-q06",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "What does IEC 62304 mainly cover?",
+          "options": [
+            "The software lifecycle processes for device software",
+            "Clinical evaluation of the whole medical device",
+            "Sterilisation of device packaging and its validation",
+            "Electrical safety limits for mains-powered devices"
+          ],
+          "answer": 0,
+          "why": "IEC 62304 sets lifecycle processes for medical device software; whole-device validation sits at system level."
+        },
+        {
+          "id": "verification-and-validation-q07",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "In human factors validation, which tasks need the most attention?",
+          "options": [
+            "The tasks that users say they enjoy doing the most",
+            "The tasks that take the longest time to complete",
+            "The tasks that marketing wants to show in the launch video",
+            "Critical tasks, where a use error could cause serious harm"
+          ],
+          "answer": 3,
+          "why": "The FDA human factors guidance focuses validation testing on critical tasks."
+        },
+        {
+          "id": "verification-and-validation-q08",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "When should the acceptance criteria for a verification test be set?",
+          "options": [
+            "After the first run, based on what the device achieved",
+            "In the approved protocol, before testing starts",
+            "At the release review, once all results are known",
+            "Whenever the tester feels the data is good enough"
+          ],
+          "answer": 1,
+          "why": "Plans with acceptance criteria are approved before execution so results are judged against a fixed standard."
+        },
+        {
+          "id": "verification-and-validation-q09",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "One unit out of 30 fails a drop test. The team wants to call it an outlier and drop it. What should happen first?",
+          "options": [
+            "Drop it, since one unit in 30 is within normal variation",
+            "Replace it with a new unit and say nothing more about it",
+            "Investigate the failure and record the assessment",
+            "Average the results so the failed unit has less effect"
+          ],
+          "answer": 2,
+          "why": "A failed unit is evidence; excluding it needs an investigation and a recorded justification."
+        },
+        {
+          "id": "verification-and-validation-q10",
+          "lesson": "medtech-design-controls-verification-and-validation",
+          "q": "A device sends data to a phone app. What should validation include?",
+          "options": [
+            "The connected system as users will use it",
+            "Only the device, since the app is a separate product",
+            "Only the app, since that is where users look at the data",
+            "Neither, since the interface was verified on the bench"
+          ],
+          "answer": 0,
+          "why": "When a device interfaces with other devices, validation should confirm the needs are met when connected."
+        }
+      ]
+    },
+    {
+      "id": "design-reviews",
+      "title": "Running design reviews",
+      "summary": "How to plan, run and record a design review that makes a real decision, and how to track its actions to verified closure.",
+      "outline": [
+        "When to hold reviews in the plan",
+        "Who attends and the independent reviewer",
+        "Review inputs, decisions and action tracking",
+        "Phase gates in product development"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-design-reviews",
+          "title": "Running design reviews",
+          "summary": "You will be able to set up a design review with a clear baseline and question, choose who must attend, record a real decision, and close actions with evidence.",
+          "why": "Design reviews are where a device project decides whether it is ready to move on. FDEs often attend them to present a tool, a test approach or software evidence, and are sometimes asked to build the systems that track review actions. If you treat a review as a status meeting, you will miss the decisions it is meant to make and the records an auditor will ask for.",
+          "sections": [
+            {
+              "h": "What a design review is",
+              "p": [
+                "A design review is a planned, documented check of the design at a chosen stage. ISO 13485 expects reviews at suitable stages in line with the design plan, to judge whether the results so far can meet the requirements and to identify any actions needed. The record identifies the design under review, the participants, the date, the results and the actions.",
+                "A review is a decision point, not a progress update. Before it starts, everyone should know two things: which baseline is being reviewed (the exact documents, drawings and builds with their revisions) and which question the review must answer, such as 'are the design inputs adequate to start detailed design?' A review without a defined baseline produces signatures that nobody can interpret later."
+              ]
+            },
+            {
+              "h": "When to hold reviews",
+              "p": [
+                "The design and development plan names the reviews. Many organisations tie them to phase gates, points where the project must pass a review before the next phase is funded or started. Names differ between companies, but a typical set looks like this:"
+              ],
+              "list": [
+                "Concept or feasibility review: is the intended use clear and is the idea worth developing?",
+                "Design input review: are the inputs complete, testable, consistent and approved as a baseline?",
+                "Design output or verification readiness review: do outputs meet inputs well enough to start formal verification?",
+                "Validation readiness review: are the units, users, protocols and risk file ready for validation?",
+                "Transfer or launch readiness review: is the design ready to be built in production and released?"
+              ]
+            },
+            {
+              "h": "Who attends",
+              "p": [
+                "ISO 13485 expects reviewers to include representatives of the functions concerned with the stage being reviewed, plus other specialists as needed. In practice that can mean design engineering, software, quality, manufacturing, service, regulatory, clinical, human factors and risk management. Invite the people who will live with the result: manufacturing will spot a part that cannot be assembled, and service will spot a battery that cannot be replaced.",
+                "The former FDA Quality System Regulation required at least one reviewer who did not have direct responsibility for the design stage being reviewed. That independent reviewer remains common practice because people who did the work tend to read what they meant, not what they wrote. Follow your organisation's procedure for who counts as independent."
+              ]
+            },
+            {
+              "h": "Preparing and running the review",
+              "p": [
+                "Send the review package early enough for real reading, usually several working days ahead. It should include the baseline list with revisions, the trace matrix and its open gaps, the current risk file, test results so far, open actions from earlier reviews and known issues. Reviewers send comments before the meeting, so the meeting can focus on decisions rather than first reading.",
+                "In the meeting, work through the question, not the slide deck. For each concern, decide: accept as is, accept with an action, or block the stage. End with an explicit outcome. Approved means the stage can proceed. Conditionally approved means it can proceed with named conditions that must close by a stated point. Not approved means the work goes back. Write down the reason for the decision, not just the outcome."
+              ]
+            },
+            {
+              "h": "Tracking actions to closure",
+              "p": [
+                "Every action needs an owner, a due date, a link to the concern it answers and, when it closes, a link to the evidence. Closing an action means the concern is resolved, not that the due date passed or that someone ticked a box. A good closure note says what was done, points to the changed document or new test result, and confirms whether the original concern is fully addressed.",
+                "Open actions from a review are a classic audit finding. Safety-related actions that run late should be escalated, and the next review should start by checking what is still open. If you build an action tracker, make it impossible to close an action without an evidence link and a closing person, and keep the history of every status change."
+              ]
+            },
+            {
+              "h": "Where an FDE fits",
+              "p": [
+                "You may present at a review: a software build, a test tool, an AI assistant that drafts documents, or evidence from automated tests. Bring the exact versions, the trace to the requirements your work affects, known anomalies and their risk assessment, and what you have not yet tested. Say plainly what is still open. Reviewers trust a short list of known gaps far more than a claim that everything is done.",
+                "You may also be asked to summarise a review package with AI. That can save reading time, but the summary is not the package. Reviewers still need to read the evidence for their area, and any summary shared in the review should name its source documents and revisions."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "One design review from plan to closure",
+            "caption": "Read top to bottom in time order; each lane shows who does that step.",
+            "lanes": [
+              "Review owner",
+              "Reviewers",
+              "Action owners",
+              "Quality"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Define baseline and question"
+              },
+              {
+                "lane": 0,
+                "label": "Circulate review package"
+              },
+              {
+                "lane": 1,
+                "label": "Read and send comments"
+              },
+              {
+                "lane": 1,
+                "label": "Meet and decide outcome"
+              },
+              {
+                "lane": 0,
+                "label": "Record decision and actions"
+              },
+              {
+                "lane": 2,
+                "label": "Do work and link evidence"
+              },
+              {
+                "lane": 3,
+                "label": "Check closure evidence"
+              },
+              {
+                "lane": 0,
+                "label": "Report open items at next review"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a design input review that found a problem (example scenario)",
+            "p": [
+              "A dose counter team holds its design input review. The baseline is the input specification revision D, the risk file revision B and the use profile UP-1. The question is whether the inputs are adequate to start detailed design."
+            ],
+            "list": [
+              "Manufacturing points out that the proposed enclosure seal cannot be inspected once the device is assembled, so there is no way to check it on every unit.",
+              "The team does not wave this through with a signature. It records action A-07 for engineering to propose a seal design or process that can be checked, owned by the mechanical lead, due before the output review.",
+              "The outcome is conditionally approved: electronics and app design may proceed, but the seal design may not be baselined until A-07 closes.",
+              "At closure, the mechanical lead links a revised input for seal integrity and a draft process check. Quality confirms the evidence answers the original concern and closes the action. The next review cites both documents."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Run a mock design review",
+              "time": "60 min",
+              "goal": "Practise defining a baseline and question, making a decision and writing actions that can be closed with evidence.",
+              "steps": [
+                "Use the inputs and trace matrix from your earlier practice as the baseline and write the baseline list with revisions.",
+                "Write the one question the review must answer.",
+                "Ask a colleague, or Claude playing the role of a manufacturing engineer and a quality reviewer, to raise concerns about your inputs.",
+                "Decide approved, conditionally approved or not approved, and write the reason in two sentences.",
+                "Write each action with an owner, due point and the evidence that would close it.",
+                "Close one action yourself by making the change and linking it."
+              ],
+              "done_when": "You have review minutes with a baseline list, a question, a recorded outcome with its reason, and at least two actions, one closed with a linked piece of evidence."
+            }
+          ],
+          "pitfalls": [
+            "Running the review as a status meeting about schedule instead of a decision about the design evidence.",
+            "Reviewing without a defined baseline, so nobody can later tell which versions were approved.",
+            "Inviting only the design team. Manufacturing, service and quality often see the problems that designers miss.",
+            "Closing actions because the due date passed or a box was ticked, without evidence that the concern is resolved.",
+            "Recording 'approved' without the conditions, leaving later stages free to ignore them."
+          ],
+          "check": [
+            "What two things must be defined before a design review starts?",
+            "Which functions should attend a design output review for a device with a battery and an app?",
+            "What is an independent reviewer and why is the practice still useful?",
+            "What is the difference between approved and conditionally approved?",
+            "What makes a review action properly closed?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Design Controls (CDRH presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/116762/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "QMSR - Design and Development (presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/189041/download",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "How to do a medical device design review",
+              "source": "Medical Device HQ",
+              "url": "https://www.youtube.com/watch?v=f7cE-8EQCd4",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "How To Improve Your Medical Device Design Reviews",
+              "source": "Greenlight Guru",
+              "url": "https://www.youtube.com/watch?v=giEM5XhBtuQ",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "design-reviews-q01",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "A review is called, but nobody has said which document revisions are being reviewed. What is the main problem?",
+          "options": [
+            "The meeting will probably run over its planned time",
+            "The signatures will not show what was approved",
+            "The reviewers will need to bring their own laptops",
+            "The minutes template will not have enough rows"
+          ],
+          "answer": 1,
+          "why": "A review record must identify the design under review; without a baseline, the approval cannot be interpreted."
+        },
+        {
+          "id": "design-reviews-q02",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "Which of these is the best question for a design input review?",
+          "options": [
+            "Are the inputs adequate to start detailed design?",
+            "Is the project on schedule for the planned launch date?",
+            "Has the team spent the budget agreed for this phase?",
+            "Do the slides look ready for the steering committee?"
+          ],
+          "answer": 0,
+          "why": "A design review answers a question about the design evidence, not schedule or budget."
+        },
+        {
+          "id": "design-reviews-q03",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "Why invite manufacturing to an early design review?",
+          "options": [
+            "Because they approve the project budget for each phase",
+            "Because they write the user needs for the device",
+            "Because a review needs a minimum number of attendees",
+            "They can spot parts that cannot be built or checked"
+          ],
+          "answer": 3,
+          "why": "Reviews should include functions that will live with the result; manufacturing sees build and inspection problems."
+        },
+        {
+          "id": "design-reviews-q04",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "What did the former FDA quality system rule require of design review participants?",
+          "options": [
+            "That all participants come from the regulatory department",
+            "That the review be chaired by an external auditor",
+            "One reviewer without direct responsibility for the stage",
+            "That the CEO sign every design review record"
+          ],
+          "answer": 2,
+          "why": "It required an individual without direct responsibility for the stage; the practice remains common."
+        },
+        {
+          "id": "design-reviews-q05",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "The review lets app work continue but stops the seal design from being baselined until an action closes. What outcome is this?",
+          "options": [
+            "Conditionally approved",
+            "Fully approved with no conditions attached",
+            "Not approved, with all work on the device stopped",
+            "Postponed, with no decision recorded at all"
+          ],
+          "answer": 0,
+          "why": "Conditional approval lets the stage proceed with named conditions that must close by a stated point."
+        },
+        {
+          "id": "design-reviews-q06",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "An action's due date passed and its owner marks it closed with no evidence. What should quality do?",
+          "options": [
+            "Accept it, since the due date has passed anyway",
+            "Delete the action so the dashboard looks clean",
+            "Accept it if the owner is a senior engineer on the team",
+            "Reopen it until evidence shows the concern is resolved"
+          ],
+          "answer": 3,
+          "why": "Closure means the concern is resolved and the evidence is linked, not that time ran out."
+        },
+        {
+          "id": "design-reviews-q07",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "Why send the review package several days before the meeting?",
+          "options": [
+            "So that reviewers can read and comment before deciding",
+            "So that the meeting room can be booked in good time",
+            "Because procedures always require exactly five days",
+            "So that the package can be translated for every site"
+          ],
+          "answer": 0,
+          "why": "Early circulation lets the meeting focus on decisions rather than first reading."
+        },
+        {
+          "id": "design-reviews-q08",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "You are building an action tracker for design reviews. Which rule matters most?",
+          "options": [
+            "Let any user delete actions that are no longer wanted",
+            "No closing without an evidence link and a closer",
+            "Show only open actions and hide the closed ones",
+            "Send a reminder email to everyone every morning"
+          ],
+          "answer": 1,
+          "why": "The tracker should enforce evidence-based closure and keep the history of status changes."
+        },
+        {
+          "id": "design-reviews-q09",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "Which item does NOT belong in a design review record?",
+          "options": [
+            "The design under review and its revisions",
+            "The participants and the date",
+            "Personal performance ratings of the engineers",
+            "The decision, reasons and actions"
+          ],
+          "answer": 2,
+          "why": "The record covers the design, participants, date, results and actions, not personnel appraisal."
+        },
+        {
+          "id": "design-reviews-q10",
+          "lesson": "medtech-design-controls-design-reviews",
+          "q": "What should the next design review start with?",
+          "options": [
+            "A new list of risks written from scratch",
+            "A summary of the marketing plan for the launch",
+            "A vote on whether to keep holding design reviews",
+            "What is still open from earlier reviews"
+          ],
+          "answer": 3,
+          "why": "Checking open items from earlier reviews keeps conditions and actions from being lost between stages."
+        }
+      ]
+    },
+    {
+      "id": "design-file-and-transfer",
+      "title": "The design file and design transfer",
+      "summary": "What the design and development file and the medical device file hold, how design transfer turns an approved design into reliable production, and how to keep the record inspection-ready.",
+      "outline": [
+        "Design and development file contents",
+        "The medical device file and the older device master record",
+        "Design transfer activities and production readiness",
+        "Process validation links",
+        "Keeping the file inspection-ready"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-design-file-and-transfer",
+          "title": "The design file and design transfer",
+          "summary": "You will be able to tell the design file from the medical device file, list what design transfer must prove, and spot a transfer that is not ready.",
+          "why": "Many FDE projects touch the end of the design process: migrating documents into a new QMS or PLM system, generating a design file index, automating firmware provisioning on the line, or building a release-readiness dashboard. These all depend on knowing which records belong where and what must be true before a design goes into production. Mistakes here are expensive because they reach real units.",
+          "sections": [
+            {
+              "h": "Two files with two jobs",
+              "p": [
+                "The design and development file is the record of how the design was developed and controlled. ISO 13485 expects one for each device type or family, holding or referencing the records that show the design requirements were met and the records of design changes. The older FDA rule called it the design history file (DHF), and you will still hear that name every day.",
+                "The medical device file is the record of what the device is and how to make it. ISO 13485 expects it to include the device description and intended use, labelling and instructions for use, product specifications, manufacturing, packaging, storage, handling and distribution specifications or procedures, measuring and monitoring procedures, and installation and servicing requirements where they apply. The older FDA rule had a similar record called the device master record (DMR). It also had the device history record (DHR), the production record for each unit or batch, which shows that it was built to the master record.",
+                "A simple way to remember them: the design file explains how we got here, the medical device file says what to build, and production records show what was actually built."
+              ]
+            },
+            {
+              "h": "What the design file holds",
+              "p": [
+                "The design file does not need to copy every record into one folder. It can point to records held in controlled systems, such as a requirements tool, a document management system, a test management tool and a PLM system. What matters is that a reviewer can find, for a defined product configuration, each of the following:"
+              ],
+              "list": [
+                "The design and development plan and its revisions.",
+                "User needs, design inputs and their review and approval.",
+                "Design outputs with revisions, and the release baseline.",
+                "Design review records with decisions and closed actions.",
+                "Verification and validation protocols and reports, including failed runs and investigations.",
+                "The risk management file or a reference to it, and the trace matrix.",
+                "Design transfer records and design change records."
+              ]
+            },
+            {
+              "h": "What design transfer must prove",
+              "p": [
+                "Design transfer turns the approved design into production specifications and processes. ISO 13485 expects the organisation to make sure design outputs are verified as suitable for manufacturing before they become final production specifications, and that production capability can meet the product requirements.",
+                "A working prototype built by engineers is not proof that a factory can build the same device every time. Transfer checks that drawings and specifications are complete and unambiguous for people who were not in the design team, that suppliers have the right specifications and can meet them, that fixtures and test equipment are ready, that software is provisioned with the right controlled image, that labels and instructions are the approved versions, and that operators and inspectors are trained on the released instructions.",
+                "Transfer is a decision with owners and evidence, not a file upload. A transfer or launch readiness review should name who can release the design to production and which criteria must be met first. Unresolved deviations need a documented disposition."
+              ]
+            },
+            {
+              "h": "Process validation",
+              "p": [
+                "Some characteristics cannot be fully checked on the finished unit. A sterile barrier seal, a weld or the sterility of a product cannot be fully tested on every unit without destroying it. ISO 13485 requires processes whose output cannot be or is not verified by later monitoring or measurement to be validated. Validation shows the process, run within set limits, consistently produces a result that meets requirements. Teams often describe the stages as installation, operational and performance qualification (IQ, OQ, PQ).",
+                "This is why essential characteristics marked on design outputs matter: they tell manufacturing engineering which processes need validation. Planning and running process validation is specialist work, often supported by a statistician, and this lesson gives awareness, not readiness to lead it."
+              ]
+            },
+            {
+              "h": "Keeping the record inspection-ready",
+              "p": [
+                "An inspection-ready file is one where a reviewer can pick any requirement and follow it to its evidence quickly, for the configuration that was released. Keep an index that points to controlled records by ID and revision, not to copies in shared drives or zip files. Make sure the trace matrix, the baseline and the test reports all name the same revisions.",
+                "After transfer, keep the feedback loop open. Early production problems, such as high scrap at one step or a part that does not fit every time, may show that an input, output or validation assumption was wrong. Route them into the change process and back into the design file rather than fixing them quietly on the line."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "Design transfer from released design to production",
+            "caption": "Read top to bottom in time order; each lane shows who owns that step.",
+            "lanes": [
+              "Design team",
+              "Manufacturing",
+              "Quality"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Release design baseline"
+              },
+              {
+                "lane": 1,
+                "label": "Draft production specs and fixtures"
+              },
+              {
+                "lane": 1,
+                "label": "Validate hard-to-check processes"
+              },
+              {
+                "lane": 1,
+                "label": "Train operators on released docs"
+              },
+              {
+                "lane": 1,
+                "label": "Run pilot builds"
+              },
+              {
+                "lane": 2,
+                "label": "Inspect pilot units against specs"
+              },
+              {
+                "lane": 2,
+                "label": "Transfer readiness review"
+              },
+              {
+                "lane": 0,
+                "label": "Route early issues to change control"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a transfer that was stopped (example scenario)",
+            "p": [
+              "A dose counter passed design verification and validation on units built by the engineering team. The team prepares to release the design to the contract manufacturer. At the transfer readiness review, quality walks through the pilot build records."
+            ],
+            "list": [
+              "The flashing station on the line loads firmware from a shared folder. The image it used was FW-2.0, not the validated FW-2.1. The team controls the image by part number, version and checksum, and the station now checks the checksum before flashing.",
+              "The enclosure seal fixture has no recorded setup check, and the seal is an essential characteristic that cannot be tested on every unit. The seal process is added to the process validation plan and a fixture setup verification is written.",
+              "Two operators were trained on a draft assembly instruction. They are retrained on the released revision and the training records are linked.",
+              "The review records the transfer as not ready, with three actions. When they close, the design file index links the validated configuration, the process validation report, the training records and the released manufacturing instructions."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a design file index and a transfer checklist",
+              "time": "60 min",
+              "goal": "Practise organising design records by reference and checking a design for production readiness.",
+              "steps": [
+                "In a spreadsheet, list the design file contents from this lesson as rows.",
+                "For each row, add a record ID, revision and the system it lives in, using example values for a simple device.",
+                "Add a second sheet with transfer checks: specs complete, suppliers ready, equipment ready, software image controlled, labels approved, operators trained, processes validated where needed.",
+                "For each check, write the evidence you would expect to see and who signs it off.",
+                "Ask Claude to find a missing check or a weak piece of evidence, and decide yourself whether to accept it."
+              ],
+              "done_when": "You have an index where every row has an ID, revision and location, and a transfer checklist where every check names its evidence and owner."
+            }
+          ],
+          "pitfalls": [
+            "Treating the design file as a folder of copies. Copies go stale; point to controlled records by ID and revision.",
+            "Assuming a complete design file proves that manufacturing processes are validated. Process validation is its own evidence.",
+            "Releasing to production because engineering prototypes passed, without pilot builds on production equipment and people.",
+            "Leaving software provisioning outside change control, so the line can load an unvalidated image.",
+            "Fixing early production problems on the line without routing them back to design change control."
+          ],
+          "check": [
+            "What is the difference between the design and development file and the medical device file?",
+            "Name five things a reviewer should be able to find through the design file.",
+            "What two things must design transfer show before outputs become final production specifications?",
+            "When must a manufacturing process be validated rather than relying on inspection?",
+            "Why should early production issues go back into change control?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "QMSR - Design and Development (presentation, PDF)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/media/189041/download",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Unique Device Identification System (UDI System)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance/unique-device-identification-system-udi-system",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What Is a Design History File (DHF) and Why It Matters",
+              "source": "StarFish Medical",
+              "url": "https://www.youtube.com/watch?v=IM3lZ3E0yNE",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Design History File (DHF), the Device Master Record (DMR) and the Device History Record (DHR)",
+              "source": "GlobalCompliance Panel",
+              "url": "https://www.youtube.com/watch?v=E7K6ZIUP-YQ",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Digital Design Transfer for Medical Devices",
+              "source": "Tech-Clarity",
+              "url": "https://www.youtube.com/watch?v=t1yvBSqkW6Q",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "design-file-and-transfer-q01",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Which record mainly explains how the design was developed and controlled?",
+          "options": [
+            "The device history record for each production batch",
+            "The design and development file",
+            "The supplier's certificate of conformance for a part",
+            "The shipping record for the first customer order"
+          ],
+          "answer": 1,
+          "why": "The design and development file (older term DHF) holds or references the records of the controlled design."
+        },
+        {
+          "id": "design-file-and-transfer-q02",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "A factory needs to know exactly what to build and how to check it. Which record serves that purpose?",
+          "options": [
+            "The minutes from the first concept review",
+            "The usability study report from validation",
+            "The medical device file (older term DMR)",
+            "The original user needs written at the start"
+          ],
+          "answer": 2,
+          "why": "The medical device file holds the specifications and procedures for making, checking and servicing the device."
+        },
+        {
+          "id": "design-file-and-transfer-q03",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Does the design file need to contain a copy of every record?",
+          "options": [
+            "No; it can reference controlled records by ID",
+            "Yes; every record must be copied into one folder",
+            "Yes; but only as a single zip file per release",
+            "No; it only needs the final test report"
+          ],
+          "answer": 0,
+          "why": "The file can hold or point to records, as long as they are controlled and retrievable for a configuration."
+        },
+        {
+          "id": "design-file-and-transfer-q04",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Engineering prototypes passed every test. What does design transfer still need to show?",
+          "options": [
+            "Nothing, since the prototypes already passed every test",
+            "Only that the marketing materials are ready for launch",
+            "Only that the price of each part has been agreed",
+            "That production can build to spec, every time"
+          ],
+          "answer": 3,
+          "why": "Transfer checks that outputs suit manufacturing and production capability can meet requirements."
+        },
+        {
+          "id": "design-file-and-transfer-q05",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "A seal cannot be tested on every finished unit without destroying it. What does the process that makes it need?",
+          "options": [
+            "A visual check by the operator at the end of the shift",
+            "Process validation",
+            "A note in the user manual asking users to check it",
+            "A larger warranty period to cover any failures"
+          ],
+          "answer": 1,
+          "why": "Processes whose output cannot be fully verified afterwards must be validated."
+        },
+        {
+          "id": "design-file-and-transfer-q06",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "During pilot builds the flashing station loads an older firmware image from a shared folder. What is the best fix?",
+          "options": [
+            "Ask operators to be more careful when choosing the file",
+            "Rename the folder to make the right file easier to find",
+            "Control the image by version and checksum and verify it",
+            "Accept it, since the older image passed tests last year"
+          ],
+          "answer": 2,
+          "why": "Software loaded in production must be a controlled, verified version, checked before use."
+        },
+        {
+          "id": "design-file-and-transfer-q07",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Operators were trained on a draft assembly instruction. What should happen before release?",
+          "options": [
+            "Retrain them on the released revision and record it",
+            "Nothing, since the draft is close to the final version",
+            "Let them read the final version in their own time",
+            "Release the draft as final to match the training"
+          ],
+          "answer": 0,
+          "why": "Training must be on the approved instructions, with records, before they become effective."
+        },
+        {
+          "id": "design-file-and-transfer-q08",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Soon after launch, one assembly step has high scrap because a part does not always fit. What should happen?",
+          "options": [
+            "Operators file the part down on the line as needed",
+            "Ignore it until the scrap rate reaches a set limit",
+            "Order more parts to make up for the scrap",
+            "Route it into change control and the design file"
+          ],
+          "answer": 3,
+          "why": "Early production issues may reveal wrong inputs, outputs or assumptions and must go through change control."
+        },
+        {
+          "id": "design-file-and-transfer-q09",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "What makes a design file inspection-ready?",
+          "options": [
+            "It is printed and stored in a locked cabinet",
+            "Each requirement traces to evidence for the release",
+            "It has more pages than the previous product's file",
+            "It was reviewed by the marketing department"
+          ],
+          "answer": 1,
+          "why": "Reviewers must be able to follow any requirement to its evidence for the released configuration."
+        },
+        {
+          "id": "design-file-and-transfer-q10",
+          "lesson": "medtech-design-controls-design-file-and-transfer",
+          "q": "Your team asks you to lead process validation for a sterile seal after this lesson. What is the honest answer?",
+          "options": [
+            "Accept, since the lesson covered IQ, OQ and PQ fully",
+            "Accept, and ask an AI tool to write the protocol alone",
+            "This lesson gives awareness; specialist support is needed",
+            "Decline to take any part in the process validation work"
+          ],
+          "answer": 2,
+          "why": "Process validation is specialist work; introductory coverage is not readiness to lead it."
+        }
+      ]
+    },
+    {
+      "id": "design-changes",
+      "title": "Design changes after launch",
+      "summary": "How to assess, verify, approve and release a design change, including the regulatory question, software updates, AI change plans and keeping risk files and labels in step.",
+      "outline": [
+        "Assessing the impact of a design change",
+        "Regulatory assessment: when a change needs a new submission",
+        "Verification and validation of changes",
+        "Software updates and predetermined change control plans for AI",
+        "Keeping risk files and labelling in step"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-design-controls-design-changes",
+          "title": "Design changes after launch",
+          "summary": "You will be able to run a change impact assessment through the trace, decide which evidence must be repeated, flag the regulatory question to the right people, and close a change with a record someone else can follow.",
+          "why": "Most device engineering happens after launch: supplier changes, component end-of-life, bug fixes, new phone operating systems, label updates and model retraining. FDEs are often asked to ship a software fix, build a change impact tool or speed up change records with AI. A small change that skips proper assessment can break a risk control, invalidate test evidence or need a regulatory submission that was never made.",
+          "sections": [
+            {
+              "h": "What counts as a design change",
+              "p": [
+                "A design change is any change to an approved design output: a drawing, a part, a material, a supplier specification, firmware, an app, a label, an instruction for use, a parameter file or a manufacturing specification that defines the product. It applies before and after launch, but after launch it also affects units in the field, units in stock and units being built.",
+                "ISO 13485 expects changes to be identified, and their significance to function, performance, safety, usability and regulatory requirements to be determined. Changes are reviewed, verified and validated as appropriate, and approved before they are put in place. The review includes the effect on parts and assemblies, on product already made or delivered, on the inputs and outputs of risk management and on the production processes.",
+                "Changes also start from many places: complaints, service findings, CAPA (corrective and preventive action), supplier notices, component end-of-life, cybersecurity issues and new features. Whatever the trigger, route it into the same change process so that one record holds the request, the assessment, the evidence and the approval."
+              ]
+            },
+            {
+              "h": "Impact assessment through the trace",
+              "p": [
+                "Size is a poor guide to impact. A one-line firmware change can disable an alarm; a supplier's 'equivalent' part can behave differently at low temperature. Classify a change by its effect on the product, using evidence, not by the number of lines changed or by the supplier's description.",
+                "This is where the trace matrix pays for itself. Start at the changed output and follow links outward:"
+              ],
+              "list": [
+                "Which design inputs does this output implement, and which user needs sit behind them?",
+                "Which risk controls depend on it, and could the change create a new hazard?",
+                "Which verification and validation results were run on the old version and may no longer apply?",
+                "Which labels, instructions, training or service documents describe the changed behaviour?",
+                "Which production processes, fixtures, inspections or validated processes are affected?",
+                "Which units are in the field, in stock or in production, and how will old and new versions be told apart?"
+              ]
+            },
+            {
+              "h": "The regulatory question",
+              "p": [
+                "Some changes need a new regulatory submission or a notification before release. In the US, the FDA guidances 'Deciding When to Submit a 510(k) for a Change to an Existing Device' and the companion guidance for software changes walk through the questions for 510(k) devices. Other pathways and markets have their own rules; in the EU, for example, a notified body may need to be told about certain changes.",
+                "An engineer or FDE does not make this call. The job is to give regulatory affairs a clear description of the change, its impact assessment and the evidence, early enough that a submission does not hold up a release. The decision and its rationale are recorded in the change file, including when the answer is that no submission is needed."
+              ]
+            },
+            {
+              "h": "Verifying and validating the change",
+              "p": [
+                "Plan the testing before implementing the change. Repeat the verification for affected inputs, run regression tests to show unchanged functions still work, and decide whether validation must be repeated, for example when the change affects how users interact with the device. Record the reason for every test you decided not to repeat; an omitted test with a rationale is defensible, a silent omission is not.",
+                "Software changes follow the same logic. Under IEC 62304, changes go through problem resolution and change control, with regression testing and an updated release. For devices with AI or machine learning, the FDA has a framework for a predetermined change control plan (PCCP): a plan reviewed as part of the marketing submission that describes the planned modifications, the protocol for developing, validating and implementing them, and an assessment of their impact. Changes made within an authorised plan do not need a new submission. Changes outside it follow the normal route."
+              ]
+            },
+            {
+              "h": "Release and follow-up",
+              "p": [
+                "Before release, update the risk file, the labels and instructions if behaviour changed, the trace matrix and the baseline. Make sure production and service can tell the old and new versions apart, decide what happens to stock and fielded units, and plan communication and rollback. Close the change only when approvals and evidence are in place, then watch complaints, service data and logs for the signals the change was meant to affect.",
+                "A good change record lets someone who was not involved rebuild the decision from the first request to the observed result. If you use AI to draft change descriptions or impact lists, check every claimed link against the trace and keep the engineer's review on record."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "Routing a proposed design change",
+            "caption": "Start at the question and follow the answer that fits the impact assessment; record the route taken.",
+            "start": "Change request with impact assessment",
+            "question": "What does the change affect?",
+            "branches": [
+              {
+                "answer": "No effect on inputs or risk",
+                "result": "Record rationale, verify as needed, approve and release"
+              },
+              {
+                "answer": "Inputs, outputs or risk",
+                "result": "Update trace and risk file, repeat V and V, approve"
+              },
+              {
+                "answer": "May affect clearance",
+                "result": "Regulatory assessment before release; submission may be needed"
+              },
+              {
+                "answer": "Within an authorised PCCP",
+                "result": "Follow the plan's protocol and record the result"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a supplier changes the Bluetooth module (example scenario)",
+            "p": [
+              "The supplier of the dose counter's Bluetooth module announces a replacement module. The interface specification is the same and the supplier calls it a drop-in replacement. The team opens change request CR-031."
+            ],
+            "list": [
+              "Impact through the trace: the module implements DI-11 (app update timing) and DI-14 (stale-data state), and DI-14 is a risk control for misreading an old count.",
+              "Bench checks show the new module takes longer to reconnect after leaving range. That changes how often users see the stale-data state, so the team cannot treat it as equivalent.",
+              "The plan repeats T-61 and T-70, runs reconnect and regression tests on the new build, and reviews whether the use scenario from validation needs repeating. Tests not repeated are listed with reasons.",
+              "Regulatory affairs receives the change description, impact assessment and results, and records its decision and rationale in CR-031.",
+              "Production records the module part number on each unit so old and new versions can be told apart. After release, the team watches connection-related complaints."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write a change impact assessment",
+              "time": "60 min",
+              "goal": "Practise following a change through the trace and planning the evidence and approvals it needs.",
+              "steps": [
+                "Use the trace matrix from your earlier practice and invent one change to an output, such as a new display supplier.",
+                "List every input, risk control, test, label and production step linked to the changed output.",
+                "Mark each test as repeat, partial repeat or not repeated, with a one-line reason for each.",
+                "Write the questions you would send to regulatory affairs and who must approve the change.",
+                "Ask Claude to find anything your assessment missed, then check each suggestion against your trace before accepting it."
+              ],
+              "done_when": "You have a one-page change record listing affected items, a test plan with reasons for anything not repeated, the regulatory question and named approvers."
+            }
+          ],
+          "pitfalls": [
+            "Judging impact by the number of lines changed or the supplier's word that a part is equivalent.",
+            "Reviewing only the changed file and missing the requirements, risk controls and tests that depend on it.",
+            "Leaving out tests without a written rationale, so a reviewer cannot tell whether the omission was a decision or an oversight.",
+            "Forgetting labels, instructions, service documents and fielded units when behaviour changes.",
+            "Deciding on your own that no regulatory submission is needed instead of giving regulatory affairs the assessment."
+          ],
+          "check": [
+            "Which effects does ISO 13485 expect a design change review to consider?",
+            "How does the trace matrix help with a change impact assessment?",
+            "Who decides whether a change needs a regulatory submission, and what do they need from engineering?",
+            "What is a predetermined change control plan and what does it allow?",
+            "What must be updated before a change that alters device behaviour is released?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Deciding When to Submit a 510(k) for a Change to an Existing Device",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/deciding-when-submit-510k-change-existing-device",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Deciding When to Submit a 510(k) for a Software Change to an Existing Device",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/deciding-when-submit-510k-software-change-existing-device",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Predetermined Change Control Plans",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/predetermined-change-control-plans",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Marketing Submission Recommendations for a Predetermined Change Control Plan for Artificial Intelligence-Enabled Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "The Testing and Risk Management Impacts of Changing a Medical Device",
+              "source": "Nelson Labs",
+              "url": "https://www.youtube.com/watch?v=dstdlBKJyoo",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Pre-determined Change Control Plans",
+              "source": "Greenlight Guru",
+              "url": "https://www.youtube.com/watch?v=bj37o2SgWW8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "design-changes-q01",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "A firmware fix changes one line of code. How should its impact be judged?",
+          "options": [
+            "As minor, since only one line of code was changed",
+            "By its effect on inputs, risk controls and tests",
+            "By how long the developer took to write the fix",
+            "As minor if the build still compiles without warnings"
+          ],
+          "answer": 1,
+          "why": "Impact depends on what the change affects, not on its size."
+        },
+        {
+          "id": "design-changes-q02",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "A supplier says a replacement part is a drop-in equivalent. What should the team do?",
+          "options": [
+            "Accept the supplier's statement and release the change",
+            "Ask the supplier to sign a letter and file it",
+            "Use the part only in new units and skip any review",
+            "Assess and test the part in the actual device"
+          ],
+          "answer": 3,
+          "why": "Equivalence must be shown with evidence in the device context, not assumed from the supplier."
+        },
+        {
+          "id": "design-changes-q03",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "Who should decide whether a change needs a new 510(k)?",
+          "options": [
+            "Regulatory affairs, using engineering's assessment",
+            "The developer who wrote the change, working alone",
+            "The supplier who made the new part for the device",
+            "The first customer who happens to notice the change"
+          ],
+          "answer": 0,
+          "why": "Regulatory affairs makes and records the call, based on a clear impact assessment and evidence from engineering."
+        },
+        {
+          "id": "design-changes-q04",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "The team decides not to repeat a usability test after a change. What must the change record contain?",
+          "options": [
+            "Nothing, since tests that were not run need no record",
+            "A promise to repeat the test if complaints come in",
+            "A written reason why the test does not need repeating",
+            "The name of the person who suggested skipping it"
+          ],
+          "answer": 2,
+          "why": "A documented rationale makes an omitted test a defensible decision rather than an oversight."
+        },
+        {
+          "id": "design-changes-q05",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "What does an authorised predetermined change control plan (PCCP) allow?",
+          "options": [
+            "Any change to the device at all, without further review",
+            "Changes made by suppliers without telling the maker",
+            "Changes to the intended use without any new submission",
+            "Planned changes made per the plan, no new submission"
+          ],
+          "answer": 3,
+          "why": "Modifications described and implemented under an authorised PCCP do not need a new submission; others follow the normal route."
+        },
+        {
+          "id": "design-changes-q06",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "A change alters how the device warns users. Which documents must be checked before release?",
+          "options": [
+            "Only the source code files that were changed",
+            "Risk file, labels, instructions and trace",
+            "Only the marketing website and the brochures",
+            "Only the supplier contract for the changed part"
+          ],
+          "answer": 1,
+          "why": "When behaviour changes, the risk file, labelling, instructions and trace must stay in step."
+        },
+        {
+          "id": "design-changes-q07",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "Why must production record which module version went into each unit?",
+          "options": [
+            "So that old and new versions can be told apart",
+            "So that the factory can charge more for new units",
+            "Because every part number must appear on the label",
+            "So that the old module can be sold to other makers"
+          ],
+          "answer": 0,
+          "why": "Telling versions apart supports service, complaints, field actions and follow-up after the change."
+        },
+        {
+          "id": "design-changes-q08",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "An AI tool drafts a change impact list. What should the engineer do with it?",
+          "options": [
+            "Attach it to the change record without changes",
+            "Use it only if it lists more items than a person would",
+            "Check each claimed link against the trace and record review",
+            "Discard it, since AI cannot be used in change control"
+          ],
+          "answer": 2,
+          "why": "AI drafts are proposals; each link is checked against the trace and the engineer's review is recorded."
+        },
+        {
+          "id": "design-changes-q09",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "When can a design change be put into production?",
+          "options": [
+            "As soon as the developer has merged the code change",
+            "When the supplier has shipped the first new parts",
+            "Once the change is reviewed, verified and approved",
+            "When the sales team asks for the new version of it"
+          ],
+          "answer": 2,
+          "why": "Changes are reviewed, verified or validated as needed, and approved before implementation."
+        },
+        {
+          "id": "design-changes-q10",
+          "lesson": "medtech-design-controls-design-changes",
+          "q": "After release, what should the team watch?",
+          "options": [
+            "Complaints and data the change was meant to affect",
+            "Only the number of units sold after the change",
+            "Nothing, since the change record is already closed",
+            "Only the supplier's own test reports for the part"
+          ],
+          "answer": 0,
+          "why": "Post-change monitoring checks the change worked as expected and did not create new problems."
+        }
+      ]
+    }
+  ]
+}

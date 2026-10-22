@@ -1,0 +1,2254 @@
+{
+  "id": "medtech-risk-management",
+  "title": "Risk management with ISO 14971",
+  "category": "MedTech",
+  "track": "MedTech",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How medical device makers find, estimate, control and keep watching product risk across the lifecycle, following ISO 14971.",
+  "audience": "Engineers, testers, product people and FDEs on medical device projects who contribute to hazard analysis, risk controls or the risk file.",
+  "sections": [
+    {
+      "id": "iso-14971-process",
+      "title": "The ISO 14971 risk management process",
+      "summary": "The key terms (hazard, hazardous situation, harm, risk) and each step from risk management plan to post-production monitoring.",
+      "outline": [
+        "Why device risk management is a lifecycle process, not a one-off document",
+        "Hazard, hazardous situation, harm and risk",
+        "Plan, analyse, evaluate, control, judge residual risk, review, monitor",
+        "The order of preference for risk controls",
+        "The risk management file and report",
+        "Where engineers and AI tools fit in"
+      ],
+      "lessons": [
+        {
+          "id": "mtrm-iso-14971-process",
+          "title": "The ISO 14971 risk management process",
+          "summary": "You will be able to use the ISO 14971 terms correctly, walk through each step of the process, and explain how risk controls are chosen and checked.",
+          "why": "Every requirement, test and design choice on a device project is shaped by risk. Some requirements exist only because they control a risk, and some tests exist only to prove that control works. If you change one without knowing it is a risk control, you can quietly remove a safety measure. Knowing the ISO 14971 process lets you read the risk file, ask the right questions, and spot when a change, including a change to an AI model, touches safety.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "ISO 14971 is the international standard for applying risk management to medical devices, including software and in vitro diagnostic devices. It sets out a process: plan the work, find the hazards, estimate and evaluate the risks, control them, judge whether what remains is acceptable compared with the benefit, and keep collecting information once the device is on the market. The current edition is ISO 14971:2019, and a companion technical report, ISO/TR 24971, gives guidance on applying it.",
+                "Regulators expect it. Device makers show conformity through their risk management file, which reviewers and auditors read alongside the design file.",
+                "Think of the risk management file as the place where all of this lives. It is not one document but a set of records: the plan, the hazard analysis, the risk estimates and evaluations, the controls and their verification, the benefit-risk judgements, the review before release and the post-production updates. Each record points to the evidence behind it, such as a test report or a design requirement. An auditor should be able to pick any risk and follow it from the hazard to the verified control and the latest field data without asking anyone."
+              ]
+            },
+            {
+              "h": "Four words that matter",
+              "p": [
+                "ISO 14971 uses precise terms, and mixing them up is the most common mistake in risk files."
+              ],
+              "list": [
+                "Harm: injury or damage to the health of people, or damage to property or the environment. Example: a patient takes too much insulin and has a severe low blood sugar.",
+                "Hazard: a potential source of harm. Example: a wrong reading from a blood glucose meter.",
+                "Hazardous situation: a circumstance in which people, property or the environment are exposed to a hazard. Example: the patient uses the wrong reading to choose an insulin dose.",
+                "Risk: the combination of the probability that harm occurs and the severity of that harm. A risk always belongs to a specific harm, not to a hazard on its own."
+              ]
+            },
+            {
+              "h": "The process step by step",
+              "p": [
+                "The steps below follow the order of the standard. In practice teams loop back whenever the design changes or new information arrives."
+              ],
+              "list": [
+                "Plan: write a risk management plan that sets scope, responsibilities, the criteria for risk acceptability, and how verification and post-production information will be handled. Top management sets the policy behind those criteria.",
+                "Analyse: describe the intended use and reasonably foreseeable misuse, list safety-related characteristics, identify hazards and the sequences of events that lead to hazardous situations, and estimate the risk of each.",
+                "Evaluate: compare each estimated risk against the acceptability criteria in the plan.",
+                "Control: reduce risks that are not acceptable, then verify each control was put in place and that it works.",
+                "Judge residual risk: check each remaining risk, check new risks created by the controls, and if a risk is still not acceptable, decide whether the medical benefit outweighs it.",
+                "Overall residual risk and review: judge the total remaining risk against benefit, then review the whole process before commercial release and record it in a risk management report.",
+                "Production and post-production: collect and review information from complaints, service, literature and similar devices, and feed it back into the file."
+              ]
+            },
+            {
+              "h": "Choosing risk controls",
+              "p": [
+                "ISO 14971 sets an order of preference for risk control options. First, inherent safety by design and manufacture: change the design so the hazard cannot arise or is less likely. Second, protective measures in the device itself or in the manufacturing process, such as alarms or interlocks. Third, information for safety, such as warnings in the labelling and, where appropriate, training for users.",
+                "The order matters because a warning depends on someone reading and following it, while a design change works every time. A team that controls every risk with a warning has usually skipped the first two options. Each control becomes a design input, so it gets its own verification test, which is how the risk file and the design file stay linked."
+              ]
+            },
+            {
+              "h": "Where you fit in",
+              "p": [
+                "Engineers help identify hazards in their part of the design, propose controls, and write the tests that verify them. When you change a requirement, check whether it is tagged as a risk control before you touch it. If you work on software or AI, think about how wrong output, delayed output or no output could lead to a hazardous situation, and who would act on it. An AI tool can help draft hazard lists or check a risk table for gaps, but the judgements on probability, severity and acceptability belong to the qualified team and are recorded in the file."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "The ISO 14971 lifecycle",
+            "caption": "Follow the loop clockwise; information from the market feeds back into analysis and the loop continues for the life of the device.",
+            "steps": [
+              {
+                "label": "Risk management plan",
+                "note": "Scope, roles, acceptability criteria"
+              },
+              {
+                "label": "Risk analysis",
+                "note": "Use, misuse, hazards, sequences, estimates"
+              },
+              {
+                "label": "Risk evaluation",
+                "note": "Compare each risk with the criteria"
+              },
+              {
+                "label": "Risk control",
+                "note": "Design first, then protection, then info"
+              },
+              {
+                "label": "Residual risk and benefit",
+                "note": "Is what remains acceptable?"
+              },
+              {
+                "label": "Review and report",
+                "note": "Before release, record in the report"
+              },
+              {
+                "label": "Post-production info",
+                "note": "Complaints, service, literature"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one row of a glucose meter risk table (example scenario)",
+            "p": [
+              "A team is building a home blood glucose meter with a companion app. The risk plan uses a 5 by 5 scale for severity and probability and a simple rule for acceptability. The scale, the scores and the rule below are example values set in this team's plan, not values from the standard.",
+              "The script shows how a team might check a risk table against its plan's rule. The scores come from people; the script only applies the agreed rule consistently."
+            ],
+            "list": [
+              "Hazard: the meter reports a reading that is too high.",
+              "Sequence of events: a test strip is stored in a hot car, the strip chemistry degrades, the meter gives a high reading, the patient doses insulin based on it.",
+              "Hazardous situation: the patient injects more insulin than needed.",
+              "Harm: severe hypoglycaemia. Severity 5, probability 3 before control: not acceptable under this plan.",
+              "Controls, in order of preference: strip packaging redesigned to better resist heat (design); the meter checks a strip control signal and refuses to show a result from a damaged strip (protective measure); storage temperature warning in the instructions (information).",
+              "Verification: heat-chamber tests on packaged strips, firmware tests that damaged-strip signals block results, labelling review.",
+              "After control: probability 1, severity 5. Acceptable under this plan, with the residual risk disclosed in the instructions."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Example acceptability rule from a team's risk plan (not from ISO 14971)\ndef acceptable(severity, probability):\n    if severity >= 4:\n        return probability <= 1\n    return severity * probability <= 8\n\nrows = [\n    (\"High reading, insulin overdose (before)\", 5, 3),\n    (\"High reading, insulin overdose (after)\", 5, 1),\n    (\"App shows stale value, missed dose\", 3, 2),\n]\nfor name, s, p in rows:\n    print(f\"{'OK ' if acceptable(s, p) else 'NOT'} S{s} P{p} {name}\")\n# NOT S5 P3 High reading, insulin overdose (before)\n# OK  S5 P1 High reading, insulin overdose (after)\n# OK  S3 P2 App shows stale value, missed dose"
+            }
+          },
+          "practice": [
+            {
+              "title": "Write your first hazard chain",
+              "time": "45 min",
+              "goal": "Practise separating hazard, sequence of events, hazardous situation and harm, and choosing controls in the right order.",
+              "steps": [
+                "Pick a simple device, such as a digital thermometer, a pill reminder app or a home blood pressure monitor.",
+                "Write three hazards it could have.",
+                "For each hazard, write a sequence of events, the hazardous situation and the harm, one per column in a spreadsheet.",
+                "For each row, propose one control of each type: design, protective measure, information for safety. Mark which you would choose first and why.",
+                "Write how you would verify the control you chose.",
+                "Ask Claude to check that you have not mixed up hazard, hazardous situation and harm in any row, and fix what it finds after you agree."
+              ],
+              "done_when": "You have three complete rows, each with a correctly separated hazard chain, a chosen control and a verification method."
+            }
+          ],
+          "pitfalls": [
+            "Calling a harm a hazard, or scoring risk for a hazard with no harm named. Every risk belongs to a specific harm.",
+            "Treating an FMEA as the whole of ISO 14971. FMEA is a useful tool for analysis, but the standard covers planning, benefit-risk, review and post-production too.",
+            "Controlling every risk with a warning. Use design changes and protective measures first; information for safety comes last.",
+            "Writing the risk file once and never updating it. Complaints and field data must feed back into it for the life of the device."
+          ],
+          "check": [
+            "Define harm, hazard, hazardous situation and risk, with one example each.",
+            "What is the order of preference for risk control options?",
+            "What happens if a residual risk is still not acceptable after controls?",
+            "Why must each risk control be verified?",
+            "What kinds of information feed the production and post-production step?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is FMEA? Failure Mode and Effects Analysis",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fmea",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices (search for 14971)",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is ISO 14971?",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=2i-ye3ATAr0",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Free Medical Device Risk Management Course: Introduction & Simple Risk Table (ISO 14971)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=XcdIRDh5Ek8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "mtrm-q01",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "In a risk table, someone lists 'severe low blood sugar' in the hazard column. What is it actually?",
+          "options": [
+            "A hazardous situation",
+            "A risk control",
+            "A harm",
+            "A sequence of events"
+          ],
+          "answer": 2,
+          "why": "Harm is the injury or damage to health; the hazard is the potential source, such as a wrong reading."
+        },
+        {
+          "id": "mtrm-q02",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "A team plans to control a pinch-point risk only with a warning label. What should a reviewer ask first?",
+          "options": [
+            "Can the design remove or guard it?",
+            "Is the label printed in a large enough font for older users?",
+            "Has marketing approved the final label text and colours?",
+            "Can the warning be moved to the product website instead?"
+          ],
+          "answer": 0,
+          "why": "ISO 14971 prefers inherent safety by design, then protective measures, and only then information for safety."
+        },
+        {
+          "id": "mtrm-q03",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "Which statement about risk in ISO 14971 is correct?",
+          "options": [
+            "Risk means exactly the same thing as a hazard in the standard",
+            "Risk combines probability and severity of harm",
+            "Risk only counts once a real complaint has been received",
+            "Risk is only ever scored for the whole device at once"
+          ],
+          "answer": 1,
+          "why": "The standard defines risk as the combination of probability of occurrence of harm and severity of that harm."
+        },
+        {
+          "id": "mtrm-q04",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "Where are the criteria for deciding whether a risk is acceptable set?",
+          "options": [
+            "In the instructions for use that ship with the device",
+            "By each tester on the day the verification tests are run",
+            "In the ISO 14971 standard itself as fixed numeric limits",
+            "In the risk management plan"
+          ],
+          "answer": 3,
+          "why": "The plan sets acceptability criteria based on a policy defined by top management; the standard does not fix the numbers."
+        },
+        {
+          "id": "mtrm-q05",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "A developer wants to relax a requirement that the app blocks results from damaged test strips. What should they check first?",
+          "options": [
+            "Whether enough users have asked for the change",
+            "Whether it is a risk control in the risk file",
+            "Whether the code would be easier to maintain without it",
+            "Whether the next release date still allows the change"
+          ],
+          "answer": 1,
+          "why": "Some requirements exist to control a risk; changing them can remove a safety measure."
+        },
+        {
+          "id": "mtrm-q06",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "After all controls, one risk is still not acceptable under the plan's criteria. What does the standard expect next?",
+          "options": [
+            "Do a benefit-risk analysis",
+            "Delete that row from the risk table before the review",
+            "Add a second warning to the label and close the row",
+            "Ship the device and wait to see if complaints arrive"
+          ],
+          "answer": 0,
+          "why": "If residual risk is not acceptable, the manufacturer judges whether the medical benefit outweighs it, or does not release."
+        },
+        {
+          "id": "mtrm-q07",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "A team finishes a detailed FMEA and says 'ISO 14971 is done'. What is missing?",
+          "options": [
+            "Nothing, since an FMEA covers the full standard",
+            "Only a final signature on the completed FMEA",
+            "A second FMEA carried out by a different team",
+            "Planning, benefit-risk, review, monitoring"
+          ],
+          "answer": 3,
+          "why": "FMEA is an analysis tool; ISO 14971 is a full lifecycle process."
+        },
+        {
+          "id": "mtrm-q08",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "A new alarm is added to control a risk. What must the team show for it?",
+          "options": [
+            "That users like the alarm sound",
+            "That it is listed in the marketing brochure",
+            "That it was implemented and is effective",
+            "That it was cheaper than a design change"
+          ],
+          "answer": 2,
+          "why": "Each risk control is verified for implementation and for effectiveness."
+        },
+        {
+          "id": "mtrm-q09",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "The device has been on the market for a year and complaints show a new failure mode. What should happen?",
+          "options": [
+            "Nothing, since the risk file was closed at release",
+            "Feed it into the risk file and reassess",
+            "Handle it through the marketing team only",
+            "Wait and address it in the next product generation"
+          ],
+          "answer": 1,
+          "why": "Production and post-production information feeds back into risk analysis for the life of the device."
+        },
+        {
+          "id": "mtrm-q10",
+          "lesson": "mtrm-iso-14971-process",
+          "q": "An AI tool drafts a hazard list for a new device. Who decides the severity and probability scores?",
+          "options": [
+            "The qualified team, in the file",
+            "The AI tool, since it has read far more documents",
+            "The regulator, during the premarket review",
+            "Whoever happens to run the tool first on the team"
+          ],
+          "answer": 0,
+          "why": "AI can help draft, but risk judgements belong to the qualified team and are recorded in the risk file."
+        }
+      ]
+    },
+    {
+      "id": "hazard-identification",
+      "title": "Finding hazards and hazardous situations",
+      "summary": "How to describe intended use and foreseeable misuse, find hazards in every category, and write complete sequences of events from hazard to harm, including use errors, software and data.",
+      "outline": [
+        "Intended use and reasonably foreseeable misuse",
+        "Hazard categories: energy, biological, chemical, information, use",
+        "Sequences of events from hazard to harm",
+        "Use errors and the link to usability engineering",
+        "Software and data hazards"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-hazard-identification",
+          "title": "Finding hazards and hazardous situations",
+          "summary": "You will be able to describe a device's intended use and foreseeable misuse, list hazards by category, and write a full sequence of events from hazard to hazardous situation to harm.",
+          "why": "Every later step of risk management depends on this one. A hazard that is never written down never gets estimated, controlled or verified, so it reaches the patient untouched. FDEs often see the system from an angle the device team does not, such as data flows, integrations and how real users work around the software, which makes them useful in hazard reviews. To contribute, you need to write hazards in the shape the risk file expects, not as a list of bugs.",
+          "sections": [
+            {
+              "h": "Start with the use, not the parts",
+              "p": [
+                "Hazard identification starts with a clear description of the device and how it will be used. Write down the intended use (what the device is for, the medical condition, the patient group), the intended users (patients at home, nurses, surgeons), the use environment (hospital ward, ambulance, kitchen table), and the parts of the lifecycle that matter: transport, installation, use, cleaning, maintenance, software updates and disposal.",
+                "Then add reasonably foreseeable misuse. This is use the manufacturer did not intend but can reasonably predict from normal human behaviour. A home user who skips a calibration step because the device seems to work without it is foreseeable. A user who takes the device apart with a screwdriver to modify it is usually not. ISO 14971 asks for both intended use and reasonably foreseeable misuse, because many real harms come from the gap between how designers think a device is used and how people actually use it.",
+                "This description sets the boundary of the analysis. If the description says the meter is used only by trained staff, the team may miss hazards that appear when a patient uses it at home. Get the description reviewed by people who know the real users."
+              ]
+            },
+            {
+              "h": "Hazard categories as prompts",
+              "p": [
+                "A hazard is a potential source of harm. Teams use categories as prompts so they do not only think about the part they built. The categories below are a common starting set, not a complete list. Walk through each one for each lifecycle phase."
+              ],
+              "list": [
+                "Energy: electrical shock, heat, moving parts, pressure, radiation, sound, stored energy in springs or batteries.",
+                "Biological: contamination, infection, cross-contamination between patients, materials that cause a tissue reaction.",
+                "Chemical: cleaning agents, degraded materials, leaching from plastics, wrong concentration of a drug or reagent.",
+                "Information: wrong, missing, delayed or unclear output, such as an incorrect reading, a confusing display or a label in the wrong language.",
+                "Use: tasks that invite mistakes, such as similar-looking connectors, steps in an unclear order, or alarms users learn to ignore.",
+                "Functional and environmental: loss of function, wear, interference from other equipment, temperature and humidity outside the expected range."
+              ]
+            },
+            {
+              "h": "From hazard to harm: the sequence of events",
+              "p": [
+                "A hazard alone does not hurt anyone. Harm happens when a sequence of events puts a person in a hazardous situation, which is a circumstance where people, property or the environment are exposed to the hazard. The risk file should show that chain. A good row reads like a short story: an initiating event (a cause), the intermediate events, the moment of exposure, and the harm that can follow.",
+                "Writing the chain matters for two reasons. First, it shows where a control can break the chain. A control can stop the initiating event, interrupt an intermediate event, or reduce the harm. Second, one hazard can lead to several hazardous situations and several harms, each with its own probability and severity. If the chain is vague, the estimate that follows will be a guess.",
+                "Keep estimation out of this step. Do not drop a plausible chain because nobody knows how often it would happen. Write it down, record the uncertainty, and let the estimation step deal with it."
+              ]
+            },
+            {
+              "h": "Use errors and usability engineering",
+              "p": [
+                "A use error is a user action, or lack of action, that leads to a different result than the manufacturer intended or the user expected. Use errors are a major source of hazardous situations, and they are rarely just carelessness. If many users press the wrong button, the layout is part of the cause.",
+                "Usability engineering, described in IEC 62366-1 and in FDA human factors guidance, runs alongside risk management. It identifies use-related hazards through task analysis, known problems with similar devices, and formative testing with real users. Its findings feed the hazard list, and its summative testing is often the evidence that a use-related control works. When you see 'user error' as a cause in a risk table, ask what in the design or environment made that error likely."
+              ]
+            },
+            {
+              "h": "Software and data hazards",
+              "p": [
+                "Software rarely causes harm directly. It causes harm through what it tells people or what it makes a device do. For each software function, ask four questions: what if the output is wrong, what if it is late, what if it is missing, and what if it is attached to the wrong patient or the wrong record.",
+                "Data and integrations add their own hazards. A unit mismatch between two systems, a time zone shift that reorders results, a failed sync that shows stale data as current, or a field truncated during transfer can each start a chain to harm. These are exactly the areas an FDE often knows best, so bring them to the review. Record a software defect as the cause in the chain, then continue the chain to the hazardous situation and the harm."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From hazard to harm",
+            "caption": "Read left to right; a control can break the chain at any step before harm.",
+            "steps": [
+              {
+                "label": "Hazard",
+                "note": "Potential source of harm, such as a wrong reading"
+              },
+              {
+                "label": "Initiating event",
+                "note": "The cause, such as a failed data refresh"
+              },
+              {
+                "label": "Intermediate events",
+                "note": "Old value shown as current, no age shown"
+              },
+              {
+                "label": "Hazardous situation",
+                "note": "Clinician acts on the stale value"
+              },
+              {
+                "label": "Harm",
+                "note": "Injury or damage to health, such as delayed care"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a stale value in a dosing-support app (example scenario)",
+            "p": [
+              "A fictional dosing-support app shows a patient's latest lab value to help a clinician choose a dose. After a network drop, the app reconnects but does not refresh the value. A developer logs it as 'network bug'. That is a cause, not a hazard record.",
+              "The team rewrites it as a full chain and then checks for other paths to the same harm."
+            ],
+            "list": [
+              "Hazard: incorrect information (an out-of-date lab value displayed as current).",
+              "Initiating event: the app reconnects after a network drop and keeps the cached value.",
+              "Intermediate events: the screen gives no sign the value is old; the clinician has no reason to doubt it.",
+              "Hazardous situation: the clinician chooses a dose based on the stale value.",
+              "Harm: overdose or underdose, depending on how the real value changed.",
+              "Other paths to the same harm found in review: the value attached to the wrong patient after a record merge, and manual transcription of the value into another system.",
+              "Candidate controls noted for later steps: refresh on reconnect, a visible value age, and a block on dosing when data is older than a set limit. These are noted, not yet chosen."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a hazard list for a simple app",
+              "time": "45 min",
+              "goal": "Describe a use context and write complete hazard chains, including one use error and one data hazard.",
+              "steps": [
+                "Pick a simple fictional device, such as a medication reminder app paired with a smart pill box.",
+                "Write its intended use, intended users, use environment and two examples of reasonably foreseeable misuse.",
+                "In a spreadsheet, make columns for hazard category, hazard, initiating event, intermediate events, hazardous situation and harm.",
+                "Write five rows: at least one use error, one data or integration hazard, and one from a lifecycle phase other than normal use.",
+                "For each software row, check you asked wrong, late, missing and wrong patient.",
+                "Ask Claude to find rows where you stopped at a cause or skipped the hazardous situation, then fix the ones you agree with."
+              ],
+              "done_when": "You have five complete rows, each with a cause, a hazardous situation and a harm in separate columns, covering at least three hazard categories."
+            }
+          ],
+          "pitfalls": [
+            "Listing a software defect such as 'network bug' and stopping there, without describing who is exposed and what harm can follow.",
+            "Describing only the intended use and forgetting reasonably foreseeable misuse, so common real-world workarounds never reach the risk file.",
+            "Writing 'user error' as the cause and closing the row, when the interface or use environment made the error predictable.",
+            "Dropping a plausible hazard because nobody knows how often it happens, instead of keeping it and recording the uncertainty.",
+            "Covering only normal use and missing installation, cleaning, maintenance, software updates and disposal."
+          ],
+          "check": [
+            "What is the difference between a hazard and a hazardous situation? Give an example of each.",
+            "Why is 'network bug' an incomplete entry in a hazard list?",
+            "What four questions should you ask about each software output?",
+            "Give one example of reasonably foreseeable misuse for a home-use device.",
+            "Why should risk estimation be kept separate from hazard identification?"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "title": "Understanding Sequence of Events and Hazardous Situations",
+              "source": "Let's Talk Risk!",
+              "url": "https://www.youtube.com/watch?v=DjpIUp5UCPY",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Manufacturer and User Facility Device Experience (MAUDE) Database",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices (search for 14971 and 62366)",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Content of Premarket Submissions for Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Creating a Simple Risk Table for ISO 14971 (Risk Management For Medical Devices)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=aqE9yxscuTo",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "hazard-identification-q01",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "A risk table row says only 'network bug'. What is missing?",
+          "options": [
+            "A fix version number for the bug",
+            "The name of the developer who found it",
+            "The hazardous situation and the harm",
+            "A screenshot of the error message"
+          ],
+          "answer": 2,
+          "why": "A cause alone does not show who is exposed or what harm can follow, so the risk cannot be estimated."
+        },
+        {
+          "id": "hazard-identification-q02",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "A clinician doses a patient using a lab value the app shows as current, but it is two days old. Which part of the chain is this?",
+          "options": [
+            "The hazardous situation",
+            "The initiating event",
+            "The harm",
+            "A risk control"
+          ],
+          "answer": 0,
+          "why": "The clinician acting on the stale value is the moment of exposure to the hazard; harm is what may follow."
+        },
+        {
+          "id": "hazard-identification-q03",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Home users often skip a calibration step because the meter seems to work without it. How should the team treat this?",
+          "options": [
+            "Ignore it, since it is not the intended use",
+            "Blame the users in the instructions",
+            "Wait for complaints before adding it",
+            "As foreseeable misuse in the analysis"
+          ],
+          "answer": 3,
+          "why": "ISO 14971 asks teams to consider reasonably foreseeable misuse, and predictable shortcuts are a common example."
+        },
+        {
+          "id": "hazard-identification-q04",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Many nurses in testing press the wrong button on a pump screen. A reviewer sees 'user error' as the cause. What should they ask?",
+          "options": [
+            "Whether the nurses were tired that day",
+            "What in the design made the error likely",
+            "Whether the nurses can be retrained once",
+            "Whether the test can be run again"
+          ],
+          "answer": 1,
+          "why": "Repeated use errors usually point to the interface or the use environment, which usability engineering examines."
+        },
+        {
+          "id": "hazard-identification-q05",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Nobody knows how often a data sync could attach a result to the wrong patient. What should happen to that hazard?",
+          "options": [
+            "Keep it and record the uncertainty",
+            "Remove it until data is available",
+            "Score it as zero risk for now",
+            "Move it to the marketing file"
+          ],
+          "answer": 0,
+          "why": "Unknown frequency is not evidence that a hazard is absent; the estimation step handles uncertainty."
+        },
+        {
+          "id": "hazard-identification-q06",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Which is a good set of questions to ask about each software output?",
+          "options": [
+            "Is it fast, cheap, popular, modern?",
+            "Who wrote it, who tested it, when?",
+            "Wrong, late, missing, wrong patient?",
+            "Does it pass lint, build and deploy?"
+          ],
+          "answer": 2,
+          "why": "These four failure types are how software output usually leads to a hazardous situation."
+        },
+        {
+          "id": "hazard-identification-q07",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "A team lists hazards only for normal use in the ward. Which phase might they have missed?",
+          "options": [
+            "The marketing launch event plan",
+            "Cleaning and maintenance",
+            "The yearly sales forecast",
+            "The pricing review meeting"
+          ],
+          "answer": 1,
+          "why": "Hazards can arise across the lifecycle, including transport, installation, cleaning, maintenance, updates and disposal."
+        },
+        {
+          "id": "hazard-identification-q08",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Two connected systems store glucose in different units. Which hazard category does this belong to?",
+          "options": [
+            "Electrical energy",
+            "Biological",
+            "Chemical",
+            "Information"
+          ],
+          "answer": 3,
+          "why": "A unit mismatch produces wrong information that a user or device may act on."
+        },
+        {
+          "id": "hazard-identification-q09",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "Why is writing the full sequence of events useful for later steps?",
+          "options": [
+            "It shows where a control can break the chain",
+            "It replaces the need for any verification testing",
+            "It makes the risk file shorter",
+            "It removes the need for a severity score"
+          ],
+          "answer": 0,
+          "why": "A clear chain shows each point where a control can stop the cause, interrupt events or reduce harm."
+        },
+        {
+          "id": "hazard-identification-q10",
+          "lesson": "medtech-risk-management-hazard-identification",
+          "q": "An FDE notices that a hospital integration drops results when a field is too long. What should they do?",
+          "options": [
+            "Fix it quietly and say nothing",
+            "Raise it as a candidate hazard chain",
+            "Wait for the next audit to mention it",
+            "Add a note only in the code comments"
+          ],
+          "answer": 1,
+          "why": "Data and integration issues can start a chain to harm, and FDEs often see them first, so they belong in the hazard review."
+        }
+      ]
+    },
+    {
+      "id": "estimate-and-evaluate",
+      "title": "Estimating and evaluating risk",
+      "summary": "How to estimate severity and probability of harm, what to do when probability cannot be estimated, how acceptability criteria work, and how to record the rationale.",
+      "outline": [
+        "Severity and probability scales",
+        "Qualitative and quantitative estimation",
+        "When probability cannot be estimated, such as for software",
+        "Risk acceptability matrices and their limits",
+        "Documenting rationale"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-estimate-and-evaluate",
+          "title": "Estimating and evaluating risk",
+          "summary": "You will be able to estimate a risk from severity and probability of harm, handle cases where probability is unknown, apply a plan's acceptability criteria, and write a rationale a reviewer can check.",
+          "why": "Estimation decides which risks get controlled and how hard the team works on them. A score with no rationale cannot be reviewed, and a matrix used without thought can make a dangerous risk look acceptable. FDEs are often asked to help with data for estimates, such as complaint counts, usage numbers or failure rates from logs. You need to know what those numbers mean in a risk file and where they stop being enough.",
+          "sections": [
+            {
+              "h": "What you are estimating",
+              "p": [
+                "In ISO 14971, risk is the combination of the probability that harm occurs and the severity of that harm. You estimate risk for each hazardous situation and the harm it can lead to, not for a hazard on its own and not for a component failure on its own.",
+                "Severity is how bad the harm is. Probability is how likely it is that the harm actually happens. Both use scales defined in the risk management plan before analysis starts. The standard does not give fixed scales or numbers. Each manufacturer defines them to suit the device, based on a policy set by top management.",
+                "Estimation is a separate step from hazard identification on purpose. If people estimate while they brainstorm, they tend to drop chains that feel unlikely before anyone has looked at the evidence. Finish the hazard list first, then estimate each row with the plan's scales in front of you. Estimate before controls first, so the file shows why each control was needed, and estimate again after controls in the risk control step."
+              ]
+            },
+            {
+              "h": "Severity and probability scales",
+              "p": [
+                "A severity scale usually has three to five levels with a written description for each, so two people reading the same harm pick the same level. An example five-level scale might run from negligible (discomfort, no treatment needed) to catastrophic (death). The words matter more than the numbers: 'serious' must be defined, or one engineer will call a broken bone serious and another will not.",
+                "A probability scale is often expressed as a range of frequencies per use, per patient or per device-year, with a label such as improbable, remote, occasional, probable or frequent. The unit must be stated. One in a million per use and one in a million per year are very different for a device used fifty times a day.",
+                "Many teams split probability into two parts: the probability that the hazardous situation occurs, and the probability that the hazardous situation leads to harm. A wrong reading may happen fairly often, but a clinician may catch most of them before acting. Splitting the parts makes that reasoning visible and reviewable."
+              ]
+            },
+            {
+              "h": "Qualitative and quantitative estimation",
+              "p": [
+                "Quantitative estimation uses data: field failure rates, test results, complaint and usage counts, published literature, data on similar devices. Qualitative estimation uses informed judgement on a descriptive scale when good data does not exist. Most risk files mix both. Either is acceptable if the method is stated and the source of every estimate is recorded.",
+                "Be careful with data that looks precise. A complaint rate counts only problems that were noticed and reported. A bench failure rate may not reflect use in a hot car or a busy ward. Record the data source and its limits next to the number.",
+                "Good sources for an FDE to know about include service and repair records, complaint databases, device logs, published adverse event reports such as the FDA MAUDE database, and test reports from verification. Each source answers a slightly different question, so say which question you used it for."
+              ]
+            },
+            {
+              "h": "When probability cannot be estimated",
+              "p": [
+                "Sometimes there is no sound way to estimate probability. Software is the classic case: a defect is either present or not, and there is no meaningful failure rate for a line of code. New technologies and rare events can be similar.",
+                "ISO 14971 allows for this. When the probability of harm cannot be estimated, the team lists the possible consequences and uses them, mainly the severity, for evaluation and control. For software, a common approach is to assume the failure can happen and estimate only the later part of the chain: how likely the wrong output is to reach a person and lead to harm, given the controls around it. Record that you made this choice and why. Never fill the gap with an optimistic guess just to get the risk into a green cell."
+              ]
+            },
+            {
+              "h": "Evaluating against the criteria and writing the rationale",
+              "p": [
+                "Evaluation compares each estimated risk with the acceptability criteria in the plan. Many teams use a matrix with severity on one axis, probability on the other, and cells marked acceptable or not acceptable. A matrix is a tool, not a rule from the standard, and it has limits. Multiplying two ordinal scales can rank a rare catastrophic harm the same as a frequent minor one. Many plans therefore add rules such as 'any risk with severity of four or more needs the lowest probability level'.",
+                "Write a short rationale for every estimate: which data or judgement supports the severity, which supports the probability, and what assumptions you made. A reviewer should be able to disagree with your reasoning, not guess at it. If a later complaint or test result contradicts an assumption, the rationale shows exactly which estimate must change."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "Choosing how to estimate probability",
+            "start": "Hazardous situation and harm written",
+            "question": "Can probability of harm be estimated?",
+            "branches": [
+              {
+                "answer": "Yes, with data",
+                "result": "Use field, test or literature data and record the source"
+              },
+              {
+                "answer": "Partly, by judgement",
+                "result": "Use the qualitative scale and record who judged and why"
+              },
+              {
+                "answer": "No, such as software",
+                "result": "Evaluate on severity, assume failure, focus on controls"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a dose calculator rounding error (example scenario)",
+            "p": [
+              "A fictional insulin dose calculator app has a known risk: under some settings it rounds a dose the wrong way. The team's plan defines a five-level probability scale per use and a five-level severity scale. The rule says a risk with severity 4 or more is acceptable only at probability level 2 or lower. All of these values are example values from this team's plan, not from the standard.",
+              "The team estimates that the rounding error reaches the screen in about 1 in 1,000 uses with the affected settings, based on test data. They judge that a user acts on the wrong dose about 1 in 10 times, because the error is small and often looks plausible. Severity is set at 4 because an overdose can cause severe low blood sugar.",
+              "The result is probability level 3 with severity 4: not acceptable, so the risk goes to risk control. The script below shows the calculation. The rationale records the test data source, the judgement behind the 1 in 10, and the assumption that only the affected settings are counted."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Example scales and rule from a team's plan (not from ISO 14971)\nP_LEVELS = [(1e-2, 5), (1e-3, 4), (1e-4, 3), (1e-5, 2), (0.0, 1)]\n\ndef p_level(p):\n    for limit, level in P_LEVELS:\n        if p >= limit:\n            return level\n\ndef acceptable(severity, level):\n    if severity >= 4:\n        return level <= 2\n    return severity * level <= 8\n\np1 = 1 / 1000   # wrong dose shown, per use (test data)\np2 = 1 / 10     # user acts on it (team judgement)\nlevel = p_level(p1 * p2)\nprint(\"P level\", level, \"acceptable:\", acceptable(4, level))\n# P level 3 acceptable: False"
+            }
+          },
+          "practice": [
+            {
+              "title": "Define scales and score three risks",
+              "time": "45 min",
+              "goal": "Write usable severity and probability scales and apply them with a rationale a reviewer can check.",
+              "steps": [
+                "Take the hazard list you wrote in the previous lesson, or any three hazard chains for a simple device.",
+                "In a spreadsheet, write a five-level severity scale with one sentence describing each level.",
+                "Write a five-level probability scale with a stated unit, such as per use, and a frequency range for each level.",
+                "Write an acceptability rule, including one extra rule for high-severity harms.",
+                "Score each of the three risks and write a two-line rationale naming the data or judgement for each score.",
+                "Mark one risk where probability cannot be estimated and explain how you evaluated it instead."
+              ],
+              "done_when": "A colleague can read your scales, scores and rationales and reach the same acceptability decision for all three risks without asking you questions."
+            }
+          ],
+          "pitfalls": [
+            "Scoring a risk for a hazard or a component failure instead of for a specific harm, so severity has nothing concrete to describe.",
+            "Using a probability scale with no stated unit, so one in a million per use and one in a million per year look the same.",
+            "Guessing a low probability for a software failure to make the risk fit an acceptable cell, instead of evaluating on severity and focusing on controls.",
+            "Trusting a matrix product blindly, so a rare catastrophic harm gets the same score as a frequent minor one.",
+            "Leaving out the rationale, so nobody can tell which estimate to revisit when new field data arrives."
+          ],
+          "check": [
+            "What two things combine to make a risk in ISO 14971?",
+            "Why must a probability scale state its unit?",
+            "Why might a team split probability into two parts?",
+            "What should a team do when the probability of a software failure cannot be estimated?",
+            "Name one weakness of a severity times probability matrix and one way to correct for it."
+          ],
+          "links": [
+            {
+              "type": "video",
+              "title": "How to estimate risk for a medical device according to ISO 14971:2019",
+              "source": "Medical Device HQ",
+              "url": "https://www.youtube.com/watch?v=a-vN2_mn3zY",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Medical Device Risk Analysis: Risk Matrix (ISO 14971)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=k5n3OWv_yjM",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices (search for 14971)",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulation (EU) 2017/745 on medical devices (see Annex I)",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Risk Management and Solutions: Learning Resources",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Manufacturer and User Facility Device Experience (MAUDE) Database",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "estimate-and-evaluate-q01",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "A team scores risk for 'battery failure' with no harm named. What is wrong?",
+          "options": [
+            "Batteries never cause harm",
+            "Risk is scored for a harm",
+            "The score should be higher",
+            "Batteries need a separate file"
+          ],
+          "answer": 1,
+          "why": "Risk combines probability and severity of a specific harm, so a harm must be named first."
+        },
+        {
+          "id": "estimate-and-evaluate-q02",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "A probability level says 'one in a million' and nothing else. What should a reviewer ask?",
+          "options": [
+            "Who picked such a round number",
+            "Whether it could be one in a billion",
+            "Whether marketing agrees with it",
+            "Per use, per patient or per year?"
+          ],
+          "answer": 3,
+          "why": "Without a unit the level means little; a device used often per day turns a per-use rate into a high yearly rate."
+        },
+        {
+          "id": "estimate-and-evaluate-q03",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "Where do the severity and probability scales come from?",
+          "options": [
+            "The team's risk management plan",
+            "Fixed tables printed in ISO 14971",
+            "The regulator's yearly bulletin",
+            "Each tester on the day of testing"
+          ],
+          "answer": 0,
+          "why": "The standard leaves scales and acceptability criteria to the manufacturer, who sets them in the plan."
+        },
+        {
+          "id": "estimate-and-evaluate-q04",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "A wrong reading happens often, but clinicians catch most before acting. How can the team show this in the estimate?",
+          "options": [
+            "Lower the severity of the harm a little",
+            "Ignore the wrong readings for now",
+            "Split probability into two parts",
+            "Remove that row from the risk table"
+          ],
+          "answer": 2,
+          "why": "Separating the chance of the hazardous situation from the chance it leads to harm makes the reasoning visible."
+        },
+        {
+          "id": "estimate-and-evaluate-q05",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "A developer says a software defect has a 'one in a billion' chance. What is the problem?",
+          "options": [
+            "The number is too high",
+            "Software has no failure rate",
+            "It should be per year",
+            "It must be written as a percent"
+          ],
+          "answer": 1,
+          "why": "A defect is either in the code or not; a common approach is to assume the failure can happen and estimate the later chain."
+        },
+        {
+          "id": "estimate-and-evaluate-q06",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "Probability of harm truly cannot be estimated for a new technology. What does the team do?",
+          "options": [
+            "Pick the lowest probability level to be safe",
+            "Skip the risk until enough data exists",
+            "Ask an AI chat tool for a number",
+            "Evaluate on severity and focus on controls"
+          ],
+          "answer": 3,
+          "why": "When probability cannot be estimated, evaluation relies on severity and the team concentrates on controls."
+        },
+        {
+          "id": "estimate-and-evaluate-q07",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "A matrix gives a rare death and a frequent mild rash the same score. What is the usual fix?",
+          "options": [
+            "Add a rule for high-severity harms",
+            "Use a larger font for the whole matrix",
+            "Average all the scores in the file",
+            "Remove the severity axis entirely"
+          ],
+          "answer": 0,
+          "why": "Many plans add extra rules for severe harms because multiplying ordinal scales hides important differences."
+        },
+        {
+          "id": "estimate-and-evaluate-q08",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "An FDE pulls a complaint rate from the support system for an estimate. What should go with it?",
+          "options": [
+            "A chart in company colours",
+            "Nothing else, the number is enough",
+            "Its source and limits",
+            "A promise it will not change"
+          ],
+          "answer": 2,
+          "why": "Complaint counts only capture noticed and reported problems, so the source and its limits must be recorded."
+        },
+        {
+          "id": "estimate-and-evaluate-q09",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "Why write a rationale for every estimate?",
+          "options": [
+            "So the file looks longer",
+            "So a reviewer can check it",
+            "So the scores never change",
+            "So no data is needed"
+          ],
+          "answer": 1,
+          "why": "A rationale lets reviewers challenge the reasoning and shows which estimate to update when new data arrives."
+        },
+        {
+          "id": "estimate-and-evaluate-q10",
+          "lesson": "medtech-risk-management-estimate-and-evaluate",
+          "q": "Field data later shows a hazardous situation happens far more often than assumed. What should happen?",
+          "options": [
+            "Keep the old score",
+            "Change the severity instead",
+            "Delete the field data",
+            "Re-estimate and re-evaluate"
+          ],
+          "answer": 3,
+          "why": "Estimates rest on recorded assumptions; when data contradicts them, the risk is re-estimated and re-evaluated."
+        }
+      ]
+    },
+    {
+      "id": "risk-control",
+      "title": "Risk control and verification",
+      "summary": "How to choose risk controls in the right order, turn them into design inputs, verify that they are in place and that they work, and check for new risks and completeness.",
+      "outline": [
+        "Order of preference for control options",
+        "Turning controls into design inputs",
+        "Verifying implementation and effectiveness",
+        "Risks introduced by controls",
+        "Completeness of risk control"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-risk-control",
+          "title": "Risk control and verification",
+          "summary": "You will be able to pick risk controls in the order ISO 14971 prefers, link each control to a requirement and a test, tell implementation from effectiveness, and spot new risks a control creates.",
+          "why": "Risk controls are where risk management turns into real engineering work: requirements, code, hardware, labels and tests. Many of the tickets an FDE touches on a device project exist only because they control a risk. If you cannot see that link, you can weaken a safety measure during a refactor or an integration without anyone noticing until the audit or, worse, the field.",
+          "sections": [
+            {
+              "h": "The order of preference",
+              "p": [
+                "ISO 14971 lists three kinds of risk control option, in order of preference. The team should consider them in this order and record why a stronger option was not used.",
+                "Why this order? A design change removes or reduces the hazard for every user, every time, with no action needed. A protective measure still lets the hazard exist but catches it before it causes harm, and it can fail or be switched off. Information for safety relies entirely on people. Teams often combine all three for one serious risk, which is fine, as long as the strongest practicable option is used first and the choice is recorded.",
+                "Information for safety includes warnings, instructions for use and, where appropriate, training. It is last because it depends on a person reading, understanding and following it, every time, under real conditions. It is still useful, but it should rarely be the only control for a serious harm."
+              ],
+              "list": [
+                "Inherent safety by design and manufacture: change the design so the hazard is removed or the harm is less likely or less severe. Example: connectors that physically cannot fit the wrong port.",
+                "Protective measures in the device or in the manufacturing process: alarms, interlocks, limits, automatic checks and process controls. Example: firmware that refuses to deliver a dose above a set maximum.",
+                "Information for safety: warnings, labels, instructions for use and training. Example: a caution in the instructions about storage temperature."
+              ]
+            },
+            {
+              "h": "Controls become design inputs",
+              "p": [
+                "Each chosen control becomes a requirement in the design file, tagged so it can be traced back to the risk it controls. This is how the risk file and the design controls process stay connected. A control that only lives in the risk table, with no requirement and no test, has not really been implemented.",
+                "The trace usually runs: hazard chain, then risk control, then design input requirement, then design output (code, drawing, label text), then verification test, then result. When you change a requirement, check whether it carries a risk control tag. If it does, the change needs a risk review, not only a code review.",
+                "For an FDE, this trace is also a practical tool. When a client asks to change how a screen shows data, or to replace an integration, the trace tells you which tests must be rerun and which risk rows must be reviewed before the change can be released. Ask for the trace early in an engagement, before you touch any code that sits near a risk control."
+              ]
+            },
+            {
+              "h": "Two kinds of verification",
+              "p": [
+                "ISO 14971 asks for two things for each control. First, verification of implementation: evidence that the control is actually in the released design. Second, verification of effectiveness: evidence that the control actually reduces the risk as expected.",
+                "These are different questions and often need different evidence. A code review and a requirement trace can show an alarm was implemented. Showing that it is effective may need a test that the alarm fires in the right conditions and a usability test showing that users notice it and respond correctly in a noisy ward. A warning label can be implemented perfectly and still be ineffective if users do not read it. Effectiveness evidence for use-related controls often comes from usability engineering work."
+              ]
+            },
+            {
+              "h": "New risks and residual risk after control",
+              "p": [
+                "After controls are in place, the team estimates each risk again and evaluates the residual risk against the plan's criteria. If it is still not acceptable, the team looks for more controls. Only when further control is not practicable does the question move to benefit-risk, which is covered in the next lesson.",
+                "Controls can also create new hazards or change other risks. An alarm can cause alarm fatigue. An automatic block can delay urgent treatment. A stronger cleaning agent can damage plastic. The team must review each control for side effects and add any new hazards to the analysis, so they go through the same estimate, evaluate and control steps."
+              ]
+            },
+            {
+              "h": "Completeness of risk control",
+              "p": [
+                "Before moving on, the team confirms that risks from all identified hazardous situations have been considered and that every control decision is recorded. In practice this is a review of the risk table: every row has an evaluation, every unacceptable risk has a control or a recorded reason, every control has a requirement, every requirement has a verification result, and no row is left open.",
+                "A simple script or query over an exported risk table can find gaps quickly, such as controls with no linked test or tests that failed. An AI tool can also help spot rows that look incomplete. The tool only finds candidates; the team decides and records the result."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From unacceptable risk to verified control",
+            "caption": "Follow left to right for each risk; new risks found at step five go back through the whole process.",
+            "steps": [
+              {
+                "label": "Option analysis",
+                "note": "Design first, then protection, then information"
+              },
+              {
+                "label": "Design input requirement",
+                "note": "Tagged and traced to the risk"
+              },
+              {
+                "label": "Verify implementation",
+                "note": "Is the control really in the design?"
+              },
+              {
+                "label": "Verify effectiveness",
+                "note": "Does it actually reduce the risk?"
+              },
+              {
+                "label": "Re-estimate and check new risks",
+                "note": "Residual risk and side effects"
+              },
+              {
+                "label": "Completeness review",
+                "note": "No row left open in the risk table"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: controlling the stale-value risk (example scenario)",
+            "p": [
+              "In the fictional dosing-support app from the hazard lesson, the stale lab value risk was not acceptable under the team's plan. The team now chooses and verifies controls."
+            ],
+            "list": [
+              "Design option: refresh the value on every reconnect and never show a cached value as current. Requirement SR-41 (example id) traced to the risk.",
+              "Protective measure: show the value's age next to it, and block the dose suggestion if the value is older than a limit set by the clinical team. Requirements SR-42 and SR-43.",
+              "Information for safety: a note in the instructions explaining the age indicator. Labelling requirement LR-9.",
+              "Verification of implementation: requirement trace, code review, and a release build check that SR-41 to SR-43 are present.",
+              "Verification of effectiveness: automated tests that drop and restore the network in many patterns, plus a usability test where clinicians must notice an old value.",
+              "New risk found: the block could delay treatment in an emergency. The team adds an override that needs a recorded reason, and adds this as a new hazard chain to estimate and control.",
+              "Re-estimate: probability reduced to the plan's acceptable level for this severity, with the test reports cited as evidence."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Find controls with no passing verification in an exported risk table\nrows = [\n    {\"risk\": \"R-07\", \"control\": \"SR-41\", \"test\": \"VT-120\", \"result\": \"pass\"},\n    {\"risk\": \"R-07\", \"control\": \"SR-42\", \"test\": \"VT-121\", \"result\": \"fail\"},\n    {\"risk\": \"R-07\", \"control\": \"SR-43\", \"test\": None, \"result\": None},\n]\nfor r in rows:\n    if r[\"test\"] is None:\n        print(r[\"control\"], \"has no verification test\")\n    elif r[\"result\"] != \"pass\":\n        print(r[\"control\"], \"test\", r[\"test\"], \"is\", r[\"result\"])\n# SR-42 test VT-121 is fail\n# SR-43 has no verification test"
+            }
+          },
+          "practice": [
+            {
+              "title": "Choose, trace and verify three controls",
+              "time": "60 min",
+              "goal": "Apply the order of preference and plan both kinds of verification for real risks.",
+              "steps": [
+                "Take three unacceptable risks from your earlier practice, or from the worked example in the previous lesson.",
+                "For each, write one design option, one protective measure and one information option, then choose and justify which to use.",
+                "Give each chosen control a requirement id and a one-line requirement in a spreadsheet.",
+                "For each requirement, write how you will verify implementation and, separately, how you will verify effectiveness.",
+                "For each control, write one new risk it could introduce, or state why you think there is none.",
+                "Run the script from the worked example on your own rows, adding a missing test on purpose to see it flagged."
+              ],
+              "done_when": "Every control has a requirement id, two distinct verification methods and a recorded check for new risks, and the script flags only the gap you added on purpose."
+            }
+          ],
+          "pitfalls": [
+            "Jumping straight to a warning in the instructions without recording why a design change or protective measure was not practicable.",
+            "Treating verification of implementation as enough, so a control that is present but does not work in real use is never caught.",
+            "Leaving a control only in the risk table, with no tagged requirement and no linked test in the design file.",
+            "Forgetting that controls can create new risks, such as alarm fatigue or a block that delays urgent treatment.",
+            "Changing or refactoring a requirement without checking whether it is tagged as a risk control."
+          ],
+          "check": [
+            "What are the three kinds of risk control option, in order of preference?",
+            "What is the difference between verification of implementation and verification of effectiveness?",
+            "Why must each risk control become a traced design input?",
+            "Give one example of a new risk created by a risk control.",
+            "What does a completeness review of the risk table look for?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Content of Premarket Submissions for Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Medical Devices - ISO 14971 : Risk Management",
+              "source": "GlobalCompliance Panel",
+              "url": "https://www.youtube.com/watch?v=geRZmtBkpNE",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Free Medical Device Risk Management Course: Introduction & Simple Risk Table (ISO 14971)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=XcdIRDh5Ek8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "risk-control-q01",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "Two tubes on a device could be swapped by mistake. Which control does ISO 14971 prefer first?",
+          "options": [
+            "Connectors that cannot fit wrongly",
+            "A clear warning printed on each tube",
+            "Extra training for every ward nurse",
+            "A colour chart added to the manual"
+          ],
+          "answer": 0,
+          "why": "Inherent safety by design comes first; it works every time without relying on someone reading a warning."
+        },
+        {
+          "id": "risk-control-q02",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "Firmware that refuses to deliver a dose above a set maximum is which kind of control?",
+          "options": [
+            "Information for safety",
+            "A user training measure",
+            "A protective measure",
+            "A marketing claim"
+          ],
+          "answer": 2,
+          "why": "Automatic limits, alarms and interlocks in the device are protective measures."
+        },
+        {
+          "id": "risk-control-q03",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A code review shows the low-battery alarm is in the build. What has this shown?",
+          "options": [
+            "That users will hear it",
+            "That the risk is now zero",
+            "That the alarm is effective",
+            "Implementation only"
+          ],
+          "answer": 3,
+          "why": "Being in the build is verification of implementation; effectiveness needs evidence that the alarm reduces the risk in real use."
+        },
+        {
+          "id": "risk-control-q04",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A risk control appears in the risk table but has no requirement and no test. What is the issue?",
+          "options": [
+            "Nothing, the table is enough",
+            "It is not really implemented",
+            "It needs a longer description",
+            "It should move to the label"
+          ],
+          "answer": 1,
+          "why": "Controls become traced design inputs with verification; without that, there is no evidence the control exists."
+        },
+        {
+          "id": "risk-control-q05",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A new auto-block stops dosing when data is old. What should the team check next?",
+          "options": [
+            "Whether the screen looks modern",
+            "Whether it was fast to code",
+            "New risks, like delayed care",
+            "Whether the sales team likes it"
+          ],
+          "answer": 2,
+          "why": "Controls can create new hazards, which must be added to the analysis and handled like any other risk."
+        },
+        {
+          "id": "risk-control-q06",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A team picks only a warning label for a serious harm. What should the file show?",
+          "options": [
+            "Why design and protection were not practicable",
+            "That the label uses red text and a bold symbol",
+            "That legal approved the final wording of it",
+            "That the label is printed on the outer box too"
+          ],
+          "answer": 0,
+          "why": "The order of preference means a team should record why stronger options were not used before relying on information alone."
+        },
+        {
+          "id": "risk-control-q07",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A developer wants to merge two requirements during a refactor. One carries a risk control tag. What is needed?",
+          "options": [
+            "A faster build pipeline",
+            "Nothing extra at all",
+            "Only a peer code review",
+            "A risk review of the change"
+          ],
+          "answer": 3,
+          "why": "Changing a risk control requirement can weaken a safety measure, so the risk impact must be reviewed."
+        },
+        {
+          "id": "risk-control-q08",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "After controls, a risk is still not acceptable. What comes first?",
+          "options": [
+            "Ship and monitor complaints",
+            "Look for further controls",
+            "Lower the severity score",
+            "Delete the risk row"
+          ],
+          "answer": 1,
+          "why": "The team looks for more controls first; benefit-risk is considered only when further control is not practicable."
+        },
+        {
+          "id": "risk-control-q09",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "How is effectiveness of a use-related control, like an on-screen age indicator, usually shown?",
+          "options": [
+            "By counting the lines of code",
+            "By a vote at the design review",
+            "By a usability test with users",
+            "By trusting the supplier's word"
+          ],
+          "answer": 2,
+          "why": "Use-related controls must work for real users, which usability testing shows."
+        },
+        {
+          "id": "risk-control-q10",
+          "lesson": "medtech-risk-management-risk-control",
+          "q": "A script lists two controls with failed or missing tests before release. What does this mean?",
+          "options": [
+            "Risk control is not complete",
+            "The script must have a bug",
+            "The tests can be skipped now",
+            "Release can go ahead as planned"
+          ],
+          "answer": 0,
+          "why": "Completeness means every control is implemented and verified; open gaps must be resolved and recorded."
+        }
+      ]
+    },
+    {
+      "id": "residual-risk-and-report",
+      "title": "Residual risk, benefit-risk and the report",
+      "summary": "How to judge individual and overall residual risk, when and how benefit-risk analysis is used, how residual risk is disclosed to users, and what the risk management review and report must show before release.",
+      "outline": [
+        "Individual and overall residual risk",
+        "Benefit-risk analysis",
+        "Disclosing residual risk to users",
+        "Risk management review and report before release"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-residual-risk-and-report",
+          "title": "Residual risk, benefit-risk and the report",
+          "summary": "You will be able to explain individual and overall residual risk, describe when benefit-risk analysis is used, say how residual risk reaches users, and list what the review before release must confirm.",
+          "why": "No device is free of risk. The question at release is whether what remains is acceptable, judged openly and recorded so a reviewer can follow the reasoning. FDEs are often asked to pull together evidence for this point: open defects, test summaries, trace reports, field data from earlier versions. Knowing what the review needs helps you hand over evidence that answers the real question instead of a pile of exports.",
+          "sections": [
+            {
+              "h": "Individual residual risk",
+              "p": [
+                "Residual risk is the risk that remains after risk control measures are in place. Each risk in the file gets a residual estimate after its controls are verified, using the same scales as before control. That estimate is compared with the acceptability criteria in the risk management plan.",
+                "If the residual risk is acceptable, the row is closed with a reference to the verification evidence. If it is not acceptable, the team first looks for further controls. Only when further control is not practicable does the team move to benefit-risk analysis. 'Not practicable' needs a reason a reviewer can check, such as a technical limit or a control that would remove the clinical benefit itself. 'Too expensive' or 'not enough time before launch' on their own are weak reasons and invite challenge."
+              ]
+            },
+            {
+              "h": "Benefit-risk analysis",
+              "p": [
+                "Benefit-risk analysis asks whether the medical benefits of the intended use outweigh a residual risk that is not acceptable under the plan's criteria. It is not a way to wave a risk through. It needs evidence about the benefit: clinical data, published literature, the outcomes of current alternative treatments, and the state of the art for similar devices.",
+                "The analysis is usually led by people with clinical knowledge, with engineering and quality input. If the evidence does not support the conclusion that benefit outweighs risk, the risk stays unacceptable, and the design must change or the device cannot be released for that intended use. Regulators also look at benefit-risk in their own reviews. EU MDR Annex I places benefit-risk at the centre of its general safety and performance requirements, and FDA has published guidance on benefit-risk factors it considers in premarket reviews."
+              ]
+            },
+            {
+              "h": "Overall residual risk",
+              "p": [
+                "Each risk can be acceptable on its own and the total can still be too much. Ten small risks around one step of use can add up to a device that is hard to use safely. ISO 14971 therefore asks the team to evaluate the overall residual risk, taking all individual residual risks into account together, against the benefits of the intended use.",
+                "The method for this evaluation must be defined in the plan before it is used. Common approaches include a review by a cross-functional panel that reads the whole risk table, grouping residual risks by use step or by harm, and comparing the device's overall risk profile with similar devices on the market. Whatever the method, the result and its reasoning go into the file."
+              ]
+            },
+            {
+              "h": "Disclosing residual risk",
+              "p": [
+                "Users need to know about significant residual risks so they can make informed decisions and take care where it matters. The manufacturer discloses significant residual risks in the accompanying documentation, such as the instructions for use. This disclosure is not the same as using information for safety as a risk control. A control is chosen to reduce a risk; disclosure tells users what remains after all controls.",
+                "Good disclosure is specific and written for the actual user. 'Results may be inaccurate' tells a home user very little. 'Readings can be falsely high if test strips have been stored above the stated temperature' tells them what to watch for."
+              ]
+            },
+            {
+              "h": "Review and report before release",
+              "p": [
+                "Before commercial release, the manufacturer reviews how the risk management process was carried out. The review is done by people with the authority set out in the plan, and the result is recorded in the risk management report, which is part of the risk management file. The review confirms three things."
+              ],
+              "list": [
+                "The risk management plan has been implemented appropriately: every planned activity is done and recorded.",
+                "The overall residual risk is acceptable, using the method and criteria in the plan.",
+                "Appropriate methods are in place to collect and review production and post-production information, so the file keeps learning after release."
+              ]
+            },
+            {
+              "h": "Where an FDE fits in",
+              "p": [
+                "An FDE rarely signs the report, but often builds the evidence behind it. Useful contributions include a trace report showing every risk control linked to a passing test, a list of open defects with a note on whether each touches a risk control, and a summary of field data from earlier versions or similar products. Keep each piece tied to the question the review must answer.",
+                "Be honest about gaps. If a test was run on an older build, or a data export is missing a site, say so in the evidence pack. A reviewer can work with a known gap. A hidden gap found later can undo the release decision and damage trust in the whole file."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "Reaching the release decision",
+            "caption": "Read top to bottom in time order; each lane shows who leads that step.",
+            "lanes": [
+              "Engineering and test",
+              "Risk team",
+              "Clinical",
+              "Management"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Verify all risk controls"
+              },
+              {
+                "lane": 1,
+                "label": "Estimate each residual risk"
+              },
+              {
+                "lane": 1,
+                "label": "Flag risks still unacceptable"
+              },
+              {
+                "lane": 0,
+                "label": "Confirm no further control"
+              },
+              {
+                "lane": 2,
+                "label": "Benefit-risk analysis"
+              },
+              {
+                "lane": 1,
+                "label": "Evaluate overall residual risk"
+              },
+              {
+                "lane": 1,
+                "label": "Write disclosures for the IFU"
+              },
+              {
+                "lane": 3,
+                "label": "Review and sign the report"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a wearable heart rhythm monitor (example scenario)",
+            "p": [
+              "A fictional wearable patch records heart rhythm and flags possible atrial fibrillation for a doctor to review. All controls are verified. The team now works through residual risk before release."
+            ],
+            "list": [
+              "Individual residual risk: missed detection during heavy movement remains in the 'not acceptable' region of the plan, even after a motion-artefact filter and a signal-quality indicator were added and verified.",
+              "Further control: the team checks a stronger filter, but testing shows it hides true arrhythmias, so it would remove part of the clinical benefit. This is recorded as the reason further control is not practicable.",
+              "Benefit-risk: the clinical lead compares the patch with the current alternatives for the intended patients. The team records the sources used, and concludes the benefit outweighs this residual risk for the stated intended use.",
+              "Overall residual risk: a cross-functional panel reviews all residual risks grouped by use step, using the method in the plan, and judges the total acceptable.",
+              "Disclosure: the instructions state that recordings during intense physical activity may miss abnormal rhythms and that the patch does not replace emergency care.",
+              "Report: the review confirms the plan was followed, overall residual risk is acceptable, and complaint and service data will flow back into the file after release."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Draft a mini risk management report",
+              "time": "45 min",
+              "goal": "Practise the reasoning and records needed at the release decision.",
+              "steps": [
+                "Take the risk table from your earlier practice, with residual estimates after control.",
+                "Mark each row acceptable or not, citing the verification evidence for each control.",
+                "For one row that is not acceptable, write a reason further control is not practicable and a short benefit-risk paragraph naming the evidence you would need.",
+                "Write a one-paragraph overall residual risk evaluation and name the method you used.",
+                "Write two specific disclosure sentences for the instructions for use.",
+                "Write the three review conclusions as headings and fill each with one or two sentences of evidence."
+              ],
+              "done_when": "Your report has a decision and evidence reference for every row, one complete benefit-risk paragraph, an overall evaluation with a named method, two disclosures, and all three review conclusions."
+            }
+          ],
+          "pitfalls": [
+            "Jumping to benefit-risk analysis before looking for further practicable controls, which turns it into a shortcut instead of a last step.",
+            "Writing a benefit-risk conclusion with no clinical evidence about the benefit, so the judgement cannot be checked.",
+            "Checking only individual risks and never evaluating the overall residual risk of the device as a whole.",
+            "Writing vague disclosures such as 'results may be inaccurate' that do not tell users what to watch for.",
+            "Treating the report as the end of risk management, with no working route for post-production information back into the file."
+          ],
+          "check": [
+            "What is residual risk, and when is it estimated?",
+            "When is benefit-risk analysis used, and what evidence does it need?",
+            "Why can a device have every individual risk acceptable but still need an overall review?",
+            "How is disclosing residual risk different from information for safety used as a control?",
+            "What three things does the review before commercial release confirm?"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "title": "ISO 14971 & EU-MDR: Residual Risk Requirements",
+              "source": "Let's Talk Risk!",
+              "url": "https://www.youtube.com/watch?v=57wSQkCQMGw",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Overall residual risk evaluation",
+              "source": "Let's Talk Risk!",
+              "url": "https://www.youtube.com/watch?v=quRAwE499H0",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Benefit-Risk Factors to Consider When Determining Substantial Equivalence in Premarket Notifications (510(k))",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/benefit-risk-factors-consider-when-determining-substantial-equivalence-premarket-notifications-510k",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulation (EU) 2017/745 on medical devices (see Annex I)",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Guidance - MDCG endorsed documents and other guidance",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices (search for 14971)",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "residual-risk-and-report-q01",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "What is residual risk?",
+          "options": [
+            "Risk before any analysis",
+            "Risk the regulator assigns",
+            "Risk only from old versions",
+            "Risk left after controls"
+          ],
+          "answer": 3,
+          "why": "Residual risk is what remains once risk control measures are in place and verified."
+        },
+        {
+          "id": "residual-risk-and-report-q02",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "A risk is still unacceptable after controls. The project manager says 'do a benefit-risk analysis'. What should come first?",
+          "options": [
+            "A press release about the device",
+            "A check for further practicable controls",
+            "A lower severity score for the row",
+            "A new acceptability rule just for this risk"
+          ],
+          "answer": 1,
+          "why": "Benefit-risk is used only when further risk control is not practicable."
+        },
+        {
+          "id": "residual-risk-and-report-q03",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "A benefit-risk conclusion says 'the benefit clearly outweighs the risk' with no sources. What is missing?",
+          "options": [
+            "Evidence about the benefit",
+            "A bigger font for the conclusion",
+            "A second signature from sales",
+            "A chart of the risk matrix colours"
+          ],
+          "answer": 0,
+          "why": "Benefit-risk needs evidence such as clinical data, literature and comparison with alternatives."
+        },
+        {
+          "id": "residual-risk-and-report-q04",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "Every row in the risk table is acceptable. Why is an overall residual risk evaluation still needed?",
+          "options": [
+            "The regulator wants a longer file",
+            "Rows always contain mistakes",
+            "Many small risks can add up",
+            "It replaces the post-market plan"
+          ],
+          "answer": 2,
+          "why": "Individual risks can each be acceptable while the total burden, for example around one use step, is not."
+        },
+        {
+          "id": "residual-risk-and-report-q05",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "Where is the method for evaluating overall residual risk defined?",
+          "options": [
+            "In the marketing brochure",
+            "In the risk management plan",
+            "In each tester's notes",
+            "In the device's source code"
+          ],
+          "answer": 1,
+          "why": "The plan defines the method and criteria before the evaluation is done."
+        },
+        {
+          "id": "residual-risk-and-report-q06",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "Which disclosure of residual risk is most useful to a home user?",
+          "options": [
+            "'Results may sometimes be inaccurate'",
+            "'Use the device carefully at all times'",
+            "'The maker is not liable for errors'",
+            "'Readings can be high if strips get hot'"
+          ],
+          "answer": 3,
+          "why": "Good disclosure is specific and tells the user what situation to watch for."
+        },
+        {
+          "id": "residual-risk-and-report-q07",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "Which is NOT one of the three things the review before release confirms?",
+          "options": [
+            "That the device sold well in trials",
+            "The plan was implemented",
+            "Overall residual risk is acceptable",
+            "Post-production methods are in place"
+          ],
+          "answer": 0,
+          "why": "The review confirms the plan was followed, overall residual risk is acceptable, and post-production information will be collected."
+        },
+        {
+          "id": "residual-risk-and-report-q08",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "A stronger filter would remove a residual risk but also hide real arrhythmias. How should the team record this?",
+          "options": [
+            "As a reason to skip the risk",
+            "As a cost saving decision",
+            "As control not practicable",
+            "As a labelling defect"
+          ],
+          "answer": 2,
+          "why": "A control that removes the clinical benefit itself is a checkable reason that further control is not practicable."
+        },
+        {
+          "id": "residual-risk-and-report-q09",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "Who usually leads a benefit-risk analysis?",
+          "options": [
+            "The newest developer on the team",
+            "The sales and marketing team",
+            "An outside parts supplier",
+            "People with clinical knowledge"
+          ],
+          "answer": 3,
+          "why": "Judging medical benefit needs clinical expertise, supported by engineering and quality input."
+        },
+        {
+          "id": "residual-risk-and-report-q10",
+          "lesson": "medtech-risk-management-residual-risk-and-report",
+          "q": "After the report is signed, what happens to the risk management file?",
+          "options": [
+            "It is archived and closed",
+            "It keeps being updated",
+            "It goes to the supplier",
+            "It is deleted after audit"
+          ],
+          "answer": 1,
+          "why": "Production and post-production information keeps feeding the file for the life of the device."
+        }
+      ]
+    },
+    {
+      "id": "risk-tools",
+      "title": "Risk analysis tools",
+      "summary": "What preliminary hazard analysis, design and process FMEA, and fault tree analysis each do, how to choose between them, and how to keep their results linked to the risk file.",
+      "outline": [
+        "Preliminary hazard analysis",
+        "Design and process FMEA",
+        "Fault tree analysis",
+        "Choosing the right tool for the question",
+        "Keeping tools linked to the risk file"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-risk-tools",
+          "title": "Risk analysis tools",
+          "summary": "You will be able to explain what preliminary hazard analysis, FMEA and fault tree analysis each find, pick the right one for a question, and keep their results tied to the hazard chains in the risk file.",
+          "why": "Device teams use several analysis tools, and FDEs are often handed one of their spreadsheets and asked to help. Each tool answers a different question and misses different things. If you treat an FMEA as the whole risk file, or build a fault tree for a problem that needs a bottom-up view, the analysis looks complete but has gaps. Knowing the tools also helps you build or check the data and scripts teams use to maintain them.",
+          "sections": [
+            {
+              "h": "Tools serve the process, not the other way round",
+              "p": [
+                "ISO 14971 describes what risk management must achieve, not which tool to use. Its companion guidance, ISO/TR 24971, describes several techniques. Teams pick tools that fit the device and the question. The output of every tool must still end up in the risk file as hazard chains with harms, estimates, controls and verification.",
+                "A useful way to think about tools is direction. Some start from a harm or an unwanted event and work down to causes (top-down). Others start from parts or process steps and work up to effects (bottom-up). Most real projects need both, because each direction finds things the other misses."
+              ]
+            },
+            {
+              "h": "Preliminary hazard analysis",
+              "p": [
+                "Preliminary hazard analysis (PHA) is done early, often before the design is detailed. The team takes the intended use, users and environment, walks through hazard categories, and lists likely hazards and hazardous situations with a rough estimate of severity. It works well at concept stage because it needs no detailed design.",
+                "The output is a starting hazard list that guides design choices while they are still cheap to change. Its limit is depth: it cannot show how a specific component failure leads to harm, because those components may not exist yet. It should be refined as the design matures, not left as the final analysis."
+              ]
+            },
+            {
+              "h": "Design and process FMEA",
+              "p": [
+                "Failure mode and effects analysis (FMEA) is bottom-up. For each component, function or process step, the team asks how it can fail (failure mode), what the effect would be, what causes it, and what currently prevents or detects it. A design FMEA looks at the product design. A process FMEA looks at manufacturing steps, such as a sealing step that can leave a weak seal. Some teams also run a use FMEA on user tasks.",
+                "Many FMEA templates score severity, occurrence and detection and multiply them into a risk priority number (RPN). Be careful when using this in a medical device file. ISO 14971 risk is about the probability and severity of harm, and detection in an FMEA usually means detection by the manufacturer, which is not the same thing. A high-severity row can get a low RPN just because detection is rated well. Link each FMEA effect that can reach a person to a hazard chain and evaluate it with the plan's criteria, not by RPN alone.",
+                "The main limit of FMEA is that it looks at single failures one at a time. It is weak at finding harm that comes from two things going wrong together, or from normal use with no failure at all."
+              ]
+            },
+            {
+              "h": "Fault tree analysis",
+              "p": [
+                "Fault tree analysis (FTA) is top-down. The team starts with one unwanted top event, such as 'patient receives an overdose', and works down through logic gates to the basic events that can cause it. An OR gate means any one input causes the event above it. An AND gate means all inputs must happen together.",
+                "FTA is strong where FMEA is weak. It shows combinations of failures, it shows where one safety layer depends on another, and it shows which basic events sit on many paths to the top event. The smallest sets of basic events that together cause the top event are called minimal cut sets. A cut set with a single event is a single point of failure and deserves attention. When probabilities for basic events are known, a tree can be quantified. The numbers are only as good as the inputs and the assumption that events are independent."
+              ]
+            },
+            {
+              "h": "Choosing tools and keeping them linked",
+              "p": [
+                "Pick the tool by the question you need answered, and keep every result connected to the risk file through shared ids.",
+                "An FDE can add real value here. Tool spreadsheets are often copied between projects and edited by many people. A short script that checks ids, flags rows with a patient effect but no hazard chain, and lists fault tree top events with no matching risk row turns a manual review into a repeatable check. The team still owns every judgement; the script just shows them where to look."
+              ],
+              "list": [
+                "What could go wrong with this concept? Use PHA early.",
+                "What happens if this part or process step fails? Use design or process FMEA.",
+                "How could this specific serious harm happen, including combinations? Use FTA.",
+                "Where do users make mistakes? Use task analysis and a use FMEA alongside usability engineering.",
+                "Give every FMEA row and fault tree top event a link to a hazard chain id in the risk table, and give every control a requirement id. Then one script or query can show which tool rows have no risk row and which risks have no analysis behind them."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Three common analysis tools",
+            "caption": "Read each column to see when the tool fits and what it tends to miss.",
+            "columns": [
+              {
+                "title": "PHA",
+                "items": [
+                  "Early, at concept stage",
+                  "Starts from use and hazard types",
+                  "Needs no detailed design",
+                  "Gives a first hazard list",
+                  "Misses component-level causes"
+                ]
+              },
+              {
+                "title": "FMEA",
+                "items": [
+                  "Bottom-up, part or step by step",
+                  "Design, process or use versions",
+                  "Finds single failure effects",
+                  "RPN is not ISO 14971 risk",
+                  "Misses combined failures"
+                ]
+              },
+              {
+                "title": "FTA",
+                "items": [
+                  "Top-down from one harm",
+                  "AND and OR logic gates",
+                  "Finds failure combinations",
+                  "Shows single points of failure",
+                  "Needs one tree per top event"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: two tools on one infusion problem (example scenario)",
+            "p": [
+              "A team building a fictional infusion pump runs a design FMEA on the flow sensor. One row reads: failure mode 'sensor reads low', effect 'pump increases flow', current control 'over-flow alarm'. On its own the row looks controlled.",
+              "The team then builds a fault tree for the top event 'patient receives an overdose'. The tree shows two paths. Path one needs the sensor fault AND the alarm to fail. Path two needs a wrong rate entered by the nurse AND the double-check to be missed. The second path never appeared in the FMEA because no component failed.",
+              "Using example probabilities and assuming independent events, the script below quantifies the tree. Path two dominates, so the team adds a design control: a drug library with hard limits. Both the FMEA row and the tree's top event are linked to risk row R-12 (example id)."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Example fault tree, assuming independent basic events (example numbers)\ndef p_or(*ps):\n    q = 1.0\n    for p in ps:\n        q *= 1 - p\n    return 1 - q\n\ndef p_and(*ps):\n    r = 1.0\n    for p in ps:\n        r *= p\n    return r\n\npath1 = p_and(1e-4, 1e-3)   # sensor reads low AND alarm fails\npath2 = p_and(1e-3, 1e-2)   # wrong rate entered AND double-check missed\nprint(f\"{p_or(path1, path2):.2e}\")\n# 1.01e-05"
+            }
+          },
+          "practice": [
+            {
+              "title": "FMEA and fault tree on the same device",
+              "time": "60 min",
+              "goal": "See what each tool finds and misses by applying both to one simple system.",
+              "steps": [
+                "Pick a simple system, such as a smart pill dispenser with a motor, a sensor that confirms a pill dropped, and an app that sends reminders.",
+                "In a spreadsheet, write a design FMEA with at least six rows: component, failure mode, effect, cause, current control.",
+                "Choose one serious top event, such as 'patient takes a double dose', and draw a fault tree on paper or in a free diagram tool with at least one AND gate and one OR gate.",
+                "Mark any path in the tree that no FMEA row covers, and any single point of failure.",
+                "Give each FMEA row that can reach a person, and the top event, a hazard chain id, and write the matching risk table rows.",
+                "Ask Claude to review your tree for a missing path, and record which suggestions you accepted and why."
+              ],
+              "done_when": "You can point to at least one path the fault tree found that the FMEA missed, and every FMEA row with a patient effect has a linked hazard chain id."
+            }
+          ],
+          "pitfalls": [
+            "Treating a completed FMEA as the whole risk file, with no hazard chains, harms, benefit-risk or post-production plan.",
+            "Ranking rows only by RPN, so a severe harm with good manufacturer detection drops down the list.",
+            "Relying on FMEA alone and missing harms that come from combined failures or from normal use with no failure.",
+            "Quantifying a fault tree with made-up numbers or ignoring that basic events may not be independent.",
+            "Keeping tool spreadsheets with no ids linking them to the risk table, so they drift apart after the first design change."
+          ],
+          "check": [
+            "What is the difference between a top-down and a bottom-up analysis tool?",
+            "Why can an RPN mislead in a medical device risk file?",
+            "What does an AND gate mean in a fault tree?",
+            "What is a single point of failure in a fault tree, and why does it matter?",
+            "How do you keep FMEA and fault tree results linked to the risk file?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is FMEA? Failure Mode and Effects Analysis",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fmea",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FMEA: Step-by-Step Guide for Medical Device Risk Management",
+              "source": "SoftComply",
+              "url": "https://www.youtube.com/watch?v=3adRLSF807c",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Fault Tree Analysis (FTA) Explained with Example",
+              "source": "Velociss",
+              "url": "https://www.youtube.com/watch?v=xJJoEV2YGuw",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Fault Tree Analysis Explained with Examples - Simplest Explanation Ever",
+              "source": "Mister Simplify",
+              "url": "https://www.youtube.com/watch?v=dKtIG0UXS6Y",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is a Fishbone Diagram? Ishikawa Cause and Effect Diagram",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fishbone",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "risk-tools-q01",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A team has only a concept sketch and wants a first list of hazards. Which tool fits?",
+          "options": [
+            "A fully quantified fault tree",
+            "A detailed process FMEA",
+            "Preliminary hazard analysis",
+            "A statistical control chart"
+          ],
+          "answer": 2,
+          "why": "PHA works early from intended use and hazard categories, before a detailed design exists."
+        },
+        {
+          "id": "risk-tools-q02",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A team wants to know what happens if each step of a pouch sealing line fails. Which tool fits?",
+          "options": [
+            "Process FMEA",
+            "Preliminary hazard analysis",
+            "Benefit-risk analysis",
+            "A usability study"
+          ],
+          "answer": 0,
+          "why": "A process FMEA works through manufacturing steps, their failure modes and effects."
+        },
+        {
+          "id": "risk-tools-q03",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "An FMEA row has severity 9 but a low RPN because detection is rated well. What should a reviewer do?",
+          "options": [
+            "Accept the low RPN as the final answer",
+            "Link it to a harm and evaluate",
+            "Remove the severity score from the row",
+            "Lower the severity so it matches"
+          ],
+          "answer": 1,
+          "why": "ISO 14971 risk is about probability and severity of harm; RPN detection can hide a severe harm."
+        },
+        {
+          "id": "risk-tools-q04",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "In a fault tree, an AND gate above two events means what?",
+          "options": [
+            "Either event alone is enough",
+            "The events are unrelated",
+            "Neither event matters",
+            "Both must happen together"
+          ],
+          "answer": 3,
+          "why": "An AND gate passes the failure up only when all of its inputs occur."
+        },
+        {
+          "id": "risk-tools-q05",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A harm needs a nurse error and a missed double-check, with no part failing. Which tool is most likely to find it?",
+          "options": [
+            "A design FMEA of each part",
+            "A component parts list review",
+            "A fault tree for the harm",
+            "A supplier audit report check"
+          ],
+          "answer": 2,
+          "why": "FTA starts from the harm and finds combinations, including ones with no component failure."
+        },
+        {
+          "id": "risk-tools-q06",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A minimal cut set in a fault tree contains just one basic event. What does that tell you?",
+          "options": [
+            "It is a single point of failure",
+            "The tree has a drawing error in it",
+            "The top event can never happen",
+            "That event can safely be ignored"
+          ],
+          "answer": 0,
+          "why": "One event alone can cause the top event, so it deserves close attention and often a control."
+        },
+        {
+          "id": "risk-tools-q07",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A team says 'our FMEA is complete, so ISO 14971 is done'. What is missing?",
+          "options": [
+            "A second FMEA by another team",
+            "Nothing, the FMEA covers all of it",
+            "A manager signature on the FMEA",
+            "Hazard chains, benefit-risk, review"
+          ],
+          "answer": 3,
+          "why": "FMEA is one analysis tool; the standard is a full process including evaluation, benefit-risk, review and post-production."
+        },
+        {
+          "id": "risk-tools-q08",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "A fault tree is quantified with basic event numbers nobody can source. What is the problem?",
+          "options": [
+            "Fault trees can never use numbers",
+            "Results are only as good as inputs",
+            "The gates must be drawn wrongly",
+            "Numbers must be written in percent"
+          ],
+          "answer": 1,
+          "why": "A quantified tree depends on sound input data and on the independence assumption."
+        },
+        {
+          "id": "risk-tools-q09",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "How can a team keep FMEA rows and risk table rows from drifting apart?",
+          "options": [
+            "Shared hazard chain ids",
+            "Print both files each month",
+            "Use one font in both files",
+            "Keep them in separate folders"
+          ],
+          "answer": 0,
+          "why": "Shared ids let a script or query show unlinked rows and risks with no analysis behind them."
+        },
+        {
+          "id": "risk-tools-q10",
+          "lesson": "medtech-risk-management-risk-tools",
+          "q": "Which statement about FMEA and FTA together is correct?",
+          "options": [
+            "FTA replaces FMEA completely",
+            "Use only one tool per device",
+            "They complement each other",
+            "FMEA is only for software"
+          ],
+          "answer": 2,
+          "why": "FMEA is bottom-up and finds single failure effects; FTA is top-down and finds combinations, so each covers the other's gaps."
+        }
+      ]
+    },
+    {
+      "id": "post-production-and-ai",
+      "title": "Post-production monitoring and AI-related risk",
+      "summary": "How production and post-production information feeds back into the risk file, how trends trigger re-analysis, which hazards are specific to AI-enabled devices, and how field monitoring links to predetermined change control plans.",
+      "outline": [
+        "Complaints, service data, literature and similar devices",
+        "Trending and triggers for re-analysis",
+        "AI-specific hazards: bias, drift, out-of-distribution input",
+        "Monitoring model performance in the field",
+        "Linking risk to predetermined change control plans"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-risk-management-post-production-and-ai",
+          "title": "Post-production monitoring and AI-related risk",
+          "summary": "You will be able to name the sources of post-production information, explain how trends trigger re-analysis, describe hazards specific to AI-enabled devices, and explain how field monitoring and a predetermined change control plan connect to the risk file.",
+          "why": "Risk estimates made before release rest on assumptions. Field use tests those assumptions every day, and for AI-enabled devices the inputs themselves can shift after release. FDEs often build the pipelines, dashboards and data checks that make post-production monitoring work. If those pipelines miss a signal, the risk file stays wrong while patients are exposed. This lesson gives working literacy; deciding whether an event must be reported to a regulator, or authoring a change control plan, belongs to qualified regulatory and clinical staff.",
+          "sections": [
+            {
+              "h": "The loop does not stop at release",
+              "p": [
+                "ISO 14971 requires the manufacturer to set up a system to actively collect and review information about the device in production and after release. The review asks two questions: has a hazard or hazardous situation appeared that was not foreseen, and is any estimated risk, or the overall residual risk, no longer acceptable? If the answer to either is yes, the information goes back into the risk management process.",
+                "Typical sources include complaints, service and repair records, returned products, production and inspection data, supplier issues, published literature, adverse event reports about similar devices, and changes in the generally acknowledged state of the art. In the United States, manufacturers also have mandatory device reporting duties under 21 CFR Part 803, and complaint handling is part of the quality management system. In the EU, the MDR requires a post-market surveillance system. These systems feed the risk file, and the risk file tells them what to watch."
+              ]
+            },
+            {
+              "h": "Trending and triggers",
+              "p": [
+                "Single events matter, but trends often matter more. A rising rate of one complaint type, a cluster at one hospital, or a failure that appears only after a firmware update can all signal that a risk estimate is wrong. Teams define triggers in their post-market plan: a rate above a set limit, a new failure mode, any event with severe harm, or a statistically meaningful change compared with earlier periods.",
+                "Triggers must be specific enough to act on and checked on a fixed schedule. 'Monitor complaints' is not a trigger. 'Re-analyse risk R-12 if confirmed wrong-dose complaints exceed the plan's limit in any quarter' is. Every trigger should name the risk rows it relates to, so a hit leads straight to the right part of the file.",
+                "FDEs often own the plumbing behind this. Complaint text arrives in free form, service records use different codes, and logs sit in another system. Mapping all of them to the same risk row ids, and keeping that mapping under change control, is what lets a trend show up at all. A missing mapping looks exactly like a quiet month."
+              ]
+            },
+            {
+              "h": "Hazards specific to AI-enabled devices",
+              "p": [
+                "An AI-enabled device has all the usual hazards plus some that come from learning from data. The model's output is information, so these hazards usually start chains through wrong, missing or misleading output."
+              ],
+              "list": [
+                "Bias and unequal performance: the model works well on average but worse for a patient subgroup that was under-represented in training data, such as a skin tone, age group or device type.",
+                "Data drift: the real inputs change over time, such as a new scanner model, a new lab method or a change in patient population, and accuracy falls without any code change.",
+                "Out-of-distribution input: a single input unlike anything in training, such as an image from the wrong body part, gets a confident but meaningless answer.",
+                "Automation bias: users come to trust the output too much and stop checking it, which weakens human review as a risk control.",
+                "Change hazards: a retrained model can fix one problem and create another that the old tests did not cover."
+              ]
+            },
+            {
+              "h": "Monitoring model performance in the field",
+              "p": [
+                "Field monitoring for an AI device needs more than uptime. Useful signals include agreement between model output and confirmed outcomes where they become available, performance broken down by site, subgroup and input source, the share of inputs that fall outside the expected range, clinician override rates, and complaint trends. The Good Machine Learning Practice guiding principles, published jointly by FDA, Health Canada and the UK MHRA, include monitoring deployed models and managing re-training risks.",
+                "Each signal needs a limit, an owner, a review schedule and a link to the risk rows it protects. Ground truth often arrives late, so plan for that delay rather than assume real-time accuracy. Keep monitoring data under the same controls as other quality records, because it may become evidence in an investigation."
+              ]
+            },
+            {
+              "h": "Predetermined change control plans",
+              "p": [
+                "AI models are often improved after release. In the United States, a predetermined change control plan (PCCP) lets a manufacturer describe specific planned modifications in the marketing submission, along with the methods to develop, validate and implement them and an assessment of their impact. Modifications made within an authorized PCCP may not need a new submission. FDA has published guidance on PCCPs for AI-enabled device software functions.",
+                "From a risk view, each planned modification needs its own risk analysis before it is authorized, and each actual change must be checked against that analysis before release. Field monitoring often provides the trigger and the data for a planned change. A change outside the plan's scope goes through the normal change and submission route. The risk file links all three: the monitoring signal, the planned modification and the verification of the updated model."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "Post-production feedback loop",
+            "caption": "Follow the loop clockwise; it runs for the whole life of the device.",
+            "steps": [
+              {
+                "label": "Collect field information",
+                "note": "Complaints, service, logs, literature, similar devices"
+              },
+              {
+                "label": "Trend against triggers",
+                "note": "Limits and owners set in the post-market plan"
+              },
+              {
+                "label": "Review for safety impact",
+                "note": "New hazard, or estimate no longer acceptable?"
+              },
+              {
+                "label": "Update the risk file",
+                "note": "Re-estimate, re-evaluate, add controls"
+              },
+              {
+                "label": "Change and verify",
+                "note": "Design change or planned model update"
+              },
+              {
+                "label": "Release with monitoring",
+                "note": "Watch the changed risk rows closely"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a drop in agreement for an imaging triage model (example scenario)",
+            "p": [
+              "A fictional AI tool flags chest images that may need urgent review. The post-market plan defines two triggers, with example values: agreement with confirmed reads below 90 percent in a month, and more than 2 percent of inputs outside the expected range. Both triggers are linked to risk row R-21, missed urgent finding.",
+              "In month three both triggers fire. The FDE checking the data finds that one hospital installed a new scanner whose images differ from the training data. The risk team re-estimates R-21 for that site and records data drift as a confirmed cause. Short-term, the site's images are routed to standard review without triage. Longer-term, a retrained model is planned under the device's PCCP, with its own risk analysis and verification before release. The script shows how the monthly trigger check might work."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Example monitoring triggers from a team's post-market plan (example values)\nmonths = [\n    {\"month\": \"M1\", \"agree\": 188, \"reviewed\": 200, \"ood\": 3, \"inputs\": 900},\n    {\"month\": \"M2\", \"agree\": 185, \"reviewed\": 200, \"ood\": 4, \"inputs\": 950},\n    {\"month\": \"M3\", \"agree\": 166, \"reviewed\": 200, \"ood\": 41, \"inputs\": 980},\n]\nMIN_AGREE, MAX_OOD = 0.90, 0.02\n\nfor m in months:\n    agree = m[\"agree\"] / m[\"reviewed\"]\n    ood = m[\"ood\"] / m[\"inputs\"]\n    flags = []\n    if agree < MIN_AGREE:\n        flags.append(f\"agreement {agree:.0%}\")\n    if ood > MAX_OOD:\n        flags.append(f\"out-of-range inputs {ood:.1%}\")\n    print(m[\"month\"], \"TRIGGER: \" + \", \".join(flags) if flags else \"ok\")\n# M1 ok\n# M2 ok\n# M3 TRIGGER: agreement 83%, out-of-range inputs 4.2%"
+            }
+          },
+          "practice": [
+            {
+              "title": "Write a post-market monitoring plan for an AI feature",
+              "time": "60 min",
+              "goal": "Turn AI-specific hazards into specific, checkable triggers linked to risk rows.",
+              "steps": [
+                "Pick a fictional AI-enabled device feature, such as a model that flags possible skin cancer in phone photos for a dermatologist to review.",
+                "Write three AI-specific hazard chains: one for bias, one for drift and one for out-of-distribution input.",
+                "For each chain, define one monitoring signal, a numeric limit, an owner and a review schedule, and link it to the risk row.",
+                "Copy the worked example script, change it to your signals and limits, and add a month that breaks one limit.",
+                "Write what happens when each trigger fires, including who decides whether the issue is reportable.",
+                "Ask Claude to find a trigger that is too vague to act on, and rewrite any it finds."
+              ],
+              "done_when": "Each of your three hazard chains has a signal with a numeric limit, an owner, a schedule and a risk row link, and your script flags exactly the month you broke."
+            }
+          ],
+          "pitfalls": [
+            "Treating the risk file as closed at release, so complaints and service data never change any estimate.",
+            "Writing vague triggers such as 'monitor complaints' with no limit, owner, schedule or link to risk rows.",
+            "Monitoring only average model accuracy, so a drop for one site or patient subgroup stays hidden.",
+            "Assuming human review will always catch model errors, without checking for automation bias in override data.",
+            "Retraining and releasing a model without its own risk analysis, or treating a change outside the PCCP's scope as if it were covered."
+          ],
+          "check": [
+            "Name four sources of production and post-production information.",
+            "What makes a monitoring trigger specific enough to act on?",
+            "Explain data drift and out-of-distribution input with one example each.",
+            "Why is average accuracy not enough for monitoring an AI-enabled device?",
+            "What three things does a PCCP describe, and how does each planned change relate to the risk file?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Good Machine Learning Practice for Medical Device Development: Guiding Principles",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Predetermined Change Control Plans",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/predetermined-change-control-plans",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Mandatory Reporting Requirements: Manufacturers, Importers and Device User Facilities",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/mandatory-reporting-requirements-manufacturers-importers-and-device-user-facilities",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Manufacturer and User Facility Device Experience (MAUDE) Database",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "AI Risk Management Framework",
+              "source": "NIST",
+              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA Predetermined Change Control Plan (PCCP) Guidance for Artificial Intelligence (AI)",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=rzi2eF01qkg",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Understanding PCCP for AI/ML Medical Devices: A Practical Guide",
+              "source": "Orthogonal",
+              "url": "https://www.youtube.com/watch?v=NgJ70s7GEzg",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "post-production-and-ai-q01",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "Complaints about one failure type double over two quarters. What should happen in the risk file?",
+          "options": [
+            "Nothing, since the file closed at release",
+            "Review and re-estimate the risk",
+            "Wait for the next product generation",
+            "Hand it over to the marketing team only"
+          ],
+          "answer": 1,
+          "why": "Post-production information that suggests an estimate is wrong goes back into the risk management process."
+        },
+        {
+          "id": "post-production-and-ai-q02",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "Which is a monitoring trigger a team can actually act on?",
+          "options": [
+            "Keep an eye on all incoming complaints",
+            "Watch closely for anything unusual",
+            "Report any issues whenever convenient",
+            "Re-analyse R-12 above the set limit"
+          ],
+          "answer": 3,
+          "why": "A good trigger has a specific limit and names the risk rows it relates to."
+        },
+        {
+          "id": "post-production-and-ai-q03",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "A hospital installs a new scanner and model accuracy falls there with no code change. What is this?",
+          "options": [
+            "Data drift",
+            "A labelling error",
+            "Automation bias",
+            "A cut set"
+          ],
+          "answer": 0,
+          "why": "Drift is a change in real inputs over time that degrades performance without any change to the model."
+        },
+        {
+          "id": "post-production-and-ai-q04",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "A skin model works well on average but worse on darker skin tones. Which hazard is this?",
+          "options": [
+            "A pure hardware fault in the phone",
+            "A manufacturing defect in the box",
+            "Bias and unequal performance",
+            "Out-of-date text in the labelling"
+          ],
+          "answer": 2,
+          "why": "Unequal performance across subgroups is a known AI hazard that average accuracy can hide."
+        },
+        {
+          "id": "post-production-and-ai-q05",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "Clinicians override an AI tool far less often than a year ago, though accuracy has not improved. What may this signal?",
+          "options": [
+            "The tool is now perfect",
+            "Automation bias",
+            "Better training data",
+            "A network outage"
+          ],
+          "answer": 1,
+          "why": "Falling overrides without better accuracy can mean users trust the output too much, weakening human review as a control."
+        },
+        {
+          "id": "post-production-and-ai-q06",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "Why should field accuracy be broken down by site and subgroup?",
+          "options": [
+            "To make the dashboard bigger",
+            "Because averages never matter",
+            "So reports look more detailed",
+            "Averages can hide local drops"
+          ],
+          "answer": 3,
+          "why": "A drop at one site or for one subgroup can disappear inside a good overall average."
+        },
+        {
+          "id": "post-production-and-ai-q07",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "What does a PCCP describe?",
+          "options": [
+            "Planned changes, methods, impact",
+            "Only the next planned release date",
+            "The device's yearly sales targets",
+            "A full list of all past complaints"
+          ],
+          "answer": 0,
+          "why": "A PCCP describes the planned modifications, how they will be developed, validated and implemented, and their impact."
+        },
+        {
+          "id": "post-production-and-ai-q08",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "A team wants to retrain a model under its authorized PCCP. What is still needed before release?",
+          "options": [
+            "Nothing, the PCCP already covers it",
+            "Only a faster server to run it on",
+            "A check against its risk analysis",
+            "A brand new product name for it"
+          ],
+          "answer": 2,
+          "why": "Each actual change is verified against the risk analysis made for that planned modification."
+        },
+        {
+          "id": "post-production-and-ai-q09",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "An FDE finds a serious event in the monitoring data. Who decides if it must be reported to a regulator?",
+          "options": [
+            "The FDE alone, right away",
+            "The AI model itself",
+            "Qualified regulatory staff",
+            "Whoever happened to see it first"
+          ],
+          "answer": 2,
+          "why": "Reportability decisions belong to qualified regulatory and clinical staff under the manufacturer's procedures."
+        },
+        {
+          "id": "post-production-and-ai-q10",
+          "lesson": "medtech-risk-management-post-production-and-ai",
+          "q": "An image of the wrong body part gets a confident result from the model. What hazard is this?",
+          "options": [
+            "Out-of-distribution input",
+            "Data drift over time",
+            "Subgroup bias in training",
+            "A process FMEA failure"
+          ],
+          "answer": 0,
+          "why": "A single input unlike the training data can produce a confident but meaningless answer."
+        }
+      ]
+    }
+  ]
+}

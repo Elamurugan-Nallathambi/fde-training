@@ -1,0 +1,265 @@
+{
+  "module": 0,
+  "questions": [
+    {
+      "id": "m00-q01",
+      "lesson": "toolkit-overview",
+      "q": "You are new to all of this and have no paid AI plan. Which assistant setup does the lesson suggest you start with?",
+      "options": [
+        "Pay for Claude Code and Codex so you can compare them",
+        "GitHub Copilot Free inside VS Code",
+        "No assistant until you finish module 3",
+        "Any assistant you find in a video tutorial"
+      ],
+      "answer": 1,
+      "why": "Copilot Free inside VS Code costs nothing and needs no terminal install, so it is the gentlest start."
+    },
+    {
+      "id": "m00-q02",
+      "lesson": "toolkit-overview",
+      "q": "Why does the toolkit include Node.js when most labs use Python?",
+      "options": [
+        "Python scripts cannot run without Node.js",
+        "VS Code is written in Node.js and needs it to open",
+        "Git uses Node.js to push to GitHub",
+        "Some AI tools install through npm, which comes with Node.js"
+      ],
+      "answer": 3,
+      "why": "Node.js is needed mainly because some AI tools install through npm, its package manager."
+    },
+    {
+      "id": "m00-q03",
+      "lesson": "toolkit-overview",
+      "q": "A friend says a coding assistant is just a chat app inside the editor. What is the key difference the lesson points out?",
+      "options": [
+        "A coding assistant can read and edit files in the open folder and run terminal commands",
+        "A coding assistant only works offline",
+        "A chat app can run commands but a coding assistant cannot",
+        "There is no real difference, only the screen layout"
+      ],
+      "answer": 0,
+      "why": "A chat app only sees what you paste, while a coding assistant can read files, edit them and run commands."
+    },
+    {
+      "id": "m00-q04",
+      "lesson": "toolkit-overview",
+      "q": "You want to practice building a small budget report script this week. Which data should you use?",
+      "options": [
+        "Your employer's real budget file, since it is realistic",
+        "A client file, as long as you delete it afterwards",
+        "Sample data you made up yourself",
+        "Real data, but only with a personal AI subscription"
+      ],
+      "answer": 2,
+      "why": "The lesson says never use real work or client files for practice; make up your own sample data."
+    },
+    {
+      "id": "m00-q05",
+      "lesson": "github-and-git",
+      "q": "You made three commits on a train with no internet. Where are those commits now?",
+      "options": [
+        "On GitHub, because commits upload automatically",
+        "Lost, because Git needs internet to commit",
+        "In a staging area waiting to be committed",
+        "On your machine only, until you push"
+      ],
+      "answer": 3,
+      "why": "A commit saves a snapshot locally; push is what sends commits to GitHub."
+    },
+    {
+      "id": "m00-q06",
+      "lesson": "github-and-git",
+      "q": "Your commits show up on GitHub but not as yours on your profile. What is the most likely cause?",
+      "options": [
+        "You did not turn on two-factor authentication",
+        "The email in git config does not match your GitHub account email",
+        "You used git add before git commit",
+        "Your repository is private"
+      ],
+      "answer": 1,
+      "why": "Commits are linked to your profile by the email in git config, so a different email breaks that link."
+    },
+    {
+      "id": "m00-q07",
+      "lesson": "github-and-git",
+      "q": "You turn on 2FA and GitHub shows recovery codes. What should you do with them?",
+      "options": [
+        "Store them somewhere safe such as a password manager",
+        "Skip them, since the authenticator app is enough",
+        "Commit them to your journal so you never lose them",
+        "Paste them into your AI assistant for safe keeping"
+      ],
+      "answer": 0,
+      "why": "Recovery codes let you back in if you lose your phone, so they must be saved somewhere safe and private."
+    },
+    {
+      "id": "m00-q08",
+      "lesson": "github-and-git",
+      "q": "A repository already exists on GitHub and you want it on your laptop for the first time. Which command fits?",
+      "options": [
+        "git init",
+        "git push",
+        "git clone",
+        "git add"
+      ],
+      "answer": 2,
+      "why": "git clone copies a whole existing repository from GitHub to your machine the first time."
+    },
+    {
+      "id": "m00-q09",
+      "lesson": "vscode-setup",
+      "q": "You just installed Python, but the terminal says python3 is not found. What should you try first?",
+      "options": [
+        "Reinstall VS Code",
+        "Open a new terminal so it picks up the updated PATH",
+        "Create a virtual environment",
+        "Install the Python extension from any publisher"
+      ],
+      "answer": 1,
+      "why": "A terminal opened before the install does not see the new PATH, so a new terminal usually fixes it."
+    },
+    {
+      "id": "m00-q10",
+      "lesson": "vscode-setup",
+      "q": "Upgrading a package for project A broke project B on your laptop. What habit from the lesson would have prevented this?",
+      "options": [
+        "Opening single files instead of folders",
+        "Committing the .venv folder to Git",
+        "Using one shared global Python for all projects",
+        "Giving each project its own virtual environment"
+      ],
+      "answer": 3,
+      "why": "A virtual environment keeps each project's packages separate, so one upgrade cannot break another project."
+    },
+    {
+      "id": "m00-q11",
+      "lesson": "vscode-setup",
+      "q": "A client asks you to look at a broken report script while they watch. How should you open it in VS Code?",
+      "options": [
+        "Open the project folder, then use the integrated terminal from there",
+        "Open just the one script file by double clicking it",
+        "Open your whole home folder so nothing is missing",
+        "Copy the script into a chat app and run it there"
+      ],
+      "answer": 0,
+      "why": "Opening a folder lets the terminal, Git and assistants work properly, and the terminal starts in that folder."
+    },
+    {
+      "id": "m00-q12",
+      "lesson": "vscode-setup",
+      "q": "You search the Extensions view for Python and see several results with similar names. What should you check before installing?",
+      "options": [
+        "Which one has the newest icon",
+        "Which one is listed first",
+        "The publisher name, which should be Microsoft",
+        "Nothing, all extensions are reviewed and safe"
+      ],
+      "answer": 2,
+      "why": "Copycat extensions exist, so you confirm the publisher before installing."
+    },
+    {
+      "id": "m00-q13",
+      "lesson": "ai-assistants-setup",
+      "q": "You start a coding assistant for the first time in your learning folder. What kind of task should you give it first?",
+      "options": [
+        "Refactor every file in the folder",
+        "Install all the packages it thinks you need",
+        "Commit and push your work for you",
+        "A read-only task, such as explaining what is in the folder"
+      ],
+      "answer": 3,
+      "why": "A read-only task cannot break anything, so it is a safe way to see how the tool behaves."
+    },
+    {
+      "id": "m00-q14",
+      "lesson": "ai-assistants-setup",
+      "q": "The assistant asks to run a command you do not understand. What should you do?",
+      "options": [
+        "Approve it, since the tool sounds confident",
+        "Say no or ask it to explain why the command is needed",
+        "Switch to the least careful approval setting so it stops asking",
+        "Run it yourself in a different terminal instead"
+      ],
+      "answer": 1,
+      "why": "If you would not run the command yourself, you say no and ask why; confidence is not correctness."
+    },
+    {
+      "id": "m00-q15",
+      "lesson": "ai-assistants-setup",
+      "q": "In Claude Code, what does Plan mode do?",
+      "options": [
+        "Describes what it will do and waits for your approval before changing anything",
+        "Runs all edits automatically and shows a summary afterwards",
+        "Picks the cheapest model for the task",
+        "Pushes your changes to GitHub on a schedule"
+      ],
+      "answer": 0,
+      "why": "Plan mode lays out the intended actions and waits for your approval before changing files."
+    },
+    {
+      "id": "m00-q16",
+      "lesson": "ai-assistants-setup",
+      "q": "A video shows a one-line command to install Codex. Where should you take the install command from?",
+      "options": [
+        "The video, if it has many views",
+        "A forum post that says the command worked",
+        "The official docs or README for the tool",
+        "Whatever command your AI chat app suggests"
+      ],
+      "answer": 2,
+      "why": "Install commands should come only from the official docs, not random blogs or videos."
+    },
+    {
+      "id": "m00-q17",
+      "lesson": "learning-journal",
+      "q": "In a daily journal entry, which section does the lesson call the most valuable?",
+      "options": [
+        "Links",
+        "Questions I still have",
+        "What I learned",
+        "What broke and how I fixed it"
+      ],
+      "answer": 3,
+      "why": "The error, what you tried and what worked is real debugging evidence for a reviewer."
+    },
+    {
+      "id": "m00-q18",
+      "lesson": "learning-journal",
+      "q": "You recorded a 4 minute walkthrough of a lab. How should it go into your journal?",
+      "options": [
+        "Upload it somewhere you control and paste the link in that week's entry",
+        "Commit the video file into the labs folder",
+        "Convert it to text and commit the transcript only",
+        "Skip it, videos do not belong in a journal"
+      ],
+      "answer": 0,
+      "why": "Git is built for text, not large videos, so you link to the video instead of committing it."
+    },
+    {
+      "id": "m00-q19",
+      "lesson": "learning-journal",
+      "q": "Your journal repository is public. A lab at work went well and you want to note it. What is the right move?",
+      "options": [
+        "Add the client name so it looks more impressive",
+        "Paste the real data you used so others can reproduce it",
+        "Leave out any employer or client information",
+        "Make it private for a day, add the details, then make it public"
+      ],
+      "answer": 2,
+      "why": "Never put employer or client information in the journal; anything public should be treated as public forever."
+    },
+    {
+      "id": "m00-q20",
+      "lesson": "learning-journal",
+      "q": "You plan to write all your journal entries on Sunday. Why does the lesson advise against that?",
+      "options": [
+        "GitHub only accepts one commit per day",
+        "Small daily commits show steady progress and are easier to write",
+        "Weekend commits are hidden on your profile",
+        "Git cannot track files edited more than once a week"
+      ],
+      "answer": 1,
+      "why": "Daily commits give a dated record of steady progress and keep each entry short and fresh."
+    }
+  ]
+}

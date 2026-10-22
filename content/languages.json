@@ -1,0 +1,178 @@
+{
+ "title": "Languages, AI SDKs and learning playlists",
+ "intro": "Which language to build in, how to call any AI provider with the same code, and a playlist to learn or refresh every major language and the DevOps tools around them.",
+ "lesson": {
+  "id": "languages-and-sdks",
+  "title": "Choosing a language, and one common pattern for AI SDKs",
+  "summary": "You will know which language to pick for a POC and why, and how to call any model provider with the same code.",
+  "why": "Clients ask which language you will build in, and their team will have to run what you leave behind. The language also changes how much help you get from AI coding assistants and how many ready-made libraries you can use. Picking well on day one saves weeks later.",
+  "diagram": {
+   "type": "compare",
+   "title": "Pick by the job, not by habit",
+   "caption": "Any of these works. The left two have the most AI libraries, examples and assistant help; the right two win on speed and footprint.",
+   "columns": [
+    {
+     "title": "Python",
+     "items": [
+      "Most AI and data libraries",
+      "Most examples to learn from",
+      "Best default for AI POCs",
+      "Slower for heavy compute"
+     ]
+    },
+    {
+     "title": "TypeScript / JavaScript",
+     "items": [
+      "Web apps and front ends",
+      "Large ecosystem on npm",
+      "Good AI SDK support",
+      "Runs in browser and server"
+     ]
+    },
+    {
+     "title": "Go",
+     "items": [
+      "Fast network services",
+      "One small binary to deploy",
+      "Simple to read and maintain",
+      "Fewer AI libraries"
+     ]
+    },
+    {
+     "title": "Rust",
+     "items": [
+      "Top speed and memory safety",
+      "Low latency, low resource use",
+      "Steeper learning curve",
+      "Fewer AI libraries"
+     ]
+    }
+   ]
+  },
+  "sections": [
+   {
+    "h": "The language is your choice",
+    "p": [
+     "There is no single right language. Use the one you know best, or the one the client's team already runs, because they will maintain it after you leave.",
+     "One practical bias is worth knowing. AI models and coding assistants learned from public code, and there is far more public Python and JavaScript than most other languages. GitHub's Octoverse 2024 report found that Python became the most used language on GitHub, driven by AI and data work. In practice that means assistants give their most reliable help in Python, then JavaScript and TypeScript, then the other mainstream languages. They still help in Go, Rust, Java or C#; you just check their output a little more closely."
+    ]
+   },
+   {
+    "h": "A sensible default for AI work",
+    "p": [
+     "For a POC that calls models, reads documents and moves data, Python is the default: the model providers, LiteLLM, data tools such as pandas, and most tutorials start there. For a web front end, or when the client's stack is Node.js, use TypeScript; it adds types to JavaScript, which catches mistakes early.",
+     "SQL is not optional in any language. Almost every client keeps the truth in a database, so you will read and write SQL whatever else you choose. Bash, the shell, is the glue for setup scripts, automation and CI."
+    ]
+   },
+   {
+    "h": "When performance or footprint matter",
+    "p": [
+     "Pick Go or Rust when a part of the solution must be fast, small or run many requests at once: an API gateway, a high-volume document pipeline, a service on a small device, or a tool that must start instantly. Go is simple to learn and compiles to one binary that is easy to deploy. Rust gives the most speed and memory safety but takes longer to learn.",
+     "You do not have to choose one language for everything. A common shape is Python for the AI and data parts and Go or Rust for one hot path, connected by an API. Java and C# are the right call when the client runs on the JVM or .NET and wants code their team can own."
+    ]
+   },
+   {
+    "h": "AI SDKs: one common pattern, then provider SDKs when you need them",
+    "p": [
+     "Every model provider publishes its own SDK: Anthropic, OpenAI and Google each have official libraries for Python, TypeScript and other languages. They are the best place for provider-specific features, and worth exploring when you need one.",
+     "For client work, start with a common layer so the provider is a setting, not a rewrite. In Python this course uses LiteLLM, which calls many providers, including local models through Ollama, with one OpenAI-style interface. In TypeScript, the AI SDK by Vercel plays the same role. Keep the model name in configuration, so you can compare providers on the client's own test cases, follow their procurement choice, or move to a self-hosted model later without touching the business logic."
+    ],
+    "code": {
+     "lang": "python",
+     "text": "import os\nfrom litellm import completion\n\n# Change provider by changing this one setting, never the code:\n#   anthropic/claude-sonnet-5-5, openai/<model id>, gemini/<model id>, ollama/llama3.2 (free, local)\nMODEL = os.environ.get(\"LLM_MODEL\", \"ollama/llama3.2\")\n\nreply = completion(model=MODEL, messages=[\n    {\"role\": \"system\", \"content\": \"Answer in one short sentence.\"},\n    {\"role\": \"user\", \"content\": \"What is a forward deployed engineer?\"},\n])\nprint(MODEL, \"->\", reply.choices[0].message.content)"
+    }
+   },
+   {
+    "h": "What to learn next",
+    "p": [
+     "The playlist below lists, for each major language and the main DevOps tools, a beginner course to start, an intermediate course or official guide to build skill, and the official reference for advanced depth. Use it to learn a new language or to refresh one you used years ago."
+    ]
+   }
+  ],
+  "example": {
+   "title": "Worked example: one script, three providers",
+   "p": [
+    "A client wants to compare a hosted model with a local one before deciding. You write the script above once.",
+    "Run it with LLM_MODEL=ollama/llama3.2 on your laptop (free, nothing leaves the machine), then with LLM_MODEL=anthropic/claude-sonnet-5-5 and the API key in an environment variable, then with an OpenAI model id. The code does not change; only the setting does. Run the same 20 test questions through each and compare quality, speed and cost on one sheet."
+   ]
+  },
+  "practice": [
+   {
+    "title": "Call two providers with the same code",
+    "time": "30 min",
+    "goal": "See for yourself that the provider is a setting when you use a common SDK.",
+    "steps": [
+     "Install Python 3.10 or newer, then run pip install litellm.",
+     "Install Ollama and pull a small local model, for example ollama pull llama3.2.",
+     "Save the script from this lesson as hello_model.py and run it with LLM_MODEL=ollama/llama3.2.",
+     "If you have an API key for any hosted provider, set it in an environment variable and run the script again with that provider's model string.",
+     "Write down, for each run, the answer, how long it took and what it would cost."
+    ],
+    "done_when": "The same script ran against at least two models by changing only LLM_MODEL."
+   }
+  ],
+  "pitfalls": [
+   "Choosing a language the client's team cannot maintain. The POC becomes yours forever.",
+   "Hard-coding one provider's SDK calls across the business logic, which makes switching a rewrite.",
+   "Assuming assistant output in a less common language is as reliable as in Python. Review it more closely.",
+   "Reaching for Rust or Go before you know there is a speed problem. Measure first."
+  ],
+  "check": [
+   "Why do AI coding assistants usually help most in Python and JavaScript?",
+   "When would you pick Go or Rust for part of a solution?",
+   "What does a common AI SDK layer give you on a client project?",
+   "Where should the model name live, and why?"
+  ],
+  "links": [
+   {
+    "type": "docs",
+    "title": "Octoverse: AI leads Python to top language",
+    "source": "GitHub",
+    "url": "https://github.blog/news-insights/octoverse/octoverse-2024/",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "Getting Started",
+    "source": "LiteLLM",
+    "url": "https://docs.litellm.ai/docs/",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "Ollama provider",
+    "source": "LiteLLM",
+    "url": "https://docs.litellm.ai/docs/providers/ollama",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "Providers and Models",
+    "source": "AI SDK by Vercel",
+    "url": "https://ai-sdk.dev/docs/foundations/providers-and-models",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "SDKs, CLI, and libraries",
+    "source": "Claude Platform Docs",
+    "url": "https://platform.claude.com/docs/en/cli-sdks-libraries/overview",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "SDKs and CLI",
+    "source": "OpenAI API",
+    "url": "https://developers.openai.com/api/docs/libraries",
+    "cost": "free"
+   },
+   {
+    "type": "docs",
+    "title": "Gemini API libraries",
+    "source": "Google AI for Developers",
+    "url": "https://ai.google.dev/gemini-api/docs/libraries",
+    "cost": "free"
+   }
+  ]
+ }
+}

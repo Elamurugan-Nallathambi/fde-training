@@ -1,0 +1,601 @@
+{
+  "module": 4,
+  "title": "Domain, business and market analysis for pharma",
+  "intro": "A pharma client rarely says 'we need AI'. They say 'deviations take 60 days to close', 'batch record review is our release bottleneck' or 'we got a 483 on data integrity'. This module shows you how a drug manufacturer, API maker, CDMO or sponsor is organised, which systems hold the official records, where cost and delay hide in quality, validation, operations and clinical work, how to run a gap assessment, how to size value under GMP constraints, and how to decide whether to build, buy or configure in a validated environment.",
+  "lessons": [
+    {
+      "id": "pharma-value-chain",
+      "title": "The pharma value chain and its systems of record",
+      "summary": "You will be able to trace how a medicine moves from development to release and name the system that holds the official GMP record at each step.",
+      "why": "Every AI idea in pharma lands on a regulated record: a deviation in the eQMS, a result in LIMS, a batch record in MES, a material in ERP. If you do not know which system owns the record and which rule governs it, you will build something the quality unit cannot accept. This lesson gives you the map you need before your first site walk.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A pharma company turns science into approved, released medicine. The main stages are: develop the product and process, transfer it to a manufacturing site, make and test batches, release them, and keep monitoring them on the market. Clinical trials run alongside development and need their own supply of investigational medicine.",
+            "The work is spread across four broad areas that you will meet on any engagement: quality and compliance, engineering and validation, technical operations and digital, and clinical quality. Each area has its own people, its own systems and its own rules."
+          ]
+        },
+        {
+          "h": "Who the clients are",
+          "p": [
+            "Drug manufacturers make finished products such as tablets, injectables or creams. API manufacturers make the active pharmaceutical ingredient, and follow ICH Q7, the GMP guide for APIs. CDMOs (contract development and manufacturing organizations) make products for other companies under a quality agreement. Sponsors run clinical trials and own the IND (investigational new drug application) or the marketing application, and often outsource manufacturing to CDMOs and trial work to CROs (contract research organizations).",
+            "The legal owner of a product stays responsible for its quality even when someone else makes it. FDA guidance on quality agreements says this plainly, which is why sponsors invest so much in auditing and overseeing their CDMOs."
+          ]
+        },
+        {
+          "h": "The four areas and what they do",
+          "list": [
+            "Quality and compliance: runs the QMS (quality management system). That means deviations, CAPA (corrective and preventive action), change control, SOPs and document control, training, internal and supplier audits, management review and inspection readiness.",
+            "Engineering and validation: proves that facilities, utilities, equipment and computer systems are fit for use. This is CQV (commissioning, qualification and verification), IQ, OQ and PQ (installation, operational and performance qualification), process validation, cleaning validation, computer system validation and temperature mapping.",
+            "Technical operations and digital: owns the process itself. Tech transfer to a new site, CPV (continued process verification) and trending, troubleshooting, the lab lifecycle, and the GMP systems: eQMS, LIMS, MES with EBR (electronic batch records) and SAP or other ERP.",
+            "Clinical quality: oversees GCP (good clinical practice) for trials, audits CROs, CDMOs and clinical sites, supports release of investigational medicinal product (IMP), and reviews quality sections of IND and ANDA (abbreviated new drug application, for generics) documents."
+          ]
+        },
+        {
+          "h": "Systems of record in a pharma company",
+          "p": [
+            "A system of record is the one system the company and the inspector treat as the official source for a type of data. In pharma this is not a matter of taste. The validated system is the record."
+          ],
+          "list": [
+            "eQMS (for example MasterControl, TrackWise or Veeva QMS): deviations, CAPA, change control, complaints, audits and controlled SOPs.",
+            "LIMS: samples, test methods, results, specifications, stability studies and OOS (out of specification) investigations.",
+            "MES with EBR: the master batch record, step-by-step execution on the shop floor, operator entries and signatures, and in-process checks.",
+            "ERP (for example SAP): materials, inventory, batch status, purchasing and supply. Batch status in ERP often controls whether stock can ship.",
+            "Document and training systems: SOPs, training records and validation documents. Clinical systems such as CTMS (clinical trial management) and eTMF (electronic trial master file) hold trial records.",
+            "Building automation and data historians record process and environmental data such as temperature and pressure."
+          ]
+        },
+        {
+          "h": "The rules that sit on top",
+          "p": [
+            "You do not need to be a regulatory expert, but you must know which rule touches which record. 21 CFR Parts 210 and 211 set CGMP for finished drugs in the US. ICH Q7 covers APIs. ICH Q9 describes quality risk management and ICH Q10 describes the pharmaceutical quality system. 21 CFR Part 11 sets rules for electronic records and electronic signatures. In the EU, EudraLex Volume 4 holds the GMP guide, with Annex 11 for computerised systems and Annex 15 for qualification and validation. GAMP 5, published by ISPE, is the industry guide to a risk-based approach to computerized systems.",
+            "Data integrity ties these together. Regulators expect records to be ALCOA+: attributable, legible, contemporaneous, original and accurate, plus complete, consistent, enduring and available. Any AI that reads or writes GMP records inherits these expectations."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From development to release, with systems",
+        "caption": "Read left to right; the note under each step names the usual system of record.",
+        "steps": [
+          {"label": "Develop product and process", "note": "Development reports, document system"},
+          {"label": "Tech transfer to site", "note": "Transfer protocol, change control in eQMS"},
+          {"label": "Qualify and validate", "note": "Validation documents, IQ/OQ/PQ protocols"},
+          {"label": "Make the batch", "note": "MES and EBR, materials in ERP"},
+          {"label": "Test the batch", "note": "LIMS results against specifications"},
+          {"label": "Review and release", "note": "QA review, batch status in ERP"},
+          {"label": "Monitor on market", "note": "CPV trending, complaints and CAPA in eQMS"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: one deviation across five systems (fictional)",
+        "p": [
+          "An operator at an oral solid dose plant notices that a tablet press ran for ten minutes with a compression force alarm. She records it in the MES as an event during batch execution. Quality opens a deviation in the eQMS and links it to the batch. The lab tests extra samples and records results in LIMS. The batch is put on hold in ERP so it cannot ship. The investigator pulls trend data from the historian.",
+          "To close the deviation, the investigator writes the root cause, impact on the batch and CAPA, then QA approves. Only then can the batch be released in ERP. Five systems, one event."
+        ],
+        "list": [
+          "System of record for the event and investigation: eQMS.",
+          "System of record for what happened on the floor: MES and EBR.",
+          "System of record for test results: LIMS.",
+          "System of record for whether stock can ship: ERP batch status.",
+          "Where an AI assistant could help: gathering facts from the five systems into one draft for the investigator, without writing to any of them directly."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Map a pharma site's systems from public sources",
+          "time": "45 min",
+          "goal": "Build your own map of which system holds which GMP record.",
+          "steps": [
+            "Search a job site for five postings at drug manufacturers or CDMOs in quality, validation and manufacturing roles.",
+            "Note every system named, for example SAP, TrackWise, MasterControl, LabWare or an MES.",
+            "Draw the seven stages from the diagram in this lesson across a page.",
+            "Place each system under the stage it supports and mark the system of record.",
+            "Open 21 CFR 211.188 on eCFR and list three things a batch production record must contain.",
+            "Ask Claude to check your map and list what a QA director would correct."
+          ],
+          "done_when": "You have a one-page map with at least six systems placed on stages, and three batch record contents taken from the regulation."
+        }
+      ],
+      "pitfalls": [
+        "Assuming one system holds everything. A single batch touches MES, LIMS, eQMS and ERP, and each is the record for its part.",
+        "Calling an Excel tracker the record. Trackers are common, but the validated system is what an inspector will look at.",
+        "Treating a CDMO like a vendor. The sponsor keeps responsibility for quality, which shapes who must approve your work.",
+        "Learning only the US rules. Many sites ship to the EU too, so Annex 11 and Annex 15 apply as well."
+      ],
+      "check": [
+        "Name the four areas of a pharma company and one activity in each.",
+        "Which system is usually the record for a deviation, a test result and batch status?",
+        "What does ALCOA+ stand for, and why does it matter for an AI tool?",
+        "Why does a sponsor stay responsible for a product made by a CDMO?"
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR 211.188 - Batch production and control records", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.188", "cost": "free"},
+        {"type": "docs", "title": "Q10 Pharmaceutical Quality System", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system", "cost": "free"},
+        {"type": "docs", "title": "ICH Q7 Good manufacturing practice for active pharmaceutical ingredients - Scientific guideline", "source": "European Medicines Agency", "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q7-good-manufacturing-practice-active-pharmaceutical-ingredients", "cost": "free"},
+        {"type": "docs", "title": "EudraLex - Volume 4 - Good Manufacturing Practice guidelines", "source": "European Commission", "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en", "cost": "free"},
+        {"type": "docs", "title": "Contract Manufacturing Arrangements for Drugs: Quality Agreements Guidance for Industry", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/contract-manufacturing-arrangements-drugs-quality-agreements-guidance-industry", "cost": "free"},
+        {"type": "video", "title": "Expert Talk: Benefits of Electronic Batch Recording in Pharma Manufacturing", "source": "Engineering IndX Clips", "url": "https://www.youtube.com/watch?v=ICnIxMRw4VU", "cost": "free"},
+        {"type": "course", "title": "Introduction to Pharmaceutical Supply Chain Management", "source": "Coursera", "url": "https://www.coursera.org/learn/introduction-to-pharmaceutical-supply-chain-management", "cost": "paid"}
+      ]
+    },
+    {
+      "id": "pharma-cost-delay",
+      "title": "Where cost and delay hide in pharma quality and operations",
+      "summary": "You will be able to find the queues, rework and hand-offs that slow release and inflate cost across quality, validation, operations and clinical work.",
+      "why": "In pharma, delay is expensive in a direct way: a batch that waits for an open deviation cannot ship, and a site that waits for validation cannot start. Clients feel this as long release times, overdue CAPAs and inspection findings. If you know where the waste usually sits, you can ask the right questions in week one and pick a problem worth solving.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Most cost and delay in GMP work comes from documents moving between people. A deviation waits for an investigator. An investigation waits for lab data. A batch record waits for QA review. A validation protocol waits for comments from three departments. Each wait is short on its own, but they add up, and the batch sits in quarantine the whole time.",
+            "The second big source is rework. A report goes back because a field was missing, a root cause was weak or a signature was in the wrong place. Rework in GMP is costly because every correction must itself be documented and approved."
+          ]
+        },
+        {
+          "h": "Quality and compliance",
+          "list": [
+            "Deviations and investigations: free-text reports, repeated searches for similar past events, and weak root causes such as 'human error' that come back as repeat deviations. 21 CFR 211.192 requires unexplained discrepancies to be thoroughly investigated, and the investigation extended to other batches that may be affected.",
+            "CAPA: actions that close on paper but do not fix the cause. Effectiveness checks are skipped or done late, and the same problem returns.",
+            "Change control: every change to a process, document or system needs impact assessment, approval and often revalidation. Impact assessments are written from scratch each time.",
+            "SOPs and training: hundreds of controlled documents, periodic reviews that run late, and training that is assigned but not linked to the real change.",
+            "Audits and inspection readiness: gathering evidence for an audit or an FDA visit is mostly manual search across systems. Responding to a 483 or warning letter means mapping each observation to evidence and CAPA under time pressure."
+          ]
+        },
+        {
+          "h": "Engineering and validation",
+          "list": [
+            "Protocol writing: IQ, OQ and PQ protocols and reports follow standard shapes but are written largely by hand from specifications such as the URS (user requirements specification).",
+            "Traceability: linking each requirement to a test and a result is often kept in spreadsheets that drift out of date.",
+            "Computer system validation: teams that test every function equally instead of by risk spend weeks on low-risk features. GAMP 5 Second Edition and FDA's CSA (computer software assurance) guidance both push towards risk-based effort.",
+            "Temperature mapping and requalification: large volumes of sensor data reviewed by hand to find hot and cold spots and excursions."
+          ]
+        },
+        {
+          "h": "Technical operations and digital",
+          "list": [
+            "Batch record review: QA reviews every page of every batch record before release. With paper records, this is often the biggest single release delay. Even with EBR, reviewers check exceptions by hand.",
+            "Tech transfer: process knowledge sits in reports and in people's heads. The receiving site rebuilds documents, methods and risk assessments.",
+            "CPV and trending: data from LIMS, MES and historians is pulled into spreadsheets for trending, so signals are found late.",
+            "OOS and OOT (out of trend) investigations in the lab: many steps, many approvals, and repeated questions to the analyst.",
+            "Systems integration: data is re-keyed between MES, LIMS, eQMS and ERP because the systems are not connected."
+          ]
+        },
+        {
+          "h": "Clinical quality",
+          "p": [
+            "Sponsors review large volumes of documents from partners: batch documentation and certificates of analysis from CDMOs before IMP release, deviation and CAPA reports, stability data, temperature excursions during shipping, clinical protocols and investigator's brochures. The work is mostly reading, comparing and checking against requirements, spread across many outside parties with different formats. That is a strong fit for an AI assistant that pre-reads and flags, with a qualified reviewer deciding."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "Where a batch waits before release",
+        "caption": "Each row is a team; read left to right to see the hand-offs that hold the batch in quarantine.",
+        "lanes": ["Production", "Lab", "Quality", "Supply"],
+        "steps": [
+          {"lane": 0, "label": "Batch made, record closed"},
+          {"lane": 1, "label": "Samples tested in LIMS"},
+          {"lane": 2, "label": "Deviation opened"},
+          {"lane": 0, "label": "Operator interviewed"},
+          {"lane": 1, "label": "Extra tests requested"},
+          {"lane": 2, "label": "Investigation drafted"},
+          {"lane": 2, "label": "Batch record reviewed"},
+          {"lane": 2, "label": "Batch released"},
+          {"lane": 3, "label": "Status changed in ERP"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: finding the real bottleneck (fictional)",
+        "p": [
+          "A CDMO tells you its average time from end of manufacture to release is too long and asks for an AI that writes deviation reports faster. You ask for a sample of 50 recently released batches with the dates of each step. These numbers are an example to show the method.",
+          "The data shows that batches with no deviation still wait about eight working days, mostly in batch record review. Batches with a deviation wait longer, but most of the extra time is the investigation waiting for lab data, not the writing. Writing the report takes about a day."
+        ],
+        "list": [
+          "The first fix is not a report writer. It is review by exception in batch record review, so QA looks at flagged entries first.",
+          "The second fix is getting lab data to the investigator faster, which is an integration problem between LIMS and the eQMS.",
+          "An AI drafting step may still help later, but it would save a day, not a week.",
+          "Lesson: measure the waits before choosing the tool."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Build a delay map for one GMP process",
+          "time": "45 min",
+          "goal": "Practise finding waits, hand-offs and rework in a regulated process.",
+          "steps": [
+            "Pick one process: deviation to closure, batch record review, change control or IQ/OQ/PQ protocol approval.",
+            "In a spreadsheet, list every step, who does it and which system it happens in.",
+            "Add two columns: typical work time and typical wait time. Use your own estimates and label them as estimates.",
+            "Mark each place where data is re-keyed or a document goes back for rework.",
+            "Read 21 CFR 211.192 and note which step it governs.",
+            "Ask Claude what questions you should ask a QA manager to replace your estimates with real numbers."
+          ],
+          "done_when": "Your sheet shows every step, marks the longest wait, and lists the questions to confirm it."
+        }
+      ],
+      "pitfalls": [
+        "Assuming writing is the bottleneck. In GMP work, waiting for data, reviewers and approvals is often longer than writing.",
+        "Ignoring rework. Count how often records come back from QA, and why.",
+        "Proposing a fix that removes a required review. GMP reviews exist for a reason; aim to make them faster, not to skip them.",
+        "Looking at averages only. A few long investigations can hide behind a normal average; look at the slowest ten percent too."
+      ],
+      "check": [
+        "Name three places where a batch waits between manufacture and release.",
+        "Why is rework more costly in GMP work than in most office work?",
+        "What does 21 CFR 211.192 require when a discrepancy is found?",
+        "Why might an AI report writer save less time than expected?"
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR 211.192 - Production record review", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.192", "cost": "free"},
+        {"type": "docs", "title": "Investigating Out-of-Specification (OOS) Test Results for Pharmaceutical Production", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/investigating-out-specification-oos-test-results-pharmaceutical-production-level-2-revision", "cost": "free"},
+        {"type": "docs", "title": "Process Validation: General Principles and Practices", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices", "cost": "free"},
+        {"type": "docs", "title": "Quality Systems Approach to Pharmaceutical Current Good Manufacturing Practice Regulations", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/quality-systems-approach-pharmaceutical-current-good-manufacturing-practice-regulations", "cost": "free"},
+        {"type": "video", "title": "GMP Deviation, CAPA & Change Control Training | Pharma QA Basics", "source": "Pharma Galaxy", "url": "https://www.youtube.com/watch?v=3eaM6chpsbM", "cost": "free"},
+        {"type": "video", "title": "What is Continued process verification (CPV) ?", "source": "Hema Sharma", "url": "https://www.youtube.com/watch?v=zw36W3coDA4", "cost": "free"}
+      ]
+    },
+    {
+      "id": "pharma-gap-assessment",
+      "title": "Running a gap assessment against GMP and data integrity",
+      "summary": "You will be able to plan and run a gap assessment that compares how a site works today with what the rules and the client's goals require, and rank the gaps by risk.",
+      "why": "Gap assessments are one of the most common entry points into a pharma client. A site preparing for a pre-approval inspection, a CDMO onboarding a new sponsor, or a company replacing its eQMS all start by asking 'where are we short?'. The same method tells you whether a process is ready for AI: you cannot automate a process whose records already fail data integrity.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A gap assessment compares the current state with a required state and lists the differences. The required state comes from regulations, guidance, the client's own SOPs and, for a digital project, the target system's needs. Each gap gets evidence, a risk rating and a recommended action.",
+            "The output is not a long report for its own sake. It is a ranked list that tells the client what to fix first, and it often becomes the plan for remediation or the scope of a new system."
+          ]
+        },
+        {
+          "h": "Step by step",
+          "list": [
+            "Set the scope: which site, which systems, which processes, and against which requirements. For example: 'the deviation and CAPA process and the eQMS at site A, against 21 CFR 211, Part 11, ICH Q10 and EU GMP Annex 11'.",
+            "Build the checklist: turn each requirement into a plain question. 'Are all deviations investigated and documented?' 'Does the system keep a secure, time-stamped audit trail of record changes?'",
+            "Collect evidence: read SOPs, sample real records, look at system configuration, and interview the people who do the work. Note what you saw, not what you were told.",
+            "Rate each gap: use ICH Q9 thinking. How likely is the failure, how severe is the impact on patients and product, and how likely is it to be caught?",
+            "Recommend and rank: for each gap, propose an action, an owner and a rough effort. Put patient and product risk first, then inspection risk, then efficiency.",
+            "Review with the client: walk through the top gaps with QA leadership and agree the ranking before anyone starts building."
+          ]
+        },
+        {
+          "h": "Data integrity gaps to look for",
+          "p": [
+            "FDA's guidance on data integrity and the MHRA GxP data integrity guidance give the expectations. In plain words, look for these signs."
+          ],
+          "list": [
+            "Shared logins on lab instruments or systems, which break 'attributable'.",
+            "Audit trails switched off, never reviewed, or not covering the data that matters.",
+            "Results recorded on scrap paper and typed in later, which breaks 'contemporaneous' and 'original'.",
+            "Test injections or reprocessing that are not explained in the record.",
+            "Spreadsheets used for GMP calculations without control or validation.",
+            "Records that cannot be retrieved for the full retention period."
+          ]
+        },
+        {
+          "h": "Gap assessment for a digital or AI project",
+          "p": [
+            "When the client wants a new system or an AI tool, add three questions to the assessment. First, is the process itself stable and documented? If two shifts follow different practices, automation will copy the confusion. Second, is the data good enough? Profile a sample of records for missing fields, inconsistent categories and free-text quality. Third, is the system landscape ready? Check whether the target systems have APIs, whether they are validated, and who owns their change control.",
+            "A gap assessment for an ERP or eQMS project, such as a move to SAP or to a new eQMS, follows the same pattern: requirements and current process on one side, the standard configuration of the new system on the other, and a list of gaps to close by configuration, process change or a small custom build."
+          ]
+        },
+        {
+          "h": "After a 483 or warning letter",
+          "p": [
+            "When FDA issues a Form 483 or a warning letter, the gap assessment becomes urgent and focused. Each observation is a stated gap. The response must show the root cause, the fix, how the company checked for the same problem elsewhere, and how it will prove the fix works. Warning letters are published on the FDA website, so reading a few in your client's product area is one of the fastest ways to learn what inspectors look for."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Gap assessment in six steps",
+        "caption": "Read left to right; each step produces the input for the next.",
+        "steps": [
+          {"label": "Set scope and requirements", "note": "Site, process, systems, rules"},
+          {"label": "Build the checklist", "note": "One plain question per requirement"},
+          {"label": "Collect evidence", "note": "SOPs, records, config, interviews"},
+          {"label": "Rate each gap by risk", "note": "ICH Q9: severity, likelihood, detection"},
+          {"label": "Recommend and rank", "note": "Action, owner, effort"},
+          {"label": "Agree with QA leadership", "note": "Before any build starts"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: a gap table for a deviation process (fictional)",
+        "p": [
+          "A generic drug site wants AI help with deviations. You run a two-day gap assessment of the deviation and CAPA process first. Here are three rows from the result, written the way a client would see them."
+        ],
+        "list": [
+          "Gap 1: about one in five sampled deviations name 'human error' as root cause without further analysis. Requirement: thorough investigation (21 CFR 211.192). Risk: high, repeat events likely. Action: root cause method training and a required field for contributing factors.",
+          "Gap 2: the eQMS audit trail is enabled but never reviewed. Requirement: audit trail review as part of data integrity controls. Risk: medium. Action: add periodic audit trail review to the SOP.",
+          "Gap 3: root cause categories overlap ('equipment' and 'machine'). Requirement: none directly, but it blocks trending and any AI model. Risk: low for compliance, high for the AI project. Action: clean the category list before building.",
+          "Outcome: the AI project starts after gaps 1 and 3 are addressed, because both decide the quality of the data the tool would learn from."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "Gap | Requirement           | Evidence             | Risk   | Action          | Owner\n1   | 21 CFR 211.192        | 10 of 50 sampled     | High   | RCA training    | QA lead\n2   | Audit trail review    | No review records    | Medium | Update SOP      | QA systems\n3   | Clean categories      | 2 duplicate codes    | Low    | Merge codes     | QA systems"
+        }
+      },
+      "practice": [
+        {
+          "title": "Run a mini gap assessment from a public warning letter",
+          "time": "60 min",
+          "goal": "Practise turning regulatory findings into a ranked gap table.",
+          "steps": [
+            "Open the FDA warning letters page and filter for a drug manufacturer letter that mentions CGMP.",
+            "List each observation as a gap in a spreadsheet with columns: gap, requirement cited, evidence described, risk, action.",
+            "Rate each gap high, medium or low using severity to patients and likelihood of repeat.",
+            "Write one recommended action per gap in plain words.",
+            "Mark which gaps would block an AI project in that area and explain why in one sentence.",
+            "Ask Claude to review your ranking and challenge any rating it disagrees with."
+          ],
+          "done_when": "You have a ranked gap table with at least four rows, each with a cited requirement and a plain action."
+        }
+      ],
+      "pitfalls": [
+        "Writing gaps from interviews only. Always sample real records; what people say and what the records show often differ.",
+        "Ranking by effort instead of risk. Patient and product risk come first, even when the fix is hard.",
+        "Starting an AI build on a process with open data integrity gaps. The tool will inherit the weakness and add to it.",
+        "Producing a long report with no owners. Each gap needs an action and a named owner."
+      ],
+      "check": [
+        "What are the six steps of a gap assessment?",
+        "Give three signs of a data integrity gap you could find in a lab.",
+        "What three extra questions do you ask when the gap assessment is for an AI project?",
+        "How does a 483 response relate to a gap assessment?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers", "cost": "free"},
+        {"type": "docs", "title": "Guidance on GxP data integrity", "source": "MHRA (GOV.UK)", "url": "https://www.gov.uk/government/publications/guidance-on-gxp-data-integrity", "cost": "free"},
+        {"type": "docs", "title": "Q9(R1) Quality Risk Management", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management", "cost": "free"},
+        {"type": "docs", "title": "Warning Letters", "source": "FDA", "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters", "cost": "free"},
+        {"type": "docs", "title": "FDA Form 483 Frequently Asked Questions", "source": "FDA", "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/fda-form-483-frequently-asked-questions", "cost": "free"},
+        {"type": "video", "title": "What to Expect after an Inspection: 483s, Responses and Beyond", "source": "U.S. Food and Drug Administration", "url": "https://www.youtube.com/watch?v=LU_4vTx03IU", "cost": "free"},
+        {"type": "video", "title": "Intro to Data Integrity (the ALCOA+ Principles in Action)", "source": "Skellig Automation", "url": "https://www.youtube.com/watch?v=ie8KV1uB_TE", "cost": "free"}
+      ]
+    },
+    {
+      "id": "pharma-value-sizing",
+      "title": "Sizing value with regulated constraints",
+      "summary": "You will be able to put a defensible number on an AI or digital improvement in pharma, including the cost of validation and the limits that GMP places on automation.",
+      "why": "Pharma sponsors are used to strong business cases for capital projects. A vague promise of 'efficiency' will not get budget, and a business case that ignores validation cost will be torn apart by QA and finance. This lesson shows you how to size value in the units the client already tracks, and how to be honest about what GMP adds to cost and time.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Value in pharma comes in a few familiar forms: faster release (less stock in quarantine, shorter lead time), fewer repeat deviations and less rework, less reviewer time, lower inspection risk, and faster site start-up or tech transfer. Each one can be measured with data the client already has in the eQMS, LIMS, MES or ERP.",
+            "Cost includes the usual build and run costs plus regulated costs: validation effort, SOP updates, training, periodic review and change control for every later update. Leave these out and your number will not survive review."
+          ]
+        },
+        {
+          "h": "Pick the right metric",
+          "p": [
+            "Use the measures the client already reports in management review, because ICH Q10 expects management to review process performance, product quality and CAPA results. If your number shows up in that meeting, leadership will notice when it moves."
+          ],
+          "list": [
+            "Cycle time: days from deviation open to close, or from end of manufacture to release. Ask for the distribution, not only the average.",
+            "Right first time: share of batch records or investigation reports that pass QA review without coming back.",
+            "Repeat deviations: share of deviations with the same root cause as one in the last year. A good proxy for CAPA effectiveness.",
+            "Reviewer hours: time QA spends on batch record review or document review per batch or per month.",
+            "Overdue items: open CAPAs or change controls past their due date. Inspectors look at these.",
+            "Tech transfer or validation duration: weeks from protocol draft to approved report."
+          ]
+        },
+        {
+          "h": "Build the number step by step",
+          "p": [
+            "Use a simple chain: volume times effort per item times share of effort the tool removes, plus the value of time saved where time is money. Then subtract the full cost, including validation. Always label assumptions and give a low, middle and high case.",
+            "The constraint that matters most is the human approval step. In GMP work a qualified person still reviews and signs. So the saving is usually in preparation time (searching, gathering, drafting, checking) rather than in the review itself. Do not assume the reviewer's time drops to zero."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "# Example figures only, to show the method\ndeviations_per_year = 400\nhours_per_investigation = 12\nshare_saved = {\"low\": 0.15, \"mid\": 0.25, \"high\": 0.35}\nhourly_cost = 80\nvalidation_and_setup = 60000\nannual_run = 20000\n\nfor case, share in share_saved.items():\n    hours = deviations_per_year * hours_per_investigation * share\n    saving = hours * hourly_cost\n    year1 = saving - validation_and_setup - annual_run\n    print(f\"{case}: {hours:.0f} h saved, net year one {year1:,.0f}, later years {saving - annual_run:,.0f}\")"
+          }
+        },
+        {
+          "h": "Value you cannot sum easily",
+          "p": [
+            "Some of the most important value in pharma is risk reduction: fewer weak investigations, a stronger audit trail, better inspection readiness. You cannot always put a reliable number on avoiding a warning letter, and you should not invent one. Describe it plainly, link it to specific findings or gaps from the gap assessment, and let the client weigh it.",
+            "Faster release can also free working capital, because stock in quarantine is money the company has spent but cannot sell. If the client tracks inventory value in quarantine, ask finance to help you estimate this rather than computing it yourself."
+          ]
+        },
+        {
+          "h": "Regulated costs to include",
+          "list": [
+            "Validation: intended use, risk assessment, test planning and execution, and the summary report, scaled to risk under GAMP 5.",
+            "Procedures and training: new or updated SOPs and training for users and reviewers.",
+            "Change control: every update to prompts, models or integrations goes through change control, with assessment and possibly retesting.",
+            "Periodic review and monitoring: ongoing checks that the tool still performs as validated.",
+            "Supplier qualification: if you use an external model or SaaS tool, the client's quality team must assess the supplier."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "A pharma business case, top to bottom",
+        "caption": "Build from the bottom up; each layer depends on the one below.",
+        "layers": [
+          {"label": "Decision and ask", "note": "What you need approved, by whom, by when"},
+          {"label": "Net value, low to high", "note": "Three cases with labelled assumptions"},
+          {"label": "Full cost", "note": "Build, run, validation, SOPs, change control"},
+          {"label": "Gross saving", "note": "Volume x effort x share saved"},
+          {"label": "Baseline from real data", "note": "eQMS, LIMS, MES, ERP extracts"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: sizing a deviation assistant (fictional figures)",
+        "p": [
+          "A site closes about 400 deviations a year. Investigators estimate 12 hours each across gathering data, searching past events, writing and responding to QA comments. With the example figures in the code above, the tool saves between 720 and 1,680 hours a year. At the example hourly cost, that is between 57,600 and 134,400 a year, before costs.",
+          "Year one includes validation and setup, so the low case is negative in year one and positive after. That is a normal and honest result. You present it with the risk value alongside: stronger root cause analysis, fewer repeat deviations, and a clearer audit trail."
+        ],
+        "list": [
+          "Baseline source: eQMS export of open and close dates and investigator time logs where they exist.",
+          "Key assumption to test in the pilot: share of preparation time saved.",
+          "Non-numeric value: repeat deviation rate and investigation quality, measured after six months.",
+          "Decision asked: fund a validated pilot on one product line."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Size one improvement in a spreadsheet",
+          "time": "40 min",
+          "goal": "Practise building a low, mid and high value case that includes regulated costs.",
+          "steps": [
+            "Pick one process: deviation investigation, batch record review or validation protocol drafting.",
+            "Write down volume per year, effort per item and hourly cost as labelled example figures.",
+            "Set three values for share of effort saved, and explain each in one sentence.",
+            "Add cost lines for build, run, validation, SOPs and training, and change control.",
+            "Run the Python example from this lesson with your numbers, or build the same chain in a spreadsheet.",
+            "Write two sentences on risk value you will not put a number on."
+          ],
+          "done_when": "You have a sheet with three cases, full costs including validation, and a short statement of non-numeric value."
+        }
+      ],
+      "pitfalls": [
+        "Leaving out validation and change control. QA and finance will spot it and your credibility drops.",
+        "Assuming the reviewer's time goes to zero. In GMP work a qualified person still reviews and signs.",
+        "Inventing a number for avoided warning letters. Describe risk value plainly instead.",
+        "Using only averages. Show the spread so the client sees the long tail of slow cases."
+      ],
+      "check": [
+        "Name four metrics a pharma client already tracks that you can use as a baseline.",
+        "Why is saving usually in preparation time rather than review time?",
+        "List three regulated cost lines a business case must include.",
+        "How would you present value from lower inspection risk without inventing a number?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Q10 Pharmaceutical Quality System", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system", "cost": "free"},
+        {"type": "docs", "title": "ICH Q10 Pharmaceutical quality system - Scientific guideline", "source": "European Medicines Agency", "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q10-pharmaceutical-quality-system", "cost": "free"},
+        {"type": "docs", "title": "GAMP 5 Guide 2nd Edition", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition", "cost": "paid"},
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "video", "title": "Quality Metrics, Quality Culture, and Data-Driven Decisions (16of33) Quality - Oct. 16-17, 2019", "source": "U.S. Food and Drug Administration", "url": "https://www.youtube.com/watch?v=xbSjzSy4vu0", "cost": "free"},
+        {"type": "docs", "title": "Building effective AI agents", "source": "Anthropic", "url": "https://www.anthropic.com/research/building-effective-agents", "cost": "free"}
+      ]
+    },
+    {
+      "id": "pharma-build-buy-configure",
+      "title": "Market, buyers, and build, buy or configure in a validated environment",
+      "summary": "You will be able to map who buys and who blocks in a pharma account, scan what the market already offers, and choose between building, buying or configuring a solution that must be validated.",
+      "why": "Pharma clients already own large validated platforms: an eQMS, LIMS, MES and SAP. Many of these vendors now ship AI features. A custom build that duplicates a feature the client already licenses is hard to defend, and a bought tool that cannot be validated is useless. An FDE who knows the market and the buyers can steer to the option that actually gets approved.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "There are three ways to deliver a capability. Configure means using features in a platform the client already owns, such as workflow rules or an AI feature in their eQMS. Buy means licensing a new product. Build means writing your own, usually as a thin layer that connects existing systems and calls an LLM.",
+            "In pharma the deciding factor is often not features but validation and ownership. Who will validate it, who will maintain it, and how will changes be controlled for years after you leave?"
+          ]
+        },
+        {
+          "h": "Who buys and who blocks",
+          "list": [
+            "Head of quality or site quality director: often the real decision maker for anything that touches GMP records. Can say no to any tool.",
+            "Validation or CSV lead: decides how much evidence is needed and how long validation will take.",
+            "Operations or manufacturing head: owns release time, yield and cost. Usually the sponsor for operations problems.",
+            "Digital, IT or system owners: own the eQMS, LIMS, MES and ERP, their interfaces and their change control.",
+            "Regulatory affairs: involved if the change touches a filed process or submission.",
+            "Procurement and supplier quality: qualify any new vendor before use."
+          ]
+        },
+        {
+          "h": "Scan the market first",
+          "p": [
+            "Before proposing a build, check three places. The client's own platforms: read the vendor's release notes for AI or automation features they may already license. Specialist vendors: there are products for document review, batch record review by exception, validation lifecycle management and quality analytics. General AI platforms: enterprise LLM offerings with data controls that the client's IT already approved.",
+            "For each option, write down the same facts: what it does, whether it runs inside the client's validated boundary, what the vendor supplies for validation (documentation, test scripts, an audit report), how changes are released, and the cost."
+          ]
+        },
+        {
+          "h": "Choosing in a validated environment",
+          "p": [
+            "GAMP 5 sorts software by how much it is changed for the user. Category 1 is infrastructure such as operating systems. Category 3 is standard software used as delivered. Category 4 is configured software, such as most eQMS and LIMS setups. Category 5 is custom software. The more custom it is, the more validation effort it needs, because the supplier's own testing covers less of what you built."
+          ],
+          "list": [
+            "Configure when the client's platform already does most of the job. Validation can lean on the vendor's work and the client's existing validation package.",
+            "Buy when a mature product fits the process, the vendor supports validation, and supplier qualification will pass.",
+            "Build when the value comes from connecting systems or from a process no product covers. Keep the build thin, use validated systems as the records, and plan the validation and change control from day one.",
+            "For any option that uses an LLM, plan how model versions are pinned, how prompts are controlled and how changes are retested."
+          ]
+        },
+        {
+          "h": "Vendor and supplier questions",
+          "list": [
+            "Where is data processed and stored, and is it used to train the vendor's models?",
+            "Does the product support Part 11 controls: unique user IDs, audit trail, electronic signatures with meaning?",
+            "What validation documentation does the vendor provide, and can we audit the vendor?",
+            "How are updates released, and can we hold a version while we assess a change?",
+            "What happens to our records if we leave the product?"
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "Build, buy or configure in GMP",
+        "caption": "Start at the top and follow the first answer that is true.",
+        "start": "A validated capability is needed",
+        "question": "What best covers it?",
+        "branches": [
+          {"answer": "Platform client owns", "result": "Configure; reuse its validation package"},
+          {"answer": "Mature product, vendor helps", "result": "Buy; qualify supplier, validate use"},
+          {"answer": "Value is in connecting systems", "result": "Build thin; plan validation from day one"},
+          {"answer": "Nothing fits, risk is high", "result": "Rethink scope with QA before building"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: batch record review by exception (fictional)",
+        "p": [
+          "A sterile injectables site wants to cut batch record review time. Its MES already has EBR, and its vendor offers a review-by-exception module that flags entries outside limits. The site also has an AI team that wants to build an LLM reviewer.",
+          "You compare the options. The vendor module is configured, sits inside the validated MES, and has vendor test documentation. It covers structured entries but not free-text comments or attached documents. The LLM build could read comments and attachments but would need its own validation and change control."
+        ],
+        "list": [
+          "Recommendation: configure the vendor module first for structured exceptions.",
+          "Then build a small, assistive LLM step that reads only free-text comments and flags them for the reviewer.",
+          "The flags are stored as attributed notes; the reviewer still signs the review in the MES.",
+          "Result: most of the value with the least new validation, and a clear owner for each part."
+        ]
+      },
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "A common surprise: the client already pays for an AI feature in its eQMS or document system that nobody has switched on. Read the vendor's release notes in week one and ask the system owner what is licensed."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Build a buyer map and an options table",
+          "time": "50 min",
+          "goal": "Practise mapping decision makers and comparing configure, buy and build for a GMP process.",
+          "steps": [
+            "Pick one process: deviation investigation, batch record review, change control impact assessment or IMP release review.",
+            "Draw a buyer map with the six roles from this lesson and write what each one cares about most.",
+            "Look up the public product pages for two eQMS or MES vendors and note any AI or automation features.",
+            "Make a table with columns: option, what it covers, validation effort, who owns it, cost type.",
+            "Fill in one configure, one buy and one build option.",
+            "Write a two-sentence recommendation and ask Claude to argue for a different option."
+          ],
+          "done_when": "You have a buyer map, a three-row options table and a recommendation that survives the counter-argument."
+        }
+      ],
+      "pitfalls": [
+        "Building what the client already licenses. Check the existing platforms first.",
+        "Choosing a tool QA cannot validate. Ask about validation support before features.",
+        "Selling to IT only. In GMP work the head of quality decides whether a tool is used.",
+        "Forgetting long-term ownership. Someone must run change control on the tool after you leave."
+      ],
+      "check": [
+        "What is the difference between configure, buy and build?",
+        "Name the four GAMP 5 software categories used in practice and how validation effort changes across them.",
+        "Who usually has the final say on a tool that touches GMP records?",
+        "List three questions you would ask a vendor before recommending its product."
+      ],
+      "links": [
+        {"type": "docs", "title": "GAMP 5 Guide 2nd Edition", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition", "cost": "paid"},
+        {"type": "docs", "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11", "cost": "free"},
+        {"type": "docs", "title": "EU GMP Annex 11: Computerised Systems", "source": "European Commission", "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf", "cost": "free"},
+        {"type": "docs", "title": "Veeva QMS", "source": "Veeva", "url": "https://www.veeva.com/products/veeva-qms/", "cost": "free"},
+        {"type": "docs", "title": "Quality", "source": "MasterControl", "url": "https://www.mastercontrol.com/quality/", "cost": "free"},
+        {"type": "docs", "title": "What is ERP? The Essential Guide", "source": "SAP", "url": "https://www.sap.com/resources/what-is-erp", "cost": "free"},
+        {"type": "video", "title": "Electronic Batch Records and Validation in the New World - VoD", "source": "Kneat Solutions", "url": "https://www.youtube.com/watch?v=Ql15Ky92ulc", "cost": "free"}
+      ]
+    }
+  ]
+}

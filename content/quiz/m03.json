@@ -1,0 +1,274 @@
+{
+  "module": 3,
+  "questions": [
+    {
+      "id": "m03-q01",
+      "lesson": "how-the-web-works",
+      "q": "A script that worked from your laptop at home now times out on the client's network. The code has not changed. What is the most likely cause?",
+      "options": [
+        "The API has switched from JSON to HTML responses",
+        "Python needs reinstalling on the client network",
+        "The network path is different, such as a proxy or firewall blocking outbound calls",
+        "DNS only works on home networks"
+      ],
+      "answer": 2,
+      "why": "Inside a company, requests pass through VPNs, proxies and firewalls, so a working call can fail because of the network path, not the code."
+    },
+    {
+      "id": "m03-q02",
+      "lesson": "how-the-web-works",
+      "q": "An API call returns status 503. Where should you look first?",
+      "options": [
+        "The server side, because 5xx means the server failed",
+        "Your request body, because 5xx means you sent bad data",
+        "Your API key, because 5xx means not authenticated",
+        "The page address, because 5xx means not found"
+      ],
+      "answer": 0,
+      "why": "The 5xx family means the other side has a problem, while 4xx points back at what you sent."
+    },
+    {
+      "id": "m03-q03",
+      "lesson": "how-the-web-works",
+      "q": "A client says they changed a page but users still see the old version. The response shows cf-cache-status: HIT. What is the best first explanation?",
+      "options": [
+        "The deploy failed and must be redone",
+        "The server rejected the request with an error",
+        "DNS is pointing to the wrong IP address",
+        "A cached copy is being served, so the request may never reach the original server",
+        "The browser does not support HTTP/2"
+      ],
+      "answer": 3,
+      "why": "HIT means a cached copy was served, and caching is a common reason changes do not appear."
+    },
+    {
+      "id": "m03-q04",
+      "lesson": "how-the-web-works",
+      "q": "Why should a GET request never be used to change data on the server?",
+      "options": [
+        "GET requests cannot carry headers",
+        "Browsers, caches and link previews may repeat GET requests",
+        "GET requests are always sent without encryption",
+        "Servers ignore GET requests that include a path"
+      ],
+      "answer": 1,
+      "why": "Because GET can be repeated automatically, any change it makes could happen more than once."
+    },
+    {
+      "id": "m03-q05",
+      "lesson": "python-essentials",
+      "q": "A script reads amounts from a CSV and finds that '9' is treated as bigger than '10'. What went wrong?",
+      "options": [
+        "csv.DictReader sorts rows in reverse",
+        "The values were compared as text and need converting with float() or int()",
+        "The file was opened without a with block",
+        "The amounts column needs to be a dict"
+      ],
+      "answer": 1,
+      "why": "CSV values always arrive as text, so numbers must be converted before comparing or adding."
+    },
+    {
+      "id": "m03-q06",
+      "lesson": "python-essentials",
+      "q": "Your script stops with KeyError: 'amount'. What is the most likely cause?",
+      "options": [
+        "The file could not be found in the current folder",
+        "A value like 'n/a' reached float()",
+        "A variable was used before it was created",
+        "The column header is spelled differently, has a space, or uses different capitals",
+        "Text was added to a number"
+      ],
+      "answer": 3,
+      "why": "KeyError means the dict has no key with that name, usually a header that does not match exactly."
+    },
+    {
+      "id": "m03-q07",
+      "lesson": "python-essentials",
+      "q": "Two projects on your laptop need different versions of the same package. What solves this?",
+      "options": [
+        "A separate virtual environment for each project",
+        "Installing both versions into the system Python",
+        "Adding the package name to .gitignore",
+        "Using json.load instead of the package",
+        "Running each script from a different terminal window"
+      ],
+      "answer": 0,
+      "why": "A virtual environment gives each project its own private folder of packages so versions do not clash."
+    },
+    {
+      "id": "m03-q08",
+      "lesson": "apis-and-json",
+      "q": "Your script reports 100 records but the client says the system holds 2,400. What is the most likely cause?",
+      "options": [
+        "The API key has expired",
+        "The JSON was parsed as text",
+        "The script only processed the first page of results",
+        "The request had no timeout set"
+      ],
+      "answer": 2,
+      "why": "If you forget pagination, you silently process only the first page and totals come out wrong."
+    },
+    {
+      "id": "m03-q09",
+      "lesson": "apis-and-json",
+      "q": "An API call returns 403 with a key you know is valid. What does that tell you?",
+      "options": [
+        "The key is missing from the request",
+        "The server has crashed",
+        "The endpoint does not exist",
+        "The key is recognised but not allowed to do this action",
+        "You have sent too many requests"
+      ],
+      "answer": 3,
+      "why": "A 401 means the key is missing or wrong, while a 403 means it is valid but lacks permission."
+    },
+    {
+      "id": "m03-q10",
+      "lesson": "apis-and-json",
+      "q": "Your loop gets a 429 response with a Retry-After header. What should the code do?",
+      "options": [
+        "Retry immediately in a tight loop until it works",
+        "Wait the number of seconds given, retry, and cap the number of retries",
+        "Switch to a POST request instead",
+        "Stop and treat the data as complete",
+        "Remove the Authorization header and try again"
+      ],
+      "answer": 1,
+      "why": "429 means too many requests, so you wait as the API asks and limit retries to avoid getting blocked."
+    },
+    {
+      "id": "m03-q11",
+      "lesson": "data-and-sql",
+      "q": "After joining invoices to another table, the invoice total is higher than before. What should you check first?",
+      "options": [
+        "Whether the table uses REAL or TEXT for amounts",
+        "Whether ORDER BY was used",
+        "Whether the join key is unique, by counting rows before and after the join",
+        "Whether the query used single quotes",
+        "Whether HAVING was placed after GROUP BY"
+      ],
+      "answer": 2,
+      "why": "Joining on a key that is not unique multiplies rows, which inflates totals."
+    },
+    {
+      "id": "m03-q12",
+      "lesson": "data-and-sql",
+      "q": "You want only suppliers whose total open invoices are above 500. Which clause filters on that total?",
+      "options": [
+        "HAVING, because it filters groups after they are totalled",
+        "WHERE, because it filters groups after they are totalled",
+        "ORDER BY, because it puts the biggest first",
+        "JOIN, because it combines matching rows"
+      ],
+      "answer": 0,
+      "why": "WHERE filters rows before grouping; HAVING filters totals after grouping."
+    },
+    {
+      "id": "m03-q13",
+      "lesson": "data-and-sql",
+      "q": "SELECT COUNT(*), COUNT(DISTINCT invoice_id) FROM invoices returns 1,050 and 1,000. What does this tell you?",
+      "options": [
+        "There are duplicate invoice rows, so totals built on this table will be wrong",
+        "50 invoices have a NULL amount",
+        "50 invoices have no matching supplier",
+        "The table has 50 more columns than expected"
+      ],
+      "answer": 0,
+      "why": "If the row count and the distinct key count differ, the key is duplicated."
+    },
+    {
+      "id": "m03-q14",
+      "lesson": "data-and-sql",
+      "q": "Why use ? placeholders when running SQL from Python?",
+      "options": [
+        "They make queries run faster on large tables",
+        "They let SQLite store dates in any format",
+        "They keep input text out of the SQL, preventing SQL injection and handling quotes",
+        "They turn a JOIN into a LEFT JOIN automatically",
+        "They are required for SELECT but not INSERT"
+      ],
+      "answer": 2,
+      "why": "Placeholders stop input from being mistaken for SQL commands and handle quotes in values."
+    },
+    {
+      "id": "m03-q15",
+      "lesson": "git-and-github",
+      "q": "You pushed a file containing an API key yesterday and deleted it today. What should you do?",
+      "options": [
+        "Nothing, the delete commit removed it",
+        "Treat the key as leaked: tell the owner, revoke it and create a new one",
+        "Add the file to .gitignore and push again",
+        "Rename the branch so the old commit is hidden"
+      ],
+      "answer": 1,
+      "why": "Anything committed stays in history, so deleting the file does not make the key safe."
+    },
+    {
+      "id": "m03-q16",
+      "lesson": "git-and-github",
+      "q": "Which file stops Git from tracking .env and local database files?",
+      "options": [
+        "requirements.txt",
+        "README",
+        "config.json",
+        ".gitignore"
+      ],
+      "answer": 3,
+      "why": "A .gitignore lists file patterns Git should never track, such as .env and *.db."
+    },
+    {
+      "id": "m03-q17",
+      "lesson": "git-and-github",
+      "q": "You have a 2,000 line change ready for review. What is the better approach?",
+      "options": [
+        "Push it straight to main to save the reviewer time",
+        "Open one pull request with the commit message 'update'",
+        "Split it into smaller pull requests that each do one thing",
+        "Merge it first and ask for review afterwards",
+        "Squash it into one commit so it looks smaller"
+      ],
+      "answer": 2,
+      "why": "A reviewer can check a small change properly but will only skim a very large one."
+    },
+    {
+      "id": "m03-q18",
+      "lesson": "coding-with-ai",
+      "q": "An assistant's parse_amount function returns 0 for a blank amount. Why is that a problem?",
+      "options": [
+        "It makes the function slower on large files",
+        "Python cannot add 0 to a float",
+        "Blank amounts should always be treated as negative",
+        "It hides bad rows inside a total instead of failing loudly"
+      ],
+      "answer": 3,
+      "why": "Returning 0 silently guesses, so bad data disappears into totals; raising an error makes it visible."
+    },
+    {
+      "id": "m03-q19",
+      "lesson": "coding-with-ai",
+      "q": "The assistant has failed to fix the same bug twice and each fix breaks something else. What should you do?",
+      "options": [
+        "Stop, clear the session, and write a better first request with the exact error and what you learned",
+        "Keep repeating the same request until it works",
+        "Accept the latest change and test later",
+        "Ask it to change more files at once",
+        "Turn off the tests so the changes can go in"
+      ],
+      "answer": 0,
+      "why": "After repeated failed corrections a fresh session with a clearer request usually works better than pushing on."
+    },
+    {
+      "id": "m03-q20",
+      "lesson": "coding-with-ai",
+      "q": "Before you ask an AI assistant to make a big change across several files, what should you do?",
+      "options": [
+        "Paste some real customer records so it understands the data",
+        "Commit your current work so you can see exactly what it changed and undo it",
+        "Delete the tests so they do not slow it down",
+        "Give it your API keys so it can run everything"
+      ],
+      "answer": 1,
+      "why": "Git is the safety net: a commit before a big change lets you review the diff and roll back."
+    }
+  ]
+}

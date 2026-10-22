@@ -1,0 +1,265 @@
+{
+  "module": 1,
+  "questions": [
+    {
+      "id": "m01-q01",
+      "lesson": "fde-loop",
+      "q": "A client says 'we need AI for invoices'. In the FDE loop, what should you do before building anything?",
+      "options": [
+        "Pick the best model and start a proof of concept",
+        "Watch the clerks do the real work and collect real examples",
+        "Send the client a slide deck of AI use cases",
+        "Ask the finance director to write the requirements"
+      ],
+      "answer": 1,
+      "why": "Discover comes before Frame and Build, because the request is not yet a problem you can solve."
+    },
+    {
+      "id": "m01-q02",
+      "lesson": "fde-loop",
+      "q": "Which of these is a framed problem in the sense of the FDE loop?",
+      "options": [
+        "Use AI to improve supplier communication",
+        "Build a chatbot for the procurement team",
+        "Cut the time to answer a supplier query from two days to two hours",
+        "Make the procurement process more modern"
+      ],
+      "answer": 2,
+      "why": "A framed problem is one clear problem with a measurable goal."
+    },
+    {
+      "id": "m01-q03",
+      "lesson": "fde-loop",
+      "q": "Your proof of concept is ready. Who should see the demo first?",
+      "options": [
+        "The daily users who will actually work with it",
+        "The senior sponsor who approved the budget",
+        "The product team back at your company",
+        "Nobody, until it has no known failures"
+      ],
+      "answer": 0,
+      "why": "Users find the failures that matter, so you show it to them before senior sponsors."
+    },
+    {
+      "id": "m01-q04",
+      "lesson": "fde-loop",
+      "q": "An engagement ends with a working system and good evaluation results, but no one on the client side owns it. What is the likely outcome?",
+      "options": [
+        "It keeps running fine because the results were good",
+        "The product team takes it over automatically",
+        "It usually fades away within months",
+        "The model improves on its own over time"
+      ],
+      "answer": 2,
+      "why": "A good engagement needs a system, evidence, an owner and documents; if one is missing the work usually fades."
+    },
+    {
+      "id": "m01-q05",
+      "lesson": "fde-loop",
+      "q": "A client lead asks a question you cannot answer yet. What response does the lesson favour?",
+      "options": [
+        "Give your best confident guess so you look prepared",
+        "Change the subject to what you do know",
+        "Say you do not know yet and when you will find out",
+        "Ask them to send the question by email and forget it"
+      ],
+      "answer": 3,
+      "why": "Saying you do not know yet and giving a date builds more trust than a confident guess."
+    },
+    {
+      "id": "m01-q06",
+      "lesson": "fde-vs-other-roles",
+      "q": "Which two questions does the lesson suggest for telling the four roles apart?",
+      "options": [
+        "How senior are they, and how much do they charge?",
+        "What do they deliver, and who do they serve?",
+        "Which tools do they use, and which language do they code in?",
+        "How long have they worked there, and who is their manager?"
+      ],
+      "answer": 1,
+      "why": "Asking what each role delivers and who it serves separates consultant, solutions engineer, product engineer and FDE."
+    },
+    {
+      "id": "m01-q07",
+      "lesson": "fde-vs-other-roles",
+      "q": "In your first week a client manager asks you for a strategy deck. What is the FDE response from the lesson?",
+      "options": [
+        "Offer a one-page written recommendation plus a working build",
+        "Write the full deck, since that is what they asked for",
+        "Refuse and tell them FDEs do not write documents",
+        "Pass the request to the sales team"
+      ],
+      "answer": 0,
+      "why": "The lesson suggests a short written recommendation plus a working build, so the output stays a working system."
+    },
+    {
+      "id": "m01-q08",
+      "lesson": "fde-vs-other-roles",
+      "q": "A client asks you to promise a new feature for all customers of your product. What should you do?",
+      "options": [
+        "Promise it to keep the client happy",
+        "Build it as a general product feature right away",
+        "Ignore it, as it is outside your role",
+        "Log it for the product team and solve their case first"
+      ],
+      "answer": 3,
+      "why": "The FDE logs repeat requests for product and focuses on solving this client's problem first."
+    },
+    {
+      "id": "m01-q09",
+      "lesson": "fde-vs-other-roles",
+      "q": "Which trap belongs to the solutions engineer role, and must be avoided by an FDE?",
+      "options": [
+        "Stopping at the recommendation",
+        "Showing the happy path and hiding the hard cases",
+        "Building a general feature before understanding the client",
+        "Spending too long in discovery interviews"
+      ],
+      "answer": 1,
+      "why": "The solutions engineer trap is showing only the happy path; an FDE shows failures too."
+    },
+    {
+      "id": "m01-q10",
+      "lesson": "fde-vs-other-roles",
+      "q": "During an engagement you keep a running log with three headings for the product team. Which headings does the lesson name?",
+      "options": [
+        "Wins, losses, next steps",
+        "Bugs, features, questions",
+        "Built custom, asked for again, broke more than once",
+        "Data, integration, validation"
+      ],
+      "answer": 2,
+      "why": "These three headings capture what should feed back to product from the client work."
+    },
+    {
+      "id": "m01-q11",
+      "lesson": "why-ai-projects-stall",
+      "q": "A pilot chatbot worked in the demo, but six months later nobody uses it. Where should you look first?",
+      "options": [
+        "Swap in a bigger model",
+        "Rewrite the prompts from scratch",
+        "Add more features to make it attractive",
+        "Check the five gaps around the model: data, integration, validation, ownership, adoption"
+      ],
+      "answer": 3,
+      "why": "The model is rarely the main problem; projects stall because of the five gaps around it."
+    },
+    {
+      "id": "m01-q12",
+      "lesson": "why-ai-projects-stall",
+      "q": "Support agents spend all day in an existing ticket tool. Where should your AI draft replies appear?",
+      "options": [
+        "Inside the existing ticket tool",
+        "On a new standalone website",
+        "In a weekly email report",
+        "In a separate mobile app"
+      ],
+      "answer": 0,
+      "why": "To close the integration gap you put output where people already work."
+    },
+    {
+      "id": "m01-q13",
+      "lesson": "why-ai-projects-stall",
+      "q": "When should you start building the test set of real cases with known correct answers?",
+      "options": [
+        "After the demo, if the sponsor asks for numbers",
+        "In the first week",
+        "Only once the system is in production",
+        "Never, user feedback is enough"
+      ],
+      "answer": 1,
+      "why": "The lesson says build the test set early, from real cases, instead of at the end."
+    },
+    {
+      "id": "m01-q14",
+      "lesson": "why-ai-projects-stall",
+      "q": "A sponsor says the owner of the new system will be 'the business'. Why is that a problem?",
+      "options": [
+        "The business never pays for AI projects",
+        "Owners must always be engineers",
+        "Ownership only matters after go live",
+        "It is not a named person, so nobody is really responsible when it breaks"
+      ],
+      "answer": 3,
+      "why": "'The business' is not an owner; a named person who runs, fixes and decides on changes is."
+    },
+    {
+      "id": "m01-q15",
+      "lesson": "why-ai-projects-stall",
+      "q": "Why are LLM demos especially misleading?",
+      "options": [
+        "Demos always use a weaker model than production",
+        "The presenter picks the inputs and retries until it looks right, unlike real messy use",
+        "Demos cannot show the model's output",
+        "Users are not allowed to watch demos"
+      ],
+      "answer": 1,
+      "why": "In a demo you choose clean inputs and can retry, while real use is messy and nobody retries."
+    },
+    {
+      "id": "m01-q16",
+      "lesson": "learning-with-ai",
+      "q": "You are learning SQL with an LLM. Following the program rule, what do you do first?",
+      "options": [
+        "Write your own query or answer, then ask the model to find the gaps",
+        "Ask the model for the full solution and study it",
+        "Copy the model's explanation into your notes",
+        "Ask the model to write a summary for your journal"
+      ],
+      "answer": 0,
+      "why": "The rule is that the AI may explain and check, but you must produce first."
+    },
+    {
+      "id": "m01-q17",
+      "lesson": "learning-with-ai",
+      "q": "Which is the stronger learning prompt?",
+      "options": [
+        "Write a SQL query that finds late orders.",
+        "Explain gross margin.",
+        "Here is my query and the error I get. Give me a hint about what is wrong, not the fixed query.",
+        "Summarise this chapter for me."
+      ],
+      "answer": 2,
+      "why": "A strong prompt works with what you already tried and leaves the thinking to you."
+    },
+    {
+      "id": "m01-q18",
+      "lesson": "learning-with-ai",
+      "q": "The model gave a clear explanation of a rule you will act on tomorrow. What should you do?",
+      "options": [
+        "Trust it, since it is well written",
+        "Ask the same model again until the answer looks the same",
+        "Skip checking because models are rarely wrong on rules",
+        "Verify the key fact against an official source"
+      ],
+      "answer": 3,
+      "why": "Fluent text feels true, so you verify anything you will act on against an official source."
+    },
+    {
+      "id": "m01-q19",
+      "lesson": "learning-with-ai",
+      "q": "You need to know how a client's company handles small invoice differences. Who is the best source?",
+      "options": [
+        "An LLM, since it has read about accounting",
+        "Your pair partner or the people at that company",
+        "A general accounting textbook",
+        "A blog post on invoice matching"
+      ],
+      "answer": 1,
+      "why": "Company-specific rules like a tolerance rule are set by each company, so a model cannot know them; ask the people."
+    },
+    {
+      "id": "m01-q20",
+      "lesson": "learning-with-ai",
+      "q": "In your pair, the software person has typed for the whole session. What is wrong and what fixes it?",
+      "options": [
+        "Nothing, the faster typist should drive",
+        "The domain person should leave and study alone",
+        "The pair is not working; swap driver and navigator on a timer",
+        "The navigator should take over the keyboard when they disagree"
+      ],
+      "answer": 2,
+      "why": "If one person always drives the pair is not working, so swap roles every 25 to 30 minutes."
+    }
+  ]
+}

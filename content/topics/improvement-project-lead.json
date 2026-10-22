@@ -1,0 +1,2310 @@
+{
+ "id": "improvement-project-lead",
+ "title": "Leading an improvement project",
+ "category": "Process",
+ "track": "MedTech and Pharma",
+ "level": 2,
+ "level_label": "Level 2: project",
+ "summary": "A guided improvement project using Six Sigma methods: select and charter a real improvement, then lead it through measurement, advanced statistics, designed experiments and a controlled handover.",
+ "audience": "People who finished Improving a process with data (DMAIC) and are ready to lead a cross-functional improvement project in a regulated plant, lab or quality team.",
+ "sections": [
+  {
+   "id": "bb-select-and-charter",
+   "title": "Project 1: select and charter your project",
+   "summary": "Choose a project worth leading, frame it with a business case, and get a signed charter and team before any data work starts.",
+   "outline": [
+    "What makes a good improvement project: size, data, sponsor, link to strategy",
+    "Scoring candidate projects",
+    "Writing the charter: problem, goal, scope, business case, team, timeline",
+    "Stakeholder map and the regulated owners you need (quality, validation, regulatory)",
+    "Tollgate plan and how the project links to CAPA and change control",
+    "Deliverable: a signed charter and a one-page stakeholder map"
+   ],
+   "lessons": [
+    {
+     "id": "ssbb-select-and-charter",
+     "title": "Select and charter your improvement project",
+     "summary": "You will be able to choose a project that is worth leading, write a charter a sponsor will sign, and plan the people and approvals a regulated project needs.",
+     "why": "Most failed improvement projects fail at the start: the problem is too big, too vague, has no data, or has no sponsor who cares. As a Black Belt you lead, so the choice and framing are your job. In a medical device or pharma company you also have to plan for quality, validation and regulatory owners from day one, because any real fix will touch controlled processes. A good charter is the contract that keeps the project honest for the next four to six months.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "A Black Belt project is a DMAIC project big enough to matter to the business and complex enough to need advanced tools, but small enough to finish in a few months. It is led by a Black Belt, sponsored by a Champion who owns the result, and staffed by people from the process.",
+        "The first piece of guided work in this topic is to pick one real project and write its charter. Everything in the later sections, measurement, analysis, designed experiments and control, will be done on that project. Choose carefully."
+       ]
+      },
+      {
+       "h": "What makes a good project",
+       "p": [
+        "A good project has a clear, recurring problem with a measurable output. It has data you can get, or can start collecting within a few weeks. It has a Champion who will give the team time and will act on the result. It links to something leadership already cares about, such as complaints, yield, cycle time, right-first-time batches or audit findings.",
+        "Warning signs are just as clear. If the solution is already decided, it is an implementation task, not a DMAIC project. If the problem happens twice a year, you will not get enough data. If the scope covers 'all of manufacturing', it is a programme, not a project. If no one will sponsor it, it will stall at the first tollgate."
+       ]
+      },
+      {
+       "h": "Scoring candidates",
+       "p": [
+        "Write down three to five candidate problems and score each one the same way, so the choice is visible and defensible. A simple weighted score is enough. The script below is an example; the weights and scores are placeholders you would agree with your Champion."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "weights = {\"impact\": 0.4, \"data\": 0.3, \"sponsor\": 0.2, \"scope\": 0.1}\n\n# scores from 1 (poor) to 5 (strong); example values only\ncandidates = {\n    \"Label rework on line 2\":        {\"impact\": 3, \"data\": 5, \"sponsor\": 4, \"scope\": 5},\n    \"Batch record review delays\":    {\"impact\": 5, \"data\": 3, \"sponsor\": 5, \"scope\": 3},\n    \"All supplier quality problems\": {\"impact\": 5, \"data\": 2, \"sponsor\": 3, \"scope\": 1},\n}\n\nfor name, s in candidates.items():\n    total = sum(weights[k] * s[k] for k in weights)\n    print(f\"{total:.1f}  {name}\")\n# 4.0  Label rework on line 2\n# 4.2  Batch record review delays\n# 3.3  All supplier quality problems"
+       }
+      },
+      {
+       "h": "Writing the charter",
+       "p": [
+        "The charter is one page. It is short on purpose: if you cannot state the project on one page, it is not yet clear. The sponsor signs it, and you bring it back to every tollgate to check the project has not drifted."
+       ],
+       "list": [
+        "Problem statement: what is wrong, where, since when and how big, with no cause or solution named.",
+        "Goal: a measurable target and a date, for example cut median review time from the current baseline by a stated amount within a stated period.",
+        "Scope: where the process starts and ends, and what is out of scope.",
+        "Business case: why it matters now, in money, risk, compliance or capacity terms, with the basis of any estimate shown.",
+        "Team and roles: Champion, Black Belt, process owner, team members, and the quality, validation and regulatory contacts.",
+        "Timeline: target dates for each DMAIC tollgate."
+       ]
+      },
+      {
+       "h": "Stakeholder map and tollgate plan",
+       "p": [
+        "A stakeholder map lists everyone who can help or block the project, with two ratings each: how much influence they have over the outcome, and how much they support the project today. Put the names on a simple grid. People with high influence and low support need a plan: a conversation early in Define, a role on the team, or a regular update. People with low influence and high support are often good team members.",
+        "In a regulated project, the map must include the people who own approvals, not just the people who do the work. Write next to each regulated owner what they must approve and when, for example the quality owner approves the conclusions at Analyze and the change request at Improve.",
+        "The tollgate plan sets a date and a decision for the end of each DMAIC phase. At each tollgate the Champion decides to continue, change course or stop. Put the dates in everyone's calendar when the charter is signed. A project with no fixed tollgates tends to drift, because nobody is ever asked to decide."
+       ]
+      },
+      {
+       "h": "Planning for a regulated environment",
+       "p": [
+        "In a regulated company, decide early how the project fits the quality system. If it started from a complaint trend, deviation trend or audit finding, link it to the CAPA record so the investigation and the project tell the same story. Name the quality owner who will review your conclusions, the validation owner who will judge whether a change needs revalidation, and the regulatory owner who will judge whether a change must be notified to an authority.",
+        "Agree how data will be handled. Process data from a validated system is fine to analyse, but your analysis files are not the record. Any decision based on them must be written into the controlled record through the normal process. If you plan to use AI tools to help analyse text such as deviation descriptions, agree with quality that the AI output is an input to your team's judgement, not the record itself."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "swimlane",
+      "title": "From idea to signed charter",
+      "caption": "Read top to bottom in time order; each row shows who acts at that step.",
+      "lanes": [
+       "Black Belt",
+       "Champion",
+       "Quality and validation"
+      ],
+      "steps": [
+       {
+        "lane": 0,
+        "label": "List and score 3 to 5 candidates"
+       },
+       {
+        "lane": 1,
+        "label": "Choose the project and set the goal"
+       },
+       {
+        "lane": 0,
+        "label": "Draft charter and stakeholder map"
+       },
+       {
+        "lane": 2,
+        "label": "Link to CAPA, name review owners"
+       },
+       {
+        "lane": 0,
+        "label": "Revise charter with their input"
+       },
+       {
+        "lane": 1,
+        "label": "Sign charter, release team time"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: chartering a batch record review project (example scenario)",
+      "p": [
+       "A sterile products site has a backlog of executed batch records waiting for quality review, which delays batch release. A Black Belt scores three candidates with the Champion, the head of quality operations, and picks the batch record review delays. The values below are example values for teaching.",
+       "The draft scope first said 'improve batch release'. The Champion pushed back: that includes lab testing and shipping, which the team does not control. Narrowing it to the review step made the project finishable and the data clean."
+      ],
+      "list": [
+       "Problem: executed batch records for one product family wait a median of 9 working days from production end to quality approval, against an internal target of 5.",
+       "Goal: median of 5 working days or less within five months, with no increase in review errors found later.",
+       "Scope: from batch record handed to quality to quality approval. Out of scope: lab testing time and changes to the batch record template that need regulatory filing.",
+       "Business case: earlier release frees warehouse space and reduces the stock held for safety; the finance partner will confirm the estimate in Measure.",
+       "Team: Champion (head of quality operations), Black Belt, two batch record reviewers, one production supervisor, the site validation lead, and a regulatory affairs contact.",
+       "Regulated plan: linked to an open CAPA on review backlog; any change to the review procedure goes through change control; the eBR system is validated, so any configuration change needs a validation impact assessment."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Charter your own Black Belt project",
+       "time": "2 hours",
+       "goal": "Produce the first deliverable of the guided project: a signed or sign-ready charter.",
+       "steps": [
+        "List three to five recurring problems in a process you know, from work or from a public case such as an FDA warning letter summary.",
+        "Score them with the Python script in this lesson, using weights you can justify.",
+        "Write a one-page charter for the winner with all six parts: problem, goal, scope, business case, team, timeline.",
+        "Draw a stakeholder map that names the quality, validation and regulatory owners and what each must approve.",
+        "Ask Claude to act as a sceptical Champion and challenge your problem statement and scope, then revise the charter."
+       ],
+       "done_when": "You have a one-page charter with no solution named in the problem statement, a measurable goal with a date, and a stakeholder map."
+      }
+     ],
+     "pitfalls": [
+      "Picking a project where the solution is already decided. That is an implementation task; DMAIC adds nothing.",
+      "Scoping too wide. 'All supplier quality problems' will never finish; one supplier, one part family or one defect type might.",
+      "Leaving quality, validation and regulatory owners off the team until Improve. Their questions then arrive as late blockers.",
+      "A business case with invented numbers. Show the basis of every estimate and let finance confirm it during Measure."
+     ],
+     "check": [
+      "Name four signs that a candidate is a good Black Belt project.",
+      "What six parts should a charter contain?",
+      "Why must the problem statement not name a cause or solution?",
+      "Which regulated owners should you name at the start, and what does each one decide?",
+      "How should a project started from a complaint trend relate to the CAPA system?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "DMAIC Process: Define, Measure, Analyze, Improve, Control",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/dmaic",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What are Project Planning and Implementation Tools?",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/project-planning-tools",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "SIPOC+CM Diagram",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/sipoc",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Six Sigma DMAIC Methodology Complete Guide",
+       "source": "Digital E-Learning",
+       "url": "https://www.youtube.com/watch?v=539Ns05UKuo",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Black Belt Specialization",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/specializations/six-sigma-black-belt",
+       "cost": "paid"
+      },
+      {
+       "type": "cert",
+       "title": "Six Sigma Black Belt Certification (CSSBB)",
+       "source": "ASQ",
+       "url": "https://www.asq.org/cert/six-sigma-black-belt",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "ssbb-q01",
+     "lesson": "ssbb-select-and-charter",
+     "q": "A director asks you to run a DMAIC project to 'roll out the new scheduling software'. What is the issue?",
+     "options": [
+      "Software projects can never use any of the Six Sigma tools",
+      "The fix is already chosen; it is an implementation task",
+      "Directors are not allowed to sponsor improvement projects",
+      "DMAIC must always start with a full designed experiment"
+     ],
+     "answer": 1,
+     "why": "DMAIC finds the cause before choosing a fix; when the fix is fixed, project management fits better."
+    },
+    {
+     "id": "ssbb-q02",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Which problem statement is written correctly for a charter?",
+     "options": [
+      "Reviewers are too slow and need a new checklist to speed up",
+      "We must buy an AI tool for batch record review this year",
+      "Records wait a median 9 days against a 5-day target",
+      "Quality is the bottleneck because reviewers had poor training"
+     ],
+     "answer": 2,
+     "why": "A problem statement says what, where, since when and how big, without naming a cause or a solution."
+    },
+    {
+     "id": "ssbb-q03",
+     "lesson": "ssbb-select-and-charter",
+     "q": "A candidate project has strong impact, but the failure happens twice a year. What is the main concern?",
+     "options": [
+      "Too little data to analyse in time",
+      "The Champion will be far too busy to sponsor it properly",
+      "It is much too small to matter to the wider business",
+      "The quality team will not allow the failure to be studied"
+     ],
+     "answer": 0,
+     "why": "Rare events give too few data points for the statistical work a Black Belt project needs."
+    },
+    {
+     "id": "ssbb-q04",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Your draft scope reads 'improve batch release'. The team controls only the quality review step. What should you do?",
+     "options": [
+      "Keep the wide scope to show ambition to the project sponsor",
+      "Add the lab testing and shipping teams to the core team now",
+      "Drop the project, since batch release is far too complex",
+      "Narrow it to the review step only"
+     ],
+     "answer": 3,
+     "why": "A scope the team controls can be measured, changed and finished."
+    },
+    {
+     "id": "ssbb-q05",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Why bring the validation owner onto the team at the charter stage?",
+     "options": [
+      "To approve the business case numbers before the first tollgate",
+      "To judge early if changes need revalidation",
+      "To run all of the statistical analysis for the Black Belt",
+      "To sign the project charter instead of the Champion"
+     ],
+     "answer": 1,
+     "why": "Changes to validated systems or processes may need revalidation, which takes time to plan."
+    },
+    {
+     "id": "ssbb-q06",
+     "lesson": "ssbb-select-and-charter",
+     "q": "A project starts from a rising trend of customer complaints. How should it relate to the QMS?",
+     "options": [
+      "Run it quietly on the side until it clearly succeeds",
+      "Close all the open complaints once the project starts",
+      "Link it to the CAPA record for the trend",
+      "Wait until the complaints stop on their own before starting"
+     ],
+     "answer": 2,
+     "why": "Linking the project to the CAPA keeps investigation, actions and evidence in one controlled trail."
+    },
+    {
+     "id": "ssbb-q07",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Your business case says the project will save a large sum, but you made the figure up from memory. What is the risk?",
+     "options": [
+      "The charter loses trust once checked",
+      "None, since business cases are only ever a formality",
+      "The Champion will simply double the project target",
+      "The project will have to switch over to DMADV instead"
+     ],
+     "answer": 0,
+     "why": "Show the basis of every estimate and have finance confirm it, or the whole charter loses trust."
+    },
+    {
+     "id": "ssbb-q08",
+     "lesson": "ssbb-select-and-charter",
+     "q": "You plan to use an AI tool to group deviation descriptions by theme. How should its output be treated?",
+     "options": [
+      "As the official deviation record for each event",
+      "As the final root cause to write into the CAPA",
+      "As a full replacement for the quality reviewer's work",
+      "As input to the team's judgement only"
+     ],
+     "answer": 3,
+     "why": "The controlled record and the decisions stay with trained people in the quality system."
+    },
+    {
+     "id": "ssbb-q09",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Who should sign the charter?",
+     "options": [
+      "The Black Belt alone, as the project leader",
+      "The Champion",
+      "The external certification body for the site",
+      "Each team member separately, on their own copy"
+     ],
+     "answer": 1,
+     "why": "The Champion sponsors the project, owns the result and commits the team's time."
+    },
+    {
+     "id": "ssbb-q10",
+     "lesson": "ssbb-select-and-charter",
+     "q": "Midway through Measure, the team starts looking at warehouse layout, which is not in the charter. What do you do?",
+     "options": [
+      "Let it run, since more scope always means more savings",
+      "Keep it from the Champion until the results look good",
+      "Agree any scope change at the next tollgate",
+      "Stop the whole project and start a brand new one"
+     ],
+     "answer": 2,
+     "why": "The charter is the contract; any scope change is agreed with the Champion at a tollgate."
+    }
+   ]
+  },
+  {
+   "id": "bb-measure-baseline",
+   "title": "Project 2: measurement system and baseline",
+   "summary": "Prove your measurements can be trusted, then set the baseline and capability for your project.",
+   "outline": [
+    "Data collection plan for your project",
+    "Gage R and R for continuous data and attribute agreement for pass and fail data",
+    "Baseline performance and capability, including non-normal data",
+    "Data integrity when pulling from validated systems",
+    "Deliverable: Measure tollgate pack with a trusted baseline"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-measure-baseline",
+     "title": "Measurement system and baseline",
+     "summary": "You will be able to plan data collection for your project, prove the measurement system can be trusted, and state a baseline and capability that a reviewer will accept.",
+     "why": "Every later decision in the project rests on the Measure numbers. If the gauge or the reviewers cannot agree with themselves, an apparent improvement may only be measurement noise. In a regulated plant the baseline also ends up in CAPA records and change control justifications, so it must come from data with a known origin. This is the second piece of guided work: the Measure tollgate pack for the project you chartered.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Measure has three jobs. First, decide exactly what you will measure, where, how often and by whom. Second, prove the measurement system is good enough for the decision you need to make. Third, describe current performance: the baseline and, where there is a specification, the capability.",
+        "Do them in that order. A capability index calculated on untrusted data looks precise and means nothing. A Green Belt can often get away with a quick check of the gauge; a Black Belt project usually has a larger budget and a more critical decision, so the measurement study must be planned and documented."
+       ]
+      },
+      {
+       "h": "The data collection plan",
+       "p": [
+        "Write a one-page plan before anyone pulls data. It turns the charter's goal into a defined metric and stops the team arguing later about what the number means."
+       ],
+       "list": [
+        "Operational definition: the exact rule, for example 'working days from batch record handover timestamp to quality approval timestamp in the eBR system'.",
+        "Data source and owner: which system or log, who extracts it, and whether it is a validated system of record.",
+        "Stratification fields: shift, line, product, reviewer, supplier lot. Collect them now, because the Analyze phase will need them.",
+        "Sample size and period: enough points to see normal variation, covering the cycles you know exist, such as month end or campaign changes.",
+        "Check of the first data: look at the first extract with the process owner before collecting more."
+       ]
+      },
+      {
+       "h": "Can you trust the measurements?",
+       "p": [
+        "Measurement system analysis (MSA) asks how much of the variation you see comes from the measurement itself. For continuous data such as weight, torque or seal strength, use a gage repeatability and reproducibility (gage R and R) study. Typically several operators measure the same parts, chosen to cover the real process range, more than once and in random order. Repeatability is the variation when one operator measures the same part again. Reproducibility is the variation between operators.",
+        "The script below estimates the variance components with the ANOVA method for a small crossed study, using only the Python standard library. Many teams use the guidance that gage R and R under 10 percent of study variation is good and 10 to 30 percent may be acceptable depending on the use. Treat that as a convention to agree with your quality owner, not a regulation.",
+        "For pass and fail data, such as a reviewer deciding whether a batch record has an error, use an attribute agreement study. Give each reviewer a set of records with a known answer, in random order and twice, and measure agreement with themselves, with each other and with the standard."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "from statistics import mean\n\n# fill weight in g: data[part][operator] = [trial 1, trial 2]; example values only\ndata = [\n    [[10.02, 10.03], [10.05, 10.04]],\n    [[10.21, 10.20], [10.24, 10.22]],\n    [[9.95, 9.97], [9.99, 9.98]],\n    [[10.11, 10.10], [10.13, 10.14]],\n    [[10.30, 10.28], [10.33, 10.31]],\n]\np, o, r = len(data), len(data[0]), len(data[0][0])\nallv = [x for part in data for op in part for x in op]\ng = mean(allv)\npm = [mean([x for op in part for x in op]) for part in data]\nom = [mean([x for part in data for x in part[j]]) for j in range(o)]\nss_p = o * r * sum((m - g) ** 2 for m in pm)\nss_o = p * r * sum((m - g) ** 2 for m in om)\nss_cell = r * sum((mean(data[i][j]) - g) ** 2 for i in range(p) for j in range(o))\nss_po = ss_cell - ss_p - ss_o\nss_e = sum((x - mean(data[i][j])) ** 2 for i in range(p) for j in range(o) for x in data[i][j])\nms_p, ms_o = ss_p / (p - 1), ss_o / (o - 1)\nms_po, ms_e = ss_po / ((p - 1) * (o - 1)), ss_e / (p * o * (r - 1))\n\nrepeat = ms_e\ninter = max(0, (ms_po - ms_e) / r)\noper = max(0, (ms_o - ms_po) / (p * r))\npart = max(0, (ms_p - ms_po) / (o * r))\ngrr = repeat + inter + oper\ntotal = grr + part\nprint(f\"Repeatability   {100 * (repeat / total) ** 0.5:5.1f} % of study variation\")\nprint(f\"Reproducibility {100 * ((oper + inter) / total) ** 0.5:5.1f} %\")\nprint(f\"Total gage R&R  {100 * (grr / total) ** 0.5:5.1f} %\")"
+       }
+      },
+      {
+       "h": "Baseline and capability",
+       "p": [
+        "Plot the baseline data in time order before calculating anything. A run chart or individuals chart shows whether the process is stable. If it is not stable, a capability index does not predict the future, and you report the instability as a finding.",
+        "When there is a specification, Pp and Ppk compare the spread and centring of the process with the limits, using the overall standard deviation. Cp and Cpk use the short-term, within-subgroup estimate. Ppk looks at the nearer limit, so it falls when the process is off centre. These indices assume roughly normal data. Cycle times and defect counts are often skewed, so check a histogram and a normal probability plot first, and consider a percentile-based method, a fitted distribution or simply reporting the median and the share beyond the target.",
+        "For a time or count metric with no specification, the baseline is the median, a spread measure and the share of cases that miss the internal target, all with the period and data source stated."
+       ]
+      },
+      {
+       "h": "Data integrity when pulling from validated systems",
+       "p": [
+        "Extract data through an agreed, repeatable query or report, not by copying screens. Record which system, which query, who ran it and when, so someone else can reproduce the numbers. Keep the raw extract unchanged and do the cleaning in a separate, documented step. Your spreadsheet or notebook is working analysis, not the GMP record. If you find data errors in the source system, report them to the system owner instead of fixing them only in your copy. The FDA data integrity guidance in the links explains the expectations behind this.",
+        "Agree in advance who may see the extract. Batch records and deviation texts can contain names and signatures, so share only the fields the analysis needs, and keep the files in a controlled location rather than on a laptop or a personal drive. When the tollgate pack quotes a number, it should name the extract it came from, so a reviewer can trace every chart back to its source in a few minutes."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "Building a trusted baseline",
+      "caption": "Read left to right; do not skip to capability before the measurement system passes.",
+      "steps": [
+       {
+        "label": "Define the metric",
+        "note": "Operational definition and data source"
+       },
+       {
+        "label": "Plan collection",
+        "note": "Strata, sample size, period"
+       },
+       {
+        "label": "Run MSA",
+        "note": "Gage R and R or attribute agreement"
+       },
+       {
+        "label": "Fix the measurement if needed",
+        "note": "Training, fixture, clearer definition"
+       },
+       {
+        "label": "Check stability",
+        "note": "Run chart or individuals chart"
+       },
+       {
+        "label": "State baseline and capability",
+        "note": "Median, spread, Ppk where a spec exists"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: Measure tollgate for the batch record review project (example scenario)",
+      "p": [
+       "The project from the first section measures working days from handover to quality approval. The time stamps come from the eBR system, so the team agrees one saved report with the system owner and records the report name and run date in the tollgate pack.",
+       "The second measurement is reviewer judgement. The team builds a set of 20 executed batch records with a known answer, agreed by the quality lead. Each of four reviewers assesses them twice in random order. Agreement within each reviewer is high, but two reviewers miss the same type of error in the second check, so the team rewrites one review checklist item and repeats the study before going on.",
+       "A separate packaging line on the same site uses the gage R and R script above for fill weight. The script below shows the capability step on 30 weights from the trusted gauge. All values are examples."
+      ],
+      "list": [
+       "Pp of 1.43 says the spread would fit the limits if the process were centred.",
+       "Ppk of 0.88 says it is not centred: the mean sits close to the lower limit.",
+       "The useful action is to move the mean, not to reduce the spread, which is a different project from the one the data first suggested."
+      ],
+      "code": {
+       "lang": "python",
+       "text": "from statistics import mean, stdev, NormalDist\n\n# 30 consecutive fill weights in g from the trusted gauge; example values only\nw = [10.08, 10.12, 10.05, 10.15, 10.10, 10.02, 10.11, 10.09, 10.14, 10.07,\n     10.04, 10.13, 10.10, 10.06, 10.12, 10.09, 10.16, 10.03, 10.08, 10.11,\n     10.10, 10.05, 10.13, 10.07, 10.09, 10.12, 10.06, 10.10, 10.08, 10.11]\nlsl, usl = 10.00, 10.30\n\nm, s = mean(w), stdev(w)\nppk = min(usl - m, m - lsl) / (3 * s)\npp = (usl - lsl) / (6 * s)\nbelow = NormalDist(m, s).cdf(lsl)\nprint(f\"mean {m:.3f}  sd {s:.3f}\")\nprint(f\"Pp {pp:.2f}  Ppk {ppk:.2f}\")\nprint(f\"expected share below LSL if normal: {below:.4%}\")"
+      }
+     },
+     "practice": [
+      {
+       "title": "Build your Measure tollgate pack",
+       "time": "3 hours",
+       "goal": "Produce the second deliverable of the guided project: a data collection plan, a measurement check and a baseline.",
+       "steps": [
+        "Write the operational definition, data source, owner and stratification fields for your project metric on one page.",
+        "Decide whether your measurement is continuous or pass and fail, and plan a gage R and R or attribute agreement study with at least two people.",
+        "If you cannot run the study at work, run the gage R and R script in this lesson, then change one operator's values by 0.05 g and see how the result changes.",
+        "Plot your baseline (real or a public dataset) in time order in a spreadsheet and mark any obvious shifts.",
+        "Calculate the median and, if a specification exists, Ppk with the capability script, and write two sentences on what the numbers mean."
+       ],
+       "done_when": "You have a one-page plan, a measurement study result with a decision (use, fix or replace the measurement), and a baseline statement naming the period and source."
+      }
+     ],
+     "pitfalls": [
+      "Calculating capability before checking the measurement system, so the index includes gauge error you never quantified.",
+      "Choosing study parts that are all nearly identical, which makes even a good gauge look poor because part variation is tiny.",
+      "Reporting Cpk on an unstable or strongly skewed process as if it predicted future performance.",
+      "Cleaning data inside the only copy of the extract, so nobody can reproduce or check the baseline later.",
+      "Leaving out the stratification fields during collection, then finding in Analyze that the data cannot be split by shift or reviewer."
+     ],
+     "check": [
+      "What is the difference between repeatability and reproducibility?",
+      "Why must MSA come before the capability calculation?",
+      "When would Pp be good but Ppk poor, and what action follows?",
+      "What should you do with baseline data that is clearly skewed?",
+      "What makes a data extract from a validated system reproducible?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Gauge R and R studies (NIST/SEMATECH e-Handbook of Statistical Methods, section 2.4)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/mpc/section4/mpc4.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Process Capability? (NIST/SEMATECH e-Handbook, section 6.1.6)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Process Capability? Capability Estimates and Studies",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/process-capability",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "How to Perform a Gage R&R Crossed Study | Minitab Tutorial Series",
+       "source": "Minitab",
+       "url": "https://www.youtube.com/watch?v=KC-lhF-WPqE",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Process Capability Analysis Explained (Cp, Cpk, Pp, Ppk)",
+       "source": "numiqo",
+       "url": "https://www.youtube.com/watch?v=jFsNSYzBWhk",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Black Belt Specialization",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/specializations/six-sigma-black-belt",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-measure-baseline-q01",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Three operators measure the same 10 parts twice. One operator always reads about 0.1 mm higher than the others. Which part of measurement error is this?",
+     "options": [
+      "Repeatability of the gauge itself",
+      "Reproducibility between operators",
+      "Part to part process variation",
+      "Bias in the sampling plan for parts"
+     ],
+     "answer": 1,
+     "why": "Reproducibility is variation between operators measuring the same parts."
+    },
+    {
+     "id": "bb-measure-baseline-q02",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Your team wants to calculate Cpk on day one of Measure. What should come first?",
+     "options": [
+      "Run a designed experiment on the line",
+      "Write the final control plan for the line",
+      "Check the measurement system can be trusted",
+      "Ask finance to confirm the savings estimate"
+     ],
+     "answer": 2,
+     "why": "Capability on untrusted measurements mixes gauge error into the index."
+    },
+    {
+     "id": "bb-measure-baseline-q03",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "A gage R and R study uses 10 parts that all come from one good batch with almost identical values. What is the risk?",
+     "options": [
+      "The gauge looks worse than it is",
+      "The operators will always disagree",
+      "The study will need more than 3 operators",
+      "The result will be the same as Cpk"
+     ],
+     "answer": 0,
+     "why": "With tiny part variation, gauge error becomes a large share of study variation."
+    },
+    {
+     "id": "bb-measure-baseline-q04",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Reviewers decide pass or fail on batch records. Which study checks this measurement?",
+     "options": [
+      "Gage R and R with the ANOVA method",
+      "A two-level factorial experiment",
+      "Attribute agreement against a known standard",
+      "Process capability with Ppk"
+     ],
+     "answer": 2,
+     "why": "Pass and fail judgements are checked with an attribute agreement study."
+    },
+    {
+     "id": "bb-measure-baseline-q05",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Pp is 1.4 but Ppk is 0.9 for fill weight. What does that tell you?",
+     "options": [
+      "The spread fits but the mean is off centre",
+      "The gauge has failed its R and R study",
+      "The process is perfectly centred",
+      "The spec limits are set too wide"
+     ],
+     "answer": 0,
+     "why": "Ppk below Pp means the process mean sits nearer one limit."
+    },
+    {
+     "id": "bb-measure-baseline-q06",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Your review time data is strongly skewed to the right. Which baseline is most honest?",
+     "options": [
+      "Cpk calculated as if the data were normal",
+      "The mean only, rounded to whole days",
+      "The fastest week of the quarter",
+      "Median, spread and share missing target"
+     ],
+     "answer": 3,
+     "why": "Skewed time data is better described by median, spread and the share beyond target."
+    },
+    {
+     "id": "bb-measure-baseline-q07",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Where should data cleaning for the baseline happen?",
+     "options": [
+      "Directly in the system of record",
+      "In the only copy of the raw extract",
+      "In a separate documented step",
+      "In the reviewer's personal notes"
+     ],
+     "answer": 2,
+     "why": "Keep the raw extract unchanged so the baseline can be reproduced."
+    },
+    {
+     "id": "bb-measure-baseline-q08",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "You find wrong time stamps in the eBR system while building the baseline. What do you do?",
+     "options": [
+      "Fix them in your spreadsheet only",
+      "Report them to the system owner",
+      "Delete the affected batches quietly",
+      "Ignore them as they are only a few"
+     ],
+     "answer": 1,
+     "why": "Source data errors go to the system owner through the normal process."
+    },
+    {
+     "id": "bb-measure-baseline-q09",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "Why collect stratification fields such as shift and reviewer during Measure?",
+     "options": [
+      "They are needed later to test causes",
+      "They make the charts look more complete",
+      "Regulators always require them for every metric",
+      "They replace the need for an MSA study"
+     ],
+     "answer": 0,
+     "why": "Analyze needs the data split by possible causes, which you cannot add later."
+    },
+    {
+     "id": "bb-measure-baseline-q10",
+     "lesson": "six-sigma-black-belt-bb-measure-baseline",
+     "q": "A run chart of the baseline shows a clear step change halfway through. What should you report?",
+     "options": [
+      "One overall Cpk across both halves",
+      "Only the better half of the data",
+      "Nothing until Analyze is finished",
+      "The instability as a finding"
+     ],
+     "answer": 3,
+     "why": "An unstable process has no single capability; the shift itself is a finding."
+    }
+   ]
+  },
+  {
+   "id": "bb-advanced-analysis",
+   "title": "Project 3: advanced statistical analysis",
+   "summary": "Use hypothesis tests, ANOVA and regression on your project data to prove root causes.",
+   "outline": [
+    "Choosing the right test for the data type",
+    "Two-sample tests, ANOVA and non-parametric tests",
+    "Correlation and multiple regression",
+    "Power and sample size",
+    "Deliverable: Analyze tollgate pack with root causes proven by data"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-advanced-analysis",
+     "title": "Advanced statistical analysis",
+     "summary": "You will be able to choose a suitable test for your project data, run ANOVA, non-parametric tests and regression, plan sample size, and show which suspected causes the data supports.",
+     "why": "Analyze is where a project either proves its causes or guesses. A Black Belt is expected to choose methods that fit the data, check their assumptions and explain the result to people who are not statisticians. In a regulated company the conclusions may justify a process change or close a CAPA investigation, so they must survive review by quality and, for important decisions, by a qualified statistician. This is the third piece of guided work: the Analyze tollgate pack.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Start from the list of suspected causes your team built with a fishbone diagram or process walk. For each one, write the question as a comparison or a relationship: is review time different between reviewer teams, does page count explain review time, is the error rate different between shifts. Then pick the test that fits the type of data, check its assumptions, and report the size of the effect, not only a p-value.",
+        "Use the data from Measure, with the stratification fields you collected. If the data you need does not exist, plan a short, focused collection rather than stretching old data to answer a question it was never collected for. Graph first: box plots by group and scatter plots of Y against each X often show the answer before any test runs, and they help you explain the result later.",
+        "A p-value is the probability of seeing a difference at least this large if there were really no difference. A small p-value says the difference is unlikely to be chance. It does not say the difference is large or important. Always show the size of the effect in the units of the project, such as hours or percent."
+       ]
+      },
+      {
+       "h": "Choosing the test",
+       "p": [
+        "The type of the output (Y) and the input (X) decides the family of tests. Get this right before opening any software."
+       ],
+       "list": [
+        "Continuous Y, two groups: two-sample t-test, or a Mann-Whitney test when the data is skewed or has outliers.",
+        "Continuous Y, three or more groups: one-way ANOVA, or Kruskal-Wallis for skewed data. Follow a significant result with pairwise comparisons that control the error rate.",
+        "Continuous Y, continuous X: correlation and regression. Several X at once: multiple regression.",
+        "Count or pass and fail Y by group: a test of proportions or a chi-square test.",
+        "Paired data, such as the same batches measured by two methods: a paired test, never a two-sample test."
+       ]
+      },
+      {
+       "h": "ANOVA, permutation tests and regression",
+       "p": [
+        "ANOVA compares the variation between group means with the variation inside the groups. The ratio is the F statistic: a large F means the groups differ more than their internal noise would explain. ANOVA assumes independent observations and roughly equal spread in each group, so look at a box plot first.",
+        "A permutation test is a useful check that needs few assumptions. It shuffles the group labels thousands of times and counts how often the shuffled data gives an F at least as large as the real one. If that rarely happens, the grouping matters. The script below runs both ideas with only the Python standard library, then fits a simple regression.",
+        "Regression gives an equation for how Y changes with X. Check the residuals for patterns, and remember that a strong correlation in historical data does not prove cause: a third factor, such as product type, may drive both. Multiple regression can separate several X variables, but correlated inputs make the coefficients unstable, so keep the model small and explainable."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "import random\nfrom statistics import mean, linear_regression, correlation\n\n# review time in hours by reviewer team; example values only\na = [6.1, 7.4, 5.8, 6.9, 7.2, 6.4, 7.0, 6.6]\nb = [7.1, 8.0, 6.6, 7.9, 7.4, 6.9, 8.2, 7.0]\nc = [6.3, 7.0, 6.8, 6.0, 7.3, 6.5, 6.9, 6.2]\n\ndef f_stat(groups):\n    allv = [x for g in groups for x in g]\n    gm = mean(allv)\n    ssb = sum(len(g) * (mean(g) - gm) ** 2 for g in groups)\n    ssw = sum((x - mean(g)) ** 2 for g in groups for x in g)\n    return (ssb / (len(groups) - 1)) / (ssw / (len(allv) - len(groups)))\n\ndef perm_p(groups, n=10000, seed=1):\n    rng, sizes = random.Random(seed), [len(g) for g in groups]\n    pooled, obs, hits = [x for g in groups for x in g], f_stat(groups), 0\n    for _ in range(n):\n        rng.shuffle(pooled)\n        parts, i = [], 0\n        for k in sizes:\n            parts.append(pooled[i:i + k]); i += k\n        hits += f_stat(parts) >= obs\n    return hits / n\n\np = perm_p([a, b, c])\nprint(f\"F = {f_stat([a, b, c]):.2f}, permutation p = {p:.4f}\")\n\n# does page count explain review time? example values only\npages = [40, 55, 38, 62, 47, 70, 52, 44]\nhours = [6.4, 7.1, 5.9, 8.6, 6.2, 8.4, 7.6, 6.9]\nfit = linear_regression(pages, hours)\nprint(f\"hours = {fit.intercept:.2f} + {fit.slope:.3f} x pages, r = {correlation(pages, hours):.2f}\")"
+       }
+      },
+      {
+       "h": "Power and sample size",
+       "p": [
+        "Power is the chance that a test detects a real difference of a given size. Low power means a 'no difference' result tells you little. Before collecting more data, decide the smallest difference that would matter to the business, take the standard deviation from your baseline, and calculate the sample size. The normal approximation below is a reasonable first estimate for comparing two means; a statistician or software can refine it.",
+        "Notice how fast the sample grows as the difference you want to detect shrinks. That is often the real argument for or against a long data collection.",
+        "Alpha is the risk you accept of calling a difference real when it is not, usually 0.05. One minus power is the risk of missing a real difference. In a regulated setting, think about which mistake costs more. Missing a real cause of a quality problem may matter more than chasing a false one, and that is a reason to plan for higher power."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "from math import ceil\nfrom statistics import NormalDist\n\nz = NormalDist().inv_cdf\nalpha, power = 0.05, 0.80\nsigma = 0.8   # standard deviation from your baseline, in hours (example)\nfor delta in (0.5, 1.0, 1.5):   # smallest difference worth detecting\n    n = 2 * ((z(1 - alpha / 2) + z(power)) * sigma / delta) ** 2\n    print(f\"detect {delta} h: about {ceil(n)} per group\")"
+       }
+      },
+      {
+       "h": "Sensitivity and honest reporting",
+       "p": [
+        "A Black Belt conclusion should not depend on one choice the analyst made. Rerun the key test with and without outliers, with a different time window, and with a non-parametric alternative. If the conclusion survives, say so in the pack. If it flips, report that too and collect more data.",
+        "Keep a list of every test you ran, not only the ones that gave small p-values. Running many tests and reporting the best ones finds false causes. For decisions that will change a validated process or close a CAPA, ask a qualified statistician to review the methods before the tollgate. This lesson is an introduction and does not replace that review."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "branch",
+      "title": "Which test fits your data?",
+      "caption": "Start from the type of output and input data, then follow the branch.",
+      "start": "Suspected cause written as a question",
+      "question": "What type are Y and X?",
+      "branches": [
+       {
+        "answer": "Continuous Y, 2 groups",
+        "result": "t-test or Mann-Whitney"
+       },
+       {
+        "answer": "Continuous Y, 3+ groups",
+        "result": "ANOVA or Kruskal-Wallis"
+       },
+       {
+        "answer": "Continuous Y and X",
+        "result": "Correlation and regression"
+       },
+       {
+        "answer": "Pass and fail Y by group",
+        "result": "Proportions or chi-square test"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: testing two suspected causes of slow review (example scenario)",
+      "p": [
+       "The batch record review team listed two strong suspects: differences between the three reviewer teams, and the length of the batch record. All values below are example values for teaching.",
+       "Reviewer teams: team means are about 6.7, 7.4 and 6.6 hours. ANOVA gives F of about 5.2, and the permutation test agrees with a p-value of about 0.016. The team does not stop there: it asks why team B is slower, and finds that team B also reviews the longest product family. So team and record length are mixed together.",
+       "Record length: the regression shows about 0.08 extra hours per page, with a correlation of 0.91. The team then reruns the comparison of teams on records of similar length, and the team difference shrinks. The tollgate pack states that record length is supported as a cause, the team effect is mostly explained by product mix, and both claims rest on small samples from one quarter."
+      ],
+      "list": [
+       "Effect sizes are stated in hours, next to the p-values.",
+       "The confounding between team and product is reported, not hidden.",
+       "The pack lists the next data needed to confirm the cause in Improve."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Prove or reject your top suspected causes",
+       "time": "3 hours",
+       "goal": "Produce the third deliverable: an Analyze tollgate pack with each suspected cause tested and its effect size stated.",
+       "steps": [
+        "List your top three suspected causes and write each one as a question with a defined Y and X.",
+        "Use the decision diagram to choose a test for each, and write down the assumption you must check.",
+        "Run the ANOVA and permutation script on your own data, or on the example data with one value changed, and note how the result moves.",
+        "Use the power script with your baseline standard deviation to decide whether you have enough data.",
+        "Rerun the most important test without the two most extreme values, and record whether the conclusion holds."
+       ],
+       "done_when": "Each suspected cause is marked supported, not supported or not yet known, with the test, effect size, sample size and sensitivity check written next to it."
+      }
+     ],
+     "pitfalls": [
+      "Reporting only p-values. A tiny difference can be significant with enough data, so always state the effect in project units.",
+      "Treating a historical correlation as proof of cause when another factor, such as product type, moves with both variables.",
+      "Using a two-sample test on paired data, which throws away the pairing and usually hides a real difference.",
+      "Running many tests and presenting only the ones with small p-values, which produces false root causes.",
+      "Concluding 'no difference' from a small sample without checking whether the test had the power to find one."
+     ],
+     "check": [
+      "Which test would you use for skewed review times across four sites, and why?",
+      "What does a p-value of 0.016 mean, and what does it not mean?",
+      "How does a permutation test decide whether group labels matter?",
+      "Why can a strong regression on historical data still mislead you about cause?",
+      "What three inputs do you need for a sample size calculation?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Are the means equal? (NIST/SEMATECH e-Handbook, section 7.4.3)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc43.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Sample sizes required (NIST/SEMATECH e-Handbook, section 7.2.2.2)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc222.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Process Modeling (NIST/SEMATECH e-Handbook, chapter 4)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmd/pmd.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "statistics: Mathematical statistics functions",
+       "source": "Python documentation",
+       "url": "https://docs.python.org/3/library/statistics.html",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Introduction to One-Way ANOVA",
+       "source": "jbstatistics",
+       "url": "https://www.youtube.com/watch?v=QUQ6YppWCeg",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Introduction to Simple Linear Regression",
+       "source": "jbstatistics",
+       "url": "https://www.youtube.com/watch?v=KsVBBJRb9TE",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Statistical Inference",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/statistical-inference",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-advanced-analysis-q01",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "You want to know if fill weight differs between three filling heads. The data looks roughly normal. Which test fits?",
+     "options": [
+      "A paired t-test on two of the heads",
+      "One-way ANOVA across the three heads",
+      "A chi-square test on the raw weights",
+      "A capability study on each head"
+     ],
+     "answer": 1,
+     "why": "Continuous Y with three or more groups is a one-way ANOVA question."
+    },
+    {
+     "id": "bb-advanced-analysis-q02",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "A test gives p = 0.001 for a 0.2 minute difference in a 6 hour review time. What is the right reading?",
+     "options": [
+      "The difference is real but probably too small to matter",
+      "The difference is large and must be fixed at once",
+      "The test must be wrong because the p-value is so tiny",
+      "The baseline should be discarded and collected again"
+     ],
+     "answer": 0,
+     "why": "Statistical significance is not practical importance; state the effect size."
+    },
+    {
+     "id": "bb-advanced-analysis-q03",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "Review times are heavily skewed with a few very long cases. You compare two sites. Which test is the safer choice?",
+     "options": [
+      "One-way ANOVA with no checks",
+      "Multiple regression on site",
+      "Mann-Whitney test",
+      "Attribute agreement analysis"
+     ],
+     "answer": 2,
+     "why": "A rank-based test is robust to skew and outliers."
+    },
+    {
+     "id": "bb-advanced-analysis-q04",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "The same 15 batches are assayed by an old and a new method. Which test fits?",
+     "options": [
+      "Two-sample t-test",
+      "Chi-square test",
+      "Kruskal-Wallis test",
+      "Paired t-test"
+     ],
+     "answer": 3,
+     "why": "Each batch is measured twice, so the data is paired."
+    },
+    {
+     "id": "bb-advanced-analysis-q05",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "A permutation test shuffles the group labels 10,000 times. Shuffled F is at least the real F in 160 runs. What is the p-value?",
+     "options": [
+      "0.16",
+      "0.016",
+      "0.0016",
+      "1.6"
+     ],
+     "answer": 1,
+     "why": "160 divided by 10,000 is 0.016."
+    },
+    {
+     "id": "bb-advanced-analysis-q06",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "Historical data shows longer batch records take longer to review, but longer records also come from one product family. What is the risk?",
+     "options": [
+      "Product family may drive both",
+      "Regression cannot be used on time data",
+      "The correlation must be negative",
+      "Page count cannot be measured"
+     ],
+     "answer": 0,
+     "why": "A third factor moving with both variables is confounding."
+    },
+    {
+     "id": "bb-advanced-analysis-q07",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "A small study finds no difference between two shifts. What should you check before saying 'no effect'?",
+     "options": [
+      "Whether the shifts have the same supervisor",
+      "Whether the result was presented to the sponsor",
+      "Whether the test had enough power",
+      "Whether the data was normal in the first week only"
+     ],
+     "answer": 2,
+     "why": "Low power makes 'no difference' results uninformative."
+    },
+    {
+     "id": "bb-advanced-analysis-q08",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "Which change makes the required sample size grow fastest?",
+     "options": [
+      "Halving the smallest difference you need to detect",
+      "Lowering the required power from 90 percent to 80 percent",
+      "Using a smaller standard deviation from a better gauge",
+      "Choosing alpha of 0.10 instead of the usual 0.05"
+     ],
+     "answer": 0,
+     "why": "Sample size grows with the square of sigma over delta, so a smaller delta raises it sharply."
+    },
+    {
+     "id": "bb-advanced-analysis-q09",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "An analyst ran 20 tests and reports the 2 with p below 0.05. What is wrong?",
+     "options": [
+      "Nothing, small p-values prove cause",
+      "Only regression should have been used",
+      "The tests should have used alpha 0.10",
+      "Some results are likely false positives"
+     ],
+     "answer": 3,
+     "why": "With many tests, some small p-values appear by chance alone."
+    },
+    {
+     "id": "bb-advanced-analysis-q10",
+     "lesson": "six-sigma-black-belt-bb-advanced-analysis",
+     "q": "Your key conclusion changes when two extreme points are removed. What should the tollgate pack say?",
+     "options": [
+      "Report only the version that gives the clearest result",
+      "Say the result is sensitive and collect more data",
+      "Delete the two points as outliers without telling anyone",
+      "Switch to whichever test gives a smaller p-value"
+     ],
+     "answer": 1,
+     "why": "A sensitivity check that flips the conclusion is a finding to report."
+    }
+   ]
+  },
+  {
+   "id": "bb-doe",
+   "title": "Project 4: design of experiments",
+   "summary": "Plan and run a designed experiment to find the best settings for the factors that matter.",
+   "outline": [
+    "Factors, levels and responses",
+    "Full and fractional factorial designs",
+    "Randomisation, replication and blocking",
+    "Reading main effects and interactions",
+    "Response surface methods in outline",
+    "Running experiments safely in a validated process",
+    "Deliverable: an experiment plan, results and recommended settings"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-doe",
+     "title": "Design of experiments",
+     "summary": "You will be able to plan a two-level factorial experiment, run it with randomisation and replication, read main effects and interactions, and recommend settings without breaking the rules of a validated process.",
+     "why": "Historical data can suggest causes, but it rarely proves them, because many things change at once. A designed experiment changes chosen factors on purpose, in a planned pattern, so the effect of each one can be separated. In MedTech and Pharma the same idea supports process development and process understanding. It also carries risk: an experiment on a validated line can create product that must not be released. This is the fourth piece of guided work, where it fits your project.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "A design of experiments (DOE) has factors, which are the inputs you change, levels, which are the settings you test, and one or more responses, which are the outputs you measure. In a two-level factorial design every factor has a low and a high level, and the runs cover combinations of them. With three factors that is 2 x 2 x 2 = 8 runs, written as a 2^3 design.",
+        "The big advantage over changing one factor at a time is that a factorial design finds interactions: cases where the effect of one factor depends on the level of another. One-factor-at-a-time testing misses those and often lands on the wrong settings.",
+        "Not every Black Belt project needs a DOE. It fits when the causes are adjustable settings, such as temperature, time, pressure, speed or concentration, and you can run trials. When the causes are process steps, handoffs or behaviour, as in a document review process, a well designed pilot in the next section usually does the job better. Decide which applies to your project and write the reason down."
+       ]
+      },
+      {
+       "h": "Planning the experiment",
+       "p": [
+        "Most of the value of a DOE is decided before the first run. Write a short plan and review it with the process owner, quality and, where the process is validated, the validation lead."
+       ],
+       "list": [
+        "Objective: screening many factors to find the few that matter, or optimising a few known factors.",
+        "Response: a measured output with a trusted measurement system from the Measure phase.",
+        "Factors and levels: far enough apart to show an effect, but inside the range where the process is safe and the product is not put at risk.",
+        "Factors you will hold constant, and how you will record anything you cannot control, such as ambient humidity.",
+        "Run order, replicates and any blocks, written down before you start.",
+        "What happens to the material made during the experiment, agreed with quality in advance."
+       ]
+      },
+      {
+       "h": "Full and fractional factorials",
+       "p": [
+        "A full factorial runs every combination. It is clean and easy to read, but the number of runs doubles with each extra factor: five factors need 32 runs before any replication. A fractional factorial runs a planned subset, such as half or a quarter. It saves runs by deliberately mixing some effects together, which is called aliasing. A good fraction aliases main effects only with high-order interactions that are usually small.",
+        "The resolution of a design tells you how badly effects are aliased. Use fractional designs for screening, then confirm the important factors with a smaller full factorial. Statistical software or the NIST handbook in the links can generate the design and show the alias pattern."
+       ]
+      },
+      {
+       "h": "Randomise, replicate, block",
+       "p": [
+        "Randomisation means running the combinations in a random order, so slow drifts such as tool wear or warming equipment do not line up with one factor and fake an effect. Replication means repeating whole runs, not just measuring the same sample again, so you can estimate the natural noise. Blocking groups runs by a known nuisance, such as two material lots or two days, so the nuisance can be removed from the analysis.",
+        "If a factor is hard to change, such as an oven temperature that takes hours to settle, full randomisation may be impractical. That leads to split-plot designs, which need a different analysis. Ask a statistician before simplifying the run order on your own."
+       ]
+      },
+      {
+       "h": "Reading effects, and what comes next",
+       "p": [
+        "A main effect is the average change in the response when a factor moves from low to high. An interaction effect shows how much one factor's effect changes with another factor's level. The script below calculates every effect for a replicated 2^3 design, and divides each effect by its standard error. With two replicates per run there are 8 degrees of freedom for error, so a ratio beyond about 2.3 is significant at the 5 percent level.",
+        "When the important factors are known and you need to find the best point inside the range, response surface methods such as central composite designs add centre and axial runs to model curvature. They are introduced here only in outline; plan them with a statistician.",
+        "In a validated process, an experiment is a planned change. Run it under an approved protocol and change control, use engineering or development runs where possible, and do not move settings outside the validated range on product intended for release. Results that suggest new settings lead to a formal change and, where needed, revalidation. This lesson is an introduction and is not process validation training."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "from itertools import product, combinations\nfrom math import prod\n\n# 2^3 full factorial, coded levels -1 and +1, two replicates per run\n# seal strength in N per run, temp changes slowest; example values only\nnames = [\"temp\", \"time\", \"pressure\"]\nruns = list(product([-1, 1], repeat=3))\ny = [[31.2, 30.6], [33.9, 34.5], [32.1, 31.5], [39.8, 40.6],\n     [30.9, 31.7], [34.4, 33.6], [31.8, 32.6], [40.3, 39.5]]\nybar = [sum(r) / len(r) for r in y]\ns2 = sum((a - b) ** 2 / 2 for a, b in y) / len(y)   # pooled replicate variance\nse = 2 * (s2 / (2 * len(y))) ** 0.5                 # standard error of an effect\n\ndef effect(cols):\n    signs = [prod(run[c] for c in cols) for run in runs]\n    hi = [m for s, m in zip(signs, ybar) if s > 0]\n    lo = [m for s, m in zip(signs, ybar) if s < 0]\n    return sum(hi) / len(hi) - sum(lo) / len(lo)\n\nterms = [c for k in (1, 2, 3) for c in combinations(range(3), k)]\nfor cols in sorted(terms, key=lambda c: -abs(effect(c))):\n    label = \" x \".join(names[c] for c in cols)\n    print(f\"{label:22s} {effect(cols):+6.2f}  ratio to se {effect(cols) / se:+6.1f}\")"
+       }
+      }
+     ],
+     "diagram": {
+      "type": "cycle",
+      "title": "The experiment loop",
+      "caption": "Read clockwise; each pass narrows the factors and sharpens the settings.",
+      "steps": [
+       {
+        "label": "Define objective and response",
+        "note": "Screening or optimising"
+       },
+       {
+        "label": "Choose factors and safe levels",
+        "note": "Agree with process owner and quality"
+       },
+       {
+        "label": "Select design",
+        "note": "Full, fractional or response surface"
+       },
+       {
+        "label": "Run in random order",
+        "note": "Under protocol and change control"
+       },
+       {
+        "label": "Analyse effects",
+        "note": "Main effects, interactions, residuals"
+       },
+       {
+        "label": "Confirm with new runs",
+        "note": "Then plan the next pass or stop"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: pouch seal strength (example scenario)",
+      "p": [
+       "A device packaging team sees occasional weak seals on sterile barrier pouches. Analysis pointed to the sealer. The team runs a 2^3 full factorial on a development sealer, not the validated production line, with sealing temperature, dwell time and pressure, each at two levels inside the supplier's recommended window. Each of the 8 combinations is run twice in random order, and seal strength is measured with a peel test that passed its gage R and R. The values in the script are example values for teaching.",
+       "Pressure has the largest effect, about +5.5 N, then dwell time at about +3.4 N, and there is a strong time x pressure interaction of about +2.5 N: longer dwell helps much more at high pressure. Temperature has almost no effect inside this range. The ratios to the standard error make the same split clear."
+      ],
+      "list": [
+       "Recommendation: high pressure and long dwell time; leave temperature where it is.",
+       "Confirmation: three new runs at the recommended settings, compared with the model prediction.",
+       "Next step: a change request to move the production settings, with the validation lead deciding what requalification is needed."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Plan and run a small factorial experiment",
+       "time": "2 to 3 hours",
+       "goal": "Produce the fourth deliverable: an experiment plan, results and recommended settings, or a documented reason why a DOE is not suitable for your project.",
+       "steps": [
+        "Decide whether a DOE fits your project. If your causes are process steps or behaviour rather than settings, write one paragraph explaining why and choose a pilot instead.",
+        "Write the plan: objective, response, three factors with low and high levels, constants, run order and what happens to the material.",
+        "If you cannot experiment at work, run a safe home experiment such as paper helicopter flight time with wing length, body length and paper type as factors, two replicates each.",
+        "Enter your results into the DOE script in place of the example values and rank the effects.",
+        "Run two confirmation trials at the best settings and compare them with the effects you calculated."
+       ],
+       "done_when": "You have a written plan, a table of effects with standard error ratios, recommended settings and confirmation results."
+      }
+     ],
+     "pitfalls": [
+      "Changing one factor at a time and missing an interaction that makes the 'best' setting wrong.",
+      "Running the combinations in standard order, so a slow drift in the equipment looks like a factor effect.",
+      "Measuring the same sample twice and calling it replication, which understates the real noise.",
+      "Choosing levels so close together that no effect can show, or so far apart that product or equipment is put at risk.",
+      "Running an experiment on a validated line with product meant for release, without a protocol, change control and a decision about the material."
+     ],
+     "check": [
+      "What is an interaction, and why does one-factor-at-a-time testing miss it?",
+      "How many runs does a full 2^4 design need without replication?",
+      "What does aliasing mean in a fractional factorial design?",
+      "Why do you randomise the run order?",
+      "Which approvals do you need before experimenting on a validated process?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Process Improvement (NIST/SEMATECH e-Handbook, chapter 5)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pri/pri.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Fractional factorial designs (NIST/SEMATECH e-Handbook, section 5.3.3.4)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri334.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Response surface designs (NIST/SEMATECH e-Handbook, section 5.3.3.6)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri336.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What Is Design of Experiments (DOE)?",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/design-of-experiments",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Q8(R2) Pharmaceutical Development",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q8r2-pharmaceutical-development",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Full Factorial Design (DoE - Design of Experiments) Simply explained",
+       "source": "numiqo",
+       "url": "https://www.youtube.com/watch?v=cHoYAyYHzB0",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Design of Experiments, Lecture 10: Full Factorial Design",
+       "source": "Cache Lack Math & Stats Lectures",
+       "url": "https://www.youtube.com/watch?v=9AMbFqgFkzk",
+       "cost": "free"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-doe-q01",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "Your team changed temperature, kept everything else fixed, then changed time. The 'best' settings fail in production. What is the likely reason?",
+     "options": [
+      "The gauge was not calibrated that day",
+      "An interaction between factors was missed",
+      "Temperature can never be a DOE factor",
+      "Too many replicates were used in the trial"
+     ],
+     "answer": 1,
+     "why": "One-factor-at-a-time testing cannot see interactions."
+    },
+    {
+     "id": "bb-doe-q02",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "How many runs does a full factorial with 4 factors at 2 levels need, before replication?",
+     "options": [
+      "8",
+      "12",
+      "16",
+      "32"
+     ],
+     "answer": 2,
+     "why": "2 x 2 x 2 x 2 = 16."
+    },
+    {
+     "id": "bb-doe-q03",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "Why run the combinations in random order?",
+     "options": [
+      "So drifts do not look like factor effects",
+      "So the operators do not get bored during long shifts",
+      "So the design needs fewer runs and less material",
+      "So the results match the historical process data"
+     ],
+     "answer": 0,
+     "why": "Randomisation stops time trends lining up with one factor."
+    },
+    {
+     "id": "bb-doe-q04",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "An analyst measures each sample twice and calls it two replicates. What is the problem?",
+     "options": [
+      "Replicates must always use a new gauge",
+      "Two replicates are never enough for a DOE",
+      "Factorial designs never need any replication",
+      "It understates run to run noise"
+     ],
+     "answer": 3,
+     "why": "True replication repeats the whole run, not just the measurement."
+    },
+    {
+     "id": "bb-doe-q05",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "A half fraction of a 2^5 design mixes some effects together. What is this called?",
+     "options": [
+      "Blocking",
+      "Aliasing",
+      "Randomising",
+      "Replicating"
+     ],
+     "answer": 1,
+     "why": "Aliased effects cannot be separated in that fraction."
+    },
+    {
+     "id": "bb-doe-q06",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "Two material lots must be used in the experiment. What is the best way to handle that?",
+     "options": [
+      "Use lot A for low levels and lot B for high levels",
+      "Ignore the lots, as they are probably similar",
+      "Treat the lots as blocks in the design",
+      "Run only the factors that fit one lot"
+     ],
+     "answer": 2,
+     "why": "Blocking removes a known nuisance from the comparison."
+    },
+    {
+     "id": "bb-doe-q07",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "The effect of dwell time is large at high pressure but small at low pressure. What is this?",
+     "options": [
+      "A time x pressure interaction",
+      "A measurement system error",
+      "An aliased main effect",
+      "A blocking effect"
+     ],
+     "answer": 0,
+     "why": "When one factor's effect depends on another's level, they interact."
+    },
+    {
+     "id": "bb-doe-q08",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "With 8 degrees of freedom for error, an effect divided by its standard error is 1.3. What do you conclude?",
+     "options": [
+      "It is clearly the most important factor",
+      "The design must be repeated with no changes",
+      "The experiment failed and must be discarded",
+      "It is not distinguishable from noise"
+     ],
+     "answer": 3,
+     "why": "A ratio of 1.3 is well below the roughly 2.3 needed at the 5 percent level."
+    },
+    {
+     "id": "bb-doe-q09",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "You want to try settings outside the validated range on the production line. What must happen first?",
+     "options": [
+      "Nothing, if the settings are only changed for one short shift",
+      "An approved protocol, change control and a material plan",
+      "A verbal agreement from the shift supervisor on the day",
+      "A note in the final project report after the runs"
+     ],
+     "answer": 1,
+     "why": "An experiment on a validated process is a planned change under the quality system."
+    },
+    {
+     "id": "bb-doe-q10",
+     "lesson": "six-sigma-black-belt-bb-doe",
+     "q": "The vital factors are known and you need the best point inside the range, including curvature. Which design family fits?",
+     "options": [
+      "A screening fractional factorial",
+      "One-factor-at-a-time trials",
+      "A response surface design",
+      "An attribute agreement study"
+     ],
+     "answer": 2,
+     "why": "Response surface designs model curvature to find an optimum."
+    }
+   ]
+  },
+  {
+   "id": "bb-improve-pilot",
+   "title": "Project 5: improve and pilot",
+   "summary": "Turn the analysis into a solution, assess its risk, get it approved and pilot it.",
+   "outline": [
+    "Selecting solutions against the proven causes",
+    "FMEA on the future process",
+    "Change control, validation impact and regulatory assessment",
+    "Pilot design and confirming the gain with data",
+    "Deliverable: Improve tollgate pack with pilot results"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-improve-pilot",
+     "title": "Improve and pilot",
+     "summary": "You will be able to choose solutions that address the proven causes, assess the risk of the new process with an FMEA, take the change through change control and pilot it with a test that shows whether the gain is real.",
+     "why": "Improve is the phase where the project touches the real process, and in a regulated company that means controlled documents, validated systems and sometimes regulatory filings. A good solution that skips change control is a compliance problem, and a pilot that is not measured properly cannot prove anything. As a Black Belt you must make the case with data and get the right people to approve it. This is the fifth piece of guided work: the Improve tollgate pack.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Generate solutions only for the causes Analyze supported. Score them, check the risk of the future process, get the change assessed and approved, then pilot it on a limited scope with a measurement plan written before the pilot starts. Finally compare the pilot data with the baseline and check that the result does not depend on one lucky week.",
+        "The order matters. Piloting before change control is not a shortcut in a GMP or medical device setting; it is an uncontrolled change.",
+        "Keep the link to the CAPA record from the first section. If the project supports a CAPA, the chosen solution and the pilot evidence become part of the corrective action, and the effectiveness check you plan in Control should test the same metric you piloted."
+       ]
+      },
+      {
+       "h": "Selecting solutions",
+       "p": [
+        "Run a structured idea session for each supported cause, using brainstorming or the nominal group technique so quieter team members contribute. Look for solutions that remove the cause rather than add inspection. Mistake-proofing (poka-yoke), such as a mandatory field or a fixture that only fits one way, is usually stronger than a reminder or extra training.",
+        "Score the options against criteria agreed with the Champion, for example effect on the cause, cost, time to implement, validation effort and risk. A simple weighted matrix, like the project scoring script from the first section, keeps the choice visible. Record the options you rejected and why, because reviewers will ask.",
+        "Check each option against the regulated owners early. A solution that needs a new equipment qualification or a regulatory filing may still be the right one, but its timeline is longer, and the Champion should choose it knowing that. A cheaper procedure change that removes most of the cause can often be piloted first while the larger change is prepared."
+       ]
+      },
+      {
+       "h": "FMEA on the future process",
+       "p": [
+        "A process failure mode and effects analysis (FMEA) asks, step by step, how the new process could fail, what the effect would be, what could cause it and how it would be detected. Do it on the future process, not only the current one, because every change creates new ways to fail.",
+        "Many teams rate severity, occurrence and detection from 1 to 10 and multiply them into a risk priority number (RPN). Be careful with it: the same RPN can hide a severe, rare failure and a minor, frequent one, so always look at high severity items on their own. Some current FMEA handbooks use an action priority table instead of the RPN for this reason. Link the FMEA to the site's risk management process, such as ICH Q9 quality risk management for medicines or the device risk management file for medical devices."
+       ]
+      },
+      {
+       "h": "Change control, validation and regulatory impact",
+       "p": [
+        "Before the pilot, raise a change request through the site's change control process. It typically needs three assessments from named owners."
+       ],
+       "list": [
+        "Quality impact: which procedures, forms, training and records change, and who approves them.",
+        "Validation impact: whether equipment, a process or a computerized system is affected, and whether requalification or revalidation is needed before or after the pilot.",
+        "Regulatory impact: whether the change must be reported to an authority. For marketed medicines in the US, changes to an approved application fall under 21 CFR 314.70; for medical devices, FDA guidance explains when a change needs a new 510(k). Regulatory affairs makes this call, not the project team."
+       ]
+      },
+      {
+       "h": "Designing and confirming the pilot",
+       "p": [
+        "Pilot on a limited scope: one line, one product family or one team, for a fixed period. Write down in advance the metric, the comparison with the baseline, the sample size from your power calculation, and the success criterion. Also name a stop rule, such as a quality defect or a safety concern, that ends the pilot early.",
+        "Confirm the gain with the same operational definition and data source as the baseline. Then run a sensitivity analysis: repeat the comparison without the first week, when people were still learning, and without any unusual case you can explain. If the gain survives every reasonable version, it is robust. The worked example does this with a permutation test on medians, which suits skewed time data.",
+        "Watch side effects as well as the main metric. A faster review that lets more errors through is not an improvement. Track one or two balancing measures, such as errors found later or rework, during the pilot. At the end, the Champion decides to roll out, adjust and pilot again, or stop. Any wider rollout goes through change control again if its scope is larger than the approved pilot."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "swimlane",
+      "title": "From proven cause to confirmed pilot",
+      "caption": "Read top to bottom in time order; each row shows who acts at that step.",
+      "lanes": [
+       "Black Belt and team",
+       "Quality, validation, regulatory",
+       "Champion"
+      ],
+      "steps": [
+       {
+        "lane": 0,
+        "label": "Generate and score solutions"
+       },
+       {
+        "lane": 0,
+        "label": "FMEA on the future process"
+       },
+       {
+        "lane": 2,
+        "label": "Approve the chosen solution"
+       },
+       {
+        "lane": 0,
+        "label": "Raise the change request"
+       },
+       {
+        "lane": 1,
+        "label": "Assess quality, validation, filing"
+       },
+       {
+        "lane": 1,
+        "label": "Approve pilot under change control"
+       },
+       {
+        "lane": 0,
+        "label": "Run pilot and measure"
+       },
+       {
+        "lane": 0,
+        "label": "Compare and run sensitivity checks"
+       },
+       {
+        "lane": 2,
+        "label": "Decide: roll out, adjust or stop"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: piloting a new review workflow (example scenario)",
+      "p": [
+       "Analyze showed that long batch records and late handover of missing pages drove review time. The team chose two solutions: a pre-check by production that rejects incomplete records at handover, and splitting long records into sections reviewed in parallel. The FMEA on the future process flagged one high severity failure mode: a section could be approved without the reviewer seeing a related deviation in another section. The team added a mandatory cross-reference step in the review checklist.",
+       "Change control classified the change as a procedure change with no eBR configuration change, so no computerized system revalidation was needed, and regulatory affairs confirmed no filing was required. The pilot ran for four weeks on one product family. The script shows the comparison with example values."
+      ],
+      "list": [
+       "Median review time fell from 9 to 5 working days in the pilot.",
+       "Dropping week 1 or the one 14-day batch, which waited for a missing deviation report, left the gain at 4 days, so the result is robust to those choices.",
+       "The p-values stay small in every version, but the decision rests on the size and stability of the gain, not on the p-value alone.",
+       "The team also checked that review errors found later did not increase, which was part of the charter goal."
+      ],
+      "code": {
+       "lang": "python",
+       "text": "import random\nfrom statistics import median\n\n# working days from batch record handover to approval; example values only\nbefore = [9, 8, 11, 9, 10, 7, 12, 9, 8, 10, 9, 13, 8, 9, 11, 10]\npilot = [7, 6, 5, 6, 5, 4, 5, 6, 4, 5, 5, 6, 4, 5, 14, 5]   # weeks 1-4, 4 batches a week\n\ndef perm_p(x, y, n=10000, seed=7):\n    rng, obs, pool, hits = random.Random(seed), median(x) - median(y), x + y, 0\n    for _ in range(n):\n        rng.shuffle(pool)\n        hits += median(pool[:len(x)]) - median(pool[len(x):]) >= obs\n    return hits / n\n\ncases = {\n    \"all pilot batches\": pilot,\n    \"drop week 1 (learning)\": pilot[4:],\n    \"drop the 14-day batch\": [d for d in pilot if d != 14],\n}\nfor name, p in cases.items():\n    gain = median(before) - median(p)\n    print(f\"{name:24s} median {median(p):4.1f}  gain {gain:4.1f}  p {perm_p(before, p):.4f}\")"
+      }
+     },
+     "practice": [
+      {
+       "title": "Build your Improve tollgate pack",
+       "time": "3 hours",
+       "goal": "Produce the fifth deliverable: a chosen solution with its FMEA, change assessment and pilot plan, and pilot results if you can run it.",
+       "steps": [
+        "List at least two solutions for each supported cause and score them in a spreadsheet with weighted criteria agreed with your Champion.",
+        "Draw the future process and write an FMEA with at least eight failure modes, marking any high severity items separately from the RPN ranking.",
+        "Write the change request summary: documents affected, validation impact and the regulatory question you would ask regulatory affairs.",
+        "Write a one-page pilot plan with scope, duration, metric, success criterion and stop rule.",
+        "Run the pilot script with your data or the example data, add one more sensitivity case of your own, and write two sentences on whether the gain is robust."
+       ],
+       "done_when": "You have a scored solution list, a future-process FMEA, a change assessment summary, a pilot plan with a stop rule, and a confirmation table with at least three sensitivity cases."
+      }
+     ],
+     "pitfalls": [
+      "Choosing more training or a reminder email as the main solution when the cause could be removed or mistake-proofed.",
+      "Running the FMEA only on the current process, so new failure modes created by the change are never assessed.",
+      "Ranking risks only by RPN, which can bury a severe but rare failure under frequent minor ones.",
+      "Starting the pilot before the change request is approved, which is an uncontrolled change in a regulated process.",
+      "Declaring success from one pilot comparison without checking whether the gain survives dropping the learning period or unusual cases."
+     ],
+     "check": [
+      "Why should solutions be generated only for causes that Analyze supported?",
+      "Why do the FMEA on the future process as well as the current one?",
+      "What is a weakness of ranking failure modes only by RPN?",
+      "Which three assessments does a change request usually need, and who owns each?",
+      "What is a sensitivity analysis for a pilot result, and why does it matter?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What is FMEA? Failure Mode and Effects Analysis",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/fmea",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Poka-Yoke? Mistake and Error Proofing",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/mistake-proofing",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Q9(R1) Quality Risk Management",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "21 CFR 314.70 Supplements and other changes to an approved NDA",
+       "source": "eCFR",
+       "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-314/subpart-B/section-314.70",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Deciding When to Submit a 510(k) for a Change to an Existing Device",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/deciding-when-submit-510k-change-existing-device",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "FMEA Explained: Failure Modes & Effects Analysis (Complete Guide)",
+       "source": "Excedify",
+       "url": "https://www.youtube.com/watch?v=aQwhHTKl8M4",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Tools for Improve and Control",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-improve-control",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-improve-pilot-q01",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "The team wants to fix a labelling mix-up with a reminder email. What is usually a stronger option?",
+     "options": [
+      "A longer training course for everyone on the line",
+      "A mistake-proofing step that blocks the error",
+      "A monthly audit of all the labels by quality",
+      "A bigger warning sign placed above the line"
+     ],
+     "answer": 1,
+     "why": "Removing or blocking the cause beats relying on people to remember."
+    },
+    {
+     "id": "bb-improve-pilot-q02",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "Why run an FMEA on the future process, not only the current one?",
+     "options": [
+      "The change can create new failure modes",
+      "The current process has no failure modes",
+      "Regulators only accept future-state FMEAs",
+      "It replaces the need for change control"
+     ],
+     "answer": 0,
+     "why": "Every change brings new ways to fail that must be assessed."
+    },
+    {
+     "id": "bb-improve-pilot-q03",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "Two failure modes have the same RPN of 120. One has severity 10, the other severity 3. What should you do?",
+     "options": [
+      "Treat them as equal priority because the RPN matches",
+      "Act on the lower severity one first",
+      "Delete the one with the lower occurrence score",
+      "Review the severity 10 one on its own"
+     ],
+     "answer": 3,
+     "why": "The same RPN can hide very different risks; severity needs its own review."
+    },
+    {
+     "id": "bb-improve-pilot-q04",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "The pilot needs a changed SOP on a GMP line. When can the pilot start?",
+     "options": [
+      "As soon as the Champion agrees verbally",
+      "After the final project report is written",
+      "After the change request is approved",
+      "Only after a full process revalidation"
+     ],
+     "answer": 2,
+     "why": "A pilot on a regulated process is a change and needs change control first."
+    },
+    {
+     "id": "bb-improve-pilot-q05",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "Who decides whether a change to a marketed product must be reported to an authority?",
+     "options": [
+      "The Black Belt leading the project",
+      "The shift supervisor on the line",
+      "The finance partner on the team",
+      "Regulatory affairs"
+     ],
+     "answer": 3,
+     "why": "Regulatory reportability is a regulatory affairs decision."
+    },
+    {
+     "id": "bb-improve-pilot-q06",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "Which belongs in the pilot plan before the pilot starts?",
+     "options": [
+      "The success criterion and a stop rule",
+      "The final savings figure for finance",
+      "The names of people who resisted",
+      "The control chart limits for next year"
+     ],
+     "answer": 0,
+     "why": "Write success criteria and stop rules in advance so the result cannot be bent later."
+    },
+    {
+     "id": "bb-improve-pilot-q07",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "The pilot gain disappears when the first week is removed. What does that suggest?",
+     "options": [
+      "The gain is robust and ready to roll out to all lines",
+      "The result rests on one week, so it is not robust",
+      "The baseline data must have been wrong from the start",
+      "The permutation test was never needed at all"
+     ],
+     "answer": 1,
+     "why": "A gain that depends on one week fails the sensitivity check."
+    },
+    {
+     "id": "bb-improve-pilot-q08",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "Why use a permutation test on medians for review times?",
+     "options": [
+      "It always gives smaller p-values than other tests",
+      "It needs no data from the baseline period",
+      "It suits skewed data with few assumptions",
+      "Regulators require it for every pilot they inspect"
+     ],
+     "answer": 2,
+     "why": "Medians and permutation tests handle skewed data without normality assumptions."
+    },
+    {
+     "id": "bb-improve-pilot-q09",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "A solution needs an eBR configuration change. Which assessment is most clearly triggered?",
+     "options": [
+      "A new gage R and R on the reviewers",
+      "Validation impact on the computerized system",
+      "A new project charter signed again",
+      "A fresh DOE on the filling line"
+     ],
+     "answer": 1,
+     "why": "A change to a validated computerized system needs a validation impact assessment."
+    },
+    {
+     "id": "bb-improve-pilot-q10",
+     "lesson": "six-sigma-black-belt-bb-improve-pilot",
+     "q": "The team scored five solutions but only kept the winner in the pack. What is missing?",
+     "options": [
+      "The names of the ideas' authors",
+      "A new baseline measurement",
+      "The rejected options and why",
+      "A second FMEA on the old process"
+     ],
+     "answer": 2,
+     "why": "Reviewers need to see the alternatives considered and the reasons for rejecting them."
+    }
+   ]
+  },
+  {
+   "id": "bb-control-handover",
+   "title": "Project 6: control and handover",
+   "summary": "Lock in the gain and hand a stable process back to its owner.",
+   "outline": [
+    "Control plan and reaction plan",
+    "Choosing and setting up control charts",
+    "Updated procedures, training and records",
+    "Closing the linked CAPA with an effectiveness check",
+    "Deliverable: signed control plan and handover"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-control-handover",
+     "title": "Control and handover",
+     "summary": "You will be able to write a control plan with a reaction plan, choose and set up the right control chart, update procedures and training, close a linked CAPA with an effectiveness check and hand the process back to its owner.",
+     "why": "Many improvements fade within months because nobody watches the new process and nothing happens when it drifts. In a regulated company the gain must also be written into controlled procedures, training records and, where the project supported a CAPA, an effectiveness check that an inspector can follow. A Black Belt project is only finished when the process owner can run and monitor the new process without the project team. This is the sixth piece of guided work.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Control turns the pilot into normal work. You write a control plan that says what is measured, how often, by whom and with what limits. You add a reaction plan that says exactly what happens when a signal appears. You update the controlled documents and train the people. You show sustained performance over a period agreed in advance, and then the process owner signs to accept the process.",
+        "Sustained-control evidence is the key output: data after the rollout, not only during the pilot, showing the process is stable at the new level."
+       ]
+      },
+      {
+       "h": "Control plan and reaction plan",
+       "p": [
+        "A control plan is a table, one row per controlled item. Keep it short enough that the process owner will actually use it."
+       ],
+       "list": [
+        "Process step and the characteristic controlled, such as review time or seal strength.",
+        "Specification or target, and the measurement method that passed MSA.",
+        "Sample size and frequency, and who records the data.",
+        "Control method: a control chart, a mistake-proofing device, a checklist or an automated system check.",
+        "Reaction plan: the first action when a signal appears, who is told, and when it becomes a deviation or a CAPA under the site's procedures."
+       ]
+      },
+      {
+       "h": "Choosing and setting up control charts",
+       "p": [
+        "A control chart plots the metric over time with a centre line and control limits calculated from the process itself. Control limits show what the process does; specification limits show what the customer needs. They are different things and should never be mixed on the same rule.",
+        "Choose the chart from the data type. For one value at a time, such as a daily median or one batch result, use an individuals and moving range (I-MR) chart. For small subgroups of continuous data, such as five weights every hour, use an X-bar and R chart. For pass and fail counts use a p chart when the sample size varies, or an np chart when it is fixed. For defect counts use a c or u chart.",
+        "Calculate the limits from a stable period after the change, not from the old baseline, or the chart will hide the gain. For an I-MR chart the individuals limits are the mean plus or minus 2.66 times the average moving range, and the moving range limit is 3.267 times the average moving range. The worked example calculates these limits and flags points outside them.",
+        "Agree the signal rules in the control plan. A point outside the limits is the basic rule. Many sites also act on a long run of points on one side of the centre line, which can show a shift before any point crosses a limit. Too many rules raise false alarms, so choose a small set and write them down."
+       ]
+      },
+      {
+       "h": "Procedures, training and records",
+       "p": [
+        "Update every controlled document the change touched: SOPs, work instructions, forms, batch record templates and system configuration specifications. Each update goes through document control with the right approvers. Train the people who do the work and record the training before they work to the new procedure. Archive the project files where the site keeps quality records, so the evidence behind the change can be found later.",
+        "Check the systems as well as the paper. If the change added a mandatory field or a new report in a validated system, confirm the configuration is released under change control and the user guides match it. Remove old forms and templates from shared drives and workstations, because an obsolete form left in a drawer is a common way for the old process to come back. Ask a few operators to walk through the new procedure and watch for steps they skip or misread; that is often the fastest way to find a gap in the training."
+       ]
+      },
+      {
+       "h": "Closing the CAPA and handing over",
+       "p": [
+        "If the project supported a CAPA, the effectiveness check asks one question: did the action stop the problem from recurring? Define it before closure with a metric, a period and a pass criterion, for example the monthly median review time stays at or below target for a set number of months with no related deviations. Use the same operational definition as the baseline. Close the CAPA only when the check passes, through the normal CAPA process and approvals.",
+        "Handover is a meeting and a signature. The process owner receives the control plan, the chart, the reaction plan, the updated documents and a short summary of the project. The Champion confirms the business result. Agree who will review the chart and how often, and plan one follow-up review a few months later to confirm the gain has held."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "layers",
+      "title": "What keeps the gain in place",
+      "caption": "Read top to bottom; each layer depends on the one below it.",
+      "layers": [
+       {
+        "label": "Signed handover",
+        "note": "Process owner accepts the process"
+       },
+       {
+        "label": "CAPA effectiveness check",
+        "note": "Pass criterion defined before closure"
+       },
+       {
+        "label": "Control chart and reaction plan",
+        "note": "Signals lead to named actions"
+       },
+       {
+        "label": "Updated procedures and training",
+        "note": "Through document control"
+       },
+       {
+        "label": "Trusted measurement",
+        "note": "Same definition as the baseline"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: control plan for the review workflow (example scenario)",
+      "p": [
+       "After rollout to all product families, the batch record review team set up an I-MR chart of the daily median review time. Limits were calculated from the first 15 working days after the change, when the process was stable. The values are example values for teaching.",
+       "On day 19 the chart showed 8 days, above the upper limit of about 7.3. The reaction plan told the review lead to check the batches that day within one working day. The cause was a reviewer absence with no cover, so the team added a cover rule to the control plan. Because no product quality impact was found, the event was recorded under the site's procedure without opening a new CAPA, as the reaction plan allowed."
+      ],
+      "list": [
+       "Control plan: review time chart, pre-check completion rate, and errors found later as a balancing measure.",
+       "Effectiveness check for the linked CAPA: monthly median at or below target for an agreed period, with no related deviations.",
+       "Handover: the head of quality operations signs as process owner; a follow-up review is booked three months later."
+      ],
+      "code": {
+       "lang": "python",
+       "text": "from statistics import mean\n\n# daily median review days after handover; example values only\nx = [5, 5, 4, 6, 5, 5, 4, 5, 6, 5, 4, 5, 5, 6, 5, 4, 5, 5, 8, 5]\nbase = x[:15]   # limits come from the stable handover period only\n\nmr = [abs(b - a) for a, b in zip(base, base[1:])]\ncentre, mrbar = mean(base), mean(mr)\nucl, lcl = centre + 2.66 * mrbar, max(0, centre - 2.66 * mrbar)\nprint(f\"centre {centre:.2f}  LCL {lcl:.2f}  UCL {ucl:.2f}  MR UCL {3.267 * mrbar:.2f}\")\n\nfor day, v in enumerate(x, start=1):\n    if not lcl <= v <= ucl:\n        print(f\"day {day}: {v} is outside the limits, start the reaction plan\")"
+      }
+     },
+     "practice": [
+      {
+       "title": "Write your control plan and handover pack",
+       "time": "2 to 3 hours",
+       "goal": "Produce the sixth deliverable: a sign-ready control plan, a working control chart and a handover checklist.",
+       "steps": [
+        "Write a control plan table for your project with at least three rows, including one balancing measure.",
+        "Write a reaction plan for each row that names the first action, the person told and when it escalates to a deviation or CAPA.",
+        "Run the I-MR script with your post-change data or the example data, then add a value of your own that should trigger the reaction plan and confirm it is flagged.",
+        "List every controlled document and training record the change affects.",
+        "Write the CAPA effectiveness check with a metric, period and pass criterion, and a one-page handover summary for the process owner."
+       ],
+       "done_when": "You have a control plan with reaction plans, a chart with limits from post-change data, a document and training list, and an effectiveness check with a pass criterion."
+      }
+     ],
+     "pitfalls": [
+      "Calculating control limits from the old baseline, so the improved process looks permanently 'in control' and a slide back is never flagged.",
+      "Drawing specification limits on the chart and treating them as control limits, which confuses what the customer needs with what the process does.",
+      "Writing a control plan with no reaction plan, so a signal is noticed but nobody is responsible for acting on it.",
+      "Closing the CAPA as soon as the change is made, before any effectiveness data exists.",
+      "Handing over without training records and updated procedures, which leaves people working to a process that is not documented."
+     ],
+     "check": [
+      "What is the difference between control limits and specification limits?",
+      "Which chart would you use for one batch result per day, and which for a daily defect count?",
+      "Why should limits come from post-change data?",
+      "What must a CAPA effectiveness check define before closure?",
+      "What does the process owner receive at handover?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Univariate and Multivariate Control Charts (NIST/SEMATECH e-Handbook, section 6.3)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc3.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Individuals Control Charts (NIST/SEMATECH e-Handbook, section 6.3.2.2)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc322.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Statistical Process Control? SPC Quality Tools",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/statistical-process-control",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Q10 Pharmaceutical Quality System",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "21 CFR Part 820 Quality Management System Regulation",
+       "source": "eCFR",
+       "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Control Charts simply explained - Statistical process control - Xbar-R Chart, I-MR Chart,...",
+       "source": "numiqo",
+       "url": "https://www.youtube.com/watch?v=iOJDBpOa3Ko",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Tools for Improve and Control",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-improve-control",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-control-handover-q01",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "You record one assay result per batch, one batch a day. Which control chart fits?",
+     "options": [
+      "X-bar and R chart with subgroups of five",
+      "I-MR chart",
+      "p chart for the share of failures",
+      "c chart for the count of defects"
+     ],
+     "answer": 1,
+     "why": "Single values over time use an I-MR chart."
+    },
+    {
+     "id": "bb-control-handover-q02",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "The team calculates control limits from the old, slower baseline. What goes wrong?",
+     "options": [
+      "A slide back is not flagged",
+      "The chart will show too many false alarms at once",
+      "The chart can no longer be used for any new data",
+      "The specification limits will change with them"
+     ],
+     "answer": 0,
+     "why": "Limits from the old process are too wide to catch a return toward it."
+    },
+    {
+     "id": "bb-control-handover-q03",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "What is the difference between control limits and specification limits?",
+     "options": [
+      "They are the same values drawn twice",
+      "Control limits are set by the customer",
+      "Spec limits come from the process data",
+      "Control limits come from the process itself"
+     ],
+     "answer": 3,
+     "why": "Control limits describe the process; specification limits describe the requirement."
+    },
+    {
+     "id": "bb-control-handover-q04",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "A point falls above the upper control limit. According to a good control plan, what happens?",
+     "options": [
+      "The point is deleted from the chart as an outlier",
+      "The chart limits are recalculated to include it",
+      "The named reaction starts",
+      "Nothing happens until the monthly review"
+     ],
+     "answer": 2,
+     "why": "The reaction plan says who acts and how when a signal appears."
+    },
+    {
+     "id": "bb-control-handover-q05",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "The number of records checked each day varies, and you count how many fail. Which chart fits?",
+     "options": [
+      "p chart",
+      "I-MR chart",
+      "X-bar and R chart",
+      "np chart"
+     ],
+     "answer": 0,
+     "why": "A p chart handles proportions with varying sample sizes."
+    },
+    {
+     "id": "bb-control-handover-q06",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "When can the linked CAPA be closed?",
+     "options": [
+      "As soon as the new SOP is approved",
+      "When the project report is written",
+      "When the Champion says the project is over",
+      "When the effectiveness check passes"
+     ],
+     "answer": 3,
+     "why": "Closure needs evidence that the action stopped the problem recurring."
+    },
+    {
+     "id": "bb-control-handover-q07",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "Which item belongs in a CAPA effectiveness check before closure?",
+     "options": [
+      "A metric, period and pass criterion",
+      "A list of all the team members' names",
+      "The full DOE analysis with every run",
+      "A new project charter signed by the sponsor"
+     ],
+     "answer": 0,
+     "why": "The check must be defined in advance so it can pass or fail objectively."
+    },
+    {
+     "id": "bb-control-handover-q08",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "Operators start working to a new SOP before their training is recorded. What is the issue?",
+     "options": [
+      "None, if the SOP is short enough to read quickly",
+      "They work untrained on the procedure",
+      "The control chart limits become invalid at once",
+      "The CAPA must be reopened by the quality lead"
+     ],
+     "answer": 1,
+     "why": "Training must be completed and recorded before people work to the new procedure."
+    },
+    {
+     "id": "bb-control-handover-q09",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "Why add a balancing measure such as errors found later to the control plan?",
+     "options": [
+      "It replaces the main metric",
+      "It is required for every I-MR chart",
+      "It spots gains bought with new problems",
+      "It lowers the control limits"
+     ],
+     "answer": 2,
+     "why": "A balancing measure shows whether the improvement caused harm elsewhere."
+    },
+    {
+     "id": "bb-control-handover-q10",
+     "lesson": "six-sigma-black-belt-bb-control-handover",
+     "q": "What makes a handover complete?",
+     "options": [
+      "The Black Belt keeps the chart and reviews it",
+      "The project files stay on the team drive",
+      "The pilot data is presented one more time",
+      "The process owner signs to accept the process"
+     ],
+     "answer": 3,
+     "why": "The owner accepts the process with its control plan, documents and chart."
+    }
+   ]
+  },
+  {
+   "id": "bb-lead-and-present",
+   "title": "Project 7: leading the team and presenting results",
+   "summary": "Lead people through change and present the project to leadership and for certification review.",
+   "outline": [
+    "Running tollgate reviews",
+    "Managing resistance and stakeholder communication",
+    "Coaching team members who run the analysis",
+    "Writing the final project report",
+    "Presenting results and lessons learned"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-black-belt-bb-lead-and-present",
+     "title": "Leading the team and presenting results",
+     "summary": "You will be able to run tollgate reviews, handle resistance with a stakeholder plan, coach the team members who run the analysis, and write and present a final project report that stands up to review.",
+     "why": "A Black Belt is judged as much on leading people as on statistics. Projects stall because a sponsor loses interest, a team member resists, or the final story is not convincing, not because the ANOVA was wrong. In a regulated company the final report may also be read by auditors, so it must be accurate and traceable. This is the last piece of guided work: bringing your project to a reviewed close.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Leading a Black Belt project means keeping three groups with you: the sponsor who funds it, the team who does the work, and the people whose daily work will change. You do that through regular tollgate reviews, a stakeholder plan that is updated as the project moves, and coaching that grows the skills of the team. At the end you write one report and present it, with methods, evidence and limits stated plainly.",
+        "The technical work of the earlier sections still matters here. People trust a change more when they can see the evidence for themselves, so share the charts with the team as you go rather than saving them for the final presentation. Keep a simple decision log: what was decided at each tollgate, by whom and why. It saves arguments later, and it is the backbone of the final report."
+       ]
+      },
+      {
+       "h": "Running tollgate reviews",
+       "p": [
+        "A tollgate is a formal review at the end of each DMAIC phase. The Champion decides whether the project moves on, changes course or stops. Stopping a project that no longer makes sense is a good outcome, not a failure.",
+        "Prepare a short pack for each tollgate and send it before the meeting, so the time is spent on decisions, not on reading slides together."
+       ],
+       "list": [
+        "Where we are against the charter: goal, scope and timeline, with any changes highlighted.",
+        "What we learned in this phase, with the key charts and the effect sizes.",
+        "Risks and open questions, including anything quality, validation or regulatory owners have raised.",
+        "The decision we need today, and the support or resources it requires."
+       ]
+      },
+      {
+       "h": "Managing resistance and communication",
+       "p": [
+        "Resistance is normal, and usually reasonable from the other person's point of view. A reviewer may fear that a faster process means lower standards. A supervisor may lose control of a task. Find out the real concern by asking, then answer it with data or a change in the design where you can.",
+        "Use a stakeholder map that rates each person's influence and current support, and plan how to move the key people. Change models give a checklist for this. The ADKAR model from Prosci walks an individual through awareness, desire, knowledge, ability and reinforcement. Kotter's eight steps describe change at the organisation level, starting with a sense of urgency and a guiding coalition. Use them as prompts, not as scripts.",
+        "Communicate in the language of each audience. Operators want to know what changes in their shift. Quality wants to know the evidence and the controls. Leadership wants the result, the risk and the decision. One message for everyone usually reaches no one."
+       ]
+      },
+      {
+       "h": "Coaching Green Belts",
+       "p": [
+        "Black Belts are often expected to coach Green Belts on their team or on smaller projects. Good coaching asks questions rather than giving answers: what does the data show, what else could explain it, how would you test that. Let the Green Belt run the analysis and present it at the tollgate, and review their work before it goes out, especially the choice of test and the way effects are reported.",
+        "Agree a simple rhythm, such as a short weekly check-in and a review before each tollgate. Record what they did themselves, because that is the evidence for their own assessment.",
+        "Coaching also covers the soft side. Help the Green Belt plan who they need to talk to, rehearse a difficult conversation with them, and give honest feedback after their tollgate presentation. Over the project, hand them more of the work as their confidence and skill grow."
+       ]
+      },
+      {
+       "h": "The final report and presentation",
+       "p": [
+        "The final report tells the DMAIC story on a few pages, with appendices for detail. Every number must trace back to a named data extract. State the methods and their assumptions, the sensitivity checks you ran, and the sustained-control evidence after handover, not only the pilot. Say plainly what the data does not show and what you did not test.",
+        "For decisions that changed a validated process or closed a CAPA, have the statistical methods reviewed by a qualified statistician or the site's designated reviewer before the report is released. Course completion here is internally assessed learning, not an external belt certification; if you want certification, check the certifying body's current project requirements.",
+        "Present in the order a busy leader needs: the result first, then how you know, then what it took to sustain it, then lessons learned and the next opportunities. Leave time for questions about failures and limits, and answer them directly."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "compare",
+      "title": "One project, three audiences",
+      "caption": "Each column lists what that audience needs from your updates and final presentation.",
+      "columns": [
+       {
+        "title": "Leadership and sponsor",
+        "items": [
+         "Result against the charter goal",
+         "Business impact with its basis",
+         "Risks and decisions needed",
+         "Next opportunities"
+        ]
+       },
+       {
+        "title": "Quality and regulated owners",
+        "items": [
+         "Methods and assumptions",
+         "Sensitivity checks and limits",
+         "Change control and validation status",
+         "Sustained-control evidence"
+        ]
+       },
+       {
+        "title": "People doing the work",
+        "items": [
+         "What changes in their shift",
+         "Why the change helps them",
+         "Training and support",
+         "Who to call when something fails"
+        ]
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: closing the batch record review project (example scenario)",
+      "p": [
+       "Before the Analyze tollgate, the Black Belt learned that two senior reviewers opposed splitting batch records. Their concern was real: a section could be approved without seeing a related deviation. Instead of pushing the design through, the Black Belt asked them to help write the FMEA, and the cross-reference step they proposed became part of the solution. Both later trained their colleagues on the new workflow.",
+       "A Green Belt on the team ran the pilot analysis. The Black Belt reviewed it and noticed it compared means on skewed data, so they reran it together with medians and a permutation test before the tollgate. The site statistician reviewed the methods before the final report was released.",
+       "The final presentation took ten minutes: result first, then the evidence, the sensitivity checks, the control chart after handover, and what did not work, including a first pre-check form that production found too long."
+      ],
+      "list": [
+       "Report sections: charter, baseline, causes, solution and FMEA, pilot and sensitivity, control and handover, limits, lessons learned.",
+       "Appendix: data extracts, scripts, MSA results and the signed control plan.",
+       "Open item handed to the process owner: the follow-up review three months after handover."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Write and present your final project report",
+       "time": "3 to 4 hours",
+       "goal": "Produce the final deliverable: a reviewed project report and a ten-minute presentation of the project you chartered in the first section.",
+       "steps": [
+        "Update your stakeholder map with each person's current support, and write one action for anyone who is still opposed.",
+        "Write a one-page tollgate pack for your latest phase using the four headings in this lesson.",
+        "Draft the final report with the eight sections from the worked example, and check that every number names its data source.",
+        "Add a limits section that lists what the data does not show and which methods need review by a qualified statistician.",
+        "Ask Claude to act as a sceptical quality director and question your report, then fix the weak points it finds.",
+        "Present the project in ten minutes to a colleague or mentor, result first, and note the questions you could not answer."
+       ],
+       "done_when": "You have a final report with traced numbers, sensitivity checks, sustained-control evidence and a limits section, and you have presented it and recorded the open questions."
+      }
+     ],
+     "pitfalls": [
+      "Treating resistance as a personality problem instead of asking what the real concern is and whether it changes the design.",
+      "Using tollgates as status updates with no decision asked for, so the sponsor drifts away from the project.",
+      "Doing the Green Belt's analysis for them, which gets the project done but leaves them unable to do the next one.",
+      "Presenting only the pilot result and leaving out sustained-control evidence and the sensitivity checks.",
+      "Hiding what did not work, which makes the report less credible to reviewers and wastes the lessons for the next team."
+     ],
+     "check": [
+      "What four things should a tollgate pack contain?",
+      "How would you respond to a respected reviewer who opposes your solution?",
+      "What do the five ADKAR stages describe?",
+      "How should a Black Belt coach a Green Belt through an analysis?",
+      "What must a final report state beyond the result itself?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What is Change Management? Organizational, Process, Definition and Tools",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/change-management",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "The Prosci ADKAR Model",
+       "source": "Prosci",
+       "url": "https://www.prosci.com/methodology/adkar",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "The 8-Step Process for Leading Change",
+       "source": "Kotter",
+       "url": "https://www.kotterinc.com/methodology/8-steps/",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "The Prosci ADKAR Change Management Model",
+       "source": "Prosci",
+       "url": "https://www.youtube.com/watch?v=zYe2fG8m4Ow",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "What is John Kotter's 8-Step Process for Managing Change?",
+       "source": "Online PM Courses - Mike Clayton",
+       "url": "https://www.youtube.com/watch?v=e1VDmj1bFFY",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Leading Organizational Change",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/leading-organizational-change",
+       "cost": "paid"
+      },
+      {
+       "type": "cert",
+       "title": "Six Sigma Black Belt Certification (CSSBB)",
+       "source": "ASQ",
+       "url": "https://www.asq.org/cert/six-sigma-black-belt",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "bb-lead-and-present-q01",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "At the Measure tollgate the data shows the problem is much smaller than the charter assumed. What is a good outcome?",
+     "options": [
+      "Hide the data until Analyze is done",
+      "The Champion decides to stop or rescope",
+      "Keep going to protect the timeline",
+      "Change the baseline period until it looks worse"
+     ],
+     "answer": 1,
+     "why": "Stopping or rescoping a project that no longer makes sense is a valid tollgate decision."
+    },
+    {
+     "id": "bb-lead-and-present-q02",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "A senior reviewer opposes your new workflow. What should you do first?",
+     "options": [
+      "Ask what the real concern is",
+      "Escalate to the sponsor straight away",
+      "Remove them from the project team",
+      "Run the pilot without telling them"
+     ],
+     "answer": 0,
+     "why": "Resistance often carries a real concern that can improve the design."
+    },
+    {
+     "id": "bb-lead-and-present-q03",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "Which item belongs in a tollgate pack sent before the meeting?",
+     "options": [
+      "Every chart produced so far, unsorted",
+      "The full raw data extract for reading",
+      "The team's personal opinions of the sponsor",
+      "The decision needed today"
+     ],
+     "answer": 3,
+     "why": "A tollgate exists to make a decision, so the pack names it."
+    },
+    {
+     "id": "bb-lead-and-present-q04",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "What do the ADKAR stages describe?",
+     "options": [
+      "The five phases of a DMAIC improvement project",
+      "The levels of a fractional factorial design",
+      "A person's path through change",
+      "The rows of a control plan for the process"
+     ],
+     "answer": 2,
+     "why": "ADKAR is awareness, desire, knowledge, ability and reinforcement for an individual."
+    },
+    {
+     "id": "bb-lead-and-present-q05",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "A Green Belt asks you to just do the regression for them before the tollgate. What is the better coaching response?",
+     "options": [
+      "Do it for them, since the tollgate is very close",
+      "Tell them regression is never needed for this",
+      "Guide them, then review it",
+      "Hand the whole task to a statistician instead"
+     ],
+     "answer": 2,
+     "why": "Coaching builds their skill; you still review the work before it goes out."
+    },
+    {
+     "id": "bb-lead-and-present-q06",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "Operators ask what the project means for them. Which message fits this audience?",
+     "options": [
+      "The p-values from every test in the Analyze phase",
+      "What changes in their shift",
+      "The full business case written for the sponsor",
+      "The alias structure of the designed experiment"
+     ],
+     "answer": 1,
+     "why": "Each audience needs the part of the story that affects their work."
+    },
+    {
+     "id": "bb-lead-and-present-q07",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "The final report shows the pilot gain but nothing after handover. What is missing?",
+     "options": [
+      "The names of every stakeholder",
+      "A longer executive summary",
+      "Sustained-control evidence",
+      "More slides about the charter"
+     ],
+     "answer": 2,
+     "why": "A Black Belt report must show the gain held after handover."
+    },
+    {
+     "id": "bb-lead-and-present-q08",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "Your project changed a validated process. Who should review the statistical methods before release?",
+     "options": [
+      "Only the Green Belt who ran the analysis",
+      "No one, if the p-values are small",
+      "The operators who use the new process",
+      "A qualified statistician or designated reviewer"
+     ],
+     "answer": 3,
+     "why": "Methods behind regulated decisions need a qualified review."
+    },
+    {
+     "id": "bb-lead-and-present-q09",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "In what order should you present to a busy leadership team?",
+     "options": [
+      "Result, evidence, then sustainment",
+      "Charter, then every phase in full detail",
+      "Lessons learned first, then all the data",
+      "Statistics first, then the business result"
+     ],
+     "answer": 0,
+     "why": "Leaders need the result first, then how you know and how it holds."
+    },
+    {
+     "id": "bb-lead-and-present-q10",
+     "lesson": "six-sigma-black-belt-bb-lead-and-present",
+     "q": "Your first pre-check form failed and was replaced. Should the final report mention it?",
+     "options": [
+      "No, it makes the project look weak",
+      "Yes, as a lesson learned with what changed",
+      "Only if an auditor asks about it",
+      "No, because it was replaced quickly"
+     ],
+     "answer": 1,
+     "why": "Reporting what did not work makes the report credible and helps the next team."
+    }
+   ]
+  }
+ ]
+}

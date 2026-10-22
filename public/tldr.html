@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FDE Path Tutor</title>
+<meta name="description" content="Pick your domain and a project, then build it step by step. Evidence is saved to your own GitHub repository and checked by the tutor.">
+<meta name="referrer" content="no-referrer">
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="style.css"></head>
+<body class="tldr">
+<header class="topbar"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">FDE Training Program</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Practice</span><span class="sep" aria-hidden="true">/</span><span aria-current="page">Learning path</span></nav><nav class="secnav" aria-label="Program sections"><a href="learn/basics.html"><span>1</span>Start here</a><a href="learn/m01.html"><span>2</span>Modules</a><a href="tldr.html" aria-current=true><span>3</span>Practice</a><a href="crash-course.html"><span>4</span>Crash course</a></nav><button class="themebtn" data-theme-toggle aria-label="Switch light or dark mode"></button></header><script src="https://quick-chat-program.pages.dev/kb.js" defer></script>
+<main class="t-main">
+  <header class="t-head">
+    <p class="kicker">FDE training program / learning path / 12 weeks</p>
+    <h1>From engineer or domain expert to forward deployed engineer.</h1>
+    <p class="lede">Your own path through the program: pick your industry and one real project, choose how to build it, and work through 13 steps over 12 weeks. Each step saves evidence to your GitHub repository and the tutor checks it, so anyone you share it with can see exactly what you have done.</p>
+    <ol class="t-how"><li><b>Connect</b>GitHub journal</li><li><b>Choose</b>domain and project</li><li><b>Decide</b>how to build it</li><li><b>Build</b>13 steps with evidence</li><li><b>Prove</b>progress in your repo</li></ol>
+  </header>
+
+  <section class="t-panel t-setup" id="accounts">
+    <h2><span>0</span>Two accounts to set up first</h2>
+    <p class="t-note">Set these up once before step 1. They make your learning easier to track and give you a real place to build, host and test your work.</p>
+    <div class="t-acc">
+      <div><h3>GitHub</h3><p>Your learning journal lives here: your project, the evidence for each step, and your progress. Your mentor opens one link to see where you are, and every project you build is saved with its history.</p>
+        <a class="open" href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github" target="_blank" rel="noopener">Create a GitHub account</a></div>
+      <div><h3>Cloudflare</h3><p>A place to host the pages and small apps you build, and to run AI models on Workers AI while you practise. The account plan you sign up with covers the exercises in this course.</p>
+        <a class="open" href="https://developers.cloudflare.com/fundamentals/account/create-account/" target="_blank" rel="noopener">Create a Cloudflare account</a></div>
+    </div>
+  </section>
+
+  <section class="t-panel" id="connect">
+    <h2><span>1</span>Journal tracker<em class="t-badge" id="badge-connect"></em></h2>
+    <div id="gh-box"><p class="t-note">Loading...</p></div>
+    <div id="cf-box"></div>
+  </section>
+
+  <section class="t-panel" id="project">
+    <h2><span>2</span>Domain and project<em class="t-badge" id="badge-project"></em></h2>
+    <div id="project-box"></div>
+  </section>
+
+  <section class="t-panel" id="decide">
+    <h2><span>3</span>How to build it<em class="t-badge" id="badge-decide"></em></h2>
+    <p class="t-note">Answer six questions. The guide recommends a setup; you write why it fits. This goes into your project file, so your choices stay accountable.</p>
+    <div id="decide-box"></div>
+  </section>
+
+  <section class="t-panel" id="path">
+    <h2><span>4</span>The 13 steps<em class="t-badge" id="badge-path"></em></h2>
+    <div class="cp-tldr" data-progress></div>
+    <div id="summary-box"></div>
+    <div id="steps-box"></div>
+    <p class="t-closing">This is a basic tracker for accountability. It counts what you save and commit, not how good the work is. You own your learning; your mentor's review is what counts.</p>
+  </section>
+
+  <section class="t-panel t-certs">
+    <h2>Certificates worth having</h2>
+    <p class="t-note">Optional. They never replace the final project. Start with the Anthropic Academy ones, then one paid exam that matches your clients' cloud or your gap.</p>
+    <ul><li><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy certificates</a><span>Claude API, Claude Code and MCP courses.</span></li><li><a href="https://aws.amazon.com/certification/certified-ai-practitioner/" target="_blank" rel="noopener">AWS Certified AI Practitioner</a><span>Paid exam. Or the matching one for your cloud.</span></li><li><a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/" target="_blank" rel="noopener">Microsoft Azure AI Fundamentals</a><span>Paid exam. For teams on Azure.</span></li><li><a href="https://cloud.google.com/learn/certification/generative-ai-leader" target="_blank" rel="noopener">Google Cloud Generative AI Leader</a><span>Paid exam. Business-level generative AI.</span></li><li><a href="https://www.iiba.org/business-analysis-certifications/ecba/" target="_blank" rel="noopener">IIBA ECBA</a><span>Paid exam. Business analysis basics, good for software people.</span></li><li><a href="https://docs.github.com/en/get-started/showcase-your-expertise-with-github-certifications/about-github-certifications" target="_blank" rel="noopener">GitHub certifications</a><span>Paid exam. Good for domain people building technical skills.</span></li></ul>
+    <p class="t-note">Want more depth? <a href="crash-course.html">Crash course library</a> / <a href="index.html">Full program</a> / <a href="learn/basics.html">The basics</a> / <a href="learn/m00.html">Set up your machine</a></p>
+  </section>
+</main>
+<script src="progress.js" defer></script>
+<script type="module" src="tutor.js"></script>
+</body></html>

@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "medtech-basics-q01",
+      "lesson": "regulated",
+      "q": "A hospital reports by phone that a pump alarm did not sound. What is this record called?",
+      "options": [
+        "A nonconformance",
+        "A complaint",
+        "An engineering change order, since the alarm design must now be changed",
+        "A design input"
+      ],
+      "answer": 1,
+      "why": "A complaint alleges a problem with a released device."
+    },
+    {
+      "id": "medtech-basics-q02",
+      "lesson": "regulated",
+      "q": "Which rule covers electronic records and electronic signatures?",
+      "options": [
+        "21 CFR Part 11",
+        "ISO 14971",
+        "IEC 62304",
+        "The EU MDR, Regulation (EU) 2017/745"
+      ],
+      "answer": 0,
+      "why": "Part 11 covers e-records, e-signatures and audit trails."
+    },
+    {
+      "id": "medtech-basics-q03",
+      "lesson": "regulated",
+      "q": "Where is the evidence of how a device was designed, verified and validated collected?",
+      "options": [
+        "The device history record",
+        "The CRM",
+        "The design history file",
+        "The ERP purchase order"
+      ],
+      "answer": 2,
+      "why": "The DHF holds design control evidence; the DHR holds production records."
+    },
+    {
+      "id": "medtech-basics-q04",
+      "lesson": "regulated",
+      "q": "Which standard covers risk management for medical devices?",
+      "options": [
+        "IEC 62304",
+        "ISO 13485",
+        "21 CFR Part 803",
+        "ISO 14971"
+      ],
+      "answer": 3,
+      "why": "ISO 14971 sets the risk management process for devices."
+    },
+    {
+      "id": "medtech-basics-q05",
+      "lesson": "regulated",
+      "q": "What does CAPA stand for?",
+      "options": [
+        "Corrective and preventive action",
+        "Clinical approval and product audit",
+        "Change and process alignment",
+        "Controlled approval of product artwork"
+      ],
+      "answer": 0,
+      "why": "CAPA finds the root cause, fixes it, prevents recurrence and checks the fix worked."
+    },
+    {
+      "id": "medtech-basics-q06",
+      "lesson": "regulated",
+      "q": "A tool's evaluation set is written up with agreed acceptance criteria before the run. What is this work part of?",
+      "options": [
+        "Marketing",
+        "Validation under a risk-based approach such as CSA",
+        "Device classification, since it decides whether the tool is a medical device",
+        "Supplier selection"
+      ],
+      "answer": 1,
+      "why": "Objective evidence that a system meets its intended use is validation."
+    }
+  ]
+}

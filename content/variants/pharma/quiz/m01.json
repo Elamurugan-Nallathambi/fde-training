@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "pharma-m01-q01",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "A deviation drafting bot impressed everyone in a demo but is still unused six months later. Investigators copy its text into the eQMS by hand. Which gap does this show most clearly?",
+      "options": [
+        "The model is not clever enough for this kind of task",
+        "Pilot to production: no plan for the output",
+        "The site has too few deviations to train on",
+        "The demo was too short to convince people"
+      ],
+      "answer": 1,
+      "why": "Nobody decided where the AI output is stored or who approves it, so the pilot never became part of the real process."
+    },
+    {
+      "id": "pharma-m01-q02",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "Under 21 CFR 211.22, who holds the authority to approve or reject procedures and batches?",
+      "options": [
+        "The quality control unit",
+        "The IT department that runs the systems",
+        "The AI tool, if it was validated first",
+        "The production supervisor on shift"
+      ],
+      "answer": 0,
+      "why": "The quality control unit has that responsibility and authority. An AI tool can support it but cannot hold it."
+    },
+    {
+      "id": "pharma-m01-q03",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "You are starting an AI project in a GMP plant. When should you first meet the head of quality?",
+      "options": [
+        "At validation, once the tool is built",
+        "Only if QA raises a concern",
+        "After the first users give feedback",
+        "In the first week"
+      ],
+      "answer": 3,
+      "why": "QA decides whether a tool is ever used in GMP work. Late involvement often means a restart."
+    },
+    {
+      "id": "pharma-m01-q04",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "Which first use of AI is the safest place to start in a GMP site?",
+      "options": [
+        "Automatically releasing batches that pass every test",
+        "Closing deviations once no actions are open",
+        "Searching SOPs and drafting text a person approves",
+        "Approving overdue CAPAs to clear the backlog quickly"
+      ],
+      "answer": 2,
+      "why": "Search and drafting with human approval keep the GMP decision with a qualified person and build trust with QA."
+    },
+    {
+      "id": "pharma-m01-q05",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "A pilot was tested on 15 clean, hand-picked deviations. What should you do before trusting its results?",
+      "options": [
+        "Add more detailed instructions to the prompt",
+        "Test on a random sample of real records",
+        "Switch to a larger and more capable model",
+        "Ask IT to sign off the pilot results"
+      ],
+      "answer": 1,
+      "why": "Real GMP records are messy. A random sample shows how the tool behaves on the data it will actually see."
+    },
+    {
+      "id": "pharma-m01-q06",
+      "lesson": "pharma-why-ai-stalls",
+      "q": "Why does adding AI to a deviation process change what an inspector looks at?",
+      "options": [
+        "Inspectors only check AI tools during visits",
+        "AI makes deviation records confidential",
+        "Inspectors stop reviewing deviations once AI is used",
+        "It changes how the evidence is produced"
+      ],
+      "answer": 3,
+      "why": "In pharma the evidence of control is part of the product. A tool that drafts records changes that evidence, so it must be traceable."
+    }
+  ]
+}

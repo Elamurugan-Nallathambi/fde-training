@@ -1,0 +1,673 @@
+{
+  "module": 10,
+  "title": "Product ownership, demo and hand-over",
+  "intro": "A sponsor says 'this looks good, so what happens next and who runs it when you leave?'. This module gives you the way to demo honestly, move from POC to production, plan next steps around outcomes, and hand the solution to an owner who can run it without you.",
+  "lessons": [
+    {
+      "id": "demo-craft",
+      "title": "Demo craft: show the problem, the result and the limits",
+      "summary": "You will be able to run a short demo that shows the client's problem, the result on their own data and the honest limits, and ends in a decision.",
+      "why": "The sponsor says 'you have fifteen minutes with the leadership team on Friday'. That meeting often decides if the work goes on. This lesson helps you plan a demo that starts from their problem, uses their data, is honest about the weak spots and ends with a clear ask.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A demo is not a tour of features. It is a short story with four parts: the problem in the client's words, the result running on their real cases, the evidence that it works beyond the cases you show, and the limits you know about. It ends with a clear ask, usually a decision about the next step.",
+            "Plan it like a meeting with a purpose, not like a presentation. Before you build a single slide, write down the one decision you want at the end."
+          ]
+        },
+        {
+          "h": "A demo script structure",
+          "p": [
+            "A script keeps the demo short and stops you wandering into detail. A common structure:"
+          ],
+          "list": [
+            "Open with the problem: one real case from the client's work, with the time or pain it causes today, in their words.",
+            "Show the result: run that same case live, then two or three more that show normal, tricky and refused cases.",
+            "Show the evidence: the eval set size, the pass rate by case type, and one failure you understand.",
+            "State the limits: what it does not do, what it has not been tested on, and where a person stays in control.",
+            "Make the ask: the decision you need, who owns it on the client side, and the next step."
+          ]
+        },
+        {
+          "h": "Know your audience",
+          "p": [
+            "Different people listen for different things. A sponsor wants to know whether it saves time, money or risk. The people who do the work want to know whether it makes their day easier or threatens their job. IT and security want to know where data goes. Find out who is coming before the meeting, and make sure each group hears its question answered in the first ten minutes.",
+            "Use the client's words. If they say 'exceptions', do not say 'edge cases'. If they say 'the AP queue', do not say 'the pipeline'."
+          ]
+        },
+        {
+          "h": "Handling questions",
+          "p": [
+            "Questions are good: they show people are imagining using it. Listen to the whole question, repeat it in one sentence to check you understood, then answer briefly. If you do not know, say so and write it down with a date for the answer. Never guess at numbers or promise features on the spot.",
+            "When someone asks 'can it also do X?', answer honestly about what exists today, then treat X as a backlog candidate. Ask what problem X would solve; often it reveals a better next step than the one you planned."
+          ]
+        },
+        {
+          "h": "Honest limits and live risk",
+          "p": [
+            "Show at least one case where the solution is wrong or refuses, and explain how the workflow catches it. This builds more trust than a perfect run, because everyone knows AI makes mistakes, and they want to see you know where.",
+            "Live demos fail. Rehearse twice, use a stable environment, keep cases ready in a file, and have a recorded run as a backup. If something breaks, switch to the recording calmly and say what happened. Never use real customer data on a shared screen unless the client has agreed.",
+            "After the demo, send a short written follow-up the same day: the decision asked for, what was shown, the limits you stated, the open questions with the date you will answer them, and the agreed next step with its owner. People who were not in the room will read that note, and it stops the story from growing in the retelling. If the audience heard 'it is 90 percent accurate' but the eval set had only 30 cases, the note is where you make that clear."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Shape of a decision-focused demo",
+        "caption": "Read left to right: each part answers one question the audience has.",
+        "steps": [
+          {
+            "label": "The problem",
+            "note": "One real case, in their words"
+          },
+          {
+            "label": "The result",
+            "note": "Same case, run live on their data"
+          },
+          {
+            "label": "The evidence",
+            "note": "Eval set and pass rate by case type"
+          },
+          {
+            "label": "The limits",
+            "note": "What it does not do; where people decide"
+          },
+          {
+            "label": "The ask",
+            "note": "One decision and a named owner"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a 15-minute demo script",
+        "p": [
+          "Here is a script for the invoice matching assistant. The numbers in it (three clerks, about 400 invoices a week, 60 eval cases) are example values; in a real demo you use the figures you measured in discovery and testing, and you name their source if asked.",
+          "Notice how little time goes to the result itself compared with the problem, the evidence and the limits. Notice also that it ends with a yes or no question and a request for an owner, not with 'any questions?'."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "DEMO SCRIPT - Invoice matching assistant (15 minutes)\n\n1. The problem (2 min)\n   \"Today three clerks check about 400 invoices a week by hand.\n    Here is one from last Tuesday that took 20 minutes to resolve.\"\n2. The result, on their data (6 min)\n   - Run the same invoice live. Show the decision and the reason.\n   - Show one clean case, one hold, one needs_review.\n   - Show the reviewer screen and the audit record.\n3. The evidence (3 min)\n   - Eval set: 60 real cases from March and April.\n   - Pass rate by case type, and the 2 cases it got wrong.\n4. The limits (2 min)\n   - Not tested on handwritten scans.\n   - Every payment still needs a person to approve it.\n5. The ask (2 min)\n   - Decide: a 4-week pilot with two clerks, yes or no.\n   - Name an owner on your side.\n\nBackup: recorded run of steps 2 and 3, saved locally."
+        }
+      },
+      "practice": [
+        {
+          "title": "Write and rehearse a demo script",
+          "time": "60 min",
+          "goal": "Produce a 10-minute demo plan that ends in a decision.",
+          "steps": [
+            "Pick something you have built, or the eval exercise from module 9.",
+            "Write the one decision you want at the end in a single sentence.",
+            "Fill in the five-part script: problem, result, evidence, limits, ask. Keep each part to a few lines.",
+            "List the three hardest questions you expect and write a short honest answer to each.",
+            "Rehearse out loud with a timer, then once more with a friend or by recording yourself.",
+            "Record a backup run of the result part and save it locally."
+          ],
+          "done_when": "You can give the demo in under 10 minutes, it shows at least one limit, and it ends with a clear ask."
+        }
+      ],
+      "pitfalls": [
+        "Opening with architecture diagrams. Start with the client's problem; show the inside only if asked.",
+        "Showing only perfect cases. Show one failure and how the workflow handles it.",
+        "Using made-up or toy data when real (agreed, masked) data is available.",
+        "Ending without an ask, so nothing is decided.",
+        "Promising features or dates during questions. Write them down and reply later."
+      ],
+      "check": [
+        "What are the five parts of a decision-focused demo?",
+        "Why show a case where the solution fails?",
+        "How should you answer a question you do not know the answer to?",
+        "What do you prepare in case the live demo breaks?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "Kevin Hale - How to Pitch Your Startup",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=17XZGUX_9iM",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to Run an Effective Demo | Sales Tips with John Barrows",
+          "source": "John Barrows",
+          "url": "https://www.youtube.com/watch?v=1agPDnTmHiw",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Product Demo Tips: Feature Your Solutions, Not Your Features",
+          "source": "OpenView",
+          "url": "https://www.youtube.com/watch?v=tjzr5WPKeT0",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Define success criteria and build evaluations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "INSPIRED: How to Create Tech Products Customers Love - 2nd Edition",
+          "source": "Silicon Valley Product Group",
+          "url": "https://www.svpg.com/books/inspired-how-to-create-tech-products-customers-love-2nd-edition/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "poc-pilot-production",
+      "title": "From POC to pilot to production",
+      "summary": "You will understand what a proof of concept, a pilot and a production system each prove, who uses each, and what must change between them.",
+      "why": "After a good POC the client asks 'can we just switch it on for everyone next month?'. Jumping straight to production can fail in public, and never planning the next step lets good work die. This lesson helps you explain what each stage proves and what has to be true before moving on.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A proof of concept (POC) answers 'can this work at all on our cases?'. A pilot answers 'does it work for real users in real daily work, and is it worth it?'. Production answers 'can the business rely on it every day, at full volume, safely?'. Each stage proves something different, involves different people, and needs more engineering than the one before."
+          ]
+        },
+        {
+          "h": "What each stage proves",
+          "p": [
+            "Use this as a checklist when you agree scope with the client:"
+          ],
+          "list": [
+            "POC: a small build tested on an eval set of real cases. Users: the FDE and one or two SMEs. Proves technical feasibility and gives a first quality number. Weeks, not months.",
+            "Pilot: the solution used by a small group in their real work, with a person reviewing outputs. Users: a few named people from the team. Proves value (time saved, errors caught), usability and that the review step works. Has an agreed start, end and success measure.",
+            "Production: the solution used by everyone who needs it, as part of the normal process. Users: the whole team, supported by IT. Proves reliability at volume, and that the client can own and run it."
+          ]
+        },
+        {
+          "h": "What must change between stages",
+          "p": [
+            "Moving from POC to pilot usually needs: real sign-in instead of a shared link, data access approved by the client's security team, a review screen and audit log, basic monitoring and cost tracking, and a test environment separate from your dev setup.",
+            "Moving from pilot to production usually needs: deployment into the client's own cloud account or platform, CI/CD with an eval gate, alerts with named owners, a runbook, a support model, agreed service levels, backup and recovery, a security and privacy review signed off, and training for every user. It also needs a business owner who is accountable for the outcome after the FDE leaves."
+          ]
+        },
+        {
+          "h": "Deciding to move on, or not",
+          "p": [
+            "Agree the exit criteria for each stage before it starts, in writing. For a pilot that might be a pass rate on the eval set, an edit rate below a limit, a time saving measured against the old process, and positive feedback from the pilot users. At the end, compare results with the criteria and recommend one of three things: move on, run another round with specific changes, or stop.",
+            "Stopping is a valid result. A POC that shows the data is too poor, or a pilot that shows the time saved is too small, has saved the client from a larger failed project. Say so plainly, and record what was learned."
+          ]
+        },
+        {
+          "h": "Who uses it and who owns it",
+          "p": [
+            "Ownership should shift as the stages move. In the POC the FDE owns almost everything. In the pilot a business owner on the client side owns the success measures and the user group, while the FDE still runs the system. In production the client owns both the business outcome and the running system, and the FDE has handed over. Plan that shift from the start, or the solution will depend on you forever.",
+            "Cost changes across stages too. A POC is cheap to run but cheap in rigour. A pilot adds people's time for review and feedback. Production adds hosting, monitoring, support hours and the cost of keeping the eval set and prompts current. Write a rough estimate for each stage early, using the cost per request you measured, so the sponsor can compare the running cost with the value the pilot shows."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "What each stage adds",
+        "caption": "Read top to bottom: each stage keeps everything above it and adds more.",
+        "layers": [
+          {
+            "label": "POC: can it work?",
+            "note": "Eval set, first build, SME feedback"
+          },
+          {
+            "label": "Pilot: is it worth it?",
+            "note": "Real users, review step, logs, sign-in"
+          },
+          {
+            "label": "Production: can we rely on it?",
+            "note": "Client hosting, CI/CD, alerts, support"
+          },
+          {
+            "label": "Owned by the client",
+            "note": "Runbook, named owner, trained team"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a stage plan for the invoice assistant",
+        "p": [
+          "The FDE writes a one-page plan for the client's finance director. The POC runs for a few weeks on 60 real past invoices, with the AP lead labeling cases. Its exit criteria are a pass rate the AP lead agrees is useful and no approve decisions on cases that should have gone to review.",
+          "The pilot then runs for four weeks with two clerks using the assistant on live invoices, every payment still approved by a person. Exit criteria: measured time per invoice compared with the old way, reviewer edit rate below an agreed limit, and both clerks willing to keep using it. Before the pilot starts, the client's IT team approves sign-in and the data flow.",
+          "Production means all AP staff, hosting in the client's cloud account, alerts owned by the platform team, and the AP lead as business owner. The plan lists each item that must be true before go-live, so nobody is surprised by the effort."
+        ],
+        "list": [
+          "POC: feasibility and a first quality number.",
+          "Pilot: value, usability and a working review step.",
+          "Production: reliability, ownership and support."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write a stage plan",
+          "time": "45 min",
+          "goal": "Turn an idea into a POC, pilot and production plan with exit criteria.",
+          "steps": [
+            "Pick an AI use case you know, such as answering HR policy questions or triaging support tickets.",
+            "On one page, write for each stage: what it proves, who uses it, how long it runs.",
+            "Write two or three measurable exit criteria for the POC and for the pilot.",
+            "List at least six things that must change between pilot and production.",
+            "Name who owns the outcome and who owns the system at each stage.",
+            "Ask a free LLM chat to challenge your plan as a sceptical IT director, and note any gaps it finds."
+          ],
+          "done_when": "You have a one-page plan with exit criteria for each stage and a named owner at each stage."
+        }
+      ],
+      "pitfalls": [
+        "Calling a POC 'nearly production'. Name the work that remains so the client can budget for it.",
+        "Running a pilot with no end date or success measure, so it never ends.",
+        "Leaving security and IT review until the week before go-live.",
+        "Keeping all ownership with the FDE, so the system dies when you leave.",
+        "Treating a decision to stop as a failure instead of a useful result."
+      ],
+      "check": [
+        "What does each of POC, pilot and production prove?",
+        "Name five things that must change between pilot and production.",
+        "Why agree exit criteria before a stage starts?",
+        "How should ownership shift across the stages?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "Michael Seibel - How to Plan an MVP",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=1hHMwLxN6EM",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Rules of Machine Learning",
+          "source": "Google for Developers",
+          "url": "https://developers.google.com/machine-learning/guides/rules-of-ml",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "AWS Well-Architected Framework",
+          "source": "AWS",
+          "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "The Twelve-Factor App",
+          "source": "12factor.net",
+          "url": "https://12factor.net/",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Site reliability engineering book index",
+          "source": "Google SRE",
+          "url": "https://sre.google/sre-book/table-of-contents/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Software Product Management",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/specializations/product-management",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "roadmap-backlog",
+      "title": "Roadmap, backlog and success measures",
+      "summary": "You will be able to write a roadmap around outcomes, keep a backlog ranked by value and effort, and define measures that show whether the work succeeded.",
+      "why": "After the first demo, supply chain wants forecasts, finance wants reports and support wants a chatbot, all by next month. Without a way to choose you end up building whatever the loudest person asked for last. This lesson gives you a roadmap tied to outcomes and a ranked backlog, so you can say yes and no with reasons the client agrees with.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A roadmap is a plan of what the team will work on over the coming weeks or months, usually grouped as now, next and later. A backlog is the ordered list of individual items of work. Success measures are the numbers that tell you whether the work achieved what it was for.",
+            "The key idea is to plan around outcomes, not outputs. An output is something you build, such as 'a mailbox connector'. An outcome is a change in the business, such as 'clerks no longer download invoices by hand'. Outputs are how you get outcomes."
+          ]
+        },
+        {
+          "h": "Outcomes versus outputs",
+          "p": [
+            "Outcomes keep the work honest. If the outcome is 'invoices are matched within one day of arrival', you may find the best step is not more AI at all but a fix to how invoices reach the mailbox. Writing the outcome first also gives you the success measure for free: you measure the outcome.",
+            "A good outcome statement names who benefits, what changes, and how you will know. For example: 'AP clerks spend less time per invoice, measured as average handling time from arrival to decision, compared with the four weeks before the pilot.'"
+          ]
+        },
+        {
+          "h": "Prioritizing with value versus effort",
+          "p": [
+            "For each backlog item, estimate value (how much it moves an outcome) and effort (how much work it takes), each on a simple scale such as 1 to 5. Estimate together with the client: they know the value, you know the effort. Then sort:"
+          ],
+          "list": [
+            "High value, low effort: do first.",
+            "High value, high effort: plan it and break it into smaller pieces.",
+            "Low value, low effort: do it only when there is spare time.",
+            "Low value, high effort: park it, and tell the requester why."
+          ]
+        },
+        {
+          "h": "Writing backlog items",
+          "p": [
+            "Each item should be small enough to finish in days, not weeks, and should say which outcome it serves. A common format is the user story: 'As an AP reviewer, I want to see the reason for each suggested decision, so that I can approve faster.' Add acceptance criteria: the checks that show it is done, such as 'the reason names the PO line that differs'.",
+            "Keep one backlog, visible to the client, in a simple tool they can use: a GitHub project board, a shared spreadsheet, or their own tracker. Review it with the business owner every week or two."
+          ]
+        },
+        {
+          "h": "Success measures",
+          "p": [
+            "Pick a few measures that link to outcomes, and measure the starting point (baseline) before you change anything, or you cannot show improvement. Mix three kinds: business measures (time per case, error rate, backlog of cases), quality measures (eval pass rate, reviewer edit rate), and adoption measures (how many of the intended users use it each week). Leading measures, such as weekly active users, move early; lagging measures, such as cost saved per quarter, prove value later. Report both.",
+            "Keep the list short. Three to five measures that the business owner understands and checks are worth more than a dashboard of twenty that nobody opens. Agree who collects each number, how often, and where it is shown, and put that in the hand-over pack so it continues after you leave."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Value versus effort quadrants",
+        "caption": "Read each column as one quadrant: what goes there and what to do with it.",
+        "columns": [
+          {
+            "title": "High value, low effort",
+            "items": [
+              "Do first",
+              "Often small UX fixes",
+              "Builds early trust"
+            ]
+          },
+          {
+            "title": "High value, high effort",
+            "items": [
+              "Plan and split up",
+              "Needs a design first",
+              "Check it still matters"
+            ]
+          },
+          {
+            "title": "Low value, low effort",
+            "items": [
+              "Only with spare time",
+              "Easy to over-collect",
+              "Batch them together"
+            ]
+          },
+          {
+            "title": "Low value, high effort",
+            "items": [
+              "Park it",
+              "Explain why to requester",
+              "Revisit each quarter"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a small backlog ranked by value and effort",
+        "p": [
+          "After the pilot demo, the AP team and the FDE list five candidate items, each tied to an outcome, and score them together. The CSV shows the backlog. The Python script ranks the same items by value divided by effort and places each in a quadrant. The scores are judgement calls agreed in the meeting, not measurements, so the ranking is a starting point for discussion, not an answer.",
+          "Running the script puts 'Show confidence and reason on each match' first (value 4, effort 1), then the mailbox connector and the weekly report. Single sign-on lands in plan because it has medium value and medium effort but is required to pass IT review, which is a reminder that some items are needed regardless of score. Handwritten scans are parked."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "# backlog.csv\n# id,item,outcome_it_serves,value_1_5,effort_1_5,status\n# B1,Read invoices from the shared mailbox,Clerks stop downloading files by hand,5,2,next\n# B2,Show confidence and reason on each match,Reviewers decide faster and trust it,4,1,next\n# B3,Weekly accuracy report for the finance lead,Owner can see quality without asking,4,2,next\n# B4,Single sign-on with the client directory,Pass IT review for the pilot,3,3,planned\n# B5,Support scanned handwritten invoices,Cover the last few percent of volume,2,5,parked\n\nbacklog = [\n    # (item, value 1-5, effort 1-5)\n    (\"Read invoices from the shared mailbox\", 5, 2),\n    (\"Show confidence and reason on each match\", 4, 1),\n    (\"Single sign-on with the client directory\", 3, 3),\n    (\"Support scanned handwritten invoices\", 2, 5),\n    (\"Weekly accuracy report for the finance lead\", 4, 2),\n]\n\ndef quadrant(value, effort):\n    if value >= 4 and effort <= 2:\n        return \"do first\"\n    if value >= 3:\n        return \"plan\"\n    if effort <= 2:\n        return \"quick win if time\"\n    return \"park\"\n\nfor item, value, effort in sorted(backlog, key=lambda b: (-b[1] / b[2], b[0])):\n    print(f\"{value / effort:4.1f}  {quadrant(value, effort):17}  {item}\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Turn requests into a ranked backlog",
+          "time": "45 min",
+          "goal": "Practise outcome-first planning and value versus effort ranking.",
+          "steps": [
+            "Write down 8 feature requests for a tool you use at work or for the invoice assistant.",
+            "For each, write the outcome it would serve in one sentence. Drop any request with no clear outcome.",
+            "In a spreadsheet, score value and effort from 1 to 5 and add value divided by effort.",
+            "Sort by that column and label each item with its quadrant.",
+            "Write one success measure with a baseline for your top outcome.",
+            "Rewrite your top item as a user story with two acceptance criteria."
+          ],
+          "done_when": "You have a sorted backlog where every item names an outcome, and one measure with its baseline."
+        }
+      ],
+      "pitfalls": [
+        "Writing a roadmap as a list of features with dates. Write outcomes and keep dates loose for later items.",
+        "Scoring value alone. Value comes from the client; effort from the builders.",
+        "Forgetting the baseline, so you cannot prove the change helped.",
+        "Treating the value versus effort score as exact. It is a conversation tool.",
+        "Keeping the backlog in your own notes where the client cannot see it."
+      ],
+      "check": [
+        "What is the difference between an outcome and an output? Give one of each.",
+        "What do you do with a high value, high effort item?",
+        "Why must you measure a baseline before the pilot?",
+        "What are leading and lagging measures?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Product Roadmap Guide: What is it & How to Create One",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/agile/product-management/product-roadmaps",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Prioritization frameworks",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/agile/product-management/prioritization-framework",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "User Stories With Examples and a Template",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/agile/project-management/user-stories",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How do you prioritize a product roadmap?",
+          "source": "Stanford Online",
+          "url": "https://www.youtube.com/watch?v=oLF_sbdI6oQ",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "INSPIRED: How to Create Tech Products Customers Love - 2nd Edition",
+          "source": "Silicon Valley Product Group",
+          "url": "https://www.svpg.com/books/inspired-how-to-create-tech-products-customers-love-2nd-edition/",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "Certified Scrum Product Owner (CSPO) Certification",
+          "source": "Scrum Alliance",
+          "url": "https://www.scrumalliance.org/get-certified/product-owner-track/certified-scrum-product-owner",
+          "cost": "paid"
+        },
+        {
+          "type": "course",
+          "title": "Digital Product Management: Modern Fundamentals",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/uva-darden-digital-product-management",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "handover-pack",
+      "title": "The hand-over pack: runbook, owner and support model",
+      "summary": "You will be able to put together a hand-over pack with a runbook, a named owner and a support model, so the client can run the solution without you.",
+      "why": "Near the end the client asks 'who do we call when it breaks after you are gone?'. If it only works while you are there, it was a demo, not a deployment. This lesson shows you how to leave a runbook, a named owner and a support plan, so their team can keep it running and decide its future.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A hand-over pack is the set of documents, access and agreements that move ownership from you to the client. It has three core parts. A runbook: how to operate the system day to day and what to do when things go wrong. A named owner: one person accountable for the business outcome and one team accountable for the running system. A support model: who answers which problem, how fast, and how issues are escalated.",
+            "Start building it on day one of the pilot, not in the last week. Every time you fix something, add a line to the runbook."
+          ]
+        },
+        {
+          "h": "What goes in a runbook",
+          "p": [
+            "Write it for a capable person who has never seen the system. Keep it short and practical:"
+          ],
+          "list": [
+            "What the system does and does not do, in two or three sentences.",
+            "Owners, support hours and contacts.",
+            "Where it runs: accounts, repository, deploy workflow, and the names (never values) of its secrets.",
+            "Routine checks: which dashboard to look at, and the weekly eval rerun.",
+            "Common problems: symptom, first check, fix or escalate.",
+            "Release and rollback steps.",
+            "Known limits and open risks."
+          ]
+        },
+        {
+          "h": "A RACI for support",
+          "p": [
+            "RACI is a simple table that shows, for each task, who is Responsible (does the work), Accountable (owns the result and signs off; only one per task), Consulted (asked for input before) and Informed (told after). It removes the most common hand-over problem: everyone assuming someone else will handle it.",
+            "For an AI solution, typical rows are: answer user questions, investigate a wrong answer, update the prompt or eval set, approve a release, renew API keys, watch cost, and decide on new features. Fill it in with the client in a meeting, not alone, and make sure each Accountable name agrees."
+          ],
+          "code": {
+            "lang": "text",
+            "text": "Task                        AP lead  Platform team  IT security  FDE (until exit)\nAnswer user questions       A        R              -            C\nInvestigate a wrong answer  A        R              -            C\nUpdate prompt or eval set   A        R              -            C\nApprove a release           A        R              C            I\nRotate API keys             I        A/R            C            -\nWatch cost and alerts       I        A/R            -            -\nDecide on new features      A        C              C            I"
+          }
+        },
+        {
+          "h": "The support model",
+          "p": [
+            "Agree tiers. First line is usually the business team or the client's service desk: they handle how-to questions and known issues from the runbook. Second line is the technical owner: they investigate errors, wrong answers and alerts. Third line, if any, is the vendor or the original builders, for problems nobody else can fix. Write down how users report a problem, how fast each tier responds, and what counts as urgent.",
+            "Then run a shadow period: for a week or two the client's team handles every issue while you watch and only step in when asked. Then reverse it so you are not involved at all, and see what breaks. Every gap you find goes into the runbook."
+          ]
+        },
+        {
+          "h": "Closing the engagement",
+          "p": [
+            "Before you leave, check access: the client must own every account, repository and key, and your personal access should be removed. Hand over the eval set and results history, the backlog with its priorities, and a short note on open risks. Hold a final session where the owner walks you through a routine check and a rollback. If they can do it without help, the hand-over has worked.",
+            "Agree how the client can reach you or your team after the engagement, if at all, and for how long. A clear end date with a short, named period of light support is better than an open promise. It tells the owner they are now in charge, and it gives them a safety net while they get used to it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "Shadow then reverse-shadow hand-over",
+        "caption": "Read top to bottom: support work moves from the FDE to the client team step by step.",
+        "lanes": [
+          "FDE",
+          "Technical owner",
+          "Business owner"
+        ],
+        "steps": [
+          {
+            "lane": 0,
+            "label": "Writes runbook and RACI draft"
+          },
+          {
+            "lane": 2,
+            "label": "Agrees RACI and names owners"
+          },
+          {
+            "lane": 0,
+            "label": "Handles issues, owner watches"
+          },
+          {
+            "lane": 1,
+            "label": "Handles issues, FDE watches"
+          },
+          {
+            "lane": 1,
+            "label": "Runs rollback drill alone"
+          },
+          {
+            "lane": 0,
+            "label": "Transfers access and keys"
+          },
+          {
+            "lane": 2,
+            "label": "Signs off hand-over"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a runbook template",
+        "p": [
+          "Here is a short runbook for the invoice matching assistant, written in Markdown so it can live in the same repository as the code. Placeholders such as 'Repo, branch, and deploy workflow name' are filled with the real values for the client. It names secrets but never contains their values.",
+          "The common problems table is the part support teams use most. Each row starts from what a person notices (the symptom), not from the technical cause, because that is how problems are reported."
+        ],
+        "code": {
+          "lang": "markdown",
+          "text": "# Runbook: Invoice matching assistant\n\n## What it does\nSuggests approve, hold, reject or needs_review for each invoice. A person approves every payment.\n\n## Owners\nBusiness owner: AP lead. Technical owner: platform team. Support hours: Mon-Fri 8-18.\n\n## Where it runs\nContainer service in the client cloud account. Repo, branch, and deploy workflow name.\nSecrets: names only (ANTHROPIC_API_KEY in the secret store). Never the values.\n\n## Daily and weekly checks\n- Dashboard: error rate, latency, daily cost, reviewer edit rate.\n- Weekly: rerun eval set; add new failure cases.\n\n## Common problems\n| Symptom | First check | Fix or escalate |\n| --- | --- | --- |\n| Queue not moving | Mailbox connector log | Restart job; escalate to IT if mailbox locked |\n| Cost alert | Requests per hour, retries | Pause batch job; tell technical owner |\n| Edit rate rising | Last 20 edited cases | Add to eval set; review prompt with AP lead |\n\n## Release and rollback\nMerge to main, deploy to test, AP lead checks 10 cases, promote to prod.\nRollback: redeploy the previous tagged build.\n\n## Contacts\nNamed people and how to reach them, kept current by the business owner."
+        }
+      },
+      "practice": [
+        {
+          "title": "Write a runbook and RACI",
+          "time": "60 min",
+          "goal": "Produce a hand-over pack someone else could use without you.",
+          "steps": [
+            "Pick a small tool you built or use, even a spreadsheet with formulas or a script.",
+            "Copy the runbook template above into a Markdown file and fill in every section.",
+            "Write at least three common problems with symptom, first check and fix.",
+            "Draw a RACI table with five tasks and three or four roles; give each task exactly one A.",
+            "Give the runbook to a friend and ask them to do one routine check using only the document.",
+            "Fix every place where they got stuck."
+          ],
+          "done_when": "Another person completed a routine check from your runbook alone, and every task in your RACI has exactly one Accountable."
+        }
+      ],
+      "pitfalls": [
+        "Writing the runbook in the last week. Build it as you go.",
+        "Naming a team as Accountable instead of a person.",
+        "Putting secret values in the runbook. Name the secret and where it is stored.",
+        "Leaving accounts or keys in your own name after you leave.",
+        "Skipping the shadow period, so the first real incident is the first test."
+      ],
+      "check": [
+        "What are the three core parts of a hand-over pack?",
+        "What do R, A, C and I stand for, and why only one A per task?",
+        "What belongs in the common problems section of a runbook?",
+        "How do you know the hand-over has worked?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "RACI Chart: What is it & How to Use",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/work-management/project-management/raci-chart",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "The RACI Matrix Explained",
+          "source": "Sprouts",
+          "url": "https://www.youtube.com/watch?v=3xsfuDXEfd0",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "On Call Engineer Best Practices for IT Services",
+          "source": "Google SRE book",
+          "url": "https://sre.google/sre-book/being-on-call/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "PagerDuty Incident Response Documentation",
+          "source": "PagerDuty",
+          "url": "https://response.pagerduty.com/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Incident Response: Phases, Roles, and Tools",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/incident-management/incident-response",
+          "cost": "free"
+        },
+        {
+          "type": "cert",
+          "title": "Google Project Management Professional Certificate",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/professional-certificates/google-project-management",
+          "cost": "paid"
+        }
+      ]
+    }
+  ]
+}

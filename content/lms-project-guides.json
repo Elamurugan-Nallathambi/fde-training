@@ -1,0 +1,222 @@
+{
+  "fde-role": {
+    "decision": "Choose a bounded workflow and name the person who owns the outcome. An FDE project is successful when it changes a useful result in a real process, not merely when a model returns text. Separate the user, process owner, technical owner and approver; they may be different people.",
+    "example": "A fictional quality team spends 12 minutes preparing each record for investigation. The proposed assistant drafts an evidence-linked chronology. The investigator still decides the cause and disposition. A first release excludes records without required attachments and returns an explicit missing-information result.",
+    "work": [
+      "Map the current workflow with inputs, decisions and outputs.",
+      "Identify one measurable bottleneck and validate the problem with a process owner.",
+      "Write an intended-use statement and list excluded decisions.",
+      "Record who operates, reviews and supports the proposed workflow."
+    ],
+    "evidence": [
+      "A one-page problem statement and process map.",
+      "A stakeholder table with decision rights.",
+      "Three examples of tasks the application will refuse or escalate."
+    ],
+    "review": [
+      "The problem is specific enough to demonstrate with sample cases.",
+      "The proposed output has a named human or system consumer.",
+      "Responsibility for high-impact decisions is explicit."
+    ]
+  },
+  "llm-foundations": {
+    "decision": "Run a controlled comparison before choosing a prompting approach. Keep the task and evaluation cases constant while changing the prompt. Store the model identifier, settings and exact inputs so another person can understand what was compared. A more fluent answer is not automatically a more accurate or useful one.",
+    "example": "For six fictional deviation records, a plain prompt produces a free-text chronology while a structured prompt returns event, date and source fields. One record contains contradictory dates. The stronger output identifies the conflict instead of selecting a convenient date. Score factual support and handling of uncertainty separately from formatting.",
+    "work": [
+      "Prepare six synthetic cases, including a missing field and contradictory evidence.",
+      "Write an expected result or scoring rubric before running prompts.",
+      "Compare a plain instruction, an example-based instruction and a structured-output instruction.",
+      "Repeat selected cases and record instability and costs."
+    ],
+    "evidence": [
+      "A prompt comparison table with raw outputs.",
+      "An error log identifying unsupported claims and omitted facts.",
+      "A short choice rationale with known limitations."
+    ],
+    "review": [
+      "Each factual claim can be checked against the supplied record.",
+      "The comparison uses the same cases and criteria.",
+      "The chosen approach has a defined uncertainty response."
+    ]
+  },
+  "building-blocks": {
+    "decision": "Build a small, reproducible data flow before adding an AI component. Validate inputs, preserve stable record identifiers and make failures observable. Keep configuration separate from secrets. A database query should answer a defined business question and have a result you can independently check.",
+    "example": "A fictional dataset contains 20 support cases with case ID, opened date, category and status. One ID is duplicated and two dates are invalid. The loader reports rejected records with reasons and leaves the accepted data consistent. A query counts open cases by category; the result is checked against a manually calculated fixture.",
+    "work": [
+      "Define a schema and create a synthetic dataset with invalid and duplicate rows.",
+      "Write a loader with validation and explicit error reporting.",
+      "Run a parameterized query and compare it with a known expected result.",
+      "Add a test for malformed input and document how to run the pipeline."
+    ],
+    "evidence": [
+      "Schema, sample data, loader and query in version control.",
+      "A test command with expected output.",
+      "A README describing configuration and failure behavior."
+    ],
+    "review": [
+      "A second person can reproduce the result.",
+      "Invalid rows are handled deliberately, not silently lost.",
+      "No credentials or real sensitive records are committed."
+    ]
+  },
+  "business": {
+    "decision": "Build a value model that exposes assumptions rather than hides them. Separate baseline effort, achievable time reduction, adoption and ongoing operating cost. Benefits such as reduced error or faster turnaround need their own measures; do not convert them to money without a defensible method.",
+    "example": "A fictional process handles 400 cases per month at 12 minutes each. A pilot saves 4 minutes for 60% of cases. Gross effort released is 400 x 0.60 x 4 / 60 = 16 hours per month, not the full 80-hour baseline. Deduct review, support and operating effort before claiming a net gain. Released capacity is not automatically cash savings.",
+    "work": [
+      "Record baseline volume and effort with the source of each estimate.",
+      "Calculate conservative, expected and optimistic scenarios.",
+      "Include human review, hosting, model, maintenance and validation effort.",
+      "Define a pilot measure that could disprove the business case."
+    ],
+    "evidence": [
+      "A transparent calculation sheet with units and assumptions.",
+      "A sensitivity comparison for adoption and review time.",
+      "A decision note defining the minimum useful result."
+    ],
+    "review": [
+      "Arithmetic and units can be checked.",
+      "The benefit claim distinguishes capacity from financial savings.",
+      "At least one plausible scenario makes the project unattractive."
+    ]
+  },
+  "discovery": {
+    "decision": "Use observation and specific examples to understand the process before writing requirements. Ask a user to walk through a recent case, including exceptions and workarounds. Separate an observed fact from an interview opinion or your proposed solution. Obtain agreement on an outcome rather than on a particular AI feature.",
+    "example": "A fictional investigator says finding dates takes the longest. Observation reveals that missing attachments cause most delays. A summary generator would not solve the bottleneck alone. The team changes the scope to an attachment-completeness check and evidence-linked chronology with an exception queue.",
+    "work": [
+      "Interview or role-play a process owner using two normal cases and two exceptions.",
+      "Draw the current process and mark handoffs, delays and decision points.",
+      "Write three testable requirements with traceable sources.",
+      "Define acceptance examples and explicit out-of-scope behavior."
+    ],
+    "evidence": [
+      "An interview or observation record without sensitive data.",
+      "A process map and one-page requirements brief.",
+      "Acceptance examples and an assumptions log."
+    ],
+    "review": [
+      "Requirements trace to observed needs.",
+      "Exceptions are included, not deferred indefinitely.",
+      "A process owner can explain what successful behavior looks like."
+    ]
+  },
+  "design": {
+    "decision": "Compare at least one non-AI option with the proposed AI approach. Evaluate data access, reliability, integration, cost and the consequences of errors. Draw the data flow across trust boundaries and show where authorization and human review occur. A vendor feature list is not an architecture.",
+    "example": "A fictional chronology task could use a manual checklist, deterministic extraction from structured fields, or an LLM over documents. Structured fields cover most cases reliably, so the design uses code first and sends only supported document types to the model. Uncertain outputs enter a reviewer queue with source references.",
+    "work": [
+      "Compare three options against weighted criteria and explain the weights.",
+      "Draw components, data stores, external calls and trust boundaries.",
+      "Define authorization checks and the review workflow.",
+      "Estimate request volume, latency and operating cost with explicit assumptions."
+    ],
+    "evidence": [
+      "An options paper with a justified choice.",
+      "An architecture and data-flow diagram.",
+      "An error-handling and access-control design."
+    ],
+    "review": [
+      "The chosen approach addresses the real requirement.",
+      "Data exposure and integration dependencies are visible.",
+      "There is a credible response to model or provider failure."
+    ]
+  },
+  "build": {
+    "decision": "Build the smallest end-to-end slice that proves the intended workflow. Start from a known fixture and an explicit expected output. Keep parsing, model invocation, validation and presentation separable so failures can be diagnosed. The application must handle a model response as untrusted input, not executable instructions.",
+    "example": "A fictional upload workflow validates the file, extracts text, requests a structured chronology and checks the returned schema. Source references must resolve to the uploaded record. A response with an invented reference is rejected or marked for review. The interface shows the original evidence beside the draft.",
+    "work": [
+      "Implement one supported input format and a stable output schema.",
+      "Add schema validation and source-reference checks.",
+      "Handle timeout, malformed response and unauthorized access scenarios.",
+      "Record a demo showing both a successful case and a refusal or error case."
+    ],
+    "evidence": [
+      "Runnable code and synthetic fixtures.",
+      "Tests for the core workflow and failure paths.",
+      "A short demo and a known-limitations list."
+    ],
+    "review": [
+      "The workflow works end to end without hidden manual corrections.",
+      "Model output cannot bypass validation or authorization.",
+      "Failures are understandable and recoverable."
+    ]
+  },
+  "dependable": {
+    "decision": "Map each processing step to code, model or human responsibility. Use deterministic code for rules that must be exact, models for suitable interpretation tasks and people for decisions requiring accountable judgment. Design retries, duplicate prevention and recovery around the actual side effects of the workflow.",
+    "example": "A fictional assistant can draft a proposed action but cannot send an external notification. A user approves the draft through an authorized action. If the model request times out, retrying does not create duplicate records because the workflow uses a stable request identifier. The audit record separates generated content from approved action.",
+    "work": [
+      "List five likely failure modes and their user-visible consequences.",
+      "Add input limits, timeout handling and safe retry behavior.",
+      "Test duplicate requests and malicious instructions embedded in source text.",
+      "Write a recovery procedure for a partially completed workflow."
+    ],
+    "evidence": [
+      "A failure-mode table with tested controls.",
+      "Tests for retries, authorization and instruction injection.",
+      "An operational recovery note and audit example."
+    ],
+    "review": [
+      "Generated content cannot silently authorize side effects.",
+      "Retries do not duplicate irreversible actions.",
+      "A support person can diagnose the failure from available records."
+    ]
+  },
+  "evaluate": {
+    "decision": "Freeze a representative test set before tuning the final version. Include normal cases, important edge cases and unacceptable outcomes. Record the expected result or scoring rubric and who established it. Keep test cases used for prompt tuning separate from held-out evaluation cases so reported performance is not merely memorization.",
+    "example": "A fictional team evaluates 30 synthetic cases: 18 normal, 6 missing-information and 6 conflicting-evidence cases. It reports factual-support errors separately from formatting failures. After a prompt change, held-out cases are rerun. A single unauthorized data exposure is a release blocker even if the average quality score is high.",
+    "work": [
+      "Build the case set with categories, expected outcomes and severity.",
+      "Run the frozen application version and retain outputs.",
+      "Analyze errors by category and define release criteria before declaring success.",
+      "For a local deployment exercise, document configuration, access control, monitoring and rollback; publish only with project authorization."
+    ],
+    "evidence": [
+      "Evaluation dataset, rubric and versioned results.",
+      "An error analysis and go/no-go recommendation.",
+      "An operations checklist with owner, alerts and rollback steps."
+    ],
+    "review": [
+      "The reported result identifies the tested version and population.",
+      "High-severity failures are not hidden by an average.",
+      "Deployment and support responsibilities are explicit."
+    ]
+  },
+  "demo": {
+    "decision": "Demonstrate the user journey and the evidence supporting your claims. Show the baseline problem, the supported workflow, a difficult case and the boundaries of the solution. A handover is successful when another person can operate the system and knows what to do when it fails.",
+    "example": "A fictional ten-minute demo uses one ordinary case, one missing attachment and one contradictory date. The presenter explains why the last case requires human resolution. A second person then starts the application from the README and follows a simulated recovery procedure. Missing configuration steps become handover actions.",
+    "work": [
+      "Prepare a demo script with the problem, outcome, evidence and limitations.",
+      "Ask another person to run the application from your instructions.",
+      "Create a runbook for the most likely support incident.",
+      "Record unresolved work with owners and acceptance criteria."
+    ],
+    "evidence": [
+      "Demo recording or script and reproducible sample inputs.",
+      "README, runbook and support ownership table.",
+      "A prioritized backlog and handover acceptance record."
+    ],
+    "review": [
+      "Claims match the evaluation evidence.",
+      "A second person can operate the supported workflow.",
+      "Limitations and unresolved risks are visible to the owner."
+    ]
+  },
+  "capstone": {
+    "decision": "Assemble a coherent evidence pack for one project rather than unrelated artifacts. The brief, architecture, implementation, evaluation and handover should describe the same intended use and release. A mentor evaluates the quality of the evidence and may request changes; completing quizzes does not substitute for this review.",
+    "example": "A fictional final pack contains a scoped chronology assistant, design decision record, synthetic dataset, test results, risk log and runbook. Review finds that the demo uses a newer prompt than the evaluated version. The learner reruns evaluation on the actual release and updates the limitations before resubmission.",
+    "work": [
+      "Index the artifacts produced in each preceding step.",
+      "Check that every artifact identifies the same scope and release.",
+      "Summarize measured results, failure modes, unresolved limitations and ownership.",
+      "Submit a stable HTTPS evidence link and an honest summary through the LMS project review form."
+    ],
+    "evidence": [
+      "A complete evidence index and reproducible release.",
+      "Evaluation results and an explicit limitations statement.",
+      "A demonstration, handover pack and mentor review response."
+    ],
+    "review": [
+      "The project solves a specific and justified workflow problem.",
+      "Evidence is consistent, reproducible and sufficient for the claims.",
+      "The learner can explain tradeoffs and respond to review findings."
+    ]
+  }
+}

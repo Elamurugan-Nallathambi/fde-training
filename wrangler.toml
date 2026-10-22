@@ -1,0 +1,7 @@
+# Cloudflare Pages config: the AI binding gives /api/review Workers AI from this account. Secrets stay in the dashboard.
+name = "fde-training-program"
+pages_build_output_dir = "public"
+compatibility_date = "2026-06-01"
+
+[ai]
+binding = "AI"

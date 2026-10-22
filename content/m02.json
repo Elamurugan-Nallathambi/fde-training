@@ -1,0 +1,1060 @@
+{
+  "module": 2,
+  "title": "LLM foundations and AI fluency",
+  "intro": "A client asks 'can we just put our documents into a chatbot and have it answer customer questions?'. To answer that honestly you need to know what a large language model does, what it costs, how to prompt it, ground it in real sources, choose between RAG, tools and agents, and decide what data may go into it at all.",
+  "lessons": [
+    {
+      "id": "how-llms-work",
+      "title": "How an LLM produces text",
+      "summary": "You will be able to explain tokens, next-token prediction, training versus inference, and why the same question can get different answers.",
+      "why": "A quality manager will ask 'why did it give a different answer to the same question this morning?'. If you only know the tool, you can only guess. This lesson explains how the model actually produces text, so you can answer honestly, set the right expectations and design around its weak points.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A large language model (LLM) is a program that has learned, from a very large amount of text, to predict what comes next. You give it some text, called the prompt. It predicts the next small piece of text, adds it to the end, and repeats. A long, sensible answer is built one small piece at a time.",
+            "This sounds too simple to produce useful work, but predicting the next piece well requires learning a lot: grammar, facts, styles of writing, how arguments are built, how code works. The model does not look things up in a database while it writes. Everything it 'knows' is stored as patterns in billions of numbers called parameters (or weights), learned during training."
+          ]
+        },
+        {
+          "h": "Tokens: the pieces the model works with",
+          "p": [
+            "Models do not read letters or whole words. They read tokens. A token is a chunk of text: often a whole short word, sometimes part of a longer word, a space, or a punctuation mark. A tokenizer is the part of the system that splits text into tokens and turns each one into a number.",
+            "Tokens matter to an FDE for three reasons. Cost is charged per token. Limits, such as the context window, are measured in tokens. And some odd behaviour comes from tokens: a model can struggle to count the letters in a word because it never sees the individual letters, only the chunks. Different model families use different tokenizers, so the same text can be a different number of tokens in different models. Vendors provide tools to count tokens exactly, and you should use them rather than guess."
+          ]
+        },
+        {
+          "h": "Next-token prediction, step by step",
+          "p": [
+            "Here is what happens each time the model writes one token."
+          ],
+          "list": [
+            "The prompt so far is split into tokens and turned into numbers.",
+            "The model passes these numbers through many layers. Each layer lets every token 'look at' the earlier tokens and mix in what is relevant. This mechanism is called attention, and the overall design is called a transformer.",
+            "At the end, the model produces a score for every token in its vocabulary: how likely it is to come next.",
+            "One token is chosen from these likely options. This choice is called sampling.",
+            "The chosen token is added to the text, and the whole process repeats for the next token.",
+            "It stops when the model produces a special end token or reaches the maximum length you allowed."
+          ]
+        },
+        {
+          "h": "Training versus inference",
+          "p": [
+            "Training is how the model is made. In pretraining, the model reads huge amounts of text and adjusts its parameters, again and again, to get better at predicting the next token. This produces a model that can continue any text but is not yet a helpful assistant. In a later stage, often called post-training or fine-tuning, people and automated methods teach it to follow instructions, answer questions, refuse harmful requests and hold a conversation. Training is done by the model provider, takes a lot of computing power, and happens before you ever use the model.",
+            "Inference is using the trained model: sending a prompt and getting a response. This is what you do on a client project. The model's parameters do not change during inference. It does not learn from your conversation in the way a person does; if it seems to remember something within a chat, that is because the earlier messages are sent to it again as part of the prompt. It also has a training cutoff: it knows little or nothing about events after its training data was collected, unless you give it that information in the prompt."
+          ]
+        },
+        {
+          "h": "Why it is probabilistic",
+          "p": [
+            "At each step the model produces likelihoods, not one fixed answer. Sampling picks from them. A setting called temperature controls how adventurous the choice is: lower values make the model stick to the most likely tokens, higher values let it pick less likely ones more often. Because one different token early on changes everything that follows, two runs of the same prompt can give different answers.",
+            "This has practical effects. You cannot test a prompt once and call it done; you need to run it on many cases. You should not promise a client identical output every time. And when the exact answer matters, such as a number or a category, you should give the model clear rules and examples, ask for a fixed output format, and check the result with code where you can."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "How one token is produced",
+        "caption": "Read left to right. The last step feeds the new token back in, and the flow repeats until the answer is finished.",
+        "steps": [
+          {
+            "label": "Prompt text",
+            "note": "Instructions, context and the question"
+          },
+          {
+            "label": "Split into tokens",
+            "note": "Text chunks turned into numbers"
+          },
+          {
+            "label": "Transformer layers",
+            "note": "Attention mixes in relevant earlier tokens"
+          },
+          {
+            "label": "Score every next token",
+            "note": "Likelihood for each vocabulary token"
+          },
+          {
+            "label": "Sample one token",
+            "note": "Temperature controls how adventurous"
+          },
+          {
+            "label": "Append and repeat",
+            "note": "Stop at end token or length limit"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: completing a sentence",
+        "p": [
+          "Give a model the text 'The invoice was rejected because the purchase order'. Many next tokens are possible. Words like 'number', 'was' or 'did' might all be likely, while 'banana' would be very unlikely. The model picks one, say 'number', and the text becomes 'The invoice was rejected because the purchase order number'. Now 'was', 'did' and 'had' become likely next tokens. After a few steps you might get 'The invoice was rejected because the purchase order number did not match.'",
+          "Run the same prompt again with a higher temperature and the model might write 'The invoice was rejected because the purchase order had expired.' Both are fluent. Neither is checked against any real invoice. The model produced what is likely, not what is true for your client. That difference is the root of the hallucination problem covered later in this module."
+        ]
+      },
+      "practice": [
+        {
+          "title": "See tokens for yourself",
+          "time": "20 min",
+          "goal": "Build intuition for how text becomes tokens.",
+          "steps": [
+            "Open the Tiktokenizer page linked below. It shows tokenizers used by some model families; others differ, but the idea is the same.",
+            "Paste a normal English sentence and note how many tokens it becomes.",
+            "Paste a product code such as 'SKU-88341-BLK-XL', a long email address and a sentence in another language you know. Compare the counts.",
+            "Paste a short block of JSON and see how punctuation is split.",
+            "Write three observations about what makes text use more tokens."
+          ],
+          "done_when": "You have written three observations about token counts, each backed by one example you pasted."
+        },
+        {
+          "title": "Watch probability at work",
+          "time": "20 min",
+          "goal": "See that the same prompt gives different answers.",
+          "steps": [
+            "In a free LLM chat such as Claude, start a new chat and ask: 'Write a one-sentence reason why a delivery might be late.'",
+            "Start four more new chats and ask exactly the same thing.",
+            "Write down all five answers and mark which words are the same and which differ.",
+            "Now ask in a new chat: 'Pick one category for a late delivery from this list only: weather, stock, address, carrier. Reply with one word.' Repeat in four new chats.",
+            "Compare how much the answers varied in each case."
+          ],
+          "done_when": "You can explain, with your ten answers as evidence, why a narrow task with fixed options gives more consistent output than an open one."
+        }
+      ],
+      "pitfalls": [
+        "Saying the model 'looks it up'. Without tools or provided documents, it is predicting from patterns learned in training.",
+        "Assuming the model learns from your chats during a project. Its parameters do not change during inference.",
+        "Testing a prompt once. Output varies; test on many cases.",
+        "Guessing token counts. Use the vendor's token counting tool when cost or limits matter.",
+        "Forgetting the training cutoff. Give the model recent facts it needs in the prompt."
+      ],
+      "check": [
+        "What is a token, and why does an FDE care about token counts?",
+        "Describe the steps that produce one token of output.",
+        "What is the difference between training and inference? Which one do you do on a project?",
+        "Why can the same prompt give different answers, and what does temperature change?",
+        "Why can a model sound right and still be wrong?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "Large Language Models explained briefly",
+          "source": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "[1hr Talk] Intro to Large Language Models",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Deep Dive into LLMs like ChatGPT",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=7xTGNNLPyMI",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+          "source": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Glossary",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/about-claude/glossary",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Tiktokenizer",
+          "source": "Tiktokenizer",
+          "url": "https://tiktokenizer.vercel.app/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Generative AI for Everyone",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/generative-ai-for-everyone",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "context-cost-latency",
+      "title": "Context windows, cost and latency",
+      "summary": "You will be able to estimate what an LLM feature will cost and how fast it will respond, and explain why long prompts cost more and run slower.",
+      "why": "A finance lead will ask 'what will this cost us a month once every agent uses it?', and an operations lead will ask 'can it answer while the customer is still on the call?'. A pilot that is cheap and fine in testing can be expensive or too slow at full volume. This lesson gives you a simple way to work out cost and speed, so you answer with a calculation, not a guess.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Every call to an LLM has input tokens (everything you send: instructions, documents, chat history, the question) and output tokens (everything the model writes back). Providers charge for both, usually as a price per million tokens, and output tokens usually cost more than input tokens. The context window is the maximum number of tokens the model can handle in one call, counting both input and output.",
+            "Latency is how long the user waits. It has two main parts: the time before the first token appears, which grows with the amount of input, and the time to write the rest, which grows with the amount of output because the model writes one token at a time."
+          ]
+        },
+        {
+          "h": "The context window",
+          "p": [
+            "Think of the context window as the model's desk. Everything it needs for this call must fit on the desk at once: your instructions, any documents, the conversation so far and room for the answer. Anything not on the desk does not exist for the model in that call. If a chat gets long, older messages may need to be dropped or summarised to make room.",
+            "Context windows today are large enough to hold long documents, but bigger is not always better. Long input costs more and takes longer. Models can also pay less attention to details buried in the middle of a very long prompt. A better habit is to send only what this call needs: the relevant parts of a document, not the whole archive. Check the current limits for each model on the provider's models page, because they change between model versions."
+          ]
+        },
+        {
+          "h": "How to estimate cost, step by step",
+          "p": [
+            "Use the same five steps on every project. Write the result down and show the client your assumptions, so they can change them."
+          ],
+          "list": [
+            "Measure typical input tokens per call using a token counting tool on real examples, not a guess.",
+            "Measure typical output tokens per call the same way.",
+            "Look up the current price per million input and output tokens for the chosen model on the provider's pricing page.",
+            "Multiply each token count by its price and divide by one million. Add the two to get the cost per call.",
+            "Multiply by calls per day and working days per month. Add a margin for retries and growth."
+          ]
+        },
+        {
+          "h": "Why long context is slower and costlier",
+          "p": [
+            "Cost: you pay for every input token on every call. If you send a 50-page manual with each question, you pay for those pages every time, even if the answer needs one paragraph. Speed: before writing the first token, the model must process all the input. More input means a longer wait before anything appears. Output is slower per token than input because each output token needs its own pass through the model.",
+            "Several techniques help. Send less: retrieve only the relevant sections (the next lessons explain retrieval). Ask for shorter output when you do not need long text. Use a smaller, faster model for simple tasks such as sorting emails into categories, and keep larger models for hard reasoning. Use prompt caching where the provider supports it: if many calls start with the same long instructions or document, the provider can reuse that processed part, which reduces cost and time for repeated calls. Stream the response so users see text appear as it is written, which makes waiting feel shorter even if the total time is the same."
+          ]
+        },
+        {
+          "h": "Explaining cost and speed to a client",
+          "p": [
+            "Clients rarely want token maths. They want to know three things: roughly what it will cost per month, what drives that cost up, and how fast users will get an answer. Give them a short table with your assumptions in plain words: 'about 3,000 words of input per email, about 300 words of reply, 2,000 emails a day'. Then show what changes the number most, which is usually volume and how much text you send per call.",
+            "For speed, measure rather than promise. Time twenty realistic calls and report the typical time and the slowest time, because users remember the slow ones. Match the design to the need. A nightly batch job can use a large model and long documents because nobody is waiting. A live chat needs a fast first token, short prompts and streaming. If the client needs both quality and speed, a common design is a fast model for the first step, such as sorting the request, and a stronger model only for the cases that need it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Where the time and money go in one call",
+        "caption": "Read left to right. Input size drives the wait before the first token; output size drives the time to finish.",
+        "steps": [
+          {
+            "label": "Build the prompt",
+            "note": "Instructions, documents, history, question"
+          },
+          {
+            "label": "Count input tokens",
+            "note": "Charged at the input price"
+          },
+          {
+            "label": "Model reads all input",
+            "note": "More input, longer wait for first token"
+          },
+          {
+            "label": "Model writes output",
+            "note": "One token at a time"
+          },
+          {
+            "label": "Count output tokens",
+            "note": "Charged at the higher output price"
+          },
+          {
+            "label": "Cost per call",
+            "note": "Input cost plus output cost"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: cost of a support reply drafter",
+        "p": [
+          "This is an example with made-up prices to show the method. Always use the provider's current pricing page for real numbers.",
+          "A client wants draft replies for support emails. You measure 20 real emails with a token counter. Each call includes instructions, the customer email and three relevant help articles: about 3,000 input tokens on average. Each draft reply is about 400 output tokens. Assume, for this example only, a price of 3 dollars per million input tokens and 15 dollars per million output tokens. The team handles 2,000 emails per working day, 22 days a month.",
+          "Input cost per call is 3,000 times 3 divided by 1,000,000, which is 0.009 dollars. Output cost per call is 400 times 15 divided by 1,000,000, which is 0.006 dollars. Total per call is 0.015 dollars. Per month: 0.015 times 2,000 times 22 is 660 dollars, before a margin for retries. Notice that if you had sent the whole help centre (say 60,000 tokens) instead of three articles, input cost per call would be twenty times higher."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "# Example prices only. Look up current prices before using real numbers.\nPRICE_IN_PER_M = 3.00    # dollars per million input tokens\nPRICE_OUT_PER_M = 15.00  # dollars per million output tokens\n\ndef monthly_cost(tokens_in, tokens_out, calls_per_day, days=22, margin=0.2):\n    per_call = (tokens_in * PRICE_IN_PER_M + tokens_out * PRICE_OUT_PER_M) / 1_000_000\n    monthly = per_call * calls_per_day * days\n    return per_call, monthly, monthly * (1 + margin)\n\nper_call, monthly, with_margin = monthly_cost(3000, 400, 2000)\nprint(f\"Per call: ${per_call:.4f}\")\nprint(f\"Per month: ${monthly:,.2f}\")\nprint(f\"With 20% margin: ${with_margin:,.2f}\")\n\n# Compare: sending the whole help centre each time\nprint(f\"Whole help centre per month: ${monthly_cost(60000, 400, 2000)[1]:,.2f}\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Build a cost sheet",
+          "time": "45 min",
+          "goal": "Produce a cost estimate a client could read and challenge.",
+          "steps": [
+            "Pick a task: summarising meeting notes, classifying tickets, or drafting replies.",
+            "Collect five realistic examples of input and write a sample good output for each.",
+            "Count tokens for each using a tokenizer tool, and take the average input and output.",
+            "Open the Claude pricing page and pick two models: one larger, one smaller. Note their prices.",
+            "In a spreadsheet or the Python script above, calculate cost per call and per month at 100, 1,000 and 10,000 calls per day for both models.",
+            "Write two sentences on which model you would test first and why."
+          ],
+          "done_when": "You have a sheet with your assumptions listed, six monthly cost figures, and a two-sentence recommendation."
+        }
+      ],
+      "pitfalls": [
+        "Quoting costs from memory. Prices and models change; always cite the current pricing page and date.",
+        "Forgetting output tokens, which usually cost more per token than input.",
+        "Sending whole documents on every call. Send only the relevant parts.",
+        "Using the largest model for everything. Test whether a smaller one is good enough for simple tasks.",
+        "Ignoring latency until the demo. Measure response time early, on realistic input sizes."
+      ],
+      "check": [
+        "What counts towards the context window?",
+        "List the five steps to estimate monthly cost.",
+        "Why does more input make the first token appear later?",
+        "Name three ways to reduce cost or latency.",
+        "In the worked example, what happens to cost if output length doubles?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Context windows",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Pricing",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Token counting",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/token-counting",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Prompt caching",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Reducing latency",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Models overview",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/models/overview",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How I use LLMs",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=EWvNQjAaOHw",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "prompting-fundamentals",
+      "title": "Prompting fundamentals",
+      "summary": "You will be able to write a clear prompt with a role, task, context, examples and output format, including JSON that code can read.",
+      "why": "A client will say 'the model is just not good enough for our invoices'. Often the real issue is that the prompt never said what they wanted. This lesson shows you how to write a clear prompt, the cheapest fix you have, and one the client can read and say 'that rule is wrong'.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A prompt is the text you send to the model. A good prompt is like a good brief to a smart new colleague who knows nothing about your client: it says who they are acting as, what to do, what background matters, what good looks like, and how to hand the result back. The model cannot ask you clarifying questions in the middle of a single call, so anything you leave out, it will guess.",
+            "Five parts cover most needs: role, task, context, examples and output format. You will not always need all five, but checking each one is a quick way to find what is missing."
+          ]
+        },
+        {
+          "h": "The five parts, step by step",
+          "p": [
+            "Use the parts in roughly this order. Put long documents near the top and your question near the end; this tends to work well with long inputs."
+          ],
+          "list": [
+            "Role: who the model should act as. 'You are an accounts payable assistant at a food distributor.' A role sets vocabulary, tone and focus.",
+            "Task: exactly what to do, as a clear instruction. 'Classify the invoice exception and draft a one-paragraph explanation for the clerk.'",
+            "Context: the facts and rules it needs. Business rules, definitions, the document to work on, who reads the output. Explain why a rule exists when you can; models follow rules better when they understand the reason.",
+            "Examples: one to a few input and output pairs that show what good looks like, including a tricky case. Examples often fix problems that more instructions cannot.",
+            "Output format: the exact shape of the answer. Length, headings, or a JSON structure with named fields. Say what to do when information is missing."
+          ]
+        },
+        {
+          "h": "Making prompts clear",
+          "p": [
+            "Separate the parts so the model does not mix instructions with data. A common way is to wrap each part in simple tags, such as <rules> and </rules>, or <email> and </email>. Then you can refer to them: 'Use only the rules in the rules tags.' Be direct and specific. 'Keep it short' is vague; 'Under 80 words' is clear. Say what to do, not only what not to do.",
+            "For hard tasks, allow the model to think step by step before it answers, for example by asking it to reason inside thinking tags and then give the final answer in answer tags. Many current models also have a built-in thinking feature you can turn on. Thinking usually improves accuracy on multi-step problems, at the cost of more output tokens and time."
+          ]
+        },
+        {
+          "h": "Structured output with JSON",
+          "p": [
+            "When code will use the answer, ask for JSON (JavaScript Object Notation), a simple text format of named fields that every programming language can read. Give the exact field names, allowed values and types. Tell the model to return only JSON, with no extra text. Then check the result in code: parse it, confirm each field exists and that values are allowed. Some providers, including Claude, offer a structured outputs feature that makes the model follow a JSON schema you provide, which removes most format errors. Even then, the content can still be wrong, so you still evaluate it."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import json\n\nALLOWED = {\"price_mismatch\", \"quantity_mismatch\", \"missing_po\", \"other\"}\n\ndef check_reply(text):\n    data = json.loads(text)  # raises an error if it is not valid JSON\n    assert data[\"category\"] in ALLOWED, f\"bad category: {data['category']}\"\n    assert isinstance(data[\"explanation\"], str) and data[\"explanation\"]\n    assert isinstance(data[\"needs_human\"], bool)\n    return data\n\nmodel_reply = '{\"category\": \"price_mismatch\", \"explanation\": \"Invoice unit price 4.20 vs PO 3.90.\", \"needs_human\": true}'\nprint(check_reply(model_reply))"
+          }
+        },
+        {
+          "h": "Iterate like an engineer",
+          "p": [
+            "Prompting is not a one-shot skill. Write a first version, run it on ten to twenty real cases, read every output, find the pattern in the failures, change one thing, and run again. Keep old versions so you can compare. The best test cases come from the client's real work, especially the ones their experts find hard."
+          ]
+        },
+        {
+          "h": "System prompt and user message",
+          "p": [
+            "When you call a model through an API (application programming interface, the way programs talk to the model), there are usually two places to put text. The system prompt holds the standing instructions that apply to every call: the role, the rules, the output format. The user message holds what changes each time: the email, the invoice, the question. Keeping them apart makes the prompt easier to maintain and test, because you can change the rules in one place and rerun all your cases.",
+            "Treat prompts like code. Store them in files with version numbers, not only in a chat window. Write a short note with each change saying what failure it fixes. When a client expert says 'that answer is wrong', you can then show them the exact rule the model followed and agree together how to change it. This turns prompt work into a shared, reviewable specification instead of private trial and error."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "Parts of a good prompt",
+        "caption": "Read top to bottom. Each layer answers a question the model would otherwise have to guess.",
+        "layers": [
+          {
+            "label": "Role",
+            "note": "Who should the model act as?"
+          },
+          {
+            "label": "Task",
+            "note": "What exactly should it do?"
+          },
+          {
+            "label": "Context",
+            "note": "Which facts, rules and documents matter, and why?"
+          },
+          {
+            "label": "Examples",
+            "note": "What does a good answer look like, including tricky cases?"
+          },
+          {
+            "label": "Output format",
+            "note": "What shape, length and fields? What if data is missing?"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: before and after",
+        "p": [
+          "The 'before' prompt is the kind most people write first. It has a task but no role, no rules, no example and no format. The model will guess what 'issue' means, how long to write and what to do when it is unsure, and the guesses will vary between runs.",
+          "The 'after' prompt adds a role, a clear task, the business rules with a reason, one example and a strict JSON format with an option for missing information. Its output can be read by code, checked automatically and compared across test cases."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "BEFORE:\nWhat is the issue with this invoice? [invoice text]\n\nAFTER:\nYou are an accounts payable assistant at a food distributor.\nTask: classify why this invoice does not match its purchase order (PO).\n<rules>\nA price difference under 1 percent is accepted, because suppliers round.\nIf the PO number is missing or unknown, use missing_po.\n</rules>\n<example>\nInvoice: 100 cases at 4.20. PO: 100 cases at 3.90.\nOutput: {\"category\": \"price_mismatch\", \"explanation\": \"Unit price 4.20 vs PO 3.90.\", \"needs_human\": true}\n</example>\n<invoice>[invoice text]</invoice>\n<po>[PO text]</po>\nReturn only JSON with fields category (price_mismatch, quantity_mismatch,\nmissing_po, other), explanation (under 30 words), needs_human (true or false).\nIf you cannot tell, use other and set needs_human to true."
+        }
+      },
+      "practice": [
+        {
+          "title": "Rewrite a weak prompt",
+          "time": "45 min",
+          "goal": "See how each prompt part changes the output.",
+          "steps": [
+            "Write five realistic short customer emails yourself, such as a complaint, a refund request, a question about delivery, a compliment and something unclear.",
+            "In a free LLM chat such as Claude, send the weak prompt 'Sort this email' followed by each email. Save the outputs.",
+            "Write a better prompt with role, task, context (your categories and why each exists), one example and a JSON output format.",
+            "Run the better prompt on the same five emails in new chats.",
+            "Paste each JSON reply into the Python check above, adapted to your fields, and fix the prompt until all five pass.",
+            "Write down which part of the prompt made the biggest difference."
+          ],
+          "done_when": "All five outputs from your improved prompt parse as valid JSON with allowed values, and you can name the change that helped most."
+        }
+      ],
+      "pitfalls": [
+        "Leaving out the context an expert would know. The model does not know the client's rules unless you write them down.",
+        "Vague limits such as 'brief' or 'detailed'. Give numbers or a clear shape.",
+        "Asking for JSON but not checking it in code. Always parse and validate.",
+        "Changing many things at once. Change one thing per round so you know what helped.",
+        "Testing only on easy examples. Include the cases experts find hard."
+      ],
+      "check": [
+        "Name the five parts of a prompt and what each one answers.",
+        "Why do examples often help more than extra instructions?",
+        "Why should you separate instructions from data, and how?",
+        "What should your code do with a JSON reply before using it?",
+        "In the before and after example, what does the 'after' prompt say to do when the model is unsure?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Prompt engineering overview",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Prompting best practices",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Structured outputs",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "anthropics/prompt-eng-interactive-tutorial: Anthropic's Interactive Prompt Engineering Tutorial",
+          "source": "GitHub",
+          "url": "https://github.com/anthropics/prompt-eng-interactive-tutorial",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Building with Anthropic Claude: Prompt Workshop with Zack Witten",
+          "source": "AI Engineer",
+          "url": "https://www.youtube.com/watch?v=hkhDdcM5V94",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "ChatGPT Prompt Engineering for Developers",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/chatgpt-prompt-eng",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Building with the Claude API",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "hallucination-grounding",
+      "title": "Hallucination and grounding",
+      "summary": "You will be able to explain why models invent facts, and reduce it with grounding, citations and letting the model say 'I do not know'.",
+      "why": "A compliance lead will ask 'what happens if it makes up a policy number or a dosage?'. One confident wrong answer can end trust in the whole project, and in finance, health or safety work it can cause real harm. This lesson shows you how to tie answers to sources and catch wrong ones before they reach anyone.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A hallucination is when a model states something false or made up as if it were true: a wrong figure, a policy that does not exist, a citation to a paper nobody wrote. It happens because the model is trained to produce likely-sounding text, and a fluent, plausible answer is often more likely than 'I do not know'.",
+            "Grounding means giving the model the real source material and telling it to answer only from that material. It is the main defence. Citations, which point to the exact passage behind each claim, let a person check the answer. Allowing and encouraging 'I do not know' stops the model from filling gaps with guesses."
+          ]
+        },
+        {
+          "h": "Why models invent",
+          "p": [
+            "Recall how the model works: it predicts the next token from patterns. It has no built-in check that a statement is true. When it knows a fact well from training, the likely answer and the true answer usually match. When it does not, it still produces the most likely-looking text, which can be confident and wrong.",
+            "Hallucinations are more common in some situations: rare or very specific facts (a client's internal policy, a part number), recent events after the training cutoff, exact numbers and dates, long chains of reasoning, and questions that assume something false ('Why did our Q3 policy change?' when nothing changed). They are also more likely when the prompt pushes for an answer at any cost."
+          ]
+        },
+        {
+          "h": "Grounding, step by step",
+          "p": [
+            "Use these steps whenever an answer must be factually correct."
+          ],
+          "list": [
+            "Find the source: the client's documents, database rows or system records that contain the true answer.",
+            "Put the relevant parts in the prompt, clearly marked, for example inside document tags with a title and an id.",
+            "Instruct the model to answer only from those documents, and to say 'I do not know' or 'not found in the documents' when the answer is not there.",
+            "Ask for citations: a short quote or document id for each claim. For long documents, ask the model to first pull out the relevant quotes, then answer from the quotes.",
+            "Check citations in code or by review: does each quote really appear in the source, and does it support the claim?",
+            "Measure: in your test set, include questions whose answer is not in the documents, and count how often the model correctly says it does not know."
+          ]
+        },
+        {
+          "h": "Going deeper: tools that help",
+          "p": [
+            "Some providers offer a citations feature. With Claude, you can pass documents and the response comes back with references to the exact passages it used, which is easier to check than quotes the model writes itself. For numbers, let code do the maths: retrieve the figures with a database query and ask the model to explain them, rather than asking it to calculate. For high-stakes outputs, keep a human review step, and show the reviewer the sources next to the answer so checking is quick.",
+            "Also design the user experience for honesty. A screen that shows 'Source: Returns policy, section 4' next to the answer invites checking. A screen that shows only a confident paragraph invites blind trust."
+          ]
+        },
+        {
+          "h": "What grounding cannot fix",
+          "p": [
+            "Grounding reduces hallucination but does not remove it. The model can still misread a source, mix up two similar documents, or quote correctly but draw the wrong conclusion. If the source documents are out of date or contradict each other, the answer will reflect that. This is why evaluation on real cases and a clear review process stay necessary."
+          ]
+        },
+        {
+          "h": "Talking to clients about hallucination",
+          "p": [
+            "Be honest early. Tell the client in plain words that the model can produce confident wrong answers, that the design reduces this but does not remove it, and that you will measure how often it happens on their real cases. Clients handle a known, measured error rate far better than a surprise in front of their manager.",
+            "Agree on what an error costs. A wrong answer in an internal search tool may be a small annoyance. A wrong figure in a regulatory report is serious. The cost decides how much grounding, checking and human review you need. Write the agreed bar down, for example 'no unsupported claims in 100 test questions, and correct \"not found\" on every unanswerable question', so everyone knows what 'good enough' means before the demo, not after it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "Grounded answer decision",
+        "caption": "The model first checks the provided sources. Only the first branch should produce a confident answer.",
+        "start": "Question plus source documents",
+        "question": "Is the answer in the sources?",
+        "branches": [
+          {
+            "answer": "Yes, clearly",
+            "result": "Answer with a citation to the passage"
+          },
+          {
+            "answer": "Partly",
+            "result": "Answer what is supported, flag the rest"
+          },
+          {
+            "answer": "No",
+            "result": "Say 'not found in the documents'"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a returns policy question",
+        "p": [
+          "A customer asks: 'Can I return a mattress after 60 days?' Ungrounded, a model may say 'Most retailers allow 30 days, so no' or invent a 100-night trial. Neither is about this client.",
+          "Grounded, the prompt includes the client's returns policy and an instruction to answer only from it, with a quote, and to say so if the policy does not cover the question. Suppose the policy says mattresses can be returned within 90 days if unused and in original packaging. The model answers yes, with the conditions, and quotes the sentence. If the policy were silent on mattresses, the correct output would be 'The policy does not mention mattresses; please check with the team', and your test set should include such a question to make sure it does this."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "Answer the customer question using only the policy below.\n<policy id=\"returns-v3\">[policy text]</policy>\n<question>Can I return a mattress after 60 days?</question>\nFirst copy the exact sentences from the policy that are relevant into <quotes>.\nThen answer in <answer> in under 50 words.\nIf the policy does not answer the question, write in <answer>:\n\"The policy does not cover this. Please check with the team.\""
+        }
+      },
+      "practice": [
+        {
+          "title": "Catch a hallucination, then ground it",
+          "time": "40 min",
+          "goal": "See hallucination happen and see grounding reduce it.",
+          "steps": [
+            "Find a short public policy page, such as a library's borrowing rules or a shop's returns policy, and copy its text.",
+            "Write five questions: three answered in the text, two that are not answered anywhere in it.",
+            "In a free LLM chat, ask the five questions without the policy. Note any answers that are invented or about some other organisation.",
+            "In a new chat, use the grounded prompt from the example with the real policy text, and ask the same five questions.",
+            "For each grounded answer, check that the quote really appears in the policy and supports the answer.",
+            "Score both runs: correct, wrong, or correctly said 'not covered'."
+          ],
+          "done_when": "You have a ten-row score table (five ungrounded, five grounded) and can show at least one case where grounding changed the answer."
+        }
+      ],
+      "pitfalls": [
+        "Trusting fluent answers. Fluency is not evidence; ask for sources.",
+        "Not giving the model permission to say it does not know. Say it explicitly.",
+        "Letting the model do arithmetic on important figures. Use code for calculations.",
+        "Never testing unanswerable questions. Include them in every test set.",
+        "Assuming grounding solves everything. Keep evaluation and human review."
+      ],
+      "check": [
+        "What is a hallucination, and why does next-token prediction cause it?",
+        "Name three situations where hallucination is more likely.",
+        "List the steps to ground an answer in sources.",
+        "How do you check that a citation is real and relevant?",
+        "What can still go wrong after grounding?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Reduce hallucinations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Citations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/citations",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "LLM09:2025 Misinformation",
+          "source": "OWASP Gen AI Security Project",
+          "url": "https://genai.owasp.org/llmrisk/llm092025-misinformation/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What Are AI Hallucinations?",
+          "source": "IBM",
+          "url": "https://www.ibm.com/think/topics/ai-hallucinations",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Deep Dive into LLMs like ChatGPT",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=7xTGNNLPyMI",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "What is Retrieval-Augmented Generation (RAG)?",
+          "source": "IBM Technology",
+          "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "rag-tools-agents",
+      "title": "RAG, tools and agents in plain words",
+      "summary": "You will be able to explain RAG, tool use and agents in plain words, and pick the simplest one that solves the client's problem.",
+      "why": "A client will say 'we want an agent' when what they need is answers from their own manuals. A simpler design is often cheaper, faster and more reliable. This lesson gives you a plain map of the options, so you can explain them and pick the right one before building anything.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Start with a plain model call: you send a prompt, it sends text back. Three patterns extend this. Retrieval augmented generation (RAG) finds relevant pieces of the client's documents and adds them to the prompt, so the model answers from real sources. Tool use lets the model ask your code to do something, such as look up an order or run a calculation, and then use the result. An agent is a model that uses tools in a loop, deciding its own next step, until it finishes a task.",
+            "Each step adds power and also adds cost, delay and ways to fail. The rule of thumb is: use the simplest pattern that solves the problem, and only add more when tests show you need it."
+          ]
+        },
+        {
+          "h": "RAG: give the model the right pages",
+          "p": [
+            "RAG solves the problem from the last lesson: the model does not know the client's documents. You prepare by splitting documents into chunks, such as sections or paragraphs, and storing them in a searchable index. When a question comes in, a search step retrieves the most relevant chunks, and these are put into the prompt with an instruction to answer from them.",
+            "The search can be keyword search, semantic search using embeddings (lists of numbers that represent meaning, so 'refund' can match 'money back'), or both. The quality of RAG depends mostly on retrieval: if the right chunk is not found, the model cannot use it. Use RAG when answers live in a large body of text that changes over time, such as policies, manuals or past tickets."
+          ]
+        },
+        {
+          "h": "Tools: let the model ask your code",
+          "p": [
+            "With tool use, you describe functions to the model: a name, what it does and what inputs it needs, for example get_order_status with an order_id. When the model decides it needs one, it replies with a structured request to call that tool. Your code runs the function, sends the result back, and the model writes its answer using it. The model never runs code itself; your program stays in control and decides what is allowed.",
+            "Use tools when the answer depends on live data in a system (order status, stock levels, account balance), when you need exact calculations, or when the model must take an action such as creating a ticket. Actions that change things need extra care: start with read-only tools and add human approval for anything that writes."
+          ]
+        },
+        {
+          "h": "Agents: tools in a loop",
+          "p": [
+            "An agent repeats a cycle: look at the goal and what has happened so far, choose a tool, run it, look at the result, and decide the next step, until the task is done or a limit is reached. This is useful when the steps cannot be known in advance, such as investigating why a shipment is late across several systems.",
+            "Anthropic's guide to building effective agents, linked below, separates workflows, where your code sets the steps in a fixed order, from agents, where the model chooses the steps. Workflows are more predictable and easier to test. Agents are more flexible but cost more, take longer and can make compounding mistakes. Many real problems are solved well by a workflow."
+          ],
+          "list": [
+            "Answer from documents: RAG.",
+            "Answer needs live system data or exact maths: tools.",
+            "Known fixed steps: a workflow of calls and tools set by your code.",
+            "Open-ended task with steps you cannot predict: an agent, with limits and review."
+          ]
+        },
+        {
+          "h": "Questions to ask before choosing",
+          "p": [
+            "In discovery, a few plain questions usually make the choice clear. Where does the answer live today: in documents, in a system, or in someone's head? If it is in someone's head, no pattern will help until it is written down. How often does that information change? Fast-changing data points to tools that read the live system rather than a copy. Does the task only read information, or does it need to change something? Anything that writes needs approval and careful limits.",
+            "Also ask how many steps an expert takes and whether those steps are always the same. If an experienced person follows the same five steps every time, write those steps as a workflow in code. If they say 'it depends' and explore, that is where an agent may earn its extra cost. Finally, ask how the result will be checked. Whatever you choose, you will need real examples with known good answers to test it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "Choosing the simplest pattern",
+        "caption": "Start at the question and pick the first branch that fits. Move to a more complex pattern only when tests show you need it.",
+        "start": "Client task",
+        "question": "What does the answer depend on?",
+        "branches": [
+          {
+            "answer": "Only general knowledge",
+            "result": "Plain prompt"
+          },
+          {
+            "answer": "Client documents",
+            "result": "RAG"
+          },
+          {
+            "answer": "Live data or actions",
+            "result": "Tools, in a fixed workflow"
+          },
+          {
+            "answer": "Unknown, many steps",
+            "result": "Agent with limits and review"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: one help desk, three needs",
+        "p": [
+          "An internal IT help desk wants AI support. During discovery you find three kinds of request.",
+          "First, how-to questions such as 'How do I set up VPN on a new laptop?' The answers are in about 400 help articles. This is RAG: retrieve the right article sections and answer with a citation. Second, status questions such as 'Is my laptop order shipped?' The answer is in the asset system, so the model needs a read-only tool get_ticket_status. A short fixed workflow is enough: identify the ticket, call the tool, explain the result. Third, a small number of messy problems such as 'Email stopped syncing on my phone after the update.' Here the steps are not known in advance, so an agent that can check the user's account, recent changes and known incidents might help, but only after the first two are working and with a technician reviewing its suggestions.",
+          "You would build and evaluate them in that order, simplest first, because the first two probably cover most of the volume (something you confirm by counting real tickets)."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Classify ten tasks",
+          "time": "30 min",
+          "goal": "Practise choosing the simplest pattern.",
+          "steps": [
+            "Write ten realistic tasks from a business you know, such as 'summarise this contract', 'what is the stock of item X', 'which policy covers travel to a conference'.",
+            "For each, decide: plain prompt, RAG, tools in a workflow, or agent. Write one reason.",
+            "For each tool you named, write its name and inputs, for example get_stock(item_id), and mark it read-only or write.",
+            "Ask Claude to argue for a different choice on three of them, then decide yourself whether to change.",
+            "Swap lists with your pair partner and check each other's choices."
+          ],
+          "done_when": "You have ten tasks, each with a pattern and a reason, and you and your partner agree on at least eight."
+        }
+      ],
+      "pitfalls": [
+        "Building an agent because it sounds advanced. Start with the simplest pattern and test.",
+        "Blaming the model when RAG fails. Check retrieval first: was the right chunk found?",
+        "Giving tools write access too early. Start read-only and add human approval for actions.",
+        "No limits on agents. Set a maximum number of steps and a cost budget.",
+        "Skipping evaluation because 'it is just retrieval'. Every pattern needs a test set."
+      ],
+      "check": [
+        "Explain RAG, tool use and agents each in one sentence.",
+        "Why does RAG quality depend mostly on retrieval?",
+        "Who actually runs the code when a model uses a tool?",
+        "What is the difference between a workflow and an agent?",
+        "For a question about live stock levels, which pattern fits and why?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "What is Retrieval-Augmented Generation (RAG)?",
+          "source": "IBM Technology",
+          "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Building Effective AI Agents",
+          "source": "Anthropic",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Tool use with Claude",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Contextual Retrieval in AI Systems",
+          "source": "Anthropic",
+          "url": "https://www.anthropic.com/engineering/contextual-retrieval",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "source": "Model Context Protocol",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Retrieval Augmented Generation (RAG)",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/retrieval-augmented-generation",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Agentic AI",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/agentic-ai",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "What's next for AI agentic workflows ft. Andrew Ng of AI Fund",
+          "source": "Sequoia Capital",
+          "url": "https://www.youtube.com/watch?v=sal78ACtGTc",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "responsible-use",
+      "title": "Responsible use: data, privacy and human review",
+      "summary": "You will know how to decide what data may go into which AI tool, handle personal data, watch for bias, and place a human check where it matters.",
+      "why": "An HR or legal lead will ask 'is our employee and customer data going to leave the building?', and 'who checks the AI before it acts?'. One careless paste into the wrong tool can break a contract, a law or the client's trust. This lesson helps you answer those questions early and set up the checks, as part of the job and not as paperwork.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Responsible use comes down to four questions. What data is this, and how sensitive is it? Where is it allowed to go? Could the output be unfair or harmful to some people? Who checks the output before it affects anyone? The client's own policies and contracts set the answers. Your job is to ask, follow them, and design the system so the safe path is the easy one.",
+            "When in doubt, stop and ask. 'Can I send this data to this model?' is always a good question to ask the client's security or data protection team. Guessing is not."
+          ]
+        },
+        {
+          "h": "What data may go where",
+          "p": [
+            "Most organisations classify data into levels such as public, internal, confidential and restricted. Learn the client's levels on day one. Then check which AI tools are approved for which level. A free consumer chat app, a company-approved enterprise chat tool and an API account under a contract with the client are different places with different terms for storage, retention and training on your data. Read the provider's data and privacy terms and the client's agreement; do not assume.",
+            "Personal data, often called PII (personally identifiable information), is any information that identifies a person: names, emails, phone numbers, addresses, account numbers, ID numbers, and combinations of details that point to one person. Privacy laws such as the EU GDPR set rules for how it may be processed. Some data is extra sensitive, such as health, financial or biometric data, and some industries have their own rules."
+          ],
+          "list": [
+            "Use the least data that does the job. If the task is classifying complaints, you may not need customer names at all.",
+            "Remove or mask personal data before it reaches the model where you can, for example replacing names with placeholders.",
+            "Use synthetic or masked data for early prototypes and demos.",
+            "Keep data in client-approved systems and accounts only. Never copy client data to personal devices or personal AI accounts.",
+            "Never paste secrets such as passwords or API keys into prompts."
+          ]
+        },
+        {
+          "h": "Bias and fairness",
+          "p": [
+            "Models learn from human-written text, which carries human biases. They can treat people differently based on names, language, gender, age or location, even when told not to. The risk is highest when the output affects people: hiring, lending, insurance, pricing, benefits, discipline. In those areas, test on purpose: create pairs of cases that differ only in a sensitive detail, such as the name, and check whether the output changes. Keep a human decision maker for decisions about people, and record what the AI recommended and what the human decided."
+          ]
+        },
+        {
+          "h": "Human in the loop, step by step",
+          "p": [
+            "Human in the loop means a person reviews or approves the AI's output before it takes effect. Decide where to put that person based on the cost of an error."
+          ],
+          "list": [
+            "List what the system outputs and what happens next with each output.",
+            "For each, ask: if this is wrong, who is harmed and how badly? Can it be undone?",
+            "Low harm and easy to undo, such as sorting internal emails: let it run, sample and review a few each week.",
+            "Medium harm, such as a draft reply to a customer: a person reviews and sends.",
+            "High harm or hard to undo, such as a payment, a decision about a person or a medical statement: a person decides; the AI only prepares information.",
+            "Make review easy: show sources next to the output and let reviewers mark errors with one click, so you can measure and improve."
+          ]
+        },
+        {
+          "h": "Security risks specific to LLMs",
+          "p": [
+            "LLM systems add new risks. Prompt injection is when text the model reads, such as an email or a web page, contains instructions that try to make the model do something else, like reveal data or call a tool. Treat all content the model reads as untrusted data, limit what tools can do, and require approval for actions. The OWASP Top 10 for LLM applications, linked below, is a good checklist to review with the client's security team."
+          ]
+        },
+        {
+          "h": "Client policies come first",
+          "p": [
+            "Every client has its own rules, and they override general advice, including this lesson. Ask for the acceptable use policy for AI tools, the data classification policy, and any contract terms with the AI provider. Find out who approves exceptions. Write the answers in your project notes and share them with your pair, so nobody has to guess later.",
+            "Keep a simple record as you build: which data went to which tool, under which approval, and how long it is kept. If the client's security team asks a question at the end of the project, you can answer in minutes. This record also helps the client owner after hand over, because they will need to explain the system to auditors and new team members."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "How much human review is needed",
+        "caption": "Ask what happens if the output is wrong, then pick the matching level of review.",
+        "start": "AI output ready",
+        "question": "If it is wrong, how bad is it?",
+        "branches": [
+          {
+            "answer": "Low harm, easy to undo",
+            "result": "Run automatically, sample weekly"
+          },
+          {
+            "answer": "Medium harm",
+            "result": "Person reviews before it is used"
+          },
+          {
+            "answer": "High harm or about a person",
+            "result": "Person decides; AI only prepares"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: complaint triage at an insurer",
+        "p": [
+          "An insurer wants AI to sort incoming complaints by topic and urgency. Complaints contain names, policy numbers, and sometimes health details.",
+          "You ask the data protection team first. They confirm complaints are confidential and contain sensitive data, and that only the company's approved enterprise AI environment may be used. For the prototype, you build a test set of 200 masked complaints: names become [NAME], policy numbers become [POLICY], and health details are kept only where they change the urgency. You confirm that the task works without names.",
+          "For review, sorting by topic is medium harm (a misrouted complaint is delayed), so a team member checks the queue each morning. Urgency marked 'vulnerable customer' is high harm if missed, so any complaint the AI marks low urgency but which mentions health or money worries is shown to a person. You also test for bias by duplicating twenty complaints with different names and checking the urgency stays the same."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write a data handling plan",
+          "time": "45 min",
+          "goal": "Practise the questions you will ask on day one of a real engagement.",
+          "steps": [
+            "Pick a realistic use case, such as summarising HR cases, drafting supplier emails or sorting patient appointment requests.",
+            "List every data field the system would see and mark each as public, internal, confidential or restricted, and whether it is personal data.",
+            "Cross out the fields the task does not actually need.",
+            "Write how you would mask the remaining personal fields for the prototype.",
+            "Use the human in the loop steps to choose a review level for each output.",
+            "Write five questions you would send to the client's data protection or security team."
+          ],
+          "done_when": "You have a one-page plan with a field list, masking approach, review levels and five questions, and your pair partner can find no field you forgot."
+        },
+        {
+          "title": "Run a simple bias test",
+          "time": "25 min",
+          "goal": "See whether a sensitive detail changes model output.",
+          "steps": [
+            "Write a short, made-up job application summary with no name.",
+            "In a free LLM chat, ask the model to rate the candidate from 1 to 10 with a one-line reason. Use a new chat each time.",
+            "Repeat with the same summary but different names suggesting different genders or backgrounds, three runs each.",
+            "Record the scores and compare."
+          ],
+          "done_when": "You have a small score table and a two-sentence note on whether the scores changed and what you would do on a real project."
+        }
+      ],
+      "pitfalls": [
+        "Pasting client data into a personal or free AI tool. Use only client-approved tools and accounts.",
+        "Sending all fields because it is easier. Send only what the task needs and mask personal data.",
+        "Assuming the AI is neutral. Test for bias where output affects people.",
+        "Adding human review that is too slow or unclear to use. Make review quick, with sources shown.",
+        "Letting tools act on instructions found in emails or documents. Treat that content as untrusted."
+      ],
+      "check": [
+        "What four questions does responsible use come down to?",
+        "What is PII? Give five examples.",
+        "How do you decide the level of human review for an output?",
+        "How would you test whether a model treats people differently by name?",
+        "What is prompt injection and how do you limit its damage?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "LLMRisks Archive",
+          "source": "OWASP Gen AI Security Project",
+          "url": "https://genai.owasp.org/llm-top-10/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "LLM02:2025 Sensitive Information Disclosure",
+          "source": "OWASP Gen AI Security Project",
+          "url": "https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "AI Risk Management Framework",
+          "source": "NIST",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Artificial intelligence",
+          "source": "ICO",
+          "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "API and data retention",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/manage-claude/api-and-data-retention",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Mitigate jailbreaks and prompt injections",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "PAIR Guidebook",
+          "source": "Google PAIR",
+          "url": "https://pair.withgoogle.com/guidebook/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "AI Fluency: Framework & Foundations",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

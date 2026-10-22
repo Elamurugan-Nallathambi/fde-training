@@ -1,0 +1,265 @@
+{
+  "replace": true,
+  "questions": [
+    {
+      "id": "medtech-m04-q01",
+      "lesson": "medtech-value-chain",
+      "q": "An investigator needs the test results recorded when a lot of glucose strips was released. Which system usually holds them?",
+      "options": [
+        "The PLM",
+        "The MES or paper device history record",
+        "The CRM",
+        "The regulatory submission tool, since it holds the 510(k) test data"
+      ],
+      "answer": 1,
+      "why": "Production and release records for each lot live in the MES or the paper device history record."
+    },
+    {
+      "id": "medtech-m04-q02",
+      "lesson": "medtech-value-chain",
+      "q": "Which system is usually the system of record for a device's bill of materials and engineering change orders?",
+      "options": [
+        "PLM, such as Windchill or Agile",
+        "MES",
+        "The complaint mailbox",
+        "The ERP, since it holds every part and its cost for the whole company"
+      ],
+      "answer": 0,
+      "why": "PLM holds parts, BOMs, drawings, specifications and engineering changes."
+    },
+    {
+      "id": "medtech-m04-q03",
+      "lesson": "medtech-value-chain",
+      "q": "A new device is substantially equivalent to one already legally sold in the US. Which route to market fits most often?",
+      "options": [
+        "PMA",
+        "EU technical file",
+        "A 510(k)",
+        "No submission is ever needed"
+      ],
+      "answer": 2,
+      "why": "A 510(k) shows substantial equivalence to a legally marketed predicate device."
+    },
+    {
+      "id": "medtech-m04-q04",
+      "lesson": "medtech-value-chain",
+      "q": "The same product shows up as a part number in PLM, a material number in ERP and a lot in MES. What does this mean for an AI project?",
+      "options": [
+        "Nothing, the model will work it out",
+        "Use only one system and ignore the others, since the model can infer the links from product names",
+        "Ask users to type all three by hand",
+        "Mapping keys across systems is a large share of the work"
+      ],
+      "answer": 3,
+      "why": "Matching keys across systems is often the hardest data work on MedTech projects."
+    },
+    {
+      "id": "medtech-m04-q05",
+      "lesson": "medtech-gap-assessment",
+      "q": "You are writing the checklist for a complaint handling gap assessment. Which statement is written well?",
+      "options": [
+        "Complaints are handled properly",
+        "Every complaint has a documented reportability decision with a reason",
+        "The process is efficient and complaints are handled to a high standard by trained staff",
+        "Staff try their best"
+      ],
+      "answer": 1,
+      "why": "Checklist statements must be plain and testable against records."
+    },
+    {
+      "id": "medtech-m04-q06",
+      "lesson": "medtech-gap-assessment",
+      "q": "A colleague wants to mark a gap because an investigator said the process is slow. What is missing?",
+      "options": [
+        "Evidence such as records or timestamps",
+        "A larger font in the table",
+        "A vendor quote",
+        "Nothing, if the investigator is senior enough the opinion counts as evidence"
+      ],
+      "answer": 0,
+      "why": "Never mark a gap without evidence from records, timestamps or observation."
+    },
+    {
+      "id": "medtech-m04-q07",
+      "lesson": "medtech-gap-assessment",
+      "q": "Which gap is the best candidate for an AI assistant?",
+      "options": [
+        "A form is missing one mandatory field that investigators often forget to fill",
+        "Staff were never trained on the procedure",
+        "Service emails are re-typed into the QMS, hundreds a month",
+        "The procedure has a typo"
+      ],
+      "answer": 2,
+      "why": "High volume, unstructured text and a quick human check make a good AI fit; the others are fixed by form changes or training."
+    },
+    {
+      "id": "medtech-m04-q08",
+      "lesson": "medtech-gap-assessment",
+      "q": "An AI tool would save time but write complaint records outside the QMS. How should the gap assessment treat it?",
+      "options": [
+        "As a clear win, since time saved is the measure the sponsor will report upward",
+        "As out of scope",
+        "As a matter for IT only",
+        "As a net loss, it creates a new compliance gap"
+      ],
+      "answer": 3,
+      "why": "Efficiency and compliance gaps belong in one list; a new compliance gap cancels the gain."
+    },
+    {
+      "id": "medtech-m04-q09",
+      "lesson": "medtech-value-sizing",
+      "q": "A CAPA is open for 90 days but people work on it for 12 hours in total. Which number drives time saved?",
+      "options": [
+        "The 12 hours of touch time",
+        "The 90 days of cycle time",
+        "Both added together",
+        "Neither, use the number of CAPAs opened per year multiplied by the CAPA board time"
+      ],
+      "answer": 0,
+      "why": "Time saved comes from touch time; cycle time is a separate quality measure."
+    },
+    {
+      "id": "medtech-m04-q10",
+      "lesson": "medtech-value-sizing",
+      "q": "The sponsor asks you to put a dollar value on avoided warning letters. What is the better approach?",
+      "options": [
+        "Use an industry average cost of a warning letter that you remember from a conference talk",
+        "Show the effect in the quality team's own measures unless finance gives a figure",
+        "Multiply recalls by a guess",
+        "Leave quality out of the case"
+      ],
+      "answer": 1,
+      "why": "Rare events vary hugely in cost; use the client's own measures or finance's own figure."
+    },
+    {
+      "id": "medtech-m04-q11",
+      "lesson": "medtech-value-sizing",
+      "q": "Which cost do teams most often forget in a MedTech AI value case?",
+      "options": [
+        "Licence fees for the developer tools used to write the pilot code",
+        "The pilot build",
+        "Re-testing under change control after model or prompt changes",
+        "Meeting room booking"
+      ],
+      "answer": 2,
+      "why": "Change control and re-testing recur with every meaningful change and can make a cheap pilot expensive to keep."
+    },
+    {
+      "id": "medtech-m04-q12",
+      "lesson": "medtech-value-sizing",
+      "q": "How should you present the value case?",
+      "options": [
+        "One exact number",
+        "Only the high case",
+        "Only the money, since quality measures cannot be compared across clients",
+        "Low, likely and high cases with assumptions labeled"
+      ],
+      "answer": 3,
+      "why": "Ranges with labeled assumptions are more honest and easier to defend."
+    },
+    {
+      "id": "medtech-m04-q13",
+      "lesson": "medtech-market-buyers",
+      "q": "Who can stop any tool that touches a regulated record at a device maker?",
+      "options": [
+        "Quality assurance",
+        "The marketing team",
+        "The model provider, under its acceptable use policy for regulated industries",
+        "The newest user"
+      ],
+      "answer": 0,
+      "why": "QA approves anything that touches the quality system, so involve them early."
+    },
+    {
+      "id": "medtech-m04-q14",
+      "lesson": "medtech-market-buyers",
+      "q": "Before a first meeting you want to know whether the FDA has cited the client. Where do you look?",
+      "options": [
+        "The 510(k) database",
+        "The FDA Warning Letters page",
+        "The product classification database",
+        "The client's careers page"
+      ],
+      "answer": 1,
+      "why": "The Warning Letters page shows whether and for what the FDA has cited a company."
+    },
+    {
+      "id": "medtech-m04-q15",
+      "lesson": "medtech-market-buyers",
+      "q": "You found two recent recalls for the client. How should you use this?",
+      "options": [
+        "Open the meeting by naming them",
+        "Ignore them completely, since recalls are confidential and must not be read before signing an NDA",
+        "Use them to choose your first questions",
+        "Post them in the project chat"
+      ],
+      "answer": 2,
+      "why": "Public data is context to shape questions, not a point to make."
+    },
+    {
+      "id": "medtech-m04-q16",
+      "lesson": "medtech-market-buyers",
+      "q": "Before proposing a custom build for CAPA summaries, what should you check?",
+      "options": [
+        "The client's office location",
+        "The model's release date",
+        "Whether a larger model would write better CAPA summaries",
+        "What the client's QMS vendor already offers or plans"
+      ],
+      "answer": 3,
+      "why": "The existing validated platform may already offer or soon offer the feature."
+    },
+    {
+      "id": "medtech-m04-q17",
+      "lesson": "medtech-build-buy-configure",
+      "q": "Which GAMP 5 category usually needs the most specification and testing effort?",
+      "options": [
+        "Category 3, non-configured product",
+        "Category 5, custom software",
+        "Category 1, infrastructure",
+        "Category 4, configured product"
+      ],
+      "answer": 1,
+      "why": "Effort rises from category 3 to 5 because the more you write, the more you must specify and test."
+    },
+    {
+      "id": "medtech-m04-q18",
+      "lesson": "medtech-build-buy-configure",
+      "q": "Why is configuring the client's validated QMS often the cheapest option to validate?",
+      "options": [
+        "The platform's validation already exists and you extend it",
+        "Configuration never needs testing",
+        "Vendors take legal responsibility for validation once the client signs the licence",
+        "QMS tools have no audit trail"
+      ],
+      "answer": 0,
+      "why": "You build on the existing validated state rather than starting from zero."
+    },
+    {
+      "id": "medtech-m04-q19",
+      "lesson": "medtech-build-buy-configure",
+      "q": "A vendor AI tool updates its model monthly without notice. What is the main concern?",
+      "options": [
+        "The vendor's logo may change",
+        "Each update means the client must file a new 510(k) for the QMS",
+        "Each update is an uncontrolled change to a validated process",
+        "Monthly updates are always free"
+      ],
+      "answer": 2,
+      "why": "Unannounced model changes shift outputs and break the validated state."
+    },
+    {
+      "id": "medtech-m04-q20",
+      "lesson": "medtech-build-buy-configure",
+      "q": "In the common hybrid pattern, where do the regulated record and signature stay?",
+      "options": [
+        "In the custom AI service",
+        "In the custom AI service database, so drafts and signatures are kept together",
+        "In the model provider's logs",
+        "In the validated QMS or PLM"
+      ],
+      "answer": 3,
+      "why": "The custom service drafts; the validated platform keeps the record, signature and audit trail."
+    }
+  ]
+}

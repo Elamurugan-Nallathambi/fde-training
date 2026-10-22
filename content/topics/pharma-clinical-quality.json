@@ -1,0 +1,1957 @@
+{
+  "id": "pharma-clinical-quality",
+  "title": "Clinical Quality and Specialized Compliance",
+  "category": "Pharma",
+  "track": "Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How quality works for outsourcing facilities, regulatory remediation, sponsors, contract manufacturers and clinical programs.",
+  "audience": "Quality, compliance and regulatory staff new to compounding, sponsor or clinical quality work, and FDEs building tools for remediation, supplier oversight or clinical documentation.",
+  "sections": [
+    {
+      "id": "503b-compliance",
+      "title": "503B compliance support (specialist elective)",
+      "summary": "Specialist elective, separate from the core sponsor and clinical quality scope: what a 503B outsourcing facility is, which GMP rules apply to it, and how a facility is assessed against them. Take it only with a confirmed business need and a qualified owner.",
+      "outline": [
+        "GMP compliance and gap assessments",
+        "Quality management system enhancement",
+        "GMP documentation support",
+        "Equipment qualification and validation",
+        "FDA inspection readiness",
+        "Regulatory audit and remediation support"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-503b-basics",
+          "title": "503B outsourcing facilities and CGMP",
+          "summary": "You will be able to explain what a 503B outsourcing facility is, how it differs from a 503A pharmacy, which GMP rules apply, and how to run a simple gap assessment.",
+          "why": "Outsourcing facilities sit between a pharmacy and a drug manufacturer. People who join from a pharmacy background often underestimate the GMP expectations, and people from big manufacturing sometimes miss what is special about compounding. If you assess, remediate or build tools for these facilities, you need to know which rules apply and where the common gaps are.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Compounding means combining, mixing or altering ingredients to make a medicine, often when an approved product does not meet a patient's or hospital's need. In the US, section 503B of the Federal Food, Drug, and Cosmetic Act (FD&C Act) creates a category called outsourcing facilities. It was added in 2013 by the Drug Quality and Security Act.",
+                "An outsourcing facility chooses to register with FDA. In return, drugs it compounds under all the conditions of section 503B are exempt from some requirements, such as FDA approval of each drug. But it is not exempt from current good manufacturing practice (CGMP). That is the single most important point for anyone new to this area."
+              ]
+            },
+            {
+              "h": "Scope of this elective",
+              "p": [
+                "This section is a specialist elective. It sits apart from the core of this course, which is sponsor quality, oversight of contract manufacturers and clinical document review. Take it only when your work involves an outsourcing facility, and treat it as orientation, not readiness.",
+                "Assessing sterile compounding, judging aseptic technique, qualifying cleanrooms or leading remediation after an FDA inspection all need qualified, experienced people, usually with a pharmacy or sterile manufacturing background. Finishing this lesson means you can follow the conversation, ask useful questions and support the people who do that work. It does not mean you can sign a gap assessment or advise a facility on its own."
+              ]
+            },
+            {
+              "h": "503A and 503B, side by side",
+              "p": [
+                "A traditional compounding pharmacy works under section 503A. It compounds for an identified patient based on a prescription and is overseen mainly by state boards of pharmacy. It is not generally held to CGMP.",
+                "A 503B outsourcing facility can compound with or without patient-specific prescriptions, for example to supply hospitals. Compounding must be done by or under the direct supervision of a licensed pharmacist. FDA inspects outsourcing facilities on a risk-based schedule, and they must report to FDA the products they compounded twice a year and report serious adverse events. Bulk drug substances generally may be used only if they appear on FDA's 503B bulks list or the drug is on FDA's drug shortage list."
+              ]
+            },
+            {
+              "h": "Which GMP rules apply",
+              "p": [
+                "Outsourcing facilities must meet CGMP under 21 CFR Parts 210 and 211. FDA has published guidance on how it applies CGMP to outsourcing facilities, recognising some differences from large-scale manufacturing, such as smaller batches. Check the FDA guidance page for its current status before you quote it.",
+                "In practice, the areas that matter most for sterile compounding map to Part 211 subparts: personnel and training (Subpart B), facilities and cleanrooms (Subpart C), equipment (Subpart D), production and process controls, including aseptic processing (Subpart F), laboratory controls and release testing (Subpart I), and records (Subpart J). Data integrity (ALCOA+) applies to every record, and electronic systems need 21 CFR Part 11 controls."
+              ]
+            },
+            {
+              "h": "Running a gap assessment, step by step",
+              "list": [
+                "Agree the scope: sterile, non-sterile or both, and which product lines.",
+                "Collect the evidence: SOPs, batch records, environmental monitoring data, media fill records, equipment qualification files, training records, complaint and deviation logs.",
+                "Walk the facility and watch the work, especially gowning and aseptic steps.",
+                "Compare each area against 21 CFR 211 and the FDA outsourcing facility guidance; record each gap with the rule it relates to.",
+                "Rate each gap by risk to the patient, using ICH Q9(R1) thinking.",
+                "Agree a remediation plan with owners and dates, run through the facility's CAPA system."
+              ],
+              "p": [
+                "A gap assessment compares what the facility does with what the rules and its own procedures require, and records each difference with evidence. It is planned work with a defined scope, not a walk-through. The steps below are typical; the facility's quality unit owns the final ratings and plan.",
+                "Keep the evidence trail tight. Each gap should name the record or observation it is based on, the requirement it relates to and the date it was seen, so that someone who was not on the visit can check it. A gap without evidence is an opinion, and opinions do not survive an inspection or a disagreement with the facility."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI can help read large sets of SOPs and records against a checklist, find missing sections, compare batch records for repeated issues, and draft gap descriptions. It must not decide that a gap is acceptable, rate patient risk on its own, or answer an FDA investigator. Risk ratings, remediation decisions and any communication with regulators belong to qualified quality staff and management, and every AI-assisted finding should be checked against the source record before it goes in a report."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "503A pharmacy and 503B outsourcing facility",
+            "caption": "Compare each row across the two columns; the right column carries CGMP.",
+            "columns": [
+              {
+                "title": "503A compounding pharmacy",
+                "items": [
+                  "Compounds for an identified patient",
+                  "Based on a prescription",
+                  "Overseen mainly by state boards",
+                  "Not generally held to CGMP"
+                ]
+              },
+              {
+                "title": "503B outsourcing facility",
+                "items": [
+                  "Registers with FDA by choice",
+                  "May compound without patient-specific prescriptions",
+                  "Must meet CGMP (21 CFR 210 and 211)",
+                  "FDA risk-based inspections",
+                  "Reports products twice a year",
+                  "Reports serious adverse events"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a first gap assessment (fictional)",
+            "p": [
+              "Imagine a facility that compounds sterile syringes for hospitals and has just registered as an outsourcing facility. Its staff come mostly from hospital pharmacy. You are asked to run a gap assessment before an expected FDA inspection.",
+              "After two days of document review and floor observation, you record the findings below, each linked to the area of Part 211 it concerns."
+            ],
+            "list": [
+              "Media fill records exist, but the SOP does not define how operators who fail are handled. Area: aseptic processing and personnel.",
+              "Environmental monitoring excursions are noted in a logbook but not investigated. Area: production controls and investigations.",
+              "Final release checks are done, but no one from a quality unit with defined authority signs release. Area: quality control unit responsibilities.",
+              "A spreadsheet tracks batches with no audit trail and shared logins. Area: records and data integrity.",
+              "Each gap is risk-rated with the quality lead and turned into a CAPA with an owner and a date."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a 503B gap checklist",
+              "time": "60 min",
+              "goal": "Practise linking outsourcing facility work to the GMP rules that apply.",
+              "steps": [
+                "Read the FDA page 'Information for Outsourcing Facilities' and note the main obligations.",
+                "Open 21 CFR Part 211 on ecfr.gov and list its subparts.",
+                "In a spreadsheet, write three checklist questions for each of Subparts B, C, D, F, I and J.",
+                "Add a column for the evidence you would ask for to answer each question.",
+                "Ask Claude to suggest missing questions, then keep only those you can link to a specific rule."
+              ],
+              "done_when": "You have at least 18 checklist questions, each with a subpart and a piece of evidence."
+            }
+          ],
+          "pitfalls": [
+            "Assuming pharmacy rules are enough. Outsourcing facilities must meet CGMP.",
+            "Looking only at documents. Many sterile gaps only show up when you watch the work.",
+            "Logging environmental monitoring excursions without investigating them.",
+            "Letting a spreadsheet with shared logins act as a GMP record.",
+            "Using AI findings in a report without checking each one against the source record."
+          ],
+          "check": [
+            "What does section 503B of the FD&C Act create, and when was it added?",
+            "Name two differences between a 503A pharmacy and a 503B outsourcing facility.",
+            "Which regulations set the CGMP expectations for outsourcing facilities?",
+            "What must an outsourcing facility report to FDA, and how often for products?",
+            "Name one gap assessment task AI can help with and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Information for Outsourcing Facilities",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/human-drug-compounding/information-outsourcing-facilities",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Current Good Manufacturing Practice: Guidance for Human Drug Compounding Outsourcing Facilities Under Section 503B of the FD&C Act",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/current-good-manufacturing-practice-guidance-human-drug-compounding-outsourcing-facilities-under",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Human Drug Compounding",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/guidance-compliance-regulatory-information/human-drug-compounding",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Registered Outsourcing Facilities",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/human-drug-compounding/registered-outsourcing-facilities",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 211: Current Good Manufacturing Practice for Finished Pharmaceuticals",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA Inspections of Compounding Outsourcing Facilities",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=dCZkx0mL98k",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "pcq-q01",
+          "lesson": "pharma-503b-basics",
+          "q": "A new hire says a 503B facility only needs to follow pharmacy rules. What is the correct reply?",
+          "options": [
+            "Correct, 503B is a type of pharmacy license",
+            "Correct, if it is licensed by its home state",
+            "Wrong, outsourcing facilities must meet CGMP",
+            "Wrong, they must meet medical device rules"
+          ],
+          "answer": 2,
+          "why": "Outsourcing facilities are not exempt from CGMP under 21 CFR 210 and 211."
+        },
+        {
+          "id": "pcq-q02",
+          "lesson": "pharma-503b-basics",
+          "q": "A hospital wants sterile syringes in stock without a named patient for each. Which kind of compounder can supply this?",
+          "options": [
+            "A 503B outsourcing facility",
+            "A 503A pharmacy",
+            "Any compounder with a state license",
+            "None, all compounding needs a named patient"
+          ],
+          "answer": 0,
+          "why": "503B facilities may compound with or without patient-specific prescriptions."
+        },
+        {
+          "id": "pcq-q03",
+          "lesson": "pharma-503b-basics",
+          "q": "Which law added section 503B to the FD&C Act?",
+          "options": [
+            "The Food Safety Modernization Act",
+            "The 21st Century Cures Act",
+            "The Kefauver-Harris Amendments",
+            "The Drug Quality and Security Act"
+          ],
+          "answer": 3,
+          "why": "The Drug Quality and Security Act of 2013 created the outsourcing facility category."
+        },
+        {
+          "id": "pcq-q04",
+          "lesson": "pharma-503b-basics",
+          "q": "How often must an outsourcing facility report the products it compounded to FDA?",
+          "options": [
+            "Once a year",
+            "Twice a year",
+            "Every month",
+            "Only when inspected"
+          ],
+          "answer": 1,
+          "why": "Outsourcing facilities report the drugs they compounded to FDA twice a year."
+        },
+        {
+          "id": "pcq-q05",
+          "lesson": "pharma-503b-basics",
+          "q": "Environmental monitoring excursions are written in a logbook but never investigated. Which Part 211 area is this mainly about?",
+          "options": [
+            "Packaging and labeling control",
+            "Holding and distribution of finished drugs",
+            "Production and process controls",
+            "Returned and salvaged drug products"
+          ],
+          "answer": 2,
+          "why": "Excursions in aseptic areas are a production control issue and need investigation."
+        },
+        {
+          "id": "pcq-q06",
+          "lesson": "pharma-503b-basics",
+          "q": "Batches are tracked in a shared spreadsheet with one login and no audit trail. What is the main concern?",
+          "options": [
+            "Records are not attributable and changes are not traced",
+            "The file format is older than the current version",
+            "Spreadsheets are banned outright by FDA for any GMP use",
+            "The file will use too much space on the shared drive"
+          ],
+          "answer": 0,
+          "why": "ALCOA+ and Part 11 need attributable records and audit trails; shared logins break both."
+        },
+        {
+          "id": "pcq-q07",
+          "lesson": "pharma-503b-basics",
+          "q": "Under 503B, who must compounding be done by or supervised by?",
+          "options": [
+            "A quality assurance manager",
+            "A physician",
+            "An FDA investigator",
+            "A licensed pharmacist"
+          ],
+          "answer": 3,
+          "why": "Section 503B requires compounding by or under the direct supervision of a licensed pharmacist."
+        },
+        {
+          "id": "pcq-q08",
+          "lesson": "pharma-503b-basics",
+          "q": "Why should a gap assessment include watching operators work, not just reading SOPs?",
+          "options": [
+            "SOPs at small facilities are never accurate",
+            "Gowning and aseptic gaps often show only in practice",
+            "FDA investigators do not read SOPs during inspections",
+            "Watching people work is faster than reading records"
+          ],
+          "answer": 1,
+          "why": "Practice can differ from procedure, and aseptic risks are often visible only on the floor."
+        },
+        {
+          "id": "pcq-q09",
+          "lesson": "pharma-503b-basics",
+          "q": "An AI tool flags 40 possible gaps in a set of SOPs. What should happen before they go in the report?",
+          "options": [
+            "Copy them into the report exactly as the tool found them",
+            "Send the full list to FDA so it can review them",
+            "Keep only those the tool itself rates as high risk",
+            "A qualified person checks each against the source record"
+          ],
+          "answer": 3,
+          "why": "AI findings are drafts; a person must verify each against the record and own the conclusion."
+        },
+        {
+          "id": "pcq-q10",
+          "lesson": "pharma-503b-basics",
+          "q": "Generally, when may an outsourcing facility compound from a bulk drug substance?",
+          "options": [
+            "Whenever a hospital customer asks for the product",
+            "Only after the state board of pharmacy approves it",
+            "If on the 503B bulks list or the drug is in shortage",
+            "Never, only finished approved drugs may be used as inputs"
+          ],
+          "answer": 2,
+          "why": "503B limits bulk drug substances to the 503B bulks list or drugs on FDA's shortage list."
+        }
+      ]
+    },
+    {
+      "id": "483-and-warning-letter-response",
+      "title": "FDA 483 and warning letter response (introduction)",
+      "summary": "How to read inspection observations, how a credible response and remediation plan are built, and where specialist remediation and company leadership take over. Introductory coverage; leading a remediation programme is a specialist skill.",
+      "outline": [
+        "What a Form FDA 483 and a warning letter are",
+        "Regulatory observation assessment",
+        "Response planning and timing",
+        "Compliance risk prioritisation",
+        "Response preparation and technical review",
+        "CAPA and remediation implementation",
+        "Escalation and governance; where AI can help draft and track, and why commitments to FDA are made by people"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-clinical-quality-483-response",
+          "title": "Reading a 483 and building a response that holds",
+          "summary": "You will be able to explain what a Form FDA 483 and a warning letter are, how an observation is assessed for scope and root cause, and what makes a response and its CAPA credible.",
+          "why": "After an inspection, a company has little time and a lot of pressure. FDEs may be asked to build trackers, search records for related problems, or help draft parts of a response. If you do not know how FDA reads a response, you can help produce a polished document that promises too much, fixes only the one example the investigator saw, or misses the deadline that matters.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A Form FDA 483 is issued to company management at the end of an inspection when the investigator has observed conditions that, in their judgment, may be violations of the law. FDA states that the 483 is not a final agency determination and is not an all-inclusive list. The agency considers it together with the establishment inspection report, the evidence collected and any response from the company before deciding on further action.",
+                "A warning letter is a later and more serious step. It tells the company that FDA considers it in significant violation and asks for a written response, usually within a stated number of working days. Warning letters are published on FDA's website. Possible further actions include import alerts, seizure or injunction, so a weak response has real consequences.",
+                "After review, FDA classifies an inspection. The common outcomes are no action indicated (NAI), voluntary action indicated (VAI), where the firm is expected to correct the problems itself, and official action indicated (OAI), where FDA may take regulatory action such as a warning letter. The quality of the company's 483 response is one of the things that can influence that outcome.",
+                "This section is an introduction. Leading a remediation programme or writing commitments to FDA is specialist work for experienced quality and regulatory leaders, often with outside experts. The aim here is to understand the logic well enough to support it."
+              ]
+            },
+            {
+              "h": "Assessing each observation",
+              "p": [
+                "Every observation is read three ways. First, the specific example: what exactly did the investigator see? Second, the scope: does the same problem exist in other batches, products, lines, systems or sites? FDA's FAQ makes the point that companies are responsible for related, uncited problems too. Third, the cause: why did the system allow it, and why did the company's own checks not find it first?",
+                "A simple risk view then helps prioritise: the potential effect on patients and product quality, how widespread the problem is, and whether product already on the market could be affected. Quality risk management under ICH Q9(R1) gives the structure. Anything with possible patient impact is escalated at once, without waiting for the written response."
+              ]
+            },
+            {
+              "h": "Building the response",
+              "p": [
+                "FDA has said it generally considers a response received within 15 business days of the 483 when deciding whether to take further action such as a warning letter. Check the current FDA position before you rely on that timing, but plan as if the clock started when the inspection closed.",
+                "A credible response is specific and backed by evidence. For each observation it usually contains:",
+                "Write the response for a reader who was not at the inspection. Use plain, factual language, number the answers to match the observations, and attach or index the evidence. Promise only what has been planned and resourced. Where work will take months, say how and when progress updates will be sent, and then send them on time."
+              ],
+              "list": [
+                "Acknowledgement of the observation, without arguing about wording unless there is a genuine factual error.",
+                "The scope review: what was checked beyond the cited example and what was found.",
+                "The root cause, written in terms of systems and controls, not one person's mistake.",
+                "Immediate corrections, including any product impact assessment and market actions.",
+                "Corrective and preventive actions with owners and realistic dates.",
+                "How effectiveness will be checked, and what evidence is attached now or will be sent later."
+              ]
+            },
+            {
+              "h": "Remediation that holds",
+              "p": [
+                "The response is a promise; remediation is keeping it. Commitments go into the CAPA system with owners and due dates, and a governance group, usually including senior management, reviews progress regularly. Effectiveness checks ask whether the problem has actually stopped, for example by sampling records months later, not only whether the new SOP was issued.",
+                "Missed or quietly changed commitments are a common reason later inspections go badly. If a date cannot be met, the change is assessed, approved and, where it was promised to FDA, communicated through the proper channel."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI can help search large record sets for the same pattern as an observation, compare draft responses against the observation text to make sure every point is addressed, and keep the commitment tracker current. It must not decide the root cause, the product impact or what the company promises. Commitments to FDA are made and signed by accountable people, and every fact in a response must be checked against the source record."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From observation to lasting fix",
+            "caption": "Each step should leave evidence that the next step and a later inspection can check.",
+            "steps": [
+              {
+                "label": "483 issued at closeout",
+                "note": "Observations read and discussed"
+              },
+              {
+                "label": "Assess each observation",
+                "note": "Example, scope and root cause"
+              },
+              {
+                "label": "Prioritise by risk",
+                "note": "Patient impact escalated at once"
+              },
+              {
+                "label": "Write and review response",
+                "note": "Specific, evidenced, realistic dates"
+              },
+              {
+                "label": "Run CAPA and remediation",
+                "note": "Owners, dates, governance review"
+              },
+              {
+                "label": "Check effectiveness",
+                "note": "Proof the problem stopped"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one observation, three levels",
+            "p": [
+              "This is an illustrative example. An observation says that two deviation investigations for a tablet line closed without a documented root cause.",
+              "A weak response reopens those two investigations and retrains the investigator. A stronger response first checks scope: all deviations closed in the last two years across all lines. Suppose the review finds a pattern in other closed investigations. The root cause is then a system issue, for example the procedure did not require a root cause section and nobody reviewed closures. The response commits to revising the procedure, reopening affected investigations by risk, adding a quality review step at closure, and checking effectiveness by sampling closures after a set period.",
+              "Each commitment has an owner and date in the CAPA system, and a governance meeting reviews progress until the effectiveness check passes."
+            ],
+            "list": [
+              "Specific example: two investigations without root cause.",
+              "Scope: all closed deviations, all lines, two years.",
+              "System cause: procedure and review gap.",
+              "Fix: revise procedure, reopen by risk, add closure review.",
+              "Proof: effectiveness sampling with a defined pass rule."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Draft a response outline for one observation",
+              "time": "45 min",
+              "goal": "Practise turning an observation into a specific, evidence-based response plan.",
+              "steps": [
+                "Open FDA's warning letters page and read the observations in one recent letter about drug manufacturing.",
+                "Pick one observation and write it at the top of a blank document in your own words.",
+                "Write a scope question, a possible system root cause and the evidence you would need to confirm it.",
+                "List immediate corrections, three CAPA actions with owner roles and dates, and one effectiveness check with a pass rule.",
+                "Mark every statement that would need checking against a source record before it could be sent."
+              ],
+              "done_when": "Your outline covers scope, root cause, corrections, CAPA, effectiveness check, and every factual claim is marked for verification."
+            }
+          ],
+          "pitfalls": [
+            "Fixing only the cited example and ignoring the same problem elsewhere, which FDA expects the company to find.",
+            "Blaming one person and promising retraining, when the real cause is a weak procedure or missing review.",
+            "Promising dates the organisation cannot meet, then missing them quietly.",
+            "Measuring CAPA success by documents issued instead of evidence that the problem stopped.",
+            "Letting a polished AI draft go out with facts nobody checked against the records."
+          ],
+          "check": [
+            "Is a Form FDA 483 a final FDA decision? What else does FDA consider?",
+            "What three questions do you ask about each observation?",
+            "What should a response contain for each observation?",
+            "What makes an effectiveness check meaningful?",
+            "Who makes commitments to FDA, and what can AI help with?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "FDA Form 483 Frequently Asked Questions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/fda-form-483-frequently-asked-questions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Warning Letters",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulatory Procedures Manual",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-manuals/regulatory-procedures-manual",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Investigations Operations Manual",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/investigations-operations-manual",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What to Expect after an Inspection: 483s, Responses and Beyond",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=LU_4vTx03IU",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA 483 Explained: What It Means and What Happens Next",
+              "source": "QT9 Software",
+              "url": "https://www.youtube.com/watch?v=2IiVkEG_51M",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "483-and-warning-letter-response-q01",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "An inspection ends with a Form FDA 483. What is it?",
+          "options": [
+            "A final FDA ruling that the firm broke the law",
+            "A fine that must be paid within thirty days of the closing meeting",
+            "A list of observed conditions that may be violations",
+            "An approval to continue shipping with no changes"
+          ],
+          "answer": 2,
+          "why": "FDA states the 483 lists observed conditions and is not a final agency determination."
+        },
+        {
+          "id": "483-and-warning-letter-response-q02",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "Does the 483 list every problem the firm has?",
+          "options": [
+            "No, and the firm should look for related uncited problems",
+            "Yes, FDA always lists every problem it could find",
+            "Yes, anything not listed is approved by default",
+            "No, but uncited problems never need any action from the firm at all"
+          ],
+          "answer": 0,
+          "why": "FDA says the 483 is not all-inclusive and companies are responsible for related, uncited problems."
+        },
+        {
+          "id": "483-and-warning-letter-response-q03",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "An observation cites one batch record with missing signatures. What is the best first question for scope?",
+          "options": [
+            "Who was the operator so they can be disciplined?",
+            "Can we argue that the investigator misread the batch record page?",
+            "How quickly can we print a new copy of the record?",
+            "Are signatures missing in other records and lines too?"
+          ],
+          "answer": 3,
+          "why": "Scope review asks whether the same problem exists beyond the cited example."
+        },
+        {
+          "id": "483-and-warning-letter-response-q04",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "Which root cause statement is strongest?",
+          "options": [
+            "The operator was careless on that particular day",
+            "The procedure did not require a review step",
+            "The investigator was unusually strict this time",
+            "Mistakes happen and cannot be prevented at all"
+          ],
+          "answer": 1,
+          "why": "Strong root causes describe the system or control that allowed the problem."
+        },
+        {
+          "id": "483-and-warning-letter-response-q05",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "What timing has FDA said it generally considers for a 483 response before deciding on further action?",
+          "options": [
+            "Within 15 business days",
+            "Within one calendar year of the inspection",
+            "At the next routine inspection, whenever it is",
+            "There is no timing; responses are never read"
+          ],
+          "answer": 0,
+          "why": "FDA has said it generally considers responses received within 15 business days; check the current position."
+        },
+        {
+          "id": "483-and-warning-letter-response-q06",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "During assessment, the team finds marketed product may be affected. What should happen?",
+          "options": [
+            "Wait and mention it in the written response only",
+            "Leave it out of the response to avoid attention",
+            "Escalate at once for product impact decisions",
+            "Ask an AI tool to decide whether it matters"
+          ],
+          "answer": 2,
+          "why": "Possible patient impact is escalated at once, not held for the response."
+        },
+        {
+          "id": "483-and-warning-letter-response-q07",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "Which effectiveness check is most meaningful for a fix to investigation closures?",
+          "options": [
+            "Confirming the new SOP was issued on time",
+            "Counting how many people attended training",
+            "Asking the team if they feel things improved",
+            "Sampling closures later against a pass rule"
+          ],
+          "answer": 3,
+          "why": "Effectiveness checks look for evidence the problem has stopped, not only that documents changed."
+        },
+        {
+          "id": "483-and-warning-letter-response-q08",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "A CAPA promised to FDA will miss its date. What is right?",
+          "options": [
+            "Assess the change, approve it and communicate properly",
+            "Change the due date quietly in the CAPA system and carry on",
+            "Close the CAPA early and finish the work later",
+            "Do nothing, as FDA will not notice the change"
+          ],
+          "answer": 0,
+          "why": "Commitment changes are assessed and approved, and communicated where made to FDA."
+        },
+        {
+          "id": "483-and-warning-letter-response-q09",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "An AI tool drafts a complete response in minutes. What is its proper role?",
+          "options": [
+            "Sign and send it to save the deadline",
+            "A draft that people check and decide on",
+            "Final author of the root cause statements",
+            "The owner of the CAPA commitments in it"
+          ],
+          "answer": 1,
+          "why": "Commitments to FDA are made by accountable people, and every fact is checked against records."
+        },
+        {
+          "id": "483-and-warning-letter-response-q10",
+          "lesson": "pharma-clinical-quality-483-response",
+          "q": "After this lesson, what can you reasonably do in a remediation programme?",
+          "options": [
+            "Lead the programme and sign the FDA response",
+            "Decide product impact on behalf of quality",
+            "Support trackers, searches and drafts for review",
+            "Negotiate new response dates directly with the FDA investigator by phone"
+          ],
+          "answer": 2,
+          "why": "This is introductory; leading remediation and committing to FDA is specialist, accountable work."
+        }
+      ]
+    },
+    {
+      "id": "sponsor-quality-systems",
+      "title": "Sponsor quality systems",
+      "summary": "How a clinical-stage sponsor builds a phase-appropriate quality system across GMP and GCP, keeps data trustworthy and oversees the partners who do most of the work.",
+      "outline": [
+        "What a sponsor is responsible for, even when work is outsourced",
+        "Phase-appropriate QMS and sponsor SOPs",
+        "Where GMP and GCP meet (ICH E6 and Phase 1 CGMP)",
+        "Drug substance and drug product specifications across phases",
+        "Data integrity and risk-based quality oversight",
+        "Scale-up and technology transfer support from the sponsor side",
+        "Where AI can help: tracking partner documents; who owns sponsor decisions"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-clinical-quality-sponsor-qms",
+          "title": "Sponsor quality: owning quality when others do the work",
+          "summary": "You will be able to explain what a sponsor is accountable for, what a phase-appropriate quality system contains, and how GMP and GCP responsibilities meet in a clinical program.",
+          "why": "Many clinical-stage companies have few staff and outsource manufacturing, testing, trial conduct and data management. They still own the quality of the product and the trial. FDEs who build oversight dashboards, document trackers or review tools for such sponsors need to know what the sponsor must see and decide, or the tool will track activity without showing control.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A sponsor is the person or organisation that takes responsibility for and starts a clinical investigation. In the US, 21 CFR 312.50 sets out the sponsor's general responsibilities, such as selecting qualified investigators, giving them the information they need, ensuring proper monitoring and keeping FDA and investigators informed. 21 CFR 312.52 lets a sponsor transfer obligations to a contract research organisation (CRO) in writing; any obligation not described in that writing stays with the sponsor.",
+                "ICH E6, the good clinical practice guideline, says the same thing in its own words: the sponsor may delegate tasks, but keeps responsibility for the quality and integrity of the trial. The same logic applies on the manufacturing side when a contract manufacturer makes the investigational product. Outsourcing moves work. It does not move accountability."
+              ]
+            },
+            {
+              "h": "What phase-appropriate means",
+              "p": [
+                "A quality system for a company with one Phase 1 study should not look like a large commercial manufacturer's system, but it must still be real. Phase-appropriate means controls grow as the product and the knowledge grow. FDA's guidance on CGMP for Phase 1 investigational drugs explains that most Phase 1 drugs are exempt from the detailed Part 211 rules, but must still be made under CGMP suited to that stage, with written procedures, adequate equipment and facilities, controlled materials, testing and records.",
+                "Specifications follow the same path. Early specifications are set mainly to protect trial participants and are often wider, with limits for identity, assay, purity and key safety attributes. As batch history and clinical experience grow, specifications are tightened and justified toward what a marketing application will need. Every change is documented, because the sponsor must be able to show which product, made to which specification, was given to which participants."
+              ],
+              "list": [
+                "Core sponsor SOPs: document control, training, deviations and CAPA, change control, supplier and vendor qualification, audits, quality agreements, product disposition, complaints and recalls of investigational product.",
+                "GCP-facing SOPs: vendor oversight of CROs, trial master file management, protocol deviation handling and safety information flow.",
+                "Management review: regular review of quality signals across all partners, owned by sponsor leadership."
+              ]
+            },
+            {
+              "h": "Where GMP and GCP meet",
+              "p": [
+                "A sponsor sits on the boundary between two rule sets. GMP covers how the investigational product is made, tested, labelled, stored and released. GCP covers how the trial is designed, conducted, recorded and reported. Many quality problems sit exactly on that boundary: a temperature excursion at a clinical site, a labelling error that breaks the blind, a batch re-test date that expires during the trial, or a protocol change that needs a new strength.",
+                "A sponsor quality system needs clear owners for these hand-offs. Who decides whether product exposed to an excursion can still be used? Who tells sites? Who updates the pharmacy manual? Writing these answers down in SOPs and quality agreements before something happens is much of the real work.",
+                "In the EU, the same boundary shows up in a different form. Commission Delegated Regulation (EU) 2017/1569 sets the GMP principles for investigational medicinal products, and each batch must be certified by a qualified person before it is used in a trial. A sponsor running studies in both regions must design its system so it meets both sets of expectations without running two separate quality systems."
+              ]
+            },
+            {
+              "h": "Data integrity and risk-based oversight",
+              "p": [
+                "Sponsors depend on data created by others: batch records at the manufacturer, results at the lab, case report forms at sites and databases at the CRO. Data integrity principles (ALCOA+) apply to all of it. The sponsor cannot check everything, so E6 encourages a risk-based approach: identify what is critical to quality, focus oversight there, and use key risk indicators, audits and review of partner metrics to find problems early.",
+                "Sponsor teams also support scale-up and technology transfer between partners as the program grows, for example when moving from a small clinical manufacturer to a larger one. The same transfer discipline applies: a knowledge package, comparability of product, and evidence before new material is used in trials.",
+                "Oversight also needs a rhythm. Many sponsors hold regular quality meetings with each key partner, review an agreed set of metrics such as open deviations, overdue CAPA and right-first-time batch records, and plan audits by risk. The point is not the meeting itself but the decisions recorded in it."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI tools can track expiry and re-test dates across partners, compare partner SOPs and quality agreements against a checklist, summarise monthly partner metrics, and find documents that disagree with each other. They must not decide product disposition, judge whether a deviation affects participant safety, or accept a partner's CAPA. Those are sponsor decisions, made by named quality and clinical staff, and recorded."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "Who does what in an outsourced program",
+            "caption": "Partners do much of the work; the sponsor lane holds the decisions that stay with the sponsor.",
+            "lanes": [
+              "Sponsor quality",
+              "CDMO",
+              "CRO",
+              "Clinical site"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Qualify partners, sign agreements"
+              },
+              {
+                "lane": 1,
+                "label": "Make and test the batch"
+              },
+              {
+                "lane": 0,
+                "label": "Review records, decide disposition"
+              },
+              {
+                "lane": 2,
+                "label": "Monitor the trial, manage data"
+              },
+              {
+                "lane": 3,
+                "label": "Store product, dose participants"
+              },
+              {
+                "lane": 3,
+                "label": "Report temperature excursion"
+              },
+              {
+                "lane": 0,
+                "label": "Decide if product is still usable"
+              },
+              {
+                "lane": 0,
+                "label": "Review partner metrics and CAPA"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a re-test date that will expire mid-trial",
+            "p": [
+              "This is an illustrative example. A sponsor's Phase 2 study uses one drug product batch with a re-test date in four months. Enrolment is slower than planned, so the study will need product for another nine months.",
+              "Without a clear owner, the CDMO assumes the sponsor is tracking it, the CRO assumes the CDMO will extend the date, and the sites keep dosing. A sponsor tracker flags the date 120 days ahead. Sponsor quality checks the stability data and the stability protocol, asks the CDMO for the next time-point results and plans either a justified extension, supported by stability data and documented under change control, or a new batch.",
+              "The sponsor also confirms how sites will be told, how labels or records are updated, and that no participant receives product beyond its approved date. The decision and its evidence are filed so an inspector can follow them."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Map sponsor decisions for a small program",
+              "time": "40 min",
+              "goal": "Practise separating work that can be outsourced from decisions the sponsor keeps.",
+              "steps": [
+                "Write down a synthetic program: one Phase 1 study, one CDMO for drug product, one testing lab, one CRO and four clinical sites.",
+                "List at least 12 activities, such as batch manufacture, release testing, disposition, site monitoring, excursion assessment and safety reporting.",
+                "For each activity, write who does the work and who owns the decision.",
+                "Mark which activities need a written quality agreement or transfer of obligations under 21 CFR 312.52.",
+                "Highlight three hand-offs on the GMP and GCP boundary and write who is accountable for each."
+              ],
+              "done_when": "Your table shows doer and decision owner for each activity, and the three boundary hand-offs have named owners."
+            }
+          ],
+          "pitfalls": [
+            "Assuming that outsourcing a task also outsources the responsibility for it.",
+            "Copying a commercial manufacturer's full QMS into a small sponsor, so procedures are too heavy to follow and get ignored.",
+            "Leaving GMP and GCP hand-offs, such as temperature excursions at sites, without a named decision owner.",
+            "Tracking partner activity counts instead of the critical-to-quality signals that show control.",
+            "Changing a specification during development without recording which batches and participants were affected."
+          ],
+          "check": [
+            "What does 21 CFR 312.52 allow a sponsor to do, and what stays with the sponsor?",
+            "What does phase-appropriate mean for a sponsor quality system?",
+            "Give two examples of problems that sit on the GMP and GCP boundary.",
+            "How does a risk-based approach to oversight work?",
+            "Name one sponsor oversight task AI can support and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 312: Investigational New Drug Application",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-312",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "E6(R3) Good Clinical Practice (GCP)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/e6r3-good-clinical-practice-gcp",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Current Good Manufacturing Practice for Phase 1 Investigational Drugs",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/current-good-manufacturing-practice-phase-1-investigational-drugs",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH E6 Good clinical practice - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-e6-good-clinical-practice",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Joint US FDA - Health Canada ICH Public Meeting | D1S05 - Good Clinical Practice: ICH E6(R3)",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=7Dmxf3WowS4",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Ensuring Quality in Clinical Trials with Proper Oversight",
+              "source": "Harbor Clinical",
+              "url": "https://www.youtube.com/watch?v=LXV5ZWkKGAg",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "sponsor-quality-systems-q01",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "A sponsor outsources trial monitoring to a CRO. Who is still accountable for trial quality?",
+          "options": [
+            "Only the CRO, once the contract is signed",
+            "The sponsor",
+            "Each clinical site on its own terms",
+            "Nobody until an inspection takes place"
+          ],
+          "answer": 1,
+          "why": "Tasks can be delegated, but the sponsor keeps responsibility for trial quality and integrity."
+        },
+        {
+          "id": "sponsor-quality-systems-q02",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "Under 21 CFR 312.52, what happens to an obligation not described in the written transfer to a CRO?",
+          "options": [
+            "It stays with the sponsor",
+            "It moves to the CRO automatically by default",
+            "It is shared equally by all trial partners",
+            "It lapses and no longer has to be met"
+          ],
+          "answer": 0,
+          "why": "Obligations not covered in the written transfer remain with the sponsor."
+        },
+        {
+          "id": "sponsor-quality-systems-q03",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "A start-up with one Phase 1 study copies a large company's 400 SOPs. What is the likely problem?",
+          "options": [
+            "There is no problem at all, because more procedures always improve compliance",
+            "Phase 1 sponsors are forbidden to have SOPs",
+            "FDA requires exactly 400 SOPs for every sponsor",
+            "Procedures too heavy to follow, so they get ignored"
+          ],
+          "answer": 3,
+          "why": "Phase-appropriate means a real but proportionate system that people can actually follow."
+        },
+        {
+          "id": "sponsor-quality-systems-q04",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "What does FDA's Phase 1 CGMP guidance say about most Phase 1 investigational drugs?",
+          "options": [
+            "They need no controls of any kind at all",
+            "They must meet every single Part 211 rule in full detail from day one",
+            "Exempt from detailed Part 211 rules, but CGMP still applies",
+            "They may only be made by large commercial plants"
+          ],
+          "answer": 2,
+          "why": "Most Phase 1 drugs are exempt from detailed Part 211 rules but must be made under appropriate CGMP."
+        },
+        {
+          "id": "sponsor-quality-systems-q05",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "Why are early-phase specifications often wider than commercial ones?",
+          "options": [
+            "Because early batches are never tested at all",
+            "Limited data; limits mainly protect participants",
+            "Because regulators do not read Phase 1 specifications",
+            "Because wider limits make the trial results look better"
+          ],
+          "answer": 1,
+          "why": "Early limits focus on participant safety and tighten as batch and clinical data grow."
+        },
+        {
+          "id": "sponsor-quality-systems-q06",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "Product at a clinical site was stored above its limit overnight. Which kind of issue is this?",
+          "options": [
+            "A pure finance issue for the procurement team to handle with the courier",
+            "A marketing issue for the commercial team",
+            "An IT issue for the site's network provider",
+            "A GMP and GCP boundary issue needing a sponsor decision"
+          ],
+          "answer": 3,
+          "why": "Excursions at sites involve product quality and trial conduct, and the sponsor decides on usability."
+        },
+        {
+          "id": "sponsor-quality-systems-q07",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "A sponsor cannot check every data point from every partner. What does ICH E6 encourage?",
+          "options": [
+            "Focus oversight on what is critical to quality",
+            "Check a random 1 percent of all data points and ignore all of the rest",
+            "Trust partners fully and check nothing",
+            "Stop the trial until every point is checked"
+          ],
+          "answer": 0,
+          "why": "E6 encourages a risk-based approach focused on critical-to-quality factors."
+        },
+        {
+          "id": "sponsor-quality-systems-q08",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "The only clinical batch will reach its re-test date mid-trial. Who should own the plan?",
+          "options": [
+            "The clinical sites, since they physically hold the remaining stock",
+            "Whichever partner notices the date first",
+            "Sponsor quality, using stability data and change control",
+            "The CRO data manager responsible for the database"
+          ],
+          "answer": 2,
+          "why": "Disposition and date extensions are sponsor decisions based on evidence."
+        },
+        {
+          "id": "sponsor-quality-systems-q09",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "An AI tool finds that the CDMO quality agreement and the sponsor SOP disagree on who approves deviations. What next?",
+          "options": [
+            "Let the AI pick the more convenient wording",
+            "Ignore it, because quality agreements always override sponsor SOPs anyway",
+            "Delete the sponsor SOP to avoid the conflict",
+            "Sponsor quality resolves it and updates the documents"
+          ],
+          "answer": 3,
+          "why": "AI can find conflicts; sponsor quality resolves them through controlled document changes."
+        },
+        {
+          "id": "sponsor-quality-systems-q10",
+          "lesson": "pharma-clinical-quality-sponsor-qms",
+          "q": "A specification was tightened between batch 3 and batch 4. What must the sponsor be able to show?",
+          "options": [
+            "Nothing, as old specifications can be discarded",
+            "Which batch and specification each participant got",
+            "Only the newest specification version",
+            "Only the CDMO's internal approval email confirming the new limits"
+          ],
+          "answer": 1,
+          "why": "The sponsor must trace which product, made to which specification, went to which participants."
+        }
+      ]
+    },
+    {
+      "id": "cdmo-oversight-and-imp-release",
+      "title": "CDMO oversight and IMP release",
+      "summary": "How sponsors qualify and oversee contract manufacturers, and how batch records, deviations, stability, excursions and certificates of analysis are reviewed before investigational product is released. Review and escalation only; this course gives no release authority.",
+      "outline": [
+        "CDMO qualification and audits",
+        "Quality agreements: who does what and who decides",
+        "Batch documentation and CoA review",
+        "Deviation and CAPA assessment",
+        "Stability and temperature excursion evaluation",
+        "Disposition and release: who has authority (US quality unit, EU qualified person)",
+        "Where AI can help: first-pass record review; who disposes the batch"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-clinical-quality-cdmo-imp",
+          "title": "Overseeing a contract manufacturer and reviewing a batch for release",
+          "summary": "You will be able to describe how a CDMO is qualified and overseen, what a quality agreement settles, and what a sponsor reviews before investigational product can be released.",
+          "why": "Most clinical-stage sponsors do not own a factory. Their product is made by a contract development and manufacturing organisation (CDMO), and the sponsor must still be confident that every batch given to trial participants is right. FDEs are often asked to speed up batch record review or build release trackers. You need to know what the reviewer is really looking for, and that a review tool supports a release decision but never makes it.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Investigational medicinal product (IMP) is the drug, or placebo or comparator, used in a clinical trial. When a CDMO makes it, two quality systems meet: the CDMO's own and the sponsor's. US rules treat a contract facility as an extension of the manufacturer's own facility (21 CFR 200.10(b)), and the quality unit is responsible for approving or rejecting products made under contract by another company (21 CFR 211.22(a)). FDA's guidance on quality agreements explains how owners and contract facilities should write down their respective responsibilities.",
+                "Oversight has three parts: choose and qualify the right partner, agree in writing who does what, and review evidence for each batch before it is used. This lesson covers the review and escalation side. Actually disposing a batch is a formal authority held by named people, such as the responsible quality unit in the US or a qualified person in the EU. Completing this lesson does not give that authority."
+              ]
+            },
+            {
+              "h": "Qualification, audits and the quality agreement",
+              "p": [
+                "Before a CDMO makes clinical material, the sponsor assesses it: capability for the dosage form, regulatory inspection history, quality system maturity and capacity. An on-site or remote audit is common for GMP manufacturing, followed by a risk-based audit schedule.",
+                "The quality agreement turns responsibilities into named decisions. A good agreement is specific enough that, in the middle of a deviation, nobody has to guess.",
+                "Qualification is not a one-time stamp. Audit findings get responses and CAPA from the CDMO, which the sponsor follows up. Ongoing performance, such as late deviation reports, repeated documentation errors or a regulatory inspection with serious findings, feeds back into the risk rating and the audit schedule. A CDMO can be approved with conditions, put on enhanced oversight, or removed from the approved list."
+              ],
+              "list": [
+                "Who approves master batch records, specifications and changes.",
+                "How and when deviations, OOS results and complaints are reported to the sponsor, and who approves their closure.",
+                "Who performs which tests and who reviews the data.",
+                "What the batch release package contains and who disposes the batch.",
+                "Rights to audit, records retention and how subcontractors are controlled."
+              ]
+            },
+            {
+              "h": "Reviewing the batch package",
+              "p": [
+                "A typical release package contains the executed batch record, the certificate of analysis (CoA), deviation and investigation reports, change records affecting the batch, and for packaged clinical supply, labelling and packaging records. The reviewer reads them as one story, not as separate files.",
+                "The CoA is checked against the approved specification: every test listed, every result within limits, the right method versions, and signatures from the responsible people. The batch record is checked for completeness, critical steps, in-process results, yields and reconciliation, and corrections made in a traceable way. Every deviation linked to the batch is assessed for product impact, and its CAPA for whether it addresses the cause. Anything unclear becomes a question to the CDMO, recorded with the answer.",
+                "Review speed matters for trial timelines, but shortcuts move risk to participants. A common compromise is a risk-based review plan agreed in advance: critical pages and records reviewed in full every time, lower-risk records sampled, and the plan itself approved by quality and revisited when problems appear."
+              ]
+            },
+            {
+              "h": "Stability and temperature excursions",
+              "p": [
+                "Clinical supply moves through depots and sites, so excursions happen. When product is exposed to a temperature outside its label condition, the question is whether it is still fit for use. The answer comes from data: the product's stability data, any studies of short-term excursions, and the exact time and temperature recorded by the logger.",
+                "A sound excursion assessment states the conditions, compares them with the supporting data, concludes on usability, and records who decided. Product must not be used while the assessment is open. Repeated excursions on the same route are a CAPA trigger for the shipping or storage process, not just a series of one-off decisions."
+              ]
+            },
+            {
+              "h": "Disposition and where AI fits",
+              "p": [
+                "In the US, the responsible quality unit approves or rejects the batch, according to how the quality agreement divides the work between sponsor and CDMO. In the EU, a qualified person must certify each IMP batch before it can be released for use in a trial, under the GMP rules for investigational products in Commission Delegated Regulation (EU) 2017/1569. Either way, release is a named person's signed decision.",
+                "AI can do a useful first pass: check that every CoA result is within the specification, find missing signatures or blank fields in a batch record, link deviations to the batch and list open questions. It must not decide product impact, close a deviation or release a batch. The reviewer confirms every flag against the source record and the authorised person decides."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From CDMO selection to batch disposition",
+            "caption": "Each step builds the evidence the authorised person relies on at the end.",
+            "steps": [
+              {
+                "label": "Qualify and audit CDMO",
+                "note": "Capability, history, quality system"
+              },
+              {
+                "label": "Sign quality agreement",
+                "note": "Named owners for every decision"
+              },
+              {
+                "label": "Batch made and tested",
+                "note": "Batch record, CoA, deviations"
+              },
+              {
+                "label": "Sponsor review",
+                "note": "Read the package as one story"
+              },
+              {
+                "label": "Questions resolved",
+                "note": "Answers recorded with evidence"
+              },
+              {
+                "label": "Authorised disposition",
+                "note": "Quality unit or qualified person"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a clean CoA and a hidden problem",
+            "p": [
+              "This is an illustrative example. A CDMO sends the release package for a clinical capsule batch. Every CoA result is within specification and the batch record has no open blanks.",
+              "The reviewer reads the deviation log and finds a minor deviation: the encapsulation room humidity was above its limit for three hours. The CDMO classified it as no impact because the CoA passed. The reviewer checks the product's development data, which shows the capsule shell and fill are sensitive to moisture, and that water content is tested only at release, not again after storage.",
+              "The reviewer raises a question: what is the impact on stability over the trial period? The CDMO proposes extra water content and dissolution testing on retained samples and a stability pull. The sponsor's authorised person decides to hold disposition until those results are in. A passing CoA was not the whole story."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Review a synthetic release package",
+              "time": "45 min",
+              "goal": "Practise reading a CoA, a batch record summary and a deviation together.",
+              "steps": [
+                "Write a synthetic specification with six tests and limits, and a CoA for one batch with all results.",
+                "Make one result use the wrong method version and one signature missing.",
+                "Write a one-paragraph deviation for the batch with a possible but unassessed product impact.",
+                "Review the package with a checklist: test coverage, results in limits, method versions, signatures, deviation impact.",
+                "Write your questions to the CDMO and state who in the sponsor organisation would decide disposition."
+              ],
+              "done_when": "You found all three planted problems, wrote a question for each, and named the decision owner."
+            }
+          ],
+          "pitfalls": [
+            "Treating a passing CoA as proof the batch is fine without reading linked deviations and changes.",
+            "Signing a quality agreement so general that nobody knows who approves a deviation at the CDMO.",
+            "Letting sites use product while an excursion assessment is still open.",
+            "Assessing each excursion alone and never trending them to fix the shipping or storage process.",
+            "Assuming that a reviewer or an AI tool can release a batch without formal disposition authority."
+          ],
+          "check": [
+            "What do 21 CFR 200.10(b) and 211.22(a) say about contract manufacturing?",
+            "Name four things a quality agreement should settle.",
+            "What does a reviewer check on a CoA?",
+            "What makes a temperature excursion assessment sound?",
+            "Who disposes an IMP batch in the US and in the EU, and what can AI do before that?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Contract Manufacturing Arrangements for Drugs: Quality Agreements Guidance for Industry",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/contract-manufacturing-arrangements-drugs-quality-agreements-guidance-industry",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 211: Current Good Manufacturing Practice for Finished Pharmaceuticals",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Commission Delegated Regulation (EU) 2017/1569: GMP for investigational medicinal products",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg_del/2017/1569/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex Volume 4: EU GMP guidelines",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Current Good Manufacturing Practice for Phase 1 Investigational Drugs",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/current-good-manufacturing-practice-phase-1-investigational-drugs",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What Is a Quality Agreement? Pharma, Medical Device, and CDMO Responsibilities",
+              "source": "Let's Combinate: Pharma + Medical Devices",
+              "url": "https://www.youtube.com/watch?v=ocohmInoHkE",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "GMP for Clinical Trials Manufacture & Supply - Online Course",
+              "source": "GxP Training: #1 Compliance Training Catalog",
+              "url": "https://www.youtube.com/watch?v=Dnv63JMCrcA",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "cdmo-oversight-and-imp-release-q01",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "How do US rules view a contract manufacturing facility?",
+          "options": [
+            "As an extension of the manufacturer's own facility",
+            "As fully independent with no link to the product owner",
+            "As outside FDA oversight once a contract is signed",
+            "As a supplier that only the courier needs to check"
+          ],
+          "answer": 0,
+          "why": "21 CFR 200.10(b) treats contract facilities as an extension of the manufacturer's own facility."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q02",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "A deviation happens at the CDMO and nobody knows if the sponsor must approve its closure. What is missing?",
+          "options": [
+            "A larger budget for the clinical supply chain team",
+            "A specific quality agreement",
+            "An extra stability time point for the batch",
+            "A faster courier for the release package"
+          ],
+          "answer": 1,
+          "why": "The quality agreement should name who reports and who approves deviation closure."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q03",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "Every CoA result passes, but a linked deviation has an unassessed impact. What should the reviewer do?",
+          "options": [
+            "Approve, because the CoA is the only document that matters",
+            "Delete the deviation from the release package",
+            "Raise a question and hold until impact is assessed",
+            "Ask the clinical site to decide on usability"
+          ],
+          "answer": 2,
+          "why": "The package is read as one story; open impact questions are resolved before disposition."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q04",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "Which is a CoA review check?",
+          "options": [
+            "The marketing claims for the product are attractive",
+            "The CDMO's staff turnover rate last year",
+            "The courier's delivery time for the samples",
+            "Each test matches the approved specification"
+          ],
+          "answer": 3,
+          "why": "The CoA is checked against the approved specification, method versions and signatures."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q05",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "Product at a depot was above its label temperature for six hours. What should the assessment be based on?",
+          "options": [
+            "Stability and excursion data against the logger record",
+            "The depot manager's view of whether it looks fine",
+            "How urgently the sites need the product next week",
+            "Whether the same thing happened at another depot run by the same logistics company"
+          ],
+          "answer": 0,
+          "why": "Usability is decided from data: stability and excursion studies compared with the actual conditions."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q06",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "While an excursion assessment is open, what happens to the affected product?",
+          "options": [
+            "Sites keep dosing until the result arrives",
+            "It is quarantined and not used",
+            "It is shipped to another country for use",
+            "It is destroyed immediately without review"
+          ],
+          "answer": 1,
+          "why": "Product must not be used while its assessment is open."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q07",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "The same shipping lane has had five excursions this quarter. What is the right response?",
+          "options": [
+            "Keep assessing each one separately as it happens and never look across them",
+            "Stop recording excursions on that particular lane",
+            "Trend them and open a CAPA on the shipping process",
+            "Ask sites to stop reporting minor excursions"
+          ],
+          "answer": 2,
+          "why": "Repeated excursions point to a process problem that needs CAPA, not just one-off decisions."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q08",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "In the EU, who must certify an IMP batch before it is released for use in a trial?",
+          "options": [
+            "The investigator at the first clinical site",
+            "The CRO project manager for the study",
+            "The courier that delivers it to the depot",
+            "A qualified person"
+          ],
+          "answer": 3,
+          "why": "EU rules require a qualified person to certify each IMP batch."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q09",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "An AI tool finds a missing signature and a wrong method version in a release package. What is its proper role?",
+          "options": [
+            "Flag them for the reviewer to confirm",
+            "Release the batch once the CDMO replies",
+            "Close the linked deviation automatically",
+            "Decide that the issues have no product impact"
+          ],
+          "answer": 0,
+          "why": "AI can do a first pass; the reviewer confirms and the authorised person decides."
+        },
+        {
+          "id": "cdmo-oversight-and-imp-release-q10",
+          "lesson": "pharma-clinical-quality-cdmo-imp",
+          "q": "After this lesson, can you dispose a clinical batch?",
+          "options": [
+            "Yes, the lesson covers the full review checklist",
+            "No, disposition is held by named authorised people",
+            "Yes, if the AI tool agrees with your review",
+            "Yes, but only for placebo batches used in early Phase 1 studies"
+          ],
+          "answer": 1,
+          "why": "This lesson covers review and escalation; it gives no release authority."
+        }
+      ]
+    },
+    {
+      "id": "regulatory-and-clinical-support",
+      "title": "Regulatory and clinical support",
+      "summary": "How quality reviews clinical and regulatory documents such as the IND, Investigator's Brochure, protocol, pharmacy manual and DSUR for consistency and evidence, and how GCP partners are audited. Review boundaries and escalation only; medical, safety and regulatory conclusions belong to their qualified owners.",
+      "outline": [
+        "The document set of a clinical program and who owns each document",
+        "IND and ANDA quality review",
+        "Investigator's Brochure review",
+        "Clinical protocol and pharmacy manual assessment",
+        "DSUR and IND annual report review",
+        "CRO, CMO and clinical site audits",
+        "Where AI can help: consistency checks across documents; who signs the review"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-clinical-quality-reg-clinical-docs",
+          "title": "Reviewing clinical and regulatory documents as a quality reviewer",
+          "summary": "You will be able to name the main documents of a clinical program, explain what a quality review checks in each, and say where the reviewer must stop and escalate.",
+          "why": "A clinical program produces a large, connected set of documents, and the same facts appear in many of them: dose strengths, storage conditions, specifications, safety information. When they disagree, sites make mistakes and regulators ask questions. FDEs are increasingly asked to build tools that check consistency across these documents. You need to know what each document is for, who owns it, and which conclusions a reviewer may never make.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A quality review of a clinical or regulatory document checks that it is consistent with its sources, internally coherent, traceable to evidence and produced under document control. It is not a medical review, a statistical review or a regulatory strategy decision. Those belong to the clinical, safety, statistics and regulatory leads who own the documents.",
+                "A good reviewer finds the contradictions, missing evidence and unclear instructions, writes them as clear comments with references, and escalates anything that could affect participant safety or data integrity. Depth of review for each document type is a specialist skill built through supervised practice; this lesson gives the map.",
+                "Timing in the US also shapes the work. An IND can generally go into effect 30 days after FDA receives it, unless FDA notifies the sponsor of a clinical hold. Quality review of the CMC and IMP sections has to fit inside the submission plan, so reviewers agree early which documents they will see, in what order, and how much time each review needs."
+              ]
+            },
+            {
+              "h": "The core documents and what quality looks for",
+              "list": [
+                "IND (investigational new drug application): in the US, 21 CFR 312.23 lists its content, including the general investigational plan, Investigator's Brochure, protocols, chemistry, manufacturing and controls (CMC) information, and pharmacology and toxicology data. Quality checks that CMC sections match the approved specifications, batch data and manufacturing sites.",
+                "ANDA (abbreviated new drug application) for a generic product: quality review focuses on the CMC module, checking that methods, specifications, batch records and stability data cited in the filing match the controlled source documents.",
+                "Investigator's Brochure (IB): summarises clinical and nonclinical data on the product for investigators. Quality checks that product descriptions, formulations and storage statements match current CMC information and that it is updated as new information arrives.",
+                "Clinical protocol: describes the trial design, dosing and procedures. Quality checks that doses match available strengths, storage and handling steps are feasible, and IMP-related sections agree with the IB and pharmacy manual.",
+                "Pharmacy manual: tells site pharmacists how to receive, store, prepare, dispense and account for IMP. Quality checks that every instruction matches the label, the stability data and the protocol.",
+                "DSUR (development safety update report): an annual safety report described in ICH E2F. In the US, 21 CFR 312.33 also requires an IND annual report within 60 days of the anniversary of the IND going into effect. Quality checks data sources, the reporting period and consistency with other safety documents; safety conclusions belong to the safety physician."
+              ],
+              "p": [
+                "Each of these documents has an owner, a version history and an approval route. A review comment that cites the exact source and section is far more useful than a general remark."
+              ]
+            },
+            {
+              "h": "How a cross-document review works",
+              "p": [
+                "Most serious findings come from comparing documents, not reading one alone. A practical method is to build a fact table: list the key facts, such as strengths, formulation, storage temperature, shelf life or re-test date, dose levels, route and manufacturer, and record where each document states them and in which version. Differences are then easy to see and each one becomes a comment to the owner.",
+                "Timing matters too. When a CMC change is approved, for example a new storage condition, the protocol, IB, pharmacy manual and labels may all need updates. Quality checks that the change control record lists every affected document and that sites are not left working from old instructions."
+              ]
+            },
+            {
+              "h": "Auditing GCP partners",
+              "p": [
+                "Sponsors audit CROs, clinical sites and manufacturers that support the trial. GCP audits check that the trial is run to the protocol, ICH E6 and local rules: informed consent, eligibility, source data, safety reporting, IMP accountability and the trial master file. CMO audits check GMP for the product. Audit findings are written with evidence, rated, and followed up through the partner's CAPA, with the sponsor checking effectiveness.",
+                "Plan audits by risk. A site enrolling many participants, a CRO handling all safety data, or a partner with past findings deserves more attention than a low-enrolling site with clean monitoring reports. Monitoring reports, protocol deviation trends and data query rates help decide where to audit next. An audit report should say clearly what was seen, against which requirement, and how serious it is, so the partner and the sponsor can act on it."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI is well suited to building the fact table, spotting contradictions across long documents, checking that every section of a regulatory template is filled, and tracking which documents a change affects. It must not draw medical or safety conclusions, decide that a contradiction does not matter, or sign the review. Every AI-found difference is checked against the controlled source, and the named quality reviewer signs the review record."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "layers",
+            "title": "From controlled source to site instructions",
+            "caption": "Facts should flow down from approved sources; a review checks each layer against the one above.",
+            "layers": [
+              {
+                "label": "Approved CMC sources",
+                "note": "Specifications, stability data, batch records"
+              },
+              {
+                "label": "Regulatory filing",
+                "note": "IND or ANDA CMC sections"
+              },
+              {
+                "label": "Investigator's Brochure",
+                "note": "Product description and storage"
+              },
+              {
+                "label": "Clinical protocol",
+                "note": "Doses, handling, procedures"
+              },
+              {
+                "label": "Pharmacy manual and labels",
+                "note": "What site staff actually follow"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one storage fact, four documents",
+            "p": [
+              "This is an illustrative example. A product's stability program supports storage at 2 to 8 degrees C. A recent approved change allows short-term storage at room temperature for up to 24 hours during preparation.",
+              "The reviewer builds a fact table. The IB and the approved change record show the new condition. The protocol still says the product must never leave the refrigerator. The pharmacy manual says preparation can take up to 48 hours at room temperature, which is not supported by any data.",
+              "The reviewer raises two comments: the protocol is out of date and needs an amendment through the clinical owner, and the pharmacy manual states a condition with no supporting data, which is escalated immediately because site staff may already be following it. The clinical and CMC owners decide the fix; quality checks the updated documents and the communication to sites."
+            ],
+            "list": [
+              "Source of truth: approved stability data and change record.",
+              "IB: consistent.",
+              "Protocol: outdated, amendment needed.",
+              "Pharmacy manual: unsupported 48 hours, escalated at once."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a cross-document fact table",
+              "time": "40 min",
+              "goal": "Practise the fact-table method on a small synthetic document set.",
+              "steps": [
+                "Write four short synthetic documents of half a page each: an IB product section, a protocol dosing section, a pharmacy manual storage section and a label text.",
+                "Plant three inconsistencies, such as a strength, a storage temperature and an in-use time.",
+                "In a spreadsheet, list eight key facts as rows and the four documents as columns, and fill in what each document says.",
+                "Highlight every difference and write a review comment for each, naming the source of truth.",
+                "Mark which comment you would escalate at once and say who owns the fix."
+              ],
+              "done_when": "Your table shows all three planted inconsistencies, each has a comment citing the source, and one is marked for escalation with an owner."
+            }
+          ],
+          "pitfalls": [
+            "Reviewing each document alone and missing contradictions that only appear when they are compared.",
+            "Writing comments like 'check storage' without citing the source document, version and section.",
+            "Approving a CMC change without checking the protocol, IB, pharmacy manual and labels it affects.",
+            "Stepping into medical or safety conclusions that belong to the clinical and safety owners.",
+            "Trusting an AI-generated consistency report without checking each finding against the controlled source."
+          ],
+          "check": [
+            "What does a quality review of a clinical document check, and what does it not decide?",
+            "Name four parts of an IND listed in 21 CFR 312.23.",
+            "Why does a pharmacy manual need checking against the label and stability data?",
+            "How does a fact table help a cross-document review?",
+            "What can AI do in document review, and who signs the review?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 312.23 IND content and format",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-312/subpart-B/section-312.23",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 312.33 Annual reports",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-312/subpart-B/section-312.33",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "E2F Development Safety Update Report",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/e2f-development-safety-update-report",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Investigational New Drug Application (IND)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/types-applications/investigational-new-drug-application-ind",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Abbreviated New Drug Application (ANDA)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/types-applications/abbreviated-new-drug-application-anda",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "E6(R3) Good Clinical Practice (GCP)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/e6r3-good-clinical-practice-gcp",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Introduction to Investigational New Drug (IND) Applications (3/14) REdI 2017",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=gp8Uj2KhcPU",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "CITI Program Course Preview - ICH E6(R3): An Introduction",
+              "source": "CITI Program",
+              "url": "https://www.youtube.com/watch?v=Uizx0VjO2Oo",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "regulatory-and-clinical-support-q01",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "A quality reviewer reads a new protocol. Which decision is outside their role?",
+          "options": [
+            "Checking dose strengths against available product",
+            "Flagging an outdated storage instruction for the owner",
+            "Deciding whether the dose is medically safe",
+            "Checking the document version and approval route"
+          ],
+          "answer": 2,
+          "why": "Quality checks consistency and evidence; medical conclusions belong to the clinical owners."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q02",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "Which regulation lists the content of an IND, such as the IB, protocols and CMC information?",
+          "options": [
+            "21 CFR 312.23",
+            "21 CFR 211.166 on stability testing programs",
+            "21 CFR Part 11 on electronic records and signatures",
+            "21 CFR 200.10 on contract facilities"
+          ],
+          "answer": 0,
+          "why": "21 CFR 312.23 sets out IND content and format."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q03",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "Which document tells site pharmacists how to store, prepare and dispense the IMP?",
+          "options": [
+            "The development safety update report for the year",
+            "The clinical study report after the trial ends",
+            "The certificate of analysis for the batch",
+            "The pharmacy manual"
+          ],
+          "answer": 3,
+          "why": "The pharmacy manual gives site handling instructions and must match the label and stability data."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q04",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "Which ICH guideline describes the DSUR?",
+          "options": [
+            "ICH Q2(R2) on analytical validation",
+            "ICH E2F",
+            "ICH Q3D on elemental impurities",
+            "ICH Q12 on lifecycle management"
+          ],
+          "answer": 1,
+          "why": "ICH E2F describes the development safety update report."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q05",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "Under 21 CFR 312.33, when is the IND annual report due?",
+          "options": [
+            "Within 60 days of the IND anniversary",
+            "Only when the trial is completely finished",
+            "Every week during active enrolment",
+            "Never, it is optional for all sponsors"
+          ],
+          "answer": 0,
+          "why": "312.33 requires the annual report within 60 days of the anniversary of the IND going into effect."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q06",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "The IB says 2 to 8 degrees C, but the pharmacy manual allows 48 hours at room temperature with no supporting data. What should the reviewer do?",
+          "options": [
+            "Accept it, since the pharmacy manual is newer",
+            "Change the pharmacy manual text personally",
+            "Wait for the next annual review to raise it",
+            "Escalate at once and comment to the owner"
+          ],
+          "answer": 3,
+          "why": "An unsupported site instruction may already be followed, so it is escalated and the owner fixes it."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q07",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "What is the main benefit of a cross-document fact table?",
+          "options": [
+            "It replaces document control and approvals for all of the documents",
+            "It makes contradictions between documents visible",
+            "It removes the need to read the documents at all",
+            "It decides which document is medically correct"
+          ],
+          "answer": 1,
+          "why": "Listing each key fact per document shows differences quickly."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q08",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "A CMC change approves a new storage condition. What should quality check?",
+          "options": [
+            "Only the CMC section where the change started",
+            "Nothing further once the change is approved",
+            "That every affected document and site is updated",
+            "That the label printer at the depot has enough ink for reprints"
+          ],
+          "answer": 2,
+          "why": "One change can affect the protocol, IB, pharmacy manual and labels; the change record should list them."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q09",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "A sponsor audit of a clinical site finds incomplete IMP accountability records. What happens next?",
+          "options": [
+            "Write the finding with evidence and follow up CAPA",
+            "Fix the site's records yourself during the visit",
+            "Ignore it, because IMP accountability is purely a GMP topic",
+            "Close the site immediately without discussion"
+          ],
+          "answer": 0,
+          "why": "Audit findings are documented with evidence, rated and followed up through CAPA."
+        },
+        {
+          "id": "regulatory-and-clinical-support-q10",
+          "lesson": "pharma-clinical-quality-reg-clinical-docs",
+          "q": "An AI tool reports 12 inconsistencies across the IB, protocol and manual. Who signs the review?",
+          "options": [
+            "The AI tool, since it found all of the inconsistencies itself",
+            "The vendor who supplied the AI tool",
+            "The site pharmacist who uses the manual",
+            "The named quality reviewer after checking"
+          ],
+          "answer": 3,
+          "why": "Findings are checked against controlled sources and the named reviewer signs the review."
+        }
+      ]
+    },
+    {
+      "id": "api-impurity-compliance",
+      "title": "API and drug product impurity compliance (specialist elective)",
+      "summary": "Specialist elective, separate from the core sponsor and clinical quality scope: how impurity and supplier compliance risks are assessed for APIs and drug products, using peptide products such as GLP-1 as an example. Scope and current sources need SME review before use.",
+      "outline": [
+        "Scope of this elective and why GLP-1 products draw attention",
+        "API and drug product compliance assessment",
+        "Import and supplier documentation review",
+        "Elemental impurity risk assessment (ICH Q3D)",
+        "Nitrosamine impurity risk assessment (FDA guidance, ICH M7)",
+        "Extractables and leachables (E&L) assessment",
+        "Technical reports and regulatory response support",
+        "Where AI can help: screening supplier documents; who concludes on risk"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-clinical-quality-api-impurities",
+          "title": "Impurity risk assessment for APIs and drug products: an orientation",
+          "summary": "You will be able to explain the main impurity risk assessments for APIs and drug products, what each one asks, and what supplier documentation review looks for, using GLP-1 peptide products as the example.",
+          "why": "Impurity questions are among the most common regulatory requests for drug products, and they arrive with deadlines. FDEs may be asked to screen supplier documents, collect data for a risk assessment or track open questions. Knowing what each assessment is, which guideline frames it and who concludes on risk keeps that support useful and stops a data pull from being mistaken for a scientific conclusion.",
+          "sections": [
+            {
+              "h": "Scope of this elective",
+              "p": [
+                "This section is a specialist elective, kept separate from the core of this course. It is orientation for people who will support impurity and supplier compliance work. Toxicological evaluation, setting acceptable intake limits, designing analytical studies and writing regulatory responses need qualified chemists, toxicologists and regulatory specialists. Because rules and FDA positions in this area change often, the current guidance pages and an SME review are needed before anything here is applied to a real product.",
+                "GLP-1 receptor agonists, such as semaglutide and liraglutide, are peptide products used for diabetes and weight management. High demand has brought many new API suppliers and finished-product makers into the market, which puts attention on API sourcing, peptide-related impurities and supplier documentation. The same assessment methods apply to other APIs too."
+              ]
+            },
+            {
+              "h": "What an impurity is and why each type is assessed",
+              "p": [
+                "An impurity is anything in the API or drug product that is not the intended substance or an intended excipient. Impurities can come from starting materials, synthesis or fermentation, degradation, equipment, packaging or the environment. Different types are assessed with different guidelines because their risks differ.",
+                "Impurity work is never finished at approval. A new API supplier, a change of synthesis route, a new excipient grade, a different container or a new route of administration can each change the impurity picture, so each assessment is revisited under change control when its inputs change. Keeping a clear record of which documents and data each assessment relied on makes that review much faster."
+              ],
+              "list": [
+                "Organic and process impurities: by-products and degradation products. ICH Q3A(R2) and Q3B(R2) set reporting, identification and qualification thresholds for chemical drugs. Synthetic peptides add peptide-related impurities, such as sequences with a missing or extra amino acid.",
+                "Elemental impurities: metals and other elements from catalysts, equipment, water, excipients or containers. ICH Q3D sets permitted daily exposures (PDEs) by route and asks for a risk-based assessment.",
+                "Mutagenic impurities: substances that can damage DNA. ICH M7 gives the framework. Nitrosamines belong to a high-potency group that needs particular care.",
+                "Extractables and leachables: substances that migrate from packaging, devices or process equipment into the product."
+              ]
+            },
+            {
+              "h": "Elemental impurities and nitrosamines",
+              "p": [
+                "A Q3D risk assessment identifies potential sources of each element, for example the API, excipients, water, manufacturing equipment and the container closure system. It then compares the expected level with the PDE for the product's route of administration and decides whether extra controls are needed. The output is a documented assessment, often supported by test data, that becomes part of the control strategy.",
+                "FDA's guidance on controlling nitrosamine impurities in human drugs describes a three-step approach: assess the risk of nitrosamines forming or being present, perform confirmatory testing where a risk is found, and report changes to prevent or reduce them. The assessment looks at the API's structure, reagents, solvents, water, processing conditions, excipients and packaging. Nitrosamine drug substance-related impurities (NDSRIs) form from the API itself and need product-specific evaluation."
+              ]
+            },
+            {
+              "h": "Extractables, leachables and supplier documentation",
+              "p": [
+                "Extractables are substances that come out of a material under exaggerated conditions in a study, such as strong solvents or high temperature. Leachables are substances that actually migrate into the product under normal conditions of storage and use. Extractables studies show what could migrate; leachables studies show what does. Injectable peptide products in prefilled pens or syringes need careful E&L assessment because the product is in long contact with plastic, rubber and glass components.",
+                "Supplier documentation review checks that the API comes from a known, appropriately registered manufacturing site, that each CoA matches the agreed specification and test methods, that the supply chain from manufacturer to user is documented, and that any regulatory references, such as a drug master file, are valid and consistent with the filing. Gaps or inconsistencies in these documents are a quality risk in themselves, whatever the test results say."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "Technical reports and regulatory responses pull this work together. When a regulator asks about impurities, the response usually needs the assessment, the data behind it, the analytical methods used and the control strategy that follows. Supporting staff can assemble the evidence, check references and keep the question tracker current, while specialists write the scientific argument.",
+                "AI can screen large sets of supplier documents, extract data into assessment templates, compare CoAs with specifications, and list every material and component that should appear in a Q3D, nitrosamine or E&L assessment. It must not set acceptable limits, decide that a risk is negligible, or write conclusions sent to a regulator. Those conclusions are reached and signed by qualified specialists, and every extracted value is checked against the source document."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Four impurity assessments side by side",
+            "caption": "Each assessment asks a different question; a product may need all four.",
+            "columns": [
+              {
+                "title": "Organic (Q3A/Q3B)",
+                "items": [
+                  "Process and degradation products",
+                  "Thresholds for reporting and qualifying",
+                  "Peptide-related impurities for peptides"
+                ]
+              },
+              {
+                "title": "Elemental (Q3D)",
+                "items": [
+                  "Metals from catalysts, water, equipment",
+                  "PDE by route of administration",
+                  "Risk-based source assessment"
+                ]
+              },
+              {
+                "title": "Nitrosamines (M7)",
+                "items": [
+                  "High-potency mutagenic group",
+                  "Assess, confirm by test, report changes",
+                  "NDSRIs need product-specific review"
+                ]
+              },
+              {
+                "title": "E&L",
+                "items": [
+                  "Migration from packaging or equipment",
+                  "Extractables: what could migrate",
+                  "Leachables: what does migrate"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: preparing inputs for an elemental impurity assessment",
+            "p": [
+              "This is an illustrative example. A sponsor plans a peptide injection filled into glass cartridges with rubber stoppers. The qualified specialist asks an FDE to prepare the inputs for the Q3D assessment.",
+              "The FDE builds a component list from the formulation and packaging records: the peptide API, three excipients, water for injection, the glass cartridge, the stopper and the main product-contact process equipment. For each, the FDE collects the supplier's elemental impurity statement or test data and records the document reference and date. Two excipient suppliers have no statement on file, and the stopper supplier's statement covers a different grade.",
+              "The FDE reports the three gaps and the evidence collected. The specialist decides what extra data or testing is needed, compares expected levels with the parenteral PDEs, and writes and signs the assessment."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build an impurity assessment input checklist",
+              "time": "40 min",
+              "goal": "Practise collecting the inputs a specialist needs, without drawing the conclusions yourself.",
+              "steps": [
+                "Write a synthetic product: one API, three excipients, water, a primary container and a closure.",
+                "In a spreadsheet, create rows for every material and component and columns for organic, elemental, nitrosamine and E&L relevance.",
+                "For each cell, write the document you would need from the supplier, such as a CoA, an elemental impurity statement or an extractables study.",
+                "Mark three documents as missing and write a short request to the supplier for each.",
+                "Add a final row stating who concludes on each assessment and signs it."
+              ],
+              "done_when": "Every material has the needed documents listed, three requests are drafted, and the conclusion owner is named."
+            }
+          ],
+          "pitfalls": [
+            "Treating a passing CoA as proof that impurity risks have been assessed.",
+            "Leaving packaging, water or process equipment out of the Q3D and E&L source list.",
+            "Assuming an assessment done for one supplier or route also covers a new supplier or route.",
+            "Relying on old guidance or limits in a fast-changing area without checking the current official source.",
+            "Letting a data collector or an AI tool write the risk conclusion instead of a qualified specialist."
+          ],
+          "check": [
+            "Why is this section an elective, and who concludes on impurity risk?",
+            "What does a Q3D risk assessment compare, and which sources does it consider?",
+            "What three steps does FDA's nitrosamine guidance describe?",
+            "What is the difference between extractables and leachables?",
+            "What does supplier documentation review check for an API?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "ICH Q3D Elemental impurities - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q3d-elemental-impurities",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Control of Nitrosamine Impurities in Human Drugs",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/control-nitrosamine-impurities-human-drugs",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "M7(R2) Assessment and Control of DNA Reactive (Mutagenic) Impurities in Pharmaceuticals to Limit Potential Carcinogenic Risk",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/guidance-industry-m7r2-assessment-and-control-dna-reactive-mutagenic-impurities-pharmaceuticals",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Nitrosamine impurities",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/referral-procedures-human-medicines/nitrosamine-impurities",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Q3A (R2) Impurities in new drug substances - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q3a-r2-impurities-new-drug-substances",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Quality Guidelines",
+              "source": "ICH",
+              "url": "https://www.ich.org/page/quality-guidelines",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Overview of the Guidance for Industry: Control of Nitrosamine Impurities in Human Drugs",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=ily7ubaq-Lk",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "api-impurity-compliance-q01",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "Who should conclude that an elemental impurity risk is acceptable for a product?",
+          "options": [
+            "The FDE who collected the supplier documents",
+            "The AI tool that extracted the values",
+            "A qualified specialist who signs the assessment",
+            "The excipient supplier that sold the material and signed the CoA"
+          ],
+          "answer": 2,
+          "why": "Risk conclusions are reached and signed by qualified specialists."
+        },
+        {
+          "id": "api-impurity-compliance-q02",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "Which ICH guideline covers elemental impurities and permitted daily exposures?",
+          "options": [
+            "ICH Q3D",
+            "ICH E6 on good clinical practice",
+            "ICH Q1A(R2) on stability testing",
+            "ICH Q10 on the quality system"
+          ],
+          "answer": 0,
+          "why": "ICH Q3D sets PDEs for elemental impurities and asks for a risk-based assessment."
+        },
+        {
+          "id": "api-impurity-compliance-q03",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "A Q3D source list includes the API and excipients only. What is missing?",
+          "options": [
+            "Nothing, those are the only possible sources",
+            "The marketing plan and the sales forecast",
+            "The clinical protocol and the IB",
+            "Water, equipment and container closure"
+          ],
+          "answer": 3,
+          "why": "Q3D sources include water, manufacturing equipment and the container closure system too."
+        },
+        {
+          "id": "api-impurity-compliance-q04",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "What three steps does FDA's nitrosamine guidance describe?",
+          "options": [
+            "Ignore, monitor, then wait for a recall",
+            "Assess risk, confirm by testing, report changes",
+            "Test every single batch for every known nitrosamine forever",
+            "File, approve, then market without any checks"
+          ],
+          "answer": 1,
+          "why": "FDA's guidance describes risk assessment, confirmatory testing where needed and reporting changes."
+        },
+        {
+          "id": "api-impurity-compliance-q05",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "What is an NDSRI?",
+          "options": [
+            "A nitrosamine formed from the API itself",
+            "A new standard for injection device design",
+            "A type of elemental impurity from catalysts",
+            "A rule for naming new peptide drugs"
+          ],
+          "answer": 0,
+          "why": "Nitrosamine drug substance-related impurities form from the API and need product-specific evaluation."
+        },
+        {
+          "id": "api-impurity-compliance-q06",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "A study soaks a stopper in strong solvent at high temperature to see what comes out. What is it measuring?",
+          "options": [
+            "Leachables under normal storage and use",
+            "Elemental impurities in the API",
+            "Extractables",
+            "Dissolution of the drug product"
+          ],
+          "answer": 2,
+          "why": "Extractables studies use exaggerated conditions to show what could migrate."
+        },
+        {
+          "id": "api-impurity-compliance-q07",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "What do leachables studies show?",
+          "options": [
+            "What could migrate under extreme lab conditions",
+            "What actually migrates under normal conditions",
+            "How fast the API dissolves in the body",
+            "Which supplier offers the lowest price"
+          ],
+          "answer": 1,
+          "why": "Leachables are what migrate into the product during normal storage and use."
+        },
+        {
+          "id": "api-impurity-compliance-q08",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "A GLP-1 API CoA passes every test, but the manufacturing site is not identified. What is the right view?",
+          "options": [
+            "Accept it, because the CoA results all pass",
+            "Accept it if the price is lower than usual",
+            "Ask an AI tool to guess the site from the CoA layout and fonts used",
+            "It is a documentation gap and a quality risk to raise"
+          ],
+          "answer": 3,
+          "why": "Unknown sourcing is a quality risk in itself, whatever the test results say."
+        },
+        {
+          "id": "api-impurity-compliance-q09",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "A product moves from oral tablets to an injection. Does the old Q3D assessment still apply?",
+          "options": [
+            "Yes, assessments cover every route of use",
+            "No, PDEs depend on route, so reassess",
+            "Yes, if the same API supplier is used",
+            "No, injections are exempt from Q3D"
+          ],
+          "answer": 1,
+          "why": "PDEs differ by route, so a new route needs a new assessment."
+        },
+        {
+          "id": "api-impurity-compliance-q10",
+          "lesson": "pharma-clinical-quality-api-impurities",
+          "q": "Why does this section need SME review of current sources before use?",
+          "options": [
+            "Rules and FDA positions here change often",
+            "ICH guidelines are not public documents and cannot be read",
+            "AI tools are not allowed to read them",
+            "Impurity rules apply only in the EU"
+          ],
+          "answer": 0,
+          "why": "This is a fast-moving specialist area, so current official sources and SME review are needed."
+        }
+      ]
+    }
+  ]
+}

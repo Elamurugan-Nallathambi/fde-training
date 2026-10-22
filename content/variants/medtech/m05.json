@@ -1,0 +1,117 @@
+{
+  "module": 5,
+  "overlay": true,
+  "add": [
+    {
+      "id": "medtech-six-step-complaints",
+      "title": "Worked discovery: the six-step improvement method on complaint handling",
+      "summary": "You will be able to run a MedTech discovery with the six-step improvement method, from interviews to a validated place for an LLM, using complaint handling as the case.",
+      "why": "Complaint handling is one of the most common places a device maker asks for help: volume is high, the text is messy, the deadlines are set by regulation, and weak complaint records are a frequent audit finding. It is also easy to apply AI in the wrong place. The six-step method makes you understand and clean the process first, so the LLM lands where it adds value and inside the controls.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "The method has six steps, done in order: interview the people, map the process, systems and activities, remove redundant and duplicated steps, validate the data from the systems, review and validate the system, and only then connect the systems and apply an LLM where it fits. The order matters. An LLM applied to a process full of duplicate steps and bad data just automates the waste.",
+            "Complaint handling in plain words: a complaint is any written, electronic or spoken communication that alleges a problem with a device's identity, quality, durability, reliability, safety, effectiveness or performance after it has been released. ISO 13485 and the FDA QMSR require documented complaint handling. Each complaint must be evaluated to decide whether it must be reported to the FDA under 21 CFR Part 803, and whether an investigation or CAPA is needed."
+          ]
+        },
+        {
+          "h": "Steps 1 and 2: interview, then map process, systems and activities",
+          "p": [
+            "Interview each role that touches a complaint: the customer service agent who receives it, the complaint coordinator who enters it, the investigator, the regulatory specialist who decides reportability, the quality engineer who trends it, and the service technician who handles returned devices. Ask what they did on the last three complaints, not what the procedure says. Ask where they wait and what they search for.",
+            "Then draw a swimlane map with one lane per role and, under each step, the system used and the record created. Add the people's activities that are not in the procedure: the side spreadsheet, the email to the service team, the screenshot of the MES record. Time five to ten real complaints end to end while shadowing. Read the complaint procedure and compare it with what you saw."
+          ]
+        },
+        {
+          "h": "Step 3: remove redundant and duplicated steps",
+          "p": [
+            "Before any automation, look for steps that add nothing. Common ones in complaint handling: the same complaint text typed into the service tool, then the CRM, then the QMS; a coordinator and an investigator both searching for the same lot number; a weekly spreadsheet that copies QMS fields for a trend meeting; two approvals by people who check the same thing.",
+            "Removing a step in a regulated process is itself a change. Check the procedure, agree it with the process owner and quality assurance, and update the controlled document. Never quietly drop a step that a regulation or procedure requires, such as the documented reportability decision."
+          ]
+        },
+        {
+          "h": "Steps 4 and 5: validate the data, then the system",
+          "p": [
+            "Validate the data from the systems. Pull a sample of complaint records and check them: are product codes and lot numbers filled and valid, do lot numbers exist in MES, are event dates before receipt dates, do categories follow the agreed list, is every reportability decision documented with a reason. The query below shows the idea in SQLite with a synthetic table.",
+            "Review and validate the system. Confirm the QMS complaint module is in the client's validated state: audit trail switched on, electronic signatures configured, user roles limited, mandatory fields enforced. Find out which version is validated and how changes are controlled. If the system itself has a gap, fix that first; an LLM cannot compensate for a missing audit trail."
+          ],
+          "code": {
+            "lang": "sql",
+            "text": "-- Synthetic data: find complaints whose lot is missing or unknown in MES\nCREATE TABLE complaint (id TEXT, product_code TEXT, lot TEXT, received DATE, reportable TEXT, reason TEXT);\nCREATE TABLE mes_lot (lot TEXT, product_code TEXT);\nINSERT INTO complaint VALUES\n ('C-101','PUMP-A','L2301','2026-03-02','No','No injury, alarm worked'),\n ('C-102','PUMP-A','','2026-03-03','No',''),\n ('C-103','PUMP-B','L9999','2026-03-05','Yes','Over-infusion reported');\nINSERT INTO mes_lot VALUES ('L2301','PUMP-A'), ('L2302','PUMP-B');\n\nSELECT c.id,\n  CASE WHEN c.lot = '' THEN 'lot missing'\n       WHEN m.lot IS NULL THEN 'lot not in MES'\n       WHEN m.product_code <> c.product_code THEN 'product mismatch'\n  END AS lot_issue,\n  CASE WHEN c.reason = '' THEN 'no reportability reason' END AS reason_issue\nFROM complaint c LEFT JOIN mes_lot m ON m.lot = c.lot\nWHERE c.lot = '' OR m.lot IS NULL OR m.product_code <> c.product_code OR c.reason = '';"
+          }
+        },
+        {
+          "h": "Step 6: connect the systems and apply an LLM where it fits",
+          "p": [
+            "Now connect. Read-only links from the QMS to MES, ERP and the service tool let a small service gather the evidence for each complaint in one place. Then apply an LLM to the steps that are high volume, read unstructured text and end in a decision a qualified person can check quickly.",
+            "For complaints that usually means: drafting the QMS entry from an email or service note, suggesting the product code and category, pulling the matching production and service records, and drafting a reportability assessment with the evidence and reasoning laid out. The regulatory specialist still makes and signs the reportability decision. The LLM never closes a complaint or submits a report. Every draft, edit and signature is stored in the QMS audit trail, as 21 CFR Part 11 expects for electronic records."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Six-step improvement method",
+        "caption": "Read left to right. The LLM only arrives at step six, after the process and data are clean.",
+        "steps": [
+          {"label": "Interview the people", "note": "Every role, last three real cases"},
+          {"label": "Map process and systems", "note": "Swimlanes, systems, side activities"},
+          {"label": "Remove duplicate steps", "note": "Agreed with owner and QA"},
+          {"label": "Validate the data", "note": "Sample records, check keys and reasons"},
+          {"label": "Validate the system", "note": "Audit trail, signatures, roles, version"},
+          {"label": "Connect and apply an LLM", "note": "Drafts for a qualified person to sign"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: complaint handling at an infusion pump maker (fictional)",
+        "p": [
+          "The client receives complaints from hospitals by phone, email and its service portal. Interviews with six roles show that complaints wait several days before entry because the coordinator re-types service emails. Mapping shows three systems hold the same complaint: the service tool, the CRM and the QMS. Investigators spend most of their touch time finding lot and software version data.",
+          "Removing duplicates: the team agrees the CRM copy is not needed, since nobody reads it, and the procedure is updated through document control. Validating the data on a sample of 200 records finds blank lot numbers and inconsistent categories; the client fixes the category list and makes lot number mandatory where known. Validating the system finds the QMS audit trail is on and signatures are configured, but the investigator role can edit closed records, which QA corrects.",
+          "Only then the FDE builds a read-only service that collects the service note, production record and software version for each new complaint and has an LLM draft the QMS entry and a reportability assessment. The coordinator and the regulatory specialist review, edit and sign. The team measures time from receipt to QMS entry and the share of reportability decisions with a documented reason."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Run steps 4 to 6 on public adverse event data",
+          "time": "75 min",
+          "goal": "Practise data validation and LLM placement on real, public complaint-like text.",
+          "steps": [
+            "Open the openFDA device adverse event API page and run the example query in your browser, or search MAUDE for one product code.",
+            "Copy ten report narratives into a spreadsheet with columns for product, event date, event type and narrative.",
+            "Validate the data: mark any row with missing dates, a missing product or a narrative that does not match the event type.",
+            "Write down which step of a complaint process each field would feed, and which checks a person must still make.",
+            "Ask Claude to draft a structured summary for three narratives, then check each field against the source text and mark every error.",
+            "Write one paragraph on where the LLM fits and where it must not decide."
+          ],
+          "done_when": "You have a ten-row validated sample, three checked LLM drafts with errors marked, and a paragraph placing the LLM at Level 2."
+        }
+      ],
+      "pitfalls": [
+        "Starting at step six. An LLM on top of duplicate steps and bad data automates the waste and adds risk.",
+        "Removing a regulated step without a controlled procedure change agreed with QA.",
+        "Validating the model but not the data feeding it. Blank lot numbers make every draft weaker.",
+        "Letting the LLM make or submit the reportability decision. It drafts; a qualified person decides and signs."
+      ],
+      "check": [
+        "List the six steps in order and say why the order matters.",
+        "Give two examples of redundant or duplicated steps in complaint handling.",
+        "What would you check when validating complaint data, and when validating the complaint system?",
+        "Which complaint steps fit an LLM, and which decision must stay with a qualified person?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Medical Device Reporting (MDR): How to Report Medical Device Problems", "source": "FDA", "url": "https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting-mdr-how-report-medical-device-problems", "cost": "free"},
+        {"type": "docs", "title": "21 CFR Part 803 - Medical Device Reporting", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-803", "cost": "free"},
+        {"type": "docs", "title": "Device adverse event API", "source": "openFDA", "url": "https://open.fda.gov/apis/device/event/", "cost": "free"},
+        {"type": "docs", "title": "MAUDE - Manufacturer and User Facility Device Experience", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfmaude/search.cfm", "cost": "free"},
+        {"type": "video", "title": "Developing and Maintaining an FDA Compliant Complaint Handling Process", "source": "Medmarc", "url": "https://www.youtube.com/watch?v=WmdluJm0Alc", "cost": "free"},
+        {"type": "video", "title": "Learn How Value Stream Mapping Applies to Any Industry or Process", "source": "Gemba Academy", "url": "https://www.youtube.com/watch?v=gg5u9kn0Bzo", "cost": "free"},
+        {"type": "video", "title": "The 7 Wastes of Lean for Frontline Kaizen - Lean Manufacturing Training", "source": "Lean Smarts", "url": "https://www.youtube.com/watch?v=f2aXncAl87I", "cost": "free"}
+      ],
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "Example scenario: in step one the complaint coordinator says 'the procedure says we enter within two days, but we never can'. Do not treat that as a confession. Write it down as a gap with evidence, show it to the process owner privately first, and make fixing it part of the value case. People open up when they see you are there to fix the process, not to report on them."
+        ]
+      }
+    }
+  ]
+}

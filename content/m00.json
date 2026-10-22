@@ -1,0 +1,940 @@
+{
+  "module": 0,
+  "title": "Set up your machine and your learning journal",
+  "intro": "A client gives you access to their code and data on day one and expects you to be useful that same week, there is no time to learn your tools then. This module gets your own toolkit ready now: GitHub, Git, VS Code, Python, Node.js, one AI coding assistant, a chat app and a learning journal that grows into your portfolio.",
+  "lessons": [
+    {
+      "id": "toolkit-overview",
+      "title": "Your learning toolkit and why each piece matters",
+      "summary": "You will know which tools to install before module 1, what each one does, what it costs, and how to use AI tools safely on your own machine.",
+      "why": "A client will say 'can you start on Monday, here is access to our repo'. You will not have time to learn your tools then. This lesson tells you what to set up now, so you can practice every lesson by doing and already have safe habits before anyone trusts you with their systems.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "You will set up seven things: a GitHub account, Git, the VS Code editor, a language runtime (Python 3, plus Node.js), at least one AI coding assistant, a chat app for thinking, and a learning journal repository. Together they let you write small programs, keep a history of your work, get help from AI, and show what you learned.",
+            "If you have never used a terminal or a code editor, that is fine. The basics page explained the words. This module walks you through each install in order, and every lesson ends with something you can check yourself."
+          ]
+        },
+        {
+          "h": "What each piece is for",
+          "p": [
+            "Think of it like setting up a new desk at work. Each tool has one job."
+          ],
+          "list": [
+            "GitHub account: your online home for code. It stores your repositories (project folders with history) and becomes your public portfolio.",
+            "Git: the program on your computer that records snapshots of a folder over time, so you can see what changed and undo mistakes.",
+            "VS Code: a free code editor from Microsoft. You open a folder, edit files, and run commands in its built-in terminal.",
+            "Python 3: the language used for most labs in this program. You need it to run scripts.",
+            "Node.js (the version marked LTS, long-term support): a runtime for JavaScript. You need it mainly because some AI tools install through npm, the package manager that comes with Node.js.",
+            "AI coding assistants: GitHub Copilot inside VS Code, Claude Code and OpenAI Codex. They read your project and help you write, explain and fix code. You only need one to start.",
+            "A chat app (the Claude app or another one): for thinking out loud, asking questions about a concept and planning before you code.",
+            "A learning journal repository: a GitHub repository where you write what you learned each day. Lesson 5 sets it up."
+          ]
+        },
+        {
+          "h": "What is free and what may cost money",
+          "p": [
+            "Git, VS Code, Python and Node.js are free. A GitHub account is free. The GitHub CLI (a command line tool for GitHub) is free and open source.",
+            "The AI assistants change their plans often, so treat this as a snapshot and check the linked pages before you pay for anything. GitHub's plans page lists a Copilot Free plan with limited chat and agent usage, a Copilot Student plan for verified students, and paid plans. The Claude Code quickstart lists what you need to sign in: a Claude Pro, Max, Team or Enterprise subscription, a Claude Console account (API access with pre-paid credits), or access through a supported cloud provider. The Codex README recommends signing in with a ChatGPT account on a Plus, Pro, Business, Edu or Enterprise plan, and says an API key also works with extra setup; the Codex pricing page also lists a Free plan for quick coding tasks.",
+            "Our advice: start with Copilot Free inside VS Code. It costs nothing and is the gentlest start. Add Claude Code or Codex later if you or your employer already pay for a plan."
+          ]
+        },
+        {
+          "h": "What AI assistants can do on your machine",
+          "p": [
+            "A chat app only sees what you paste into it. A coding assistant is different. Copilot in agent mode, Claude Code and Codex can read files in the folder you open, edit those files, and run terminal commands such as installing packages or running tests. That is what makes them useful, and it is also why you need rules.",
+            "Each tool asks for your approval before risky actions, depending on its settings. Your job is to read what it wants to do before you say yes, exactly like reviewing a colleague's change before it goes live."
+          ]
+        },
+        {
+          "h": "Safety rules from day one",
+          "list": [
+            "Never open client code or client data with a personal account or a personal AI subscription. On an engagement you use the client's approved tools and accounts only.",
+            "Never paste secrets into any AI tool or commit them to a repository: passwords, API keys, tokens, customer records. Use placeholders such as YOUR_API_KEY.",
+            "Read every command before you approve it. If you do not understand it, ask the assistant to explain it first, or say no.",
+            "Keep all learning work in one dedicated folder, for example a folder named fde in your home folder. Open only that folder in your editor and assistant, never your whole home folder or desktop.",
+            "Keep your learning journal free of anything private about an employer or client, especially if the repository is public."
+          ],
+          "p": [
+            "These are the same rules a client's security team will expect."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "Your learning toolkit, top to bottom",
+        "caption": "Read from the top: you stay in charge, tools in the middle do the work, and everything lives in one dedicated folder.",
+        "layers": [
+          {
+            "label": "You",
+            "note": "Decide, read every change, approve or reject"
+          },
+          {
+            "label": "Chat app for thinking",
+            "note": "Ask questions, plan, explain concepts"
+          },
+          {
+            "label": "AI coding assistant",
+            "note": "Copilot, Claude Code or Codex reads, edits, runs"
+          },
+          {
+            "label": "VS Code editor and terminal",
+            "note": "Where you open the folder and run commands"
+          },
+          {
+            "label": "Git and GitHub",
+            "note": "History on your machine, copy online"
+          },
+          {
+            "label": "Python 3 and Node.js",
+            "note": "Runtimes that run scripts and install tools"
+          },
+          {
+            "label": "Dedicated learning folder",
+            "note": "The only folder your tools are allowed to touch"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a first week setup for a finance analyst",
+        "p": [
+          "Priya works in finance and has used spreadsheets for years but never a terminal. She has no paid AI plan. She creates a folder called fde in her home folder, creates a free GitHub account, installs Git, VS Code, Python and the Node.js LTS version, then signs in to Copilot Free inside VS Code.",
+          "When Copilot in agent mode offers to run a command to install a package, she reads it first, asks Copilot what it does, and only then approves. She keeps a sample budget spreadsheet she made up herself for practice, not her employer's real numbers. By the end of the week her learning journal on GitHub has five short entries."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Plan your toolkit",
+          "time": "20 min",
+          "goal": "Know exactly what you will install and which AI assistant you will start with.",
+          "steps": [
+            "Create a folder named fde in your home folder. This is your dedicated learning folder.",
+            "Open the GitHub Copilot plans page and the Claude Code and Codex links below. Write down which options you can use today for free and which you already pay for through work or personally.",
+            "Pick one AI assistant to start with. If unsure, pick GitHub Copilot inside VS Code on the Free plan.",
+            "In a text file or on paper, write the five safety rules from this lesson in your own words.",
+            "Ask a free chat app such as Claude: 'Explain in simple words what a coding assistant can do on my computer that a chat app cannot.' Compare its answer with this lesson."
+          ],
+          "done_when": "You have an fde folder, a chosen first assistant, and the five safety rules written in your own words."
+        }
+      ],
+      "pitfalls": [
+        "Paying for several AI plans before you know which one you like. Start with one free option and learn it well.",
+        "Opening your whole home folder in an AI assistant. It can then read files you never meant to share. Open only your learning folder.",
+        "Approving commands without reading them because the tool seems confident. Confidence is not correctness.",
+        "Using real work or client files for practice. Make up your own sample data instead.",
+        "Trusting a price or plan from a blog post. Plans change; check the official page on the day you sign up."
+      ],
+      "check": [
+        "What is the difference between Git and GitHub?",
+        "Why do you need Node.js if most labs use Python?",
+        "What can a coding assistant do on your machine that a chat app cannot?",
+        "Name three things you must never paste into an AI tool."
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Plans for GitHub Copilot",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/copilot/get-started/plans",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Overview",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Security",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/security",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Codex: Lightweight coding agent that runs in your terminal",
+          "source": "GitHub (OpenAI)",
+          "url": "https://github.com/openai/codex",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Download Claude",
+          "source": "Anthropic",
+          "url": "https://claude.com/download",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Getting started with Claude.ai",
+          "source": "Anthropic",
+          "url": "https://www.youtube.com/watch?v=0vZ_UVLhSQQ",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "GitHub Learn",
+          "source": "GitHub (GitHub Skills)",
+          "url": "https://learn.github.com/skills",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "github-and-git",
+      "title": "Create your GitHub account and learn how Git works",
+      "summary": "You will have a secured GitHub account, Git set up, and a clear picture of how a change moves from your folder to GitHub.",
+      "why": "A client's IT team will ask 'is two-factor turned on for your account?' before they give you access. Their engineers will also read your commit history to judge your work. This lesson sets up your account and Git properly, so your journal, labs and later your portfolio all sit in one trusted place.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "GitHub is a website that hosts repositories. Git is a program on your computer that tracks changes in a folder. You make changes on your machine with Git, then push them to GitHub so they are backed up and visible to others.",
+            "In this lesson you create the account, lock it down with two-factor authentication, install Git, tell Git who you are, and sign in from your machine. Module 3 goes deeper into branches and pull requests; here you only need the basic loop."
+          ]
+        },
+        {
+          "h": "Create and secure your GitHub account",
+          "p": [
+            "Go to github.com and sign up with an email address you will keep for years, because this account becomes your portfolio. Pick a professional username; employers will see it.",
+            "Then turn on two-factor authentication (2FA). With 2FA, signing in needs your password plus a second proof, such as a code from an authenticator app or a passkey. Follow the GitHub guide 'Configuring two-factor authentication' linked below. When GitHub shows recovery codes, save them somewhere safe, such as a password manager. Without them, losing your phone can lock you out."
+          ]
+        },
+        {
+          "h": "Install and configure Git",
+          "p": [
+            "On macOS, the Git install page lists several options. Two simple ones: run xcode-select --install in Terminal to get Apple's Command Line Tools, which include Git, or run brew install git if you already use Homebrew. On Windows, download Git for Windows from the Git install page and accept the default options. Git for Windows also gives you Git Bash, a terminal where the commands in this program work as written.",
+            "Open a new terminal and run git --version. If it prints a version number, Git is installed. Then tell Git your name and email. These are stamped on every commit you make. Use the same email as your GitHub account, or the private noreply address GitHub offers in your email settings if you do not want your address public."
+          ],
+          "code": {
+            "lang": "bash",
+            "text": "git --version\ngit config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\ngit config --global --list"
+          }
+        },
+        {
+          "h": "Sign in to GitHub from your machine",
+          "p": [
+            "To push to GitHub, your computer must prove it is you. There are two easy ways. Option one: install the GitHub CLI (on macOS with Homebrew, brew install gh; on Windows, use WinGet or the installer from the GitHub CLI site), then run gh auth login and follow the prompts. It opens a browser to confirm. Option two: in VS Code, the first time you push or clone, VS Code asks you to sign in with GitHub in the browser.",
+            "Either way, you never type your GitHub password into the terminal. That is on purpose: the browser handles the sign-in, including your 2FA."
+          ]
+        },
+        {
+          "h": "The mental model: six words",
+          "list": [
+            "Working folder: the files you see and edit on your machine.",
+            "Staging (git add): choosing which changed files go into the next snapshot.",
+            "Commit (git commit): saving that snapshot with a message, on your machine only.",
+            "Push (git push): sending your commits to GitHub.",
+            "Pull (git pull): bringing commits from GitHub to your machine, for example ones you made on another computer.",
+            "Clone (git clone): copying a whole repository from GitHub to your machine the first time."
+          ],
+          "p": [
+            "A good way to remember it: commit is saving, push is backing up. You can commit ten times offline and push once when you are back online. Push only to your own repositories during this program."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "How a change travels with Git",
+        "caption": "Start at the top and go round: edit, stage, commit, push, and pull before you start again.",
+        "steps": [
+          {
+            "label": "Edit files in your working folder",
+            "note": "You change a file in VS Code"
+          },
+          {
+            "label": "Stage with git add",
+            "note": "Pick which changes go in"
+          },
+          {
+            "label": "Commit with git commit",
+            "note": "Snapshot saved on your machine"
+          },
+          {
+            "label": "Push with git push",
+            "note": "Copy sent to your GitHub repository"
+          },
+          {
+            "label": "Pull with git pull",
+            "note": "Bring in changes made elsewhere"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: your first commit in a scratch folder",
+        "p": [
+          "This sequence was run in an empty scratch folder. It creates a folder, turns it into a Git repository, adds a README file and commits it. Nothing is sent to GitHub yet, so it is safe to try.",
+          "After git status you will see README.md listed as an untracked file, meaning Git sees it but is not tracking it yet. After the commit, git log --oneline shows one line: a short commit id and your message 'Add README'. Recent Git versions may call the first branch main or master depending on your settings; both are fine for now."
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "mkdir git-practice\ncd git-practice\ngit init\necho \"# My first repository\" > README.md\ngit status\ngit add README.md\ngit commit -m \"Add README\"\ngit log --oneline"
+        }
+      },
+      "practice": [
+        {
+          "title": "Account, 2FA and Git ready",
+          "time": "40 min",
+          "goal": "Have a secured GitHub account and a working, configured Git.",
+          "steps": [
+            "Create your GitHub account with a professional username.",
+            "Turn on two-factor authentication and store the recovery codes in a safe place.",
+            "Install Git for your system, open a new terminal and run git --version.",
+            "Set user.name and user.email with git config --global, then check them with git config --global --list.",
+            "Sign in from your machine with gh auth login, or plan to sign in through VS Code in the next lesson."
+          ],
+          "done_when": "git --version prints a version, git config --global --list shows your name and email, and your GitHub security settings show 2FA as enabled."
+        },
+        {
+          "title": "Run the six-word loop once",
+          "time": "20 min",
+          "goal": "Feel the difference between staging, committing and pushing.",
+          "steps": [
+            "Inside your fde folder, run the commands from the worked example.",
+            "Edit README.md, add one line, and run git status. Notice it now says modified.",
+            "Run git add README.md, then git status again. Notice the change is now staged.",
+            "Commit with a clear message and run git log --oneline to see two commits.",
+            "Write in a note, in your own words, what working folder, staging and commit mean."
+          ],
+          "done_when": "git log --oneline shows two commits and you can explain each of the six words without looking."
+        }
+      ],
+      "pitfalls": [
+        "Skipping 2FA or not saving recovery codes. Losing access to your portfolio account is painful to fix.",
+        "Using a different email in git config than on GitHub, so your commits do not show as yours on your profile.",
+        "Thinking commit means saved online. A commit stays on your machine until you push.",
+        "Running git init in your home folder by mistake, which makes Git watch everything. Always cd into the project folder first.",
+        "Typing your GitHub password into the terminal. Use gh auth login or the VS Code browser sign-in instead."
+      ],
+      "check": [
+        "What is the difference between a commit and a push?",
+        "Why does GitHub ask you to save recovery codes when you turn on 2FA?",
+        "What does git add do, and why does Git have a staging step at all?",
+        "Which two git config settings must you set, and where do they show up?",
+        "When would you use git clone instead of git init?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Creating an account on GitHub",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/account-and-profile/how-tos/account-management/creating-an-account-on-github",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Configuring two-factor authentication",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Set up Git",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/get-started/git-basics/set-up-git",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Git - Install for macOS",
+          "source": "git-scm.com",
+          "url": "https://git-scm.com/install/mac",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Git - Install for Windows",
+          "source": "git-scm.com",
+          "url": "https://git-scm.com/install/windows",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "GitHub CLI | Take GitHub to the command line",
+          "source": "GitHub CLI manual (gh auth login)",
+          "url": "https://cli.github.com/manual/gh_auth_login",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Git and GitHub for Beginners - Crash Course",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Git",
+          "source": "Pro Git book, git-scm.com",
+          "url": "https://git-scm.com/book/en/v2",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "vscode-setup",
+      "title": "Install VS Code and get comfortable in it",
+      "summary": "You will install VS Code, Python and Node.js, find your way around the editor, and run a script from the built-in terminal.",
+      "why": "A client will say 'here is the script that builds our weekly report, it broke yesterday, can you take a look?', often while they watch. You need to open an unfamiliar project, run it and read the error without panic. This lesson gets you comfortable in the editor and terminal where that work happens.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "VS Code is a code editor: like a word processor, but built for code and folders of files. You open a folder, click files to edit them, and run commands in a terminal panel at the bottom. Extensions add features, such as Python support or an AI assistant.",
+            "In this lesson you install VS Code, Python and Node.js, learn four parts of the screen, set up a Python virtual environment, and run a small check script that proves your setup works."
+          ]
+        },
+        {
+          "h": "Install VS Code, Python and Node.js",
+          "list": [
+            "VS Code: download it from code.visualstudio.com and install it like any other app.",
+            "Python: download a current Python 3 release from python.org. On Windows, the installer has an option to add Python to PATH (the list of places your terminal looks for programs); tick it. On macOS, use the python.org installer, then use python3 in the terminal.",
+            "Node.js: from nodejs.org, download the version marked LTS. It includes npm, which some AI tools use to install.",
+            "After installing, close and reopen any terminal so it can find the new programs."
+          ],
+          "p": [
+            "Check each one in a new terminal: python3 --version (on Windows, python --version), node --version and npm --version. Each should print a version number."
+          ]
+        },
+        {
+          "h": "Find your way around",
+          "list": [
+            "Explorer: the file tree on the left. Use File, then Open Folder, and pick your fde folder. Always open a folder, not a single file.",
+            "Editor: the middle area where files open in tabs.",
+            "Integrated terminal: open it from the Terminal menu, then New Terminal. It starts inside your open folder, which saves you from typing long paths.",
+            "Command Palette: press Cmd+Shift+P on macOS or Ctrl+Shift+P on Windows. Type what you want, such as 'Python: Select Interpreter', instead of hunting through menus.",
+            "Source Control: the branch icon on the left. It shows changed files and lets you stage and commit with buttons, using the same Git you installed."
+          ],
+          "p": []
+        },
+        {
+          "h": "Extensions to install",
+          "p": [
+            "Open the Extensions view (Cmd+Shift+X on macOS, Ctrl+Shift+X on Windows) and search by name. Always check the publisher name before you install; copycat extensions exist."
+          ],
+          "list": [
+            "Python, published by Microsoft: running, debugging and choosing interpreters.",
+            "GitHub Copilot: AI help inside VS Code. The VS Code setup guide says to hover over the Copilot icon in the Status Bar and select Use AI Features to sign in. Lesson 4 covers this.",
+            "Optional: Claude Code (search 'Claude Code', published by Anthropic) and Codex (the OpenAI Codex extension). Both are documented on their official pages linked below. Install them only if you plan to use those assistants."
+          ]
+        },
+        {
+          "h": "Virtual environments",
+          "p": [
+            "A virtual environment (venv) is a private box of Python packages for one project. Without it, every project shares one set of packages, and upgrading one for project A can break project B. Create one per project, in a folder named .venv inside the project.",
+            "Create it with python3 -m venv .venv. Activate it on macOS with source .venv/bin/activate, or on Windows PowerShell with .venv\\Scripts\\Activate.ps1. Your prompt then shows (.venv). VS Code usually notices the new environment and offers to use it; if not, run 'Python: Select Interpreter' from the Command Palette. Add .venv to your .gitignore so it is never committed."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From install to your first script",
+        "caption": "Do these steps in order once; after that, opening the folder and the terminal is all you need.",
+        "steps": [
+          {
+            "label": "Install VS Code, Python, Node.js",
+            "note": "Check each with --version"
+          },
+          {
+            "label": "Open your fde folder",
+            "note": "File, then Open Folder"
+          },
+          {
+            "label": "Open the integrated terminal",
+            "note": "Terminal, then New Terminal"
+          },
+          {
+            "label": "Create and activate .venv",
+            "note": "python3 -m venv .venv"
+          },
+          {
+            "label": "Run check_setup.py",
+            "note": "Prints Python and Git versions"
+          },
+          {
+            "label": "Install extensions",
+            "note": "Python, then one AI assistant"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a setup check script",
+        "p": [
+          "Create a file named check_setup.py in your fde folder with the code below. Then, in the integrated terminal with your .venv active, run python check_setup.py (or python3 check_setup.py). This script was run on macOS both with and without a virtual environment.",
+          "It prints your Python version and warns if it is older than 3.11, the minimum this program uses. It then looks for Git on your PATH and prints its version. If it says Git is NOT FOUND, Git is either not installed or your terminal was opened before the install finished; open a new terminal and try again."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "import shutil\nimport subprocess\nimport sys\n\nprint(\"Python version:\", sys.version.split()[0])\nif sys.version_info < (3, 11):\n    print(\"Please install Python 3.11 or newer.\")\n\ngit_path = shutil.which(\"git\")\nif git_path is None:\n    print(\"Git: NOT FOUND. Install Git, then open a new terminal.\")\nelse:\n    result = subprocess.run([\"git\", \"--version\"], capture_output=True, text=True)\n    print(\"Git:\", result.stdout.strip(), \"at\", git_path)"
+        }
+      },
+      "practice": [
+        {
+          "title": "Set up and run your first script",
+          "time": "45 min",
+          "goal": "Prove VS Code, Python, Git and a virtual environment all work together.",
+          "steps": [
+            "Install VS Code, Python 3 and Node.js LTS, then check each with --version in a new terminal.",
+            "Open your fde folder in VS Code and open the integrated terminal.",
+            "Create and activate a virtual environment with python3 -m venv .venv.",
+            "Create hello.py containing print(\"Hello, FDE\") and run it from the terminal.",
+            "Create check_setup.py from the worked example and run it.",
+            "Install the Python extension from Microsoft and use the Command Palette to select the .venv interpreter."
+          ],
+          "done_when": "check_setup.py prints Python 3.11 or newer and a Git version, and the VS Code status bar shows your .venv interpreter."
+        }
+      ],
+      "pitfalls": [
+        "Opening a single file instead of a folder. The terminal, Git and AI assistants all work best with a folder open.",
+        "Keeping an old terminal open after installing something. Open a new terminal so it picks up the new PATH.",
+        "Installing packages without activating the virtual environment, so they land in the global Python.",
+        "Installing extensions from unknown publishers. Check the publisher name first.",
+        "Committing the .venv folder. Add it to .gitignore."
+      ],
+      "check": [
+        "What is the Command Palette and how do you open it on your system?",
+        "Why does each project get its own virtual environment?",
+        "What does it mean when a terminal says a command is not found right after you installed it?",
+        "Where does the integrated terminal start, and why is that useful?",
+        "Which extension adds Python support, and how do you confirm the publisher?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Download Visual Studio Code - Free AI Code Editor for Mac, Linux, Windows",
+          "source": "Visual Studio Code",
+          "url": "https://code.visualstudio.com/download",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Download Python",
+          "source": "Python.org",
+          "url": "https://www.python.org/downloads/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Getting Started with Python in VS Code",
+          "source": "Visual Studio Code docs",
+          "url": "https://code.visualstudio.com/docs/python/python-tutorial",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Getting started with the terminal",
+          "source": "Visual Studio Code docs",
+          "url": "https://code.visualstudio.com/docs/terminal/getting-started",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "12. Virtual Environments and Packages",
+          "source": "Python 3 documentation",
+          "url": "https://docs.python.org/3/tutorial/venv.html",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Getting Started with Python in VS Code (Official Video)",
+          "source": "Visual Studio Code",
+          "url": "https://www.youtube.com/watch?v=D2cwvpJSBX4",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Use Claude Code in VS Code",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/vs-code",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Codex IDE extension | ChatGPT Learn",
+          "source": "OpenAI",
+          "url": "https://learn.chatgpt.com/docs/codex/ide",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "ai-assistants-setup",
+      "title": "Set up GitHub Copilot, Claude Code and Codex",
+      "summary": "You will know what Copilot, Claude Code and Codex are, how to install and sign in to the one you pick, and how its approvals keep you in control.",
+      "why": "A client will tell you 'our team already uses one of these coding assistants, please work in the same one'. Each tool installs, signs in and asks for permission a little differently. This lesson shows you how all three work, so you can switch to whatever the client uses and stay in control of what it runs.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "All three tools are coding assistants: you describe a task in plain English, and they read your project, propose changes and can run commands. GitHub Copilot lives inside VS Code and other editors. Claude Code (from Anthropic) and Codex (from OpenAI) run in your terminal and also have VS Code extensions.",
+            "You only need one to start. Copilot inside VS Code is the gentlest start because it needs no terminal install and has a free plan. Module 3's lesson on coding with an AI assistant teaches how to work with these tools well; this lesson only gets one running."
+          ]
+        },
+        {
+          "h": "GitHub Copilot in VS Code",
+          "p": [
+            "What it is: GitHub's assistant, built into VS Code, with chat, inline suggestions and an agent mode that can edit files and run commands.",
+            "Cost: GitHub's plans page lists Copilot Free with limited chat and agent usage, Copilot Student free for verified students, and paid plans. VS Code's setup guide says that if you sign in without a plan, an eligible account is enrolled in Copilot Free.",
+            "Set up: hover over the Copilot icon in the VS Code Status Bar, select Use AI Features, and sign in with your GitHub account in the browser."
+          ]
+        },
+        {
+          "h": "Claude Code",
+          "p": [
+            "What it is: Anthropic's coding assistant that runs in your terminal, and also as a VS Code extension.",
+            "Cost: the quickstart says you need a Claude Pro, Max, Team or Enterprise subscription, a Claude Console account (API access with pre-paid credits) or access through a supported cloud provider. Check the current plans before you subscribe.",
+            "Install (from the official quickstart). macOS, Linux or WSL: curl -fsSL https://claude.ai/install.sh | bash. Windows PowerShell: irm https://claude.ai/install.ps1 | iex. Homebrew and WinGet are also listed. Then open a new terminal and run claude --version. On native Windows the docs recommend Git for Windows, which you installed in lesson 2.",
+            "Sign in: cd into your project folder and run claude. It prompts you to log in on first use and completes sign-in in your browser."
+          ]
+        },
+        {
+          "h": "OpenAI Codex",
+          "p": [
+            "What it is: OpenAI's coding agent that runs locally in your terminal, with an IDE extension for VS Code and similar editors.",
+            "Cost: the README recommends signing in with ChatGPT to use Codex as part of a Plus, Pro, Business, Edu or Enterprise plan, and says you can also use an API key with extra setup. OpenAI's pricing page also lists a Free plan for quick coding tasks. Check the current limits on that page.",
+            "Install (from the official README). macOS or Linux: curl -fsSL https://chatgpt.com/codex/install.sh | sh. Windows: powershell -ExecutionPolicy ByPass -c \"irm https://chatgpt.com/codex/install.ps1 | iex\". With Node.js: npm install -g @openai/codex.",
+            "Sign in: run codex in your project folder and choose Sign in with ChatGPT."
+          ]
+        },
+        {
+          "h": "How approvals keep you in control",
+          "p": [
+            "Each tool decides when to ask before acting. In Claude Code this is the permission mode: it sets which actions Claude can take without asking, you switch it with Shift+Tab in the terminal, and Plan mode describes what it will do and waits for your approval before changing anything. In Codex, the /permissions command chooses when it can edit files or run commands without asking and shows the active sandbox (the area it is allowed to write to). In VS Code, agents can edit files, run terminal commands and call tools; permission levels and terminal approval settings decide which actions need your confirmation, as the VS Code page on approvals and permissions explains.",
+            "While learning, keep the most careful setting: let the tool ask before every file edit and every command. Read each request. If you would not run the command yourself, say no and ask why it is needed."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Three assistants side by side",
+        "caption": "Pick one column to start; Copilot is the easiest first step for most learners.",
+        "columns": [
+          {
+            "title": "GitHub Copilot",
+            "items": [
+              "Built into VS Code",
+              "Free plan listed, limited usage",
+              "Sign in with GitHub account",
+              "Approval settings for agent actions",
+              "Gentlest start, no terminal install"
+            ]
+          },
+          {
+            "title": "Claude Code",
+            "items": [
+              "Terminal, plus VS Code extension",
+              "Needs Claude paid plan or Console",
+              "Install with official script",
+              "Permission modes, Shift+Tab",
+              "Sign in through the browser"
+            ]
+          },
+          {
+            "title": "OpenAI Codex",
+            "items": [
+              "Terminal, plus IDE extension",
+              "ChatGPT plan or API key",
+              "Install script, npm or Homebrew",
+              "/permissions sets approvals",
+              "Sign in with ChatGPT"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a first safe task",
+        "p": [
+          "Open your learning journal folder (or your fde folder) in VS Code, with nothing private in it. Start your chosen assistant and give it a read-only task first, then a small write task you can easily check.",
+          "Good first prompts: 'Explain what is in this folder and what each file is for.' Then: 'Write a README.md that describes this repository as my FDE learning journal, with sections for weekly notes, labs and notes.' Read the proposed file before approving the edit. Then run git diff to see exactly what changed, and commit it yourself."
+        ],
+        "list": [
+          "Read-only first: an explanation cannot break anything.",
+          "Small write second: one file, easy to review.",
+          "You commit, not the assistant, so you stay the reviewer."
+        ],
+        "code": {
+          "lang": "bash",
+          "text": "cd ~/fde/fde-learning-journal\nclaude          # or: codex\n# after the assistant writes README.md and you approve:\ngit diff\ngit add README.md\ngit commit -m \"Add README written with AI help\""
+        }
+      },
+      "practice": [
+        {
+          "title": "Get one assistant running",
+          "time": "40 min",
+          "goal": "Install, sign in and complete one safe task with one assistant.",
+          "steps": [
+            "Choose Copilot, Claude Code or Codex based on the plan you have. If unsure, choose Copilot Free.",
+            "Install or enable it using only the official command or steps from its linked page.",
+            "Sign in through the browser when prompted.",
+            "Open your fde folder and ask: 'Explain what is in this folder.'",
+            "Ask it to create a short notes/ai-assistant.md describing which tool you chose and why. Read the change before approving.",
+            "Run git diff, then commit the file yourself."
+          ],
+          "done_when": "Your assistant is signed in, and a commit in your folder contains a file it wrote that you reviewed."
+        },
+        {
+          "title": "Find the approval settings",
+          "time": "15 min",
+          "goal": "Know where your tool's permission settings live before you need them.",
+          "steps": [
+            "Open the permission or approvals page for your tool from the links below.",
+            "Find the setting that makes it ask before every edit and command, and make sure it is on.",
+            "Write two sentences in your journal on how to switch it and when you would loosen it."
+          ],
+          "done_when": "You can show a colleague where the approval setting is and what it is set to."
+        }
+      ],
+      "pitfalls": [
+        "Installing from a random blog or video command. Copy install commands only from the official docs.",
+        "Starting the assistant in your home folder. Always cd into the project folder first.",
+        "Letting the assistant commit and push for you while learning. Review the diff and commit yourself.",
+        "Assuming the free tier never runs out. Free plans have limits; check usage on the official page.",
+        "Signing in with a work account for personal learning, or a personal account for client work."
+      ],
+      "check": [
+        "Which of the three assistants needs no terminal install, and why is it the gentlest start?",
+        "What sign-in options does Codex support according to its README?",
+        "What does Claude Code's Plan mode do before changing files?",
+        "Why should your first task with an assistant be read-only?",
+        "Where should you copy install commands from, and why?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Plans for GitHub Copilot",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/copilot/get-started/plans",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Set up GitHub Copilot in VS Code",
+          "source": "Visual Studio Code docs",
+          "url": "https://code.visualstudio.com/docs/setup/copilot",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Quickstart",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/quickstart",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Choose a permission mode",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/permission-modes",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Codex CLI | ChatGPT Learn",
+          "source": "OpenAI",
+          "url": "https://learn.chatgpt.com/docs/codex/cli",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Pricing | ChatGPT Learn",
+          "source": "OpenAI",
+          "url": "https://learn.chatgpt.com/docs/pricing",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Mastering Claude Code in 30 minutes",
+          "source": "Anthropic",
+          "url": "https://www.youtube.com/watch?v=6eBSHbLKuN0",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Manage approvals and permissions",
+          "source": "Visual Studio Code docs",
+          "url": "https://code.visualstudio.com/docs/agents/run/approvals",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "learning-journal",
+      "title": "Record your learning in a GitHub journal",
+      "summary": "You will create a journal repository with a simple structure, a daily entry template and short screen recordings, so your progress becomes something you can show.",
+      "why": "A hiring manager or client will ask 'show me something you built and how you fixed it when it broke'. Saying you can do it is not enough, they want proof. This lesson sets up a journal of daily commits, labs and short videos that shows how you learn and explain, and builds the note-taking habit you need for handover on every engagement.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Create one GitHub repository named fde-learning-journal. Every day you study, add a short entry: what you learned, what you built, what broke and how you fixed it, open questions and links. Commit and push at least once per day you study. Once a week, record a 2 to 5 minute video explaining one lab.",
+            "Choose public or private on purpose. Public is good for a portfolio. Private is fine if you prefer, and you can make it public later. Either way, never put employer or client information in it."
+          ]
+        },
+        {
+          "h": "Create the repository and its structure",
+          "p": [
+            "On GitHub, create a new repository named fde-learning-journal, tick the option to add a README, then clone it into your fde folder with git clone and the URL GitHub shows. Then create this structure:"
+          ],
+          "list": [
+            "README.md: who you are, what this journal is, and a list of weeks with links.",
+            "weeks/week-01.md, weeks/week-02.md and so on: one file per week, one section per day.",
+            "labs/: the code and data for each lab, one folder per lab, for example labs/week-01-setup-check/.",
+            "notes/: short topic notes you will want to find again, such as notes/git-cheatsheet.md.",
+            ".gitignore: list .venv, .env and any large or private files so they are never committed."
+          ]
+        },
+        {
+          "h": "What a good entry looks like",
+          "p": [
+            "Write for your future self and for a reviewer who has five minutes. Use your own words, not copied text. 'What broke and how I fixed it' is the most valuable part: paste the error message, say what you tried, and what finally worked. That is real debugging evidence.",
+            "Files ending in .md use Markdown, a simple way to format text with # for headings and - for lists. GitHub shows it nicely formatted. The template in the worked example uses only those two features."
+          ]
+        },
+        {
+          "h": "Record short walkthroughs",
+          "p": [
+            "Once a week, record a 2 to 5 minute screen recording explaining one lab: what problem it solves, a quick run, and one thing you would improve. Talking through your work is a core FDE skill, and short videos are easy for others to watch.",
+            "On a Mac, press Shift, Command and 5 together to open the Screenshot app; its toolbar includes Record Entire Screen and Record Selected Portion. On Windows, open Snipping Tool, select the Record button, then New (or press Windows logo key + Shift + R), choose the area, then Start and Stop. Save the file.",
+            "Git is built for text, not large videos, so keep videos out of the repository unless they are small. A simple approach is to upload the video to a storage space you control and paste the link into that week's entry. Check what is on screen before you record: close email, chats and anything private."
+          ]
+        },
+        {
+          "h": "From journal to portfolio",
+          "p": [
+            "After a few weeks, your journal shows a dated history of commits, labs that run, and videos of you explaining them. In interviews you can open an entry and walk through a real problem you solved. Module 8 covers turning your best labs into portfolio projects; the journal is the raw material.",
+            "Optionally, when you feel ready, the GitHub Foundations certification covers Git basics, working in repositories and collaborating on GitHub. Check GitHub's page for the exam details and any fee before you book."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "The daily learning loop",
+        "caption": "Each day you study goes round the loop once; the weekly video happens on one lap each week.",
+        "steps": [
+          {
+            "label": "Do the lesson or lab",
+            "note": "Work inside fde-learning-journal/labs"
+          },
+          {
+            "label": "Write the day's entry",
+            "note": "Use the template in weeks/week-NN.md"
+          },
+          {
+            "label": "Commit and push",
+            "note": "One clear message, at least once a day"
+          },
+          {
+            "label": "Record a short walkthrough",
+            "note": "2 to 5 minutes, once a week"
+          },
+          {
+            "label": "Review open questions",
+            "note": "Pick tomorrow's focus from them"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a weekly file template",
+        "p": [
+          "Copy this into weeks/week-01.md and repeat the Day section for each day you study. Replace the YYYY-MM-DD placeholders with real dates. Keep each section to a few lines; short and honest beats long and polished.",
+          "When you finish an entry, run git add weeks/week-01.md, then git commit -m \"Week 01 day 1 notes\", then git push."
+        ],
+        "code": {
+          "lang": "markdown",
+          "text": "# Week 01 - YYYY-MM-DD to YYYY-MM-DD\n\n## Day: YYYY-MM-DD\n\n### What I learned\n- One idea in my own words, as if explaining it to a colleague.\n\n### What I built\n- What I made today and where it lives (for example labs/week-01/).\n\n### What broke and how I fixed it\n- The error message, what I tried, what finally worked.\n\n### Questions I still have\n- Something I do not understand yet.\n\n### Links\n- Lesson, docs page or video I used.\n- Recording: link to my 2 to 5 minute walkthrough (if any)."
+        }
+      },
+      "practice": [
+        {
+          "title": "Create your journal and first entry",
+          "time": "40 min",
+          "goal": "Have a working journal repository with structure and one real entry pushed to GitHub.",
+          "steps": [
+            "Create fde-learning-journal on GitHub with a README, choosing public or private on purpose.",
+            "Clone it into your fde folder and open it in VS Code.",
+            "Create weeks/week-01.md, labs/ and notes/ (add a short README.md inside labs/ and notes/ so Git keeps the empty folders).",
+            "Add a .gitignore listing .venv and .env.",
+            "Write your first day entry with the template, including your check_setup.py output under What I built.",
+            "Commit and push, then open the repository on GitHub and check the formatting."
+          ],
+          "done_when": "Your repository on GitHub shows the folder structure and a week-01.md entry with today's date."
+        },
+        {
+          "title": "Record your first walkthrough",
+          "time": "30 min",
+          "goal": "Practice explaining your work out loud in under 5 minutes.",
+          "steps": [
+            "Close email, chat and anything private on your screen.",
+            "Start a screen recording with the Screenshot app (Mac) or Snipping Tool (Windows).",
+            "In 2 to 5 minutes, show your journal structure and run check_setup.py, explaining what it checks.",
+            "Watch it back once and note one thing to do better next time.",
+            "Store the video where you control access and add its link to this week's entry."
+          ],
+          "done_when": "Your week-01.md has a working link to a recording of 5 minutes or less."
+        }
+      ],
+      "pitfalls": [
+        "Writing only what you learned and skipping what broke. The fixes are the most valuable evidence.",
+        "Putting employer, client or personal data in a public journal. Assume anything public is public forever.",
+        "Committing large video files into the repository. Link to them instead.",
+        "Saving entries for the weekend. Small daily commits show steady progress and are easier to write.",
+        "Copying text from docs instead of explaining in your own words."
+      ],
+      "check": [
+        "What are the five headings in a daily entry, and which one matters most?",
+        "Why should videos usually be linked rather than committed?",
+        "What should you check on your screen before you start recording?",
+        "How does a journal with daily commits help in an interview?",
+        "What goes in .gitignore for this repository, and why?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Quickstart for repositories",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "About the repository README file",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Basic writing and formatting syntax",
+          "source": "GitHub Docs",
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "How to record the screen on Mac - Apple Support",
+          "source": "Apple Support",
+          "url": "https://support.apple.com/en-us/102618",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Use Snipping Tool to capture screenshots | Microsoft Support",
+          "source": "Microsoft Support",
+          "url": "https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots",
+          "cost": "free"
+        },
+        {
+          "type": "cert",
+          "title": "About GitHub Certifications",
+          "source": "GitHub Docs (GitHub Foundations certification)",
+          "url": "https://docs.github.com/en/get-started/showcase-your-expertise-with-github-certifications/about-github-certifications",
+          "cost": "paid"
+        }
+      ]
+    }
+  ]
+}

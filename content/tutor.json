@@ -1,0 +1,1011 @@
+{
+  "industries": [
+    {
+      "id": "healthcare-providers",
+      "name": "Healthcare providers and hospitals",
+      "blurb": "AI POCs usually help where clinicians and admin staff spend hours reading notes, filling payer forms and sorting claims instead of caring for patients.",
+      "examples": [
+        {
+          "id": "discharge-summary-draft",
+          "title": "Discharge summary first draft",
+          "function": "Clinical",
+          "bottleneck": "Hospitalists write discharge summaries late in the day from scattered progress notes, medication lists and labs, so summaries are delayed and follow-up items get missed.",
+          "data": "Generate 30 synthetic inpatient stays (progress notes, medication list, lab results) with an LLM; no real patient data.",
+          "pattern": "draft",
+          "approval": "The attending physician edits and signs the summary before it goes to the patient or the next provider.",
+          "measure": "Clinician rating of 20 drafts for completeness and accuracy; number of missed follow-up items against a checklist."
+        },
+        {
+          "id": "prior-auth-packet",
+          "title": "Prior authorization form filler",
+          "function": "Operations",
+          "bottleneck": "Prior authorization staff copy diagnosis codes, past treatments and clinical justification from charts into payer forms by hand, which is slow and causes rework when fields are wrong.",
+          "data": "Generate 30 synthetic chart notes and a synthetic payer criteria sheet for one procedure, plus a blank sample prior auth form.",
+          "pattern": "extract",
+          "approval": "A prior auth specialist reviews every filled field and attaches evidence before submission.",
+          "measure": "Field-level accuracy on 30 labeled charts; share of forms that needed no correction."
+        },
+        {
+          "id": "denial-routing",
+          "title": "Claim denial reason sorter",
+          "function": "Finance",
+          "bottleneck": "Billers read denial codes and free-text remarks one by one to decide whether a claim needs coding fixes, missing documents or an appeal, so work queues back up.",
+          "data": "Generate 200 synthetic denial records (denial code, remark text, claim summary) with an LLM, labeled with the correct work queue.",
+          "pattern": "classify",
+          "approval": "A billing lead confirms the queue for any denial marked as an appeal before work starts.",
+          "measure": "Routing accuracy on 50 held-out denials; confusion matrix by queue."
+        },
+        {
+          "id": "policy-lookup",
+          "title": "Nursing policy and procedure lookup",
+          "function": "Quality and regulatory",
+          "bottleneck": "Nurses search hundreds of policy PDFs on the intranet during a shift to find the current rule, for example line care or fall precautions, and often ask a colleague instead.",
+          "data": "Write or generate 25 synthetic hospital policy documents with version dates.",
+          "pattern": "rag-qa",
+          "approval": "The policy owner reviews the answer set and the cited sections before the tool is shown to staff.",
+          "measure": "Answer correctness and citation correctness on 40 test questions; rate of 'I do not know' when the answer is not in the policies."
+        }
+      ]
+    },
+    {
+      "id": "medtech-devices",
+      "name": "MedTech and medical devices",
+      "blurb": "AI POCs usually help in the document-heavy work of design controls, complaint handling, clinical evidence and supplier quality that regulators expect to be traceable.",
+      "examples": [
+        {
+          "id": "complaint-intake",
+          "title": "Device complaint intake and reportability flag",
+          "function": "Quality and regulatory",
+          "bottleneck": "Complaint handlers read emails and call notes, retype device, lot, event and patient details into the complaint system, and must judge quickly if the event may be reportable.",
+          "data": "Generate 50 synthetic complaint emails with an LLM, using public device event reports from the FDA MAUDE database as style reference.",
+          "pattern": "extract",
+          "approval": "A complaint specialist confirms every field and makes the final reportability decision.",
+          "measure": "Field-level accuracy on 40 labeled emails; recall on emails labeled as potentially reportable."
+        },
+        {
+          "id": "design-trace-gaps",
+          "title": "Requirements to verification trace checker",
+          "function": "R&D",
+          "bottleneck": "Design engineers build the trace matrix between design inputs and verification tests by hand for the design history file, and gaps are often found late in a design review.",
+          "data": "Write a synthetic list of 60 design inputs and 70 verification test protocol summaries for a simple device such as a home blood pressure monitor.",
+          "pattern": "match",
+          "approval": "The design engineer accepts or rejects each proposed link before the matrix is updated.",
+          "measure": "Precision and recall of proposed links against a hand-built trace matrix; number of true gaps found."
+        },
+        {
+          "id": "cer-literature-screen",
+          "title": "Clinical evaluation literature screening",
+          "function": "Clinical",
+          "bottleneck": "Clinical affairs reviewers screen hundreds of abstracts by hand for the clinical evaluation report under EU MDR, deciding include or exclude and writing a reason for each.",
+          "data": "Pull 200 public abstracts from PubMed for one device type and label 100 of them include or exclude with a reason.",
+          "pattern": "classify",
+          "approval": "A clinical reviewer confirms every include or exclude decision and the reason before it enters the report.",
+          "measure": "Agreement with reviewer labels on 100 abstracts; number of relevant papers missed."
+        },
+        {
+          "id": "supplier-scar-draft",
+          "title": "Supplier corrective action request from inspection fails",
+          "function": "Supply chain",
+          "bottleneck": "When incoming inspection rejects supplied components, quality engineers write the supplier corrective action request from inspection records, photos notes and drawings, which takes hours per case.",
+          "data": "Generate 20 synthetic incoming inspection nonconformance records for molded and machined parts, plus a synthetic supplier quality agreement.",
+          "pattern": "draft",
+          "approval": "A supplier quality engineer edits and approves the request before it is sent to the supplier.",
+          "measure": "Reviewer score on 20 drafts for correct defect description, requirement cited and requested containment; edit time per draft."
+        }
+      ]
+    },
+    {
+      "id": "pharma-biotech",
+      "name": "Pharma and biotech",
+      "blurb": "AI POCs usually help where trained experts read long protocols, case reports and batch records to make decisions that must be documented.",
+      "examples": [
+        {
+          "id": "trial-eligibility",
+          "title": "Trial eligibility pre-screen",
+          "function": "Clinical",
+          "bottleneck": "Site coordinators read long inclusion and exclusion criteria against each patient record by hand, so pre-screening is slow and eligible patients are missed.",
+          "data": "Use eligibility criteria from 5 public studies on ClinicalTrials.gov and generate 40 synthetic patient profiles.",
+          "pattern": "match",
+          "approval": "The investigator or coordinator confirms eligibility before any patient is contacted.",
+          "measure": "Criterion-level agreement with hand labels on 40 profiles; false eligible rate."
+        },
+        {
+          "id": "ae-case-intake",
+          "title": "Adverse event case intake from call notes",
+          "function": "Quality and regulatory",
+          "bottleneck": "Safety staff read call center notes and emails to find adverse events and enter patient, reporter, product and event details into the safety database under strict timelines.",
+          "data": "Generate 60 synthetic call center notes with an LLM, using public adverse event records from openFDA as reference for fields.",
+          "pattern": "extract",
+          "approval": "A safety specialist confirms the case is valid and the fields are correct before the case is created.",
+          "measure": "Field-level accuracy on 40 labeled notes; recall of notes that contain an adverse event."
+        },
+        {
+          "id": "batch-deviation-summary",
+          "title": "Batch record deviation summary",
+          "function": "Manufacturing",
+          "bottleneck": "QA reviewers read long batch records to find deviations and comments before release, and the summary for the release decision is written by hand.",
+          "data": "Generate 15 synthetic batch records as text with embedded deviations, operator comments and out-of-range readings.",
+          "pattern": "summarize",
+          "approval": "A QA reviewer checks the summary against the batch record and makes the release decision.",
+          "measure": "Recall of planted deviations across 15 records; reviewer rating of summary accuracy."
+        },
+        {
+          "id": "med-info-response",
+          "title": "Medical information response from approved label",
+          "function": "Customer service",
+          "bottleneck": "Medical information staff answer repeat questions from doctors and pharmacists by searching label text and standard response documents, which is slow and inconsistent.",
+          "data": "Use 3 public drug labels from DailyMed and write 40 synthetic questions from healthcare professionals.",
+          "pattern": "rag-qa",
+          "approval": "A medical information pharmacist approves each response before it is sent.",
+          "measure": "Answer correctness and citation to label section on 40 questions; rate of correct refusals for off-label questions."
+        }
+      ]
+    },
+    {
+      "id": "banking-lending",
+      "name": "Banking and lending",
+      "blurb": "AI POCs usually help where analysts read documents and alerts to make decisions that regulators and auditors will later check.",
+      "examples": [
+        {
+          "id": "income-doc-extract",
+          "title": "Loan income document extractor",
+          "function": "Operations",
+          "bottleneck": "Loan processors key income and employer details from pay stubs and bank statements into the loan system by hand, causing delays and typing errors.",
+          "data": "Generate 40 synthetic pay stubs and bank statements as PDFs with fake names and numbers.",
+          "pattern": "extract",
+          "approval": "An underwriter verifies the extracted income figures before they are used in the decision.",
+          "measure": "Field-level accuracy on 40 documents; share of documents that needed no correction."
+        },
+        {
+          "id": "complaint-classifier",
+          "title": "Customer complaint category and urgency",
+          "function": "Customer service",
+          "bottleneck": "Complaint teams read every complaint to assign product, issue and urgency, and complaints that hint at regulatory issues can sit in the wrong queue.",
+          "data": "Use a sample of public complaint narratives from the CFPB Consumer Complaint Database.",
+          "pattern": "classify",
+          "approval": "A complaints lead confirms the category for anything marked high risk before it is routed.",
+          "measure": "Accuracy of product and issue labels against the database labels on 300 complaints; recall on high risk items."
+        },
+        {
+          "id": "aml-alert-narrative",
+          "title": "AML alert explanation for investigators",
+          "function": "Legal and compliance",
+          "bottleneck": "Investigators open each transaction monitoring alert, pull account history and write a narrative of why it looks suspicious or not, which takes a long time per alert.",
+          "data": "Generate synthetic accounts and 6 months of transactions with planted patterns such as structuring and rapid movement of funds.",
+          "pattern": "anomaly-explain",
+          "approval": "The investigator decides whether to close the alert or escalate it; the model never decides.",
+          "measure": "Reviewer rating of 30 explanations for factual accuracy against the transactions; share of planted patterns correctly described."
+        },
+        {
+          "id": "credit-memo-draft",
+          "title": "Small business credit memo first draft",
+          "function": "Risk",
+          "bottleneck": "Credit analysts spend hours assembling the credit memo from financial statements, application notes and policy, before any real analysis starts.",
+          "data": "Generate 10 synthetic small business applications with 3 years of financial statements and a synthetic credit policy.",
+          "pattern": "draft",
+          "approval": "The credit officer edits the memo and makes the credit decision.",
+          "measure": "Ratio calculation accuracy on 10 memos; reviewer score for policy exceptions correctly called out."
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance",
+      "blurb": "AI POCs usually help where claims and underwriting staff read unstructured submissions and policy wording to make the next decision.",
+      "examples": [
+        {
+          "id": "fnol-extract",
+          "title": "First notice of loss intake",
+          "function": "Operations",
+          "bottleneck": "Claims intake staff read loss emails and call notes and retype policy number, date, location, cause and damage into the claims system.",
+          "data": "Generate 50 synthetic first notice of loss emails for auto and home claims.",
+          "pattern": "extract",
+          "approval": "A claims handler confirms the fields and coverage before the claim is set up.",
+          "measure": "Field-level accuracy on 40 labeled emails; correct line of business rate."
+        },
+        {
+          "id": "submission-appetite",
+          "title": "Broker submission appetite triage",
+          "function": "Sales",
+          "bottleneck": "Commercial underwriters receive many broker submissions and spend time reading ones that are clearly outside appetite before reaching the good ones.",
+          "data": "Write a synthetic underwriting appetite guide and generate 80 synthetic broker submission emails with attachments as text.",
+          "pattern": "classify",
+          "approval": "An underwriter confirms any decline before the broker is told.",
+          "measure": "Accuracy of in, out and refer labels on 80 submissions; false decline rate."
+        },
+        {
+          "id": "coverage-qa",
+          "title": "Policy wording answers for service agents",
+          "function": "Customer service",
+          "bottleneck": "Call center agents put customers on hold to search long policy wordings for coverage questions, and answers vary by agent.",
+          "data": "Write 3 synthetic homeowners policy wordings with endorsements and 40 synthetic customer questions.",
+          "pattern": "rag-qa",
+          "approval": "Any answer that confirms or denies coverage for a specific claim is checked by a licensed adjuster.",
+          "measure": "Answer correctness and correct clause citation on 40 questions; correct refusal rate when the wording is unclear."
+        },
+        {
+          "id": "fraud-referral",
+          "title": "Claim fraud indicator explanation",
+          "function": "Risk",
+          "bottleneck": "Rules flag many claims for possible fraud, and special investigations staff must read each file to understand why it was flagged.",
+          "data": "Generate 100 synthetic claims with claim history, with planted indicators such as recent policy start or repeated addresses.",
+          "pattern": "anomaly-explain",
+          "approval": "An investigator decides whether to open a case; the explanation is advice only.",
+          "measure": "Share of planted indicators correctly named on 30 flagged claims; reviewer rating of explanation clarity."
+        }
+      ]
+    },
+    {
+      "id": "capital-markets",
+      "name": "Capital markets and asset management",
+      "blurb": "AI POCs usually help where analysts and operations staff read filings, trade records and marketing material under time pressure and strict rules.",
+      "examples": [
+        {
+          "id": "risk-factor-diff",
+          "title": "Annual report risk factor change summary",
+          "function": "Finance",
+          "bottleneck": "Research analysts compare risk factor sections between this year and last year by reading both in full, which is slow across a coverage list.",
+          "data": "Download 10-K filings for 10 public companies for two years from SEC EDGAR.",
+          "pattern": "summarize",
+          "approval": "The analyst checks the summary against the filings before it goes into a research note.",
+          "measure": "Recall of hand-marked new or removed risk factors in 10 filing pairs; false change rate."
+        },
+        {
+          "id": "trade-break-explain",
+          "title": "Trade break explanation",
+          "function": "Operations",
+          "bottleneck": "Operations staff compare internal trade records with broker confirmations to find why they do not match, field by field.",
+          "data": "Generate 200 synthetic trades and confirmations with planted breaks in price, quantity, settlement date and account.",
+          "pattern": "anomaly-explain",
+          "approval": "An operations analyst approves the fix before any record is amended.",
+          "measure": "Correct break cause on 50 broken trades; no false breaks on matched trades."
+        },
+        {
+          "id": "marketing-review",
+          "title": "Fund marketing material compliance check",
+          "function": "Legal and compliance",
+          "bottleneck": "Compliance reviewers read every fact sheet and social post for issues such as performance shown without required disclosures, and the review queue slows launches.",
+          "data": "Write a synthetic review checklist and generate 40 synthetic marketing pieces with planted issues.",
+          "pattern": "classify",
+          "approval": "A compliance officer gives final approval for every piece.",
+          "measure": "Recall of planted issues on 40 pieces; false flag rate on clean pieces."
+        },
+        {
+          "id": "ddq-draft",
+          "title": "Due diligence questionnaire answer draft",
+          "function": "Sales",
+          "bottleneck": "Investor relations staff answer long due diligence questionnaires by searching past answers and policies, and answers drift out of date.",
+          "data": "Generate a synthetic library of 150 approved past answers and 3 new synthetic questionnaires.",
+          "pattern": "draft",
+          "approval": "The product specialist reviews and approves every answer before the questionnaire is returned.",
+          "measure": "Share of drafted answers accepted without edits; reviewer rating for use of the latest approved source."
+        }
+      ]
+    },
+    {
+      "id": "manufacturing-industrial",
+      "name": "Manufacturing and industrial",
+      "blurb": "AI POCs usually help where engineers and supervisors turn machine data, shift notes and supplier documents into decisions on the shop floor.",
+      "examples": [
+        {
+          "id": "sensor-anomaly-explain",
+          "title": "Machine sensor anomaly explanation",
+          "function": "Manufacturing",
+          "bottleneck": "Maintenance engineers get many sensor alarms and must dig through trends to see which ones point to a real failure.",
+          "data": "Use the public NASA turbofan engine degradation dataset (C-MAPSS) or generate synthetic sensor time series with planted faults.",
+          "pattern": "anomaly-explain",
+          "approval": "A maintenance planner decides whether to raise a work order.",
+          "measure": "Detection rate on planted faults; reviewer rating of explanation accuracy on 20 alarms."
+        },
+        {
+          "id": "shift-handover",
+          "title": "Shift handover summary",
+          "function": "Operations",
+          "bottleneck": "Supervisors write shift handovers from scattered log entries and chats, so open issues are lost between shifts.",
+          "data": "Generate 20 synthetic shift logs with downtime events, quality holds and safety notes.",
+          "pattern": "summarize",
+          "approval": "The outgoing supervisor edits and signs off the handover.",
+          "measure": "Recall of open issues across 20 logs; incoming supervisor rating of usefulness."
+        },
+        {
+          "id": "quote-compare",
+          "title": "Supplier quote comparison table",
+          "function": "Procurement",
+          "bottleneck": "Buyers copy prices, lead times, minimum order quantities and terms from quotes in different formats into a spreadsheet to compare them.",
+          "data": "Generate 30 synthetic supplier quotes as PDFs and emails in different layouts.",
+          "pattern": "extract",
+          "approval": "The buyer confirms the comparison before choosing a supplier.",
+          "measure": "Field-level accuracy on 30 quotes; time to build a comparison versus by hand."
+        },
+        {
+          "id": "8d-draft",
+          "title": "8D problem report first draft",
+          "function": "Quality and regulatory",
+          "bottleneck": "Quality engineers write 8D reports from defect data, containment notes and meeting notes, which takes days and delays the customer response.",
+          "data": "Generate 10 synthetic defect cases with inspection data, containment actions and team meeting notes.",
+          "pattern": "draft",
+          "approval": "The quality engineer edits and approves the 8D before it goes to the customer.",
+          "measure": "Reviewer score on 10 drafts for correct problem statement, containment and root cause sections."
+        }
+      ]
+    },
+    {
+      "id": "automotive",
+      "name": "Automotive",
+      "blurb": "AI POCs usually help where field complaints, service manuals and supplier approval packages pile up faster than engineers can read them.",
+      "examples": [
+        {
+          "id": "complaint-component",
+          "title": "Owner complaint component classifier",
+          "function": "Quality and regulatory",
+          "bottleneck": "Field quality engineers read owner complaints to find which component and failure mode is involved, so emerging issues are spotted late.",
+          "data": "Use public vehicle owner complaints from the NHTSA complaints database for a few models.",
+          "pattern": "classify",
+          "approval": "A field quality engineer confirms any new issue cluster before it is escalated.",
+          "measure": "Component label accuracy against the database component field on 300 complaints."
+        },
+        {
+          "id": "tech-diagnostic-help",
+          "title": "Service technician repair guide lookup",
+          "function": "Field service",
+          "bottleneck": "Dealer technicians search long service manuals and bulletins to find the right diagnostic steps for a symptom.",
+          "data": "Write a synthetic service manual section and 15 synthetic service bulletins for one vehicle system.",
+          "pattern": "rag-qa",
+          "approval": "The technician follows the cited procedure and a shop foreman approves any repair outside the manual.",
+          "measure": "Correct procedure and citation on 30 symptom questions; correct refusal when no procedure exists."
+        },
+        {
+          "id": "ppap-check",
+          "title": "Supplier PPAP package completeness check",
+          "function": "Supply chain",
+          "bottleneck": "Supplier quality engineers open every PPAP package to check that required elements are present and values match the drawing.",
+          "data": "Generate 15 synthetic PPAP packages as text and PDF, some with missing or mismatched elements.",
+          "pattern": "extract",
+          "approval": "The supplier quality engineer approves or rejects the package.",
+          "measure": "Recall of missing or mismatched elements on 15 packages; false flag rate."
+        },
+        {
+          "id": "change-impact",
+          "title": "Engineering change impact finder",
+          "function": "R&D",
+          "bottleneck": "When an engineering change is raised, engineers search requirement and test lists by hand to find what else is affected.",
+          "data": "Generate a synthetic set of 100 requirements, 80 test cases and 20 change requests for one vehicle subsystem.",
+          "pattern": "match",
+          "approval": "The change owner confirms the impacted list before the change board meets.",
+          "measure": "Precision and recall of impacted items against hand labels on 20 changes."
+        }
+      ]
+    },
+    {
+      "id": "aerospace-defense",
+      "name": "Aerospace and defense",
+      "blurb": "AI POCs usually help where long requirement documents, maintenance logs and supplier data need careful, traceable review.",
+      "examples": [
+        {
+          "id": "maintenance-log-ata",
+          "title": "Maintenance log entry ATA chapter coding",
+          "function": "Operations",
+          "bottleneck": "Reliability engineers code free-text maintenance log entries by system by hand before they can trend repeat defects.",
+          "data": "Generate 300 synthetic aircraft maintenance log entries labeled with ATA chapter.",
+          "pattern": "classify",
+          "approval": "A reliability engineer reviews low confidence codes before trend reports are published.",
+          "measure": "ATA chapter accuracy on 100 held-out entries; accuracy on the top 10 chapters."
+        },
+        {
+          "id": "compliance-matrix",
+          "title": "Solicitation compliance matrix builder",
+          "function": "Program management",
+          "bottleneck": "Proposal teams read long solicitations line by line to pull every requirement into a compliance matrix, and missed requirements hurt the bid.",
+          "data": "Use 2 public solicitations from SAM.gov or write a synthetic solicitation.",
+          "pattern": "extract",
+          "approval": "The proposal manager reviews and approves the matrix before writing starts.",
+          "measure": "Recall and precision of requirements against a hand-built matrix for one solicitation."
+        },
+        {
+          "id": "ecb-summary",
+          "title": "Engineering change board package summary",
+          "function": "R&D",
+          "bottleneck": "Change board members receive long change packages and do not have time to read them before the meeting.",
+          "data": "Generate 10 synthetic engineering change packages with reason, affected parts, test results and cost impact.",
+          "pattern": "summarize",
+          "approval": "The change originator confirms the summary is accurate before it is sent to the board.",
+          "measure": "Originator rating of 10 summaries; recall of cost and schedule impact items."
+        },
+        {
+          "id": "late-parts-agent",
+          "title": "Late parts check and expedite email",
+          "function": "Supply chain",
+          "bottleneck": "Buyers check open purchase orders against supplier ship notices every day to find late parts and then write chase emails one by one.",
+          "data": "Generate synthetic purchase order, ship notice and need date tables in a local database.",
+          "pattern": "agent-tools",
+          "approval": "The buyer approves each expedite email before it is sent.",
+          "measure": "Correct late part list on 3 test days; buyer rating of drafted emails."
+        }
+      ]
+    },
+    {
+      "id": "retail-ecommerce",
+      "name": "Retail and e-commerce",
+      "blurb": "AI POCs usually help where large catalogs, order questions and returns create repeat manual work.",
+      "examples": [
+        {
+          "id": "listing-enrich",
+          "title": "Product listing attribute and copy draft",
+          "function": "Marketing",
+          "bottleneck": "Merchandisers write product titles, attributes and descriptions from supplier spec sheets for thousands of items, so new items go live late.",
+          "data": "Generate 50 synthetic supplier spec sheets for one category such as small kitchen appliances.",
+          "pattern": "draft",
+          "approval": "A merchandiser approves each listing before it is published.",
+          "measure": "Attribute accuracy against spec sheets on 50 items; share of listings approved without edits."
+        },
+        {
+          "id": "return-reasons",
+          "title": "Return reason classifier",
+          "function": "Operations",
+          "bottleneck": "Return comments are free text, so teams cannot see whether returns are about size, damage or wrong item without reading them.",
+          "data": "Generate 500 synthetic return comments, or use a public product review dataset from Hugging Face as style reference.",
+          "pattern": "classify",
+          "approval": "A category manager reviews the weekly breakdown before any supplier is contacted.",
+          "measure": "Reason label accuracy on 100 hand-labeled comments."
+        },
+        {
+          "id": "order-status-agent",
+          "title": "Where is my order assistant",
+          "function": "Customer service",
+          "bottleneck": "Service agents look up the same orders across order, warehouse and carrier screens to answer where is my order questions.",
+          "data": "Build synthetic order, shipment and carrier tracking tables behind simple local tool functions.",
+          "pattern": "agent-tools",
+          "approval": "An agent approves any refund or reshipment the assistant proposes.",
+          "measure": "Correct status answer on 40 test questions; correct tool calls per question; zero refunds without approval."
+        },
+        {
+          "id": "promo-price-check",
+          "title": "Promotion price error check",
+          "function": "Sales",
+          "bottleneck": "Pricing teams find promo setup mistakes, such as a discount bigger than planned, only after orders come in.",
+          "data": "Generate a synthetic promo plan and price feed with planted errors.",
+          "pattern": "anomaly-explain",
+          "approval": "A pricing analyst confirms each fix before the feed is changed.",
+          "measure": "Recall of planted errors; false flag rate on 500 clean prices."
+        }
+      ]
+    },
+    {
+      "id": "consumer-goods",
+      "name": "Consumer packaged goods",
+      "blurb": "AI POCs usually help where trade spend, consumer feedback, forecasts and label content need checking across many products and retailers.",
+      "examples": [
+        {
+          "id": "deduction-match",
+          "title": "Retailer deduction to promotion matcher",
+          "function": "Finance",
+          "bottleneck": "Deduction analysts match retailer deductions to agreed promotions by hand, and unmatched deductions sit open for months.",
+          "data": "Generate synthetic promotion agreements and 200 retailer deduction lines with planted mismatches.",
+          "pattern": "match",
+          "approval": "A deduction analyst approves each match or dispute before it is posted.",
+          "measure": "Correct match rate on 200 lines; correct dispute flags on planted mismatches."
+        },
+        {
+          "id": "consumer-complaint-type",
+          "title": "Consumer contact safety and quality sorter",
+          "function": "Customer service",
+          "bottleneck": "Consumer care agents read every contact to decide whether it is a safety, quality or general issue, and safety cases must be escalated fast.",
+          "data": "Generate 300 synthetic consumer emails and chat logs for food and household products.",
+          "pattern": "classify",
+          "approval": "A quality specialist confirms every safety flag before escalation.",
+          "measure": "Recall of safety cases on 300 contacts; overall label accuracy."
+        },
+        {
+          "id": "forecast-miss-explain",
+          "title": "Forecast miss explanation",
+          "function": "Supply chain",
+          "bottleneck": "Demand planners spend the start of each cycle working out why last month's forecast missed, using sales, promo and stock data.",
+          "data": "Generate synthetic weekly sales, promo calendar, out-of-stock and forecast data for 30 products.",
+          "pattern": "anomaly-explain",
+          "approval": "The planner accepts or rejects each explanation before forecast changes are made.",
+          "measure": "Correct cause on planted misses; planner rating of 20 explanations."
+        },
+        {
+          "id": "label-allergen-check",
+          "title": "Label draft allergen and claim check",
+          "function": "R&D",
+          "bottleneck": "Regulatory and R&D staff check every label draft against the formula spec for allergens and claims, by reading both side by side.",
+          "data": "Generate 20 synthetic formula specs and matching label drafts with planted mismatches.",
+          "pattern": "extract",
+          "approval": "A regulatory specialist signs off each label before print.",
+          "measure": "Recall of planted mismatches on 20 pairs; false flag rate."
+        }
+      ]
+    },
+    {
+      "id": "logistics-transport",
+      "name": "Logistics, transport and supply chain",
+      "blurb": "AI POCs usually help where shipment documents, invoices and exception messages arrive in high volume and many formats.",
+      "examples": [
+        {
+          "id": "freight-invoice-audit",
+          "title": "Freight invoice to rate contract check",
+          "function": "Finance",
+          "bottleneck": "Freight audit staff compare carrier invoices to contracted rates and accessorials by hand, so overcharges slip through.",
+          "data": "Generate a synthetic rate contract and 150 carrier invoices with planted overcharges.",
+          "pattern": "match",
+          "approval": "A freight auditor approves each dispute before it is sent to the carrier.",
+          "measure": "Recall of planted overcharges; false dispute rate."
+        },
+        {
+          "id": "exception-email-sort",
+          "title": "Shipment exception email sorter",
+          "function": "Customer service",
+          "bottleneck": "Control tower staff read many carrier and customer emails a day to spot delays, damage and address problems.",
+          "data": "Generate 400 synthetic shipment emails labeled by exception type and urgency.",
+          "pattern": "classify",
+          "approval": "A coordinator confirms urgent exceptions before customers are notified.",
+          "measure": "Exception type accuracy on 100 held-out emails; recall on urgent ones."
+        },
+        {
+          "id": "route-delay-explain",
+          "title": "Route delay explanation",
+          "function": "Operations",
+          "bottleneck": "Dispatchers see late deliveries in a report but must check stop times, dwell and traffic notes to explain them to customers.",
+          "data": "Generate synthetic route plans and stop event logs with planted causes such as long dwell or missed slot.",
+          "pattern": "anomaly-explain",
+          "approval": "The dispatcher approves the explanation before it is shared with a customer.",
+          "measure": "Correct cause on 40 late routes; dispatcher rating of clarity."
+        },
+        {
+          "id": "customs-docs",
+          "title": "Commercial invoice fields for customs entry",
+          "function": "Legal and compliance",
+          "bottleneck": "Customs brokers retype item descriptions, values, origin and quantities from commercial invoices in many layouts.",
+          "data": "Generate 40 synthetic commercial invoices and packing lists as PDFs in different layouts.",
+          "pattern": "extract",
+          "approval": "A licensed broker reviews every entry before filing.",
+          "measure": "Field-level accuracy on 40 documents; line item count accuracy."
+        }
+      ]
+    },
+    {
+      "id": "energy-utilities",
+      "name": "Energy and utilities",
+      "blurb": "AI POCs usually help where field notes, applications, meter data and tariff documents need careful reading by scarce specialists.",
+      "examples": [
+        {
+          "id": "work-order-closeout",
+          "title": "Field crew work order closeout summary",
+          "function": "Field service",
+          "bottleneck": "Crews leave short, inconsistent notes on completed work orders, and office staff rewrite them for asset records.",
+          "data": "Generate 60 synthetic crew notes with asset IDs, work done and follow-up needs.",
+          "pattern": "summarize",
+          "approval": "A field supervisor approves the closeout before the asset record is updated.",
+          "measure": "Recall of follow-up needs on 60 notes; supervisor rating of summary accuracy."
+        },
+        {
+          "id": "interconnection-check",
+          "title": "Solar interconnection application completeness",
+          "function": "Operations",
+          "bottleneck": "Engineers review rooftop solar applications for missing documents and wrong values, and incomplete files bounce back and forth.",
+          "data": "Generate 30 synthetic interconnection applications with single-line diagram notes and equipment specs, some incomplete.",
+          "pattern": "extract",
+          "approval": "An interconnection engineer approves or returns the application.",
+          "measure": "Recall of missing or wrong items on 30 applications; false flag rate."
+        },
+        {
+          "id": "high-bill-explain",
+          "title": "High bill explanation from meter data",
+          "function": "Finance",
+          "bottleneck": "Billing staff field high bill complaints by pulling interval meter data, rate changes and estimated reads to explain the bill.",
+          "data": "Generate synthetic hourly meter data, weather and billing records for 50 customers with planted causes.",
+          "pattern": "anomaly-explain",
+          "approval": "A billing specialist approves the explanation and any adjustment before it reaches the customer.",
+          "measure": "Correct cause on 30 high bill cases; specialist rating of clarity."
+        },
+        {
+          "id": "tariff-qa",
+          "title": "Tariff and rate schedule lookup",
+          "function": "Legal and compliance",
+          "bottleneck": "Staff search long tariff books to answer questions about fees and rules, and answers are hard to check.",
+          "data": "Use a public tariff PDF from a state utility commission website or write a synthetic tariff book.",
+          "pattern": "rag-qa",
+          "approval": "A regulatory analyst approves answers before they are used in customer letters.",
+          "measure": "Answer correctness and section citation on 40 questions."
+        }
+      ]
+    },
+    {
+      "id": "telecom",
+      "name": "Telecom",
+      "blurb": "AI POCs usually help where network alarms, service calls and contracts create high volumes of repeat analysis.",
+      "examples": [
+        {
+          "id": "alarm-correlation",
+          "title": "Network alarm storm explanation",
+          "function": "Operations",
+          "bottleneck": "Network operations staff face bursts of related alarms and must work out the likely root alarm before dispatching.",
+          "data": "Generate synthetic alarm logs from a small network topology with planted root failures.",
+          "pattern": "anomaly-explain",
+          "approval": "A network engineer confirms the root cause before any dispatch or config change.",
+          "measure": "Correct root alarm on 30 storms; time to explanation."
+        },
+        {
+          "id": "cancel-reason",
+          "title": "Cancellation call reason classifier",
+          "function": "Customer service",
+          "bottleneck": "Retention teams cannot see why customers cancel because reasons are buried in free-text call notes.",
+          "data": "Generate 400 synthetic cancellation call notes labeled with reason.",
+          "pattern": "classify",
+          "approval": "A retention manager reviews the monthly reason report before offers are changed.",
+          "measure": "Reason accuracy on 100 held-out notes."
+        },
+        {
+          "id": "tech-visit-notes",
+          "title": "Install visit notes to customer summary",
+          "function": "Field service",
+          "bottleneck": "Field technicians write terse job notes, so customer care cannot tell callers what was done or what is still open.",
+          "data": "Generate 50 synthetic technician job notes for broadband installs and repairs.",
+          "pattern": "summarize",
+          "approval": "The technician confirms the summary before it is attached to the account.",
+          "measure": "Recall of open actions on 50 notes; technician rating of accuracy."
+        },
+        {
+          "id": "sla-credit",
+          "title": "Enterprise SLA credit calculator",
+          "function": "Finance",
+          "bottleneck": "Billing staff match outage tickets to enterprise contract SLA terms by hand to work out service credits.",
+          "data": "Generate synthetic enterprise contracts with SLA clauses and 100 outage tickets.",
+          "pattern": "match",
+          "approval": "A billing manager approves every credit before it is applied.",
+          "measure": "Correct credit amount on 40 cases; correct clause matched."
+        }
+      ]
+    },
+    {
+      "id": "public-sector",
+      "name": "Public sector and government",
+      "blurb": "AI POCs usually help where agencies handle large volumes of requests, applications and public input with small teams.",
+      "examples": [
+        {
+          "id": "records-redaction",
+          "title": "Public records request redaction suggestions",
+          "function": "Legal and compliance",
+          "bottleneck": "Records officers read every page of responsive documents to mark personal data and exempt content before release.",
+          "data": "Generate 40 synthetic agency emails and memos with planted personal data.",
+          "pattern": "classify",
+          "approval": "A records officer approves every redaction before release.",
+          "measure": "Recall of planted personal data; over-redaction rate."
+        },
+        {
+          "id": "benefit-application",
+          "title": "Benefit application document extraction",
+          "function": "Operations",
+          "bottleneck": "Caseworkers retype household, income and residence details from uploaded documents into the case system.",
+          "data": "Generate 40 synthetic applications with pay slips, leases and ID cards using fake data.",
+          "pattern": "extract",
+          "approval": "A caseworker verifies the fields and makes the eligibility decision.",
+          "measure": "Field-level accuracy on 40 applications."
+        },
+        {
+          "id": "service-request-agent",
+          "title": "City service request routing assistant",
+          "function": "Customer service",
+          "bottleneck": "Residents describe problems in their own words, and call takers must find the right department and request type in a long list.",
+          "data": "Build a synthetic request type catalog and generate 200 synthetic resident messages; use public city 311 data from data.gov as reference if useful.",
+          "pattern": "agent-tools",
+          "approval": "The call taker confirms the request type before the ticket is created.",
+          "measure": "Correct request type on 100 messages; correct tool calls to the mock ticket system."
+        },
+        {
+          "id": "public-comment-summary",
+          "title": "Public comment theme summary",
+          "function": "Program management",
+          "bottleneck": "Staff read thousands of public comments on a proposed rule to group themes and write a response summary.",
+          "data": "Download public comments on one proposed rule from regulations.gov.",
+          "pattern": "summarize",
+          "approval": "The program lead reviews the themes against sample comments before the summary is used.",
+          "measure": "Coverage of hand-labeled themes on 200 comments; quote accuracy."
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "blurb": "AI POCs usually help where teachers and student services staff repeat the same reading and writing for many students.",
+      "examples": [
+        {
+          "id": "rubric-feedback",
+          "title": "Rubric-based essay feedback draft",
+          "function": "Operations",
+          "bottleneck": "Teachers write individual feedback against a rubric for every essay, which takes evenings and weekends.",
+          "data": "Write one rubric and generate 40 synthetic student essays at different quality levels.",
+          "pattern": "draft",
+          "approval": "The teacher edits the feedback and sets the grade.",
+          "measure": "Rubric level agreement with teacher on 40 essays; teacher edit time per essay."
+        },
+        {
+          "id": "transfer-credit",
+          "title": "Transfer course equivalency matcher",
+          "function": "Customer service",
+          "bottleneck": "Registrar staff compare course descriptions from other colleges with the local catalog by hand to decide transfer credit.",
+          "data": "Write a synthetic local course catalog and 60 synthetic external course descriptions.",
+          "pattern": "match",
+          "approval": "A registrar or faculty reviewer approves each equivalency.",
+          "measure": "Top-1 and top-3 match accuracy on 60 courses."
+        },
+        {
+          "id": "aid-verification",
+          "title": "Financial aid verification document check",
+          "function": "Finance",
+          "bottleneck": "Financial aid staff compare tax forms and household statements with the student's aid application line by line.",
+          "data": "Generate 30 synthetic tax summaries and verification worksheets with planted mismatches.",
+          "pattern": "extract",
+          "approval": "A financial aid officer resolves every mismatch.",
+          "measure": "Field-level accuracy; recall of planted mismatches on 30 files."
+        },
+        {
+          "id": "early-alert",
+          "title": "Student early alert explanation",
+          "function": "Risk",
+          "bottleneck": "Advisors get long lists of at-risk students but no clear reason, so outreach is generic.",
+          "data": "Generate synthetic learning platform activity, grades and attendance for 200 students; follow FERPA style privacy by using no real data.",
+          "pattern": "anomaly-explain",
+          "approval": "An advisor reviews the explanation before contacting the student.",
+          "measure": "Correct planted cause on 40 flagged students; advisor rating of usefulness."
+        }
+      ]
+    },
+    {
+      "id": "legal-professional",
+      "name": "Legal and professional services",
+      "blurb": "AI POCs usually help where professionals read large document sets and record time and findings under strict quality rules.",
+      "examples": [
+        {
+          "id": "clause-extract",
+          "title": "Contract key clause extraction",
+          "function": "Legal and compliance",
+          "bottleneck": "Associates read whole contracts to fill a summary of term, renewal, termination, liability cap and governing law.",
+          "data": "Use the public CUAD contract dataset on Hugging Face or material contracts filed on SEC EDGAR.",
+          "pattern": "extract",
+          "approval": "A lawyer reviews every extracted clause before the summary goes to the client.",
+          "measure": "Clause-level accuracy against CUAD labels on 30 contracts."
+        },
+        {
+          "id": "privilege-screen",
+          "title": "Email privilege first-pass screen",
+          "function": "Risk",
+          "bottleneck": "Review teams read every email in a production set to spot possibly privileged messages, which is slow and costly.",
+          "data": "Use a sample of the public Enron email dataset and hand-label 200 emails as possibly privileged or not.",
+          "pattern": "classify",
+          "approval": "A reviewing lawyer makes the final privilege call on every flagged email.",
+          "measure": "Recall of privileged emails on 200 labeled emails; false flag rate."
+        },
+        {
+          "id": "time-narrative",
+          "title": "Time entry narrative cleanup",
+          "function": "Finance",
+          "bottleneck": "Billing staff rewrite vague time entries before invoices go out, and clients reject unclear entries.",
+          "data": "Generate 200 synthetic raw time entries and a synthetic client billing guideline.",
+          "pattern": "draft",
+          "approval": "The billing partner approves the invoice narratives.",
+          "measure": "Guideline compliance on 100 rewritten entries; no invented facts versus the raw entry."
+        },
+        {
+          "id": "audit-tieout",
+          "title": "Audit sample invoice tie-out",
+          "function": "Operations",
+          "bottleneck": "Audit staff match sampled ledger lines to invoices and receipts by hand and note any differences.",
+          "data": "Generate a synthetic ledger and 80 matching invoice PDFs with planted differences.",
+          "pattern": "match",
+          "approval": "The audit senior reviews every exception before it goes into the workpapers.",
+          "measure": "Correct match and exception rate on 80 samples."
+        }
+      ]
+    },
+    {
+      "id": "real-estate-construction",
+      "name": "Real estate and construction",
+      "blurb": "AI POCs usually help where leases, specs, submittals and site reports create a constant reading load for small teams.",
+      "examples": [
+        {
+          "id": "submittal-review",
+          "title": "Submittal check against specification",
+          "function": "Program management",
+          "bottleneck": "Project engineers compare product submittals with spec sections by hand, and review queues delay procurement.",
+          "data": "Write 5 synthetic spec sections and 30 synthetic product data sheets with planted deviations.",
+          "pattern": "match",
+          "approval": "The architect or engineer of record approves or rejects every submittal.",
+          "measure": "Recall of planted deviations on 30 submittals; false flag rate."
+        },
+        {
+          "id": "lease-abstract",
+          "title": "Commercial lease abstract",
+          "function": "Legal and compliance",
+          "bottleneck": "Lease administrators read long leases to fill abstracts with rent steps, options, dates and obligations.",
+          "data": "Generate 15 synthetic commercial leases with amendments.",
+          "pattern": "extract",
+          "approval": "A lease administrator verifies the abstract before it goes into the lease system.",
+          "measure": "Field-level accuracy on 15 leases, with rent steps and dates checked separately."
+        },
+        {
+          "id": "daily-report-summary",
+          "title": "Site daily report weekly summary",
+          "function": "Operations",
+          "bottleneck": "Project managers read a week of daily reports from many trades to write the owner update.",
+          "data": "Generate 4 weeks of synthetic daily site reports with weather, crew counts, delays and safety notes.",
+          "pattern": "summarize",
+          "approval": "The project manager edits and sends the weekly update.",
+          "measure": "Recall of delays and safety items; project manager rating of 4 summaries."
+        },
+        {
+          "id": "maintenance-request",
+          "title": "Tenant maintenance request triage",
+          "function": "Customer service",
+          "bottleneck": "Property managers read every tenant request to set trade and urgency, and emergencies can wait in the queue.",
+          "data": "Generate 300 synthetic tenant requests labeled with trade and urgency.",
+          "pattern": "classify",
+          "approval": "A property manager confirms emergency flags before vendors are dispatched.",
+          "measure": "Trade accuracy and emergency recall on 100 held-out requests."
+        }
+      ]
+    },
+    {
+      "id": "travel-hospitality",
+      "name": "Travel and hospitality",
+      "blurb": "AI POCs usually help where guest feedback, booking changes and group requests need fast, personal handling at volume.",
+      "examples": [
+        {
+          "id": "review-themes",
+          "title": "Guest review theme summary",
+          "function": "Marketing",
+          "bottleneck": "Hotel managers skim reviews across sites and miss repeat issues such as noise or slow check-in.",
+          "data": "Generate 500 synthetic guest reviews or use a public hotel review dataset from Hugging Face.",
+          "pattern": "summarize",
+          "approval": "The general manager reviews the themes before actions are assigned.",
+          "measure": "Coverage of hand-labeled themes on 200 reviews; quote accuracy."
+        },
+        {
+          "id": "booking-change-agent",
+          "title": "Booking change assistant with fare rules",
+          "function": "Customer service",
+          "bottleneck": "Agents look up booking, fare rules and availability across screens to handle simple date changes.",
+          "data": "Build synthetic booking, fare rule and availability tables behind simple local tool functions.",
+          "pattern": "agent-tools",
+          "approval": "An agent approves any fee waiver or refund before it is applied.",
+          "measure": "Correct change outcome on 40 scenarios; zero fee waivers without approval."
+        },
+        {
+          "id": "group-rfp",
+          "title": "Group and event request intake",
+          "function": "Sales",
+          "bottleneck": "Sales managers read long event request emails to pull dates, room blocks, meeting space and food needs before they can quote.",
+          "data": "Generate 40 synthetic group and event request emails.",
+          "pattern": "extract",
+          "approval": "The sales manager confirms the requirements before a proposal is sent.",
+          "measure": "Field-level accuracy on 40 requests."
+        },
+        {
+          "id": "night-audit",
+          "title": "Night audit discrepancy explanation",
+          "function": "Finance",
+          "bottleneck": "Night auditors and accountants chase differences between room revenue, postings and payments every morning.",
+          "data": "Generate synthetic folio, posting and payment records with planted discrepancies.",
+          "pattern": "anomaly-explain",
+          "approval": "The accountant approves every correcting entry.",
+          "measure": "Correct cause on planted discrepancies; false alarm rate."
+        }
+      ]
+    },
+    {
+      "id": "technology-saas",
+      "name": "Technology and software (SaaS)",
+      "blurb": "AI POCs usually help where support, engineering and sales teams handle repeat questions and turn messy input into structured work.",
+      "examples": [
+        {
+          "id": "ticket-to-bug",
+          "title": "Support ticket to bug report draft",
+          "function": "Customer service",
+          "bottleneck": "Support engineers rewrite customer tickets into bug reports with steps, expected and actual result, and engineering still sends many back for detail.",
+          "data": "Generate 60 synthetic support tickets with logs and screenshots described in text.",
+          "pattern": "draft",
+          "approval": "A support engineer approves the bug report before it is filed.",
+          "measure": "Engineering rating of 30 drafts for reproducibility; share sent back for more detail."
+        },
+        {
+          "id": "release-notes",
+          "title": "Release notes from merged changes",
+          "function": "R&D",
+          "bottleneck": "Product managers write release notes by reading merged pull requests, and user-facing changes get missed.",
+          "data": "Use merged pull request titles and descriptions from a public open source repository on GitHub.",
+          "pattern": "summarize",
+          "approval": "The product manager edits and publishes the notes.",
+          "measure": "Recall of user-facing changes against hand-labeled pull requests for 3 releases."
+        },
+        {
+          "id": "security-questionnaire",
+          "title": "Security questionnaire answers from policies",
+          "function": "Legal and compliance",
+          "bottleneck": "Security staff answer long customer security questionnaires by searching policies and old answers, which slows deals.",
+          "data": "Write a synthetic set of security policies and 2 synthetic questionnaires.",
+          "pattern": "rag-qa",
+          "approval": "The security lead approves every answer before it is returned.",
+          "measure": "Answer correctness and citation on 80 questions; correct 'needs review' rate when no policy covers it."
+        },
+        {
+          "id": "churn-signal",
+          "title": "Account usage drop explanation",
+          "function": "Sales",
+          "bottleneck": "Account managers see a health score drop but not why, so renewal calls start without a clear story.",
+          "data": "Generate synthetic product usage events, support tickets and seat counts for 100 accounts with planted causes.",
+          "pattern": "anomaly-explain",
+          "approval": "The account manager reviews the explanation before any customer outreach.",
+          "measure": "Correct planted cause on 30 accounts; account manager rating of usefulness."
+        }
+      ]
+    },
+    {
+      "id": "cross-industry",
+      "name": "Any industry: back-office functions",
+      "blurb": "Back-office teams in every industry have the same repeat work in finance, HR, procurement, IT, sales and program management.",
+      "examples": [
+        {
+          "id": "invoice-exceptions",
+          "title": "Invoice exception three-way match",
+          "function": "Finance",
+          "bottleneck": "Accounts payable clerks resolve invoices that do not match the purchase order and goods receipt by checking each line by hand.",
+          "data": "Generate synthetic purchase orders, goods receipts and 150 invoices with planted price and quantity differences.",
+          "pattern": "match",
+          "approval": "An accounts payable lead approves each exception resolution before payment.",
+          "measure": "Correct exception reason on planted cases; false exception rate on clean invoices."
+        },
+        {
+          "id": "hr-policy-assistant",
+          "title": "HR policy assistant for employees",
+          "function": "HR",
+          "bottleneck": "HR staff answer the same leave, travel and benefits questions by email every day.",
+          "data": "Write a synthetic employee handbook and 50 synthetic employee questions.",
+          "pattern": "rag-qa",
+          "approval": "HR approves the answer set before launch, and any question about a personal case goes to an HR person.",
+          "measure": "Answer correctness and citation on 50 questions; correct handoff rate on personal cases."
+        },
+        {
+          "id": "contract-playbook",
+          "title": "Supplier contract review against playbook",
+          "function": "Procurement",
+          "bottleneck": "Procurement and legal staff read supplier paper to find clauses that differ from the company playbook, and simple deals wait in the queue.",
+          "data": "Write a synthetic negotiation playbook and generate 20 synthetic supplier contracts with planted deviations.",
+          "pattern": "extract",
+          "approval": "A contract manager approves each proposed redline before it goes to the supplier.",
+          "measure": "Recall of planted deviations on 20 contracts; false flag rate."
+        },
+        {
+          "id": "it-ticket-triage",
+          "title": "IT ticket triage and routing",
+          "function": "IT",
+          "bottleneck": "Service desk staff read every ticket to set category, priority and team, and misrouted tickets bounce between teams.",
+          "data": "Generate 500 synthetic IT tickets labeled with category, priority and team.",
+          "pattern": "classify",
+          "approval": "A service desk lead confirms any ticket marked high priority.",
+          "measure": "Team routing accuracy on 100 held-out tickets; high priority recall."
+        },
+        {
+          "id": "call-notes-crm",
+          "title": "Sales call notes to CRM update",
+          "function": "Sales",
+          "bottleneck": "Sellers skip CRM updates after calls, so next steps, contacts and deal stage are out of date.",
+          "data": "Generate 40 synthetic call transcripts and a mock CRM with simple local tool functions.",
+          "pattern": "agent-tools",
+          "approval": "The seller reviews the proposed CRM changes and clicks approve before anything is written.",
+          "measure": "Correct field updates on 40 calls; zero writes without approval."
+        },
+        {
+          "id": "status-report",
+          "title": "Program status report draft",
+          "function": "Program management",
+          "bottleneck": "Program managers spend hours each week collecting updates from trackers and notes to write the status report.",
+          "data": "Generate a synthetic task tracker export, risk log and 4 weeks of team meeting notes.",
+          "pattern": "draft",
+          "approval": "The program manager edits and sends the report.",
+          "measure": "Recall of overdue items and new risks; program manager edit time per report."
+        }
+      ]
+    }
+  ]
+}

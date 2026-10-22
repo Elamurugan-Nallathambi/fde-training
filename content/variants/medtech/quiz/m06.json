@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "medtech-m06-q01",
+      "lesson": "medtech-gxp-design",
+      "q": "What should you write before choosing a model for a MedTech AI tool?",
+      "options": [
+        "The marketing name",
+        "The intended use, including what the tool does not do",
+        "The final price",
+        "The training plan for fine-tuning the model on the client's historic records"
+      ],
+      "answer": 1,
+      "why": "The intended use decides the risk, testing depth and approval points."
+    },
+    {
+      "id": "medtech-m06-q02",
+      "lesson": "medtech-gxp-design",
+      "q": "Under Part 11, which three things must an electronic signature show?",
+      "options": [
+        "Printed name, date and time, and the meaning of the signature",
+        "Email, phone and job title",
+        "Model version, prompt and cost",
+        "Department, site, manager and the IP address of the computer used to sign"
+      ],
+      "answer": 0,
+      "why": "Signatures show who signed, when, and what the signature means, such as review or approval."
+    },
+    {
+      "id": "medtech-m06-q03",
+      "lesson": "medtech-gxp-design",
+      "q": "An inspector picks one complaint. What should your audit record let you show?",
+      "options": [
+        "Only the final signed text",
+        "Only the model's name",
+        "The AI draft, model and prompt versions, inputs, human edits and signature",
+        "Only the final signed text, since drafts are temporary working notes and not records"
+      ],
+      "answer": 2,
+      "why": "For AI, the audit trail must show what the AI produced and what the person changed."
+    },
+    {
+      "id": "medtech-m06-q04",
+      "lesson": "medtech-gxp-design",
+      "q": "Which ALCOA+ principles are most at risk when an AI drafts records?",
+      "options": [
+        "Legible and Enduring, because AI text can be hard to read and may be deleted by the provider",
+        "Available and Consistent",
+        "Complete and Legible",
+        "Attributable and Original"
+      ],
+      "answer": 3,
+      "why": "The record must show who wrote what, and the source records must stay unchanged."
+    },
+    {
+      "id": "medtech-m06-q05",
+      "lesson": "medtech-gxp-design",
+      "q": "Where should the AI write its draft?",
+      "options": [
+        "Straight into the signed record",
+        "Into a clearly marked draft field in the validated QMS",
+        "Straight into the signed record, so the coordinator only has to click approve",
+        "Into an email to the regulator"
+      ],
+      "answer": 1,
+      "why": "Only the signed record counts; drafts are kept apart and attributed."
+    },
+    {
+      "id": "medtech-m06-q06",
+      "lesson": "medtech-gxp-design",
+      "q": "The model provider plans to switch the model behind your API name next month. What does your design need?",
+      "options": [
+        "Nothing, newer is better",
+        "A plan to retrain users",
+        "Pinned versions and change control for any switch",
+        "Nothing, newer models are always more accurate so the switch can happen automatically"
+      ],
+      "answer": 2,
+      "why": "Model or prompt changes are controlled changes to a validated process."
+    }
+  ]
+}

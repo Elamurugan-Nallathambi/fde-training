@@ -1,0 +1,2320 @@
+{
+  "id": "qms-fundamentals",
+  "title": "QMS fundamentals",
+  "category": "Process",
+  "track": "MedTech and Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "What a quality management system is, how its core processes fit together, and which rules shape it for medical devices and medicines.",
+  "audience": "Engineers, analysts and FDEs starting work in a medical device or pharma company who need to understand how quality work is organised before they build anything that touches it.",
+  "sections": [
+    {
+      "id": "what-a-qms-is",
+      "title": "What a QMS is and why regulated companies run one",
+      "summary": "The purpose of a QMS, its building blocks, and the rules behind it for devices (ISO 13485, 21 CFR 820 QMSR) and medicines (ICH Q10, 21 CFR 211).",
+      "outline": [
+        "A QMS as the documented way a company makes sure its products are safe and work as intended",
+        "Policy, procedures, work instructions and records",
+        "The core processes: document control, training, CAPA, change control, audits, management review",
+        "Risk-based thinking across the system",
+        "ISO 13485 and the FDA QMSR for devices, ICH Q10 and 21 CFR 211 for medicines",
+        "What this means for an engineer building tools or AI that touch quality records"
+      ],
+      "lessons": [
+        {
+          "id": "qms-what-a-qms-is",
+          "title": "What a QMS is and why regulated companies run one",
+          "summary": "You will be able to explain what a quality management system is, name its core processes, and say which rules shape it for devices and for medicines.",
+          "why": "In a medical device or pharma company almost every piece of work leaves a quality record behind: a signed procedure, a training record, a test result, a complaint, a change request. If you build a tool, a report or an AI assistant that reads or writes any of these, you are working inside the quality management system whether you planned to or not. Knowing how the system is built tells you who must approve your work, which records you may not change, and why the quality team asks the questions it asks.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A quality management system (QMS) is the documented, controlled way a company makes sure its products meet requirements and are safe for the people who use them. It is not one piece of software. It is a set of rules the company writes for itself (policies and procedures), the people trained to follow them, and the records that prove they were followed.",
+                "Regulators and customers cannot watch every product being made. Instead they check the system. If the system is sound and the records show it was followed, they can trust the output. That is why auditors ask to see procedures and records, not just the product."
+              ]
+            },
+            {
+              "h": "The building blocks",
+              "p": [
+                "Most QMS documentation forms a pyramid. At the top is a short quality policy and a quality manual that say what the company commits to. Below that are procedures (often called SOPs, standard operating procedures) that say who does what. Below those are work instructions and forms for specific tasks. At the bottom are records: the filled-in forms, test results and signatures that prove the work happened.",
+                "Documents describe what should happen. Records prove what did happen. A procedure can be revised; a record, once made, must not be changed without a trace."
+              ],
+              "list": [
+                "Document control: every procedure has an owner, a version, an approval and an effective date, and only the current version is in use.",
+                "Training: people are trained on the procedures for their role before they do the work, and the training is recorded.",
+                "CAPA (corrective and preventive action): problems such as complaints, failed tests and audit findings are investigated to the root cause and fixed so they do not come back.",
+                "Change control: changes to products, processes, equipment or software are assessed, approved and recorded before they are made.",
+                "Internal audit: the company checks itself against its own procedures and the rules it must follow.",
+                "Management review: senior leaders regularly look at quality data and decide what to fix or fund."
+              ]
+            },
+            {
+              "h": "Risk-based thinking",
+              "p": [
+                "A QMS does not treat every task the same. The effort a company spends on a process should match the risk that process carries for the patient and the product. A change to a label that tells a nurse the dose gets more review than a change to the colour of a box. A spreadsheet that calculates batch results needs more checking than one used to plan a team lunch.",
+                "This idea runs through all the main standards. For medicines, ICH Q9 describes quality risk management. For devices, ISO 14971 describes product risk management and ISO 13485 asks for a risk-based approach to the processes of the QMS itself. For you, it means the first question about any new tool is: what could go wrong for a patient or a product if this tool is wrong?"
+              ]
+            },
+            {
+              "h": "The rules for devices and for medicines",
+              "p": [
+                "For medical devices, ISO 13485 is the international standard for a QMS. In the United States, the FDA rule is 21 CFR Part 820. The FDA amended Part 820 into the Quality Management System Regulation (QMSR), which incorporates ISO 13485:2016 by reference and took effect on 2 February 2026. In plain words, a device maker selling in the US now builds its QMS around ISO 13485 plus the extra FDA requirements kept in the rule.",
+                "For medicines, the legal rules in the US are the current good manufacturing practice (cGMP) regulations, such as 21 CFR Parts 210 and 211 for finished drugs. ICH Q10 is an international guideline that describes a pharmaceutical quality system across the product lifecycle. It names four elements: process performance and product quality monitoring, CAPA, change management, and management review. It names two enablers: knowledge management and quality risk management.",
+                "The two worlds use different words, but the core processes are the same: control documents, train people, fix problems at the root, control change, check yourself, and have leadership look at the data."
+              ]
+            },
+            {
+              "h": "What this means when you build something",
+              "p": [
+                "If your tool creates or changes a quality record, that record must stay trustworthy: who did what and when must be clear, and old values must not silently disappear. If your tool is used to make a quality decision, such as whether a complaint must be reported, the tool itself usually has to be validated, meaning tested and documented to show it does what it is meant to do for that use.",
+                "An AI assistant does not change these rules. If it drafts a CAPA investigation, a trained person still owns and signs the result. If its prompt or model changes, that is a change to a validated tool and goes through change control. Plan for the quality team as a partner from day one, not as a final gate."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "layers",
+            "title": "The QMS documentation pyramid",
+            "caption": "Read top to bottom: each layer is more specific than the one above, and records at the bottom prove the layers above were followed.",
+            "layers": [
+              {
+                "label": "Quality policy and manual",
+                "note": "What the company commits to and how the QMS is organised"
+              },
+              {
+                "label": "Procedures (SOPs)",
+                "note": "Who does what for each process, such as CAPA or change control"
+              },
+              {
+                "label": "Work instructions and forms",
+                "note": "Step-by-step detail for one task or one machine"
+              },
+              {
+                "label": "Records",
+                "note": "Filled forms, test results, signatures: proof the work happened"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one complaint moving through the QMS (example scenario)",
+            "p": [
+              "Imagine a company that makes a reusable blood pressure cuff. A hospital reports that a cuff's air tube cracked after a few weeks. Follow the complaint through the system and notice how many QMS processes it touches.",
+              "None of these steps is unusual. This is the system doing its job: one problem leaves a trail of linked records that an auditor can follow from complaint to fix."
+            ],
+            "list": [
+              "Complaint handling: a trained person logs the complaint in the complaint system, using the current version of the complaint procedure.",
+              "Risk and reporting: the team checks the product risk file to judge whether the crack could harm a patient and whether the event must be reported to the regulator.",
+              "CAPA: the investigation finds the tube material becomes brittle after repeated cleaning. A CAPA is opened to fix the root cause.",
+              "Change control: switching to a new tube material is a design and supplier change. It is assessed, tested, approved and recorded before production uses it.",
+              "Document control and training: the drawing, the supplier specification and the incoming inspection instruction are revised, approved, and the affected people are trained.",
+              "Management review: the trend of tube complaints and the CAPA status appear in the next management review so leaders can see the problem was closed."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Trace a problem through the QMS",
+              "time": "40 min",
+              "goal": "See how one quality event links the core QMS processes together.",
+              "steps": [
+                "Pick a simple product you know, such as a kettle, a glucose meter or a pill bottle.",
+                "Write one realistic problem a customer could report about it.",
+                "On paper or in a spreadsheet, list each QMS process the problem would pass through: complaint handling, risk check, CAPA, change control, document control, training, management review.",
+                "For each process, write the record it would leave behind and who would sign it.",
+                "Ask Claude to review your list and point out any process or record you missed, then decide which suggestions are right."
+              ],
+              "done_when": "You have a table with at least six rows, each naming a QMS process, the record it creates and the role that approves it."
+            }
+          ],
+          "pitfalls": [
+            "Thinking the QMS is a software product. The software only holds records; the system is the procedures, the trained people and the evidence.",
+            "Changing or deleting a record to fix a mistake. Corrections must be traceable, with the original value, the new value, who changed it and why.",
+            "Treating every task with the same effort. Match the depth of review and testing to the risk to the patient and product.",
+            "Bringing the quality team in at the end. Ask early which procedures your work falls under and what evidence they will need."
+          ],
+          "check": [
+            "What is the difference between a document and a record in a QMS?",
+            "Name four core QMS processes and say in one sentence what each does.",
+            "How does the FDA QMSR relate to ISO 13485?",
+            "What are the four elements of a pharmaceutical quality system in ICH Q10?",
+            "If an AI tool drafts a CAPA investigation, who owns the result?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is a Quality Management System (QMS)?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/quality-management-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Quality Guidelines",
+              "source": "ICH",
+              "url": "https://www.ich.org/page/quality-guidelines",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What Is ISO 13485? Medical Device Quality Management Explained",
+              "source": "QT9 Software",
+              "url": "https://www.youtube.com/watch?v=DiXuwpT6svc",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Free Course: Quality Management For Medical Devices (ISO 13485 QMS)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=Y2PnlXMzr7E",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "qms-q01",
+          "lesson": "qms-what-a-qms-is",
+          "q": "An auditor asks to see the training record for an operator, not the product itself. Why do auditors work this way?",
+          "options": [
+            "Products are too hard to test on site during an audit",
+            "Auditors are not allowed to handle finished products",
+            "They check the system and its records",
+            "Training records are the only records a QMS keeps"
+          ],
+          "answer": 2,
+          "why": "Regulators cannot watch every unit being made, so they check that the system exists and that records prove it was followed."
+        },
+        {
+          "id": "qms-q02",
+          "lesson": "qms-what-a-qms-is",
+          "q": "A test result was typed wrong into the lab system. A colleague suggests overwriting it with the right value. What should happen?",
+          "options": [
+            "Correct it, keeping old value, new value, who and why",
+            "Overwrite it quietly, since the new value is the correct one",
+            "Delete the record and enter a fresh one with the right value",
+            "Leave the wrong value so that nothing is ever changed"
+          ],
+          "answer": 0,
+          "why": "Records must stay trustworthy, so corrections are allowed but must leave a visible trail."
+        },
+        {
+          "id": "qms-q03",
+          "lesson": "qms-what-a-qms-is",
+          "q": "Which statement best describes the FDA QMSR for medical devices?",
+          "options": [
+            "It replaced ISO 13485 with a new US-only device standard",
+            "It applies only to software and AI medical devices",
+            "It removed the need for a device QMS in the United States",
+            "It amended 21 CFR 820 to incorporate ISO 13485:2016"
+          ],
+          "answer": 3,
+          "why": "The QMSR builds 21 CFR 820 around ISO 13485:2016 plus extra FDA requirements kept in the rule."
+        },
+        {
+          "id": "qms-q04",
+          "lesson": "qms-what-a-qms-is",
+          "q": "Your team plans to move a supplier's part to a new material. Which QMS process must handle this before production uses it?",
+          "options": [
+            "Management review",
+            "Change control",
+            "Internal audit",
+            "Complaint handling"
+          ],
+          "answer": 1,
+          "why": "Changes to products, processes or suppliers are assessed, approved and recorded through change control before they are made."
+        },
+        {
+          "id": "qms-q05",
+          "lesson": "qms-what-a-qms-is",
+          "q": "A drug maker asks which guideline describes a pharmaceutical quality system across the product lifecycle. What do you point to?",
+          "options": [
+            "ISO 14971",
+            "IEC 62304",
+            "ICH Q10",
+            "ISO/IEC 27001"
+          ],
+          "answer": 2,
+          "why": "ICH Q10 describes the pharmaceutical quality system, with CAPA, change management, monitoring and management review as its elements."
+        },
+        {
+          "id": "qms-q06",
+          "lesson": "qms-what-a-qms-is",
+          "q": "Which of these is a record rather than a document?",
+          "options": [
+            "The CAPA procedure, version 4, approved last year",
+            "A signed batch test result from last Tuesday",
+            "The quality manual",
+            "A work instruction for setting up a filling machine"
+          ],
+          "answer": 1,
+          "why": "Documents say what should happen; records prove what did happen, such as a signed result."
+        },
+        {
+          "id": "qms-q07",
+          "lesson": "qms-what-a-qms-is",
+          "q": "You build an AI assistant that drafts complaint summaries. Later you change its prompt. How should the change be handled?",
+          "options": [
+            "No action, since prompts are not part of the tool itself",
+            "Tell the users about the new prompt in a team chat message",
+            "Wait for the next internal audit to mention it",
+            "Run it through change control as a tool change"
+          ],
+          "answer": 3,
+          "why": "If the tool is used in a quality process, changing its prompt or model is a change to that tool and is controlled."
+        },
+        {
+          "id": "qms-q08",
+          "lesson": "qms-what-a-qms-is",
+          "q": "Two spreadsheets need checking: one calculates batch release results, one plans a team event. How should testing effort compare?",
+          "options": [
+            "More on the batch spreadsheet, as its risk is higher",
+            "The same effort on both spreadsheets, so that it is fair",
+            "More on the event plan, because more people use it every week",
+            "No testing for either, since spreadsheets are not real software"
+          ],
+          "answer": 0,
+          "why": "Risk-based thinking means effort matches the risk the tool carries for product and patient."
+        },
+        {
+          "id": "qms-q09",
+          "lesson": "qms-what-a-qms-is",
+          "q": "A recurring failure keeps coming back after each fix. Which QMS process is meant to stop that?",
+          "options": [
+            "Document control, by issuing a new version",
+            "CAPA, by fixing the root cause",
+            "Training, by retraining everyone involved",
+            "Management review, by escalating to leaders"
+          ],
+          "answer": 1,
+          "why": "CAPA investigates to the root cause so the problem does not recur."
+        },
+        {
+          "id": "qms-q10",
+          "lesson": "qms-what-a-qms-is",
+          "q": "Where in the QMS do senior leaders regularly look at quality data and decide what to fix or fund?",
+          "options": [
+            "Internal audit",
+            "Document control",
+            "Management review",
+            "Supplier qualification"
+          ],
+          "answer": 2,
+          "why": "Management review is where leadership looks at quality data and makes decisions on it."
+        }
+      ]
+    },
+    {
+      "id": "document-control",
+      "title": "Document control, training and records",
+      "summary": "How procedures are written, approved, released and retired, how people are trained on the right version, and how records are kept trustworthy.",
+      "outline": [
+        "The running record set used through this course, with a MedTech and a Pharma case",
+        "Document lifecycle: draft, review, approve, effective, superseded, retired",
+        "Training tied to a document version before the work is done",
+        "Good documentation practice and the ALCOA+ principles",
+        "Electronic records and signatures under 21 CFR Part 11",
+        "Where AI can help: drafting and comparing procedures; who still approves"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-document-control",
+          "title": "Document control, training and records",
+          "summary": "You will be able to follow a procedure from draft to retirement, link training to the version people actually used, and say what makes a record trustworthy on paper and in software.",
+          "why": "Most tools an FDE builds in a regulated company read or write controlled documents and records: a search over SOPs, a dashboard of overdue training, a form that captures batch data. If the tool shows a superseded procedure, loses an audit trail or lets someone sign for work they were not trained to do, it creates a compliance problem instead of solving one. This lesson gives you the rules those tools must respect.",
+          "sections": [
+            {
+              "h": "The running case for this course",
+              "p": [
+                "Every lesson in this course reuses one synthetic record set so you can see how the QMS processes connect. The records and IDs are invented for training. Two cases run side by side because device makers and medicine makers use slightly different words for the same ideas.",
+                "MedTech case: a company makes a reusable blood pressure cuff. Pharma case: a site makes a film-coated tablet. Keep this list nearby; later lessons refer back to it."
+              ],
+              "list": [
+                "MedTech: WI-MD-031 incoming inspection instruction for cuff tubing (Rev C, later Rev D), training record TRN-MD-5520, complaint CMP-MD-1103, nonconformance NC-MD-0417, CAPA-MD-0088, change request CR-MD-0231, supplier file SUP-MD-12.",
+                "Pharma: SOP-PH-022 batch record issue and control, master batch record MBR-PH-110 (version 5, later version 6), training record TRN-PH-3304, batch B24-017, deviation DEV-PH-0592, CAPA-PH-0141, change control CC-PH-0310.",
+                "Both cases end in a management review where leaders see the trend and the status of the fixes."
+              ]
+            },
+            {
+              "h": "The document lifecycle",
+              "p": [
+                "A controlled document is any document the QMS says must be managed: procedures, work instructions, specifications, drawings, forms and master batch records. Each one moves through the same states. A draft is written by an author. Reviewers check it for accuracy and impact. An approver, often from the quality unit, signs it. It becomes effective on a stated date. When a new version replaces it, the old one is superseded. When the process no longer exists, the document is retired.",
+                "The core promise of document control is simple: at the point of use, people can only reach the current approved version. That is harder than it sounds. Printed copies, bookmarks, local downloads and copies pasted into emails all survive after a new version takes effect. Good systems mark printed copies as controlled or uncontrolled, pull superseded copies from the floor, and run periodic reviews so documents do not drift away from how the work is really done."
+              ]
+            },
+            {
+              "h": "Training tied to the version",
+              "p": [
+                "A new version is not ready for use just because it is approved. The people who do the work must be trained on it first. For drug manufacturing, 21 CFR 211.25 requires that people have the education, training and experience for their job and are trained in the procedures they use. ISO 13485 asks device makers to establish competence and keep records of training.",
+                "That is why a training record names the document and its version, not just the topic. When MBR-PH-110 moved from version 5 to version 6, every operator who runs the tablet press needed a training record for version 6 before running a batch. A read-and-understood signature may be enough for a small wording change. A changed setting or a new step usually needs a demonstration or an observed run.",
+                "Training also carries quality culture. People who are trained and trusted report problems early, such as a printed copy that looks out of date. People who fear blame hide them."
+              ]
+            },
+            {
+              "h": "Records and ALCOA+",
+              "p": [
+                "Documents say what should happen. Records prove what did happen. Good documentation practice (GDP) is the set of habits that keeps records believable: write in permanent ink or a controlled system, record at the time of the work, never use correction fluid or overwrite, and correct an error with a single line, the new value, the date, the initials and a reason.",
+                "Regulators summarise these habits as ALCOA+. Every record should be:"
+              ],
+              "list": [
+                "Attributable: you can tell who did it.",
+                "Legible: anyone can read it, now and later.",
+                "Contemporaneous: recorded when the work happened.",
+                "Original: the first capture, or a verified true copy.",
+                "Accurate: correct, with any change traceable.",
+                "The plus: complete, consistent, enduring and available for the whole retention period."
+              ]
+            },
+            {
+              "h": "Electronic records and Part 11",
+              "p": [
+                "In the US, 21 CFR Part 11 sets the rules for electronic records and electronic signatures that are used in place of paper under other FDA rules. In practice this means the system is validated for its use, access is limited to authorised people, a secure computer-generated audit trail records who created, changed or deleted data and when, and each electronic signature is linked to its record and shows the signer, the date and time, and the meaning, such as approval or review. In the EU, Annex 11 of the GMP guide covers similar ground for computerised systems.",
+                "For an FDE the practical rule is: never build a path that edits a controlled record without going through the system's audit trail, and never let a script sign on behalf of a person."
+              ]
+            },
+            {
+              "h": "Where AI can help",
+              "p": [
+                "AI is useful here. It can compare two versions of a procedure and list the changed steps, draft a training summary of what changed, flag documents overdue for periodic review, or find work records that cite a superseded version. It cannot approve a document, decide who needs training or sign a record. A named, trained person still does those, and the tool's output is treated as a draft until they do."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "One controlled document, from draft to retired",
+            "caption": "Read left to right: training sits between approval and use, and the old version is withdrawn when the new one takes effect.",
+            "steps": [
+              {
+                "label": "Draft",
+                "note": "Author writes MBR-PH-110 version 6"
+              },
+              {
+                "label": "Review",
+                "note": "Production, QA and engineering check content and impact"
+              },
+              {
+                "label": "Approve",
+                "note": "Quality unit signs; effective date set"
+              },
+              {
+                "label": "Train",
+                "note": "Operators complete training on version 6"
+              },
+              {
+                "label": "Effective",
+                "note": "Only version 6 can be issued at point of use"
+              },
+              {
+                "label": "Superseded",
+                "note": "Version 5 withdrawn and archived, not destroyed"
+              },
+              {
+                "label": "Retired",
+                "note": "Document withdrawn when the process ends"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: catching a superseded version with a query (example scenario)",
+            "p": [
+              "In the Pharma case, MBR-PH-110 version 6 took effect on an example date. Operator A was trained on version 6. Operator B was trained only on version 5, and a printed version 5 copy was still in the room. Batch B24-017 was run by operator B on version 5 two days after version 6 took effect.",
+              "The SQLite script below holds a tiny copy of the three record types and flags any work done on a superseded version or by someone not trained on the version that was current at the time. It runs as written in the sqlite3 shell. The first row is the gap that becomes deviation DEV-PH-0592 in the next lesson."
+            ],
+            "code": {
+              "lang": "sql",
+              "text": "CREATE TABLE doc_version (doc_id TEXT, version TEXT, effective_on TEXT, superseded_on TEXT);\nCREATE TABLE training (person TEXT, doc_id TEXT, version TEXT, completed_on TEXT);\nCREATE TABLE work_record (record_id TEXT, person TEXT, doc_id TEXT, version_used TEXT, done_on TEXT);\nINSERT INTO doc_version VALUES\n  ('MBR-PH-110', '5', '2026-01-10', '2026-06-02'),\n  ('MBR-PH-110', '6', '2026-06-02', NULL);\nINSERT INTO training VALUES\n  ('op-A', 'MBR-PH-110', '6', '2026-05-28'),\n  ('op-B', 'MBR-PH-110', '5', '2026-01-08');\nINSERT INTO work_record VALUES\n  ('B24-017', 'op-B', 'MBR-PH-110', '5', '2026-06-04'),\n  ('B24-018', 'op-A', 'MBR-PH-110', '6', '2026-06-05');\n-- Flag work done on a superseded version or without training on the current version\nSELECT w.record_id, w.person, w.version_used,\n  CASE WHEN d.superseded_on IS NOT NULL AND w.done_on >= d.superseded_on\n       THEN 'superseded version used' ELSE 'version ok' END AS version_check,\n  CASE WHEN t.person IS NULL THEN 'not trained on current version'\n       ELSE 'trained on current version' END AS training_check\nFROM work_record w\nJOIN doc_version d ON d.doc_id = w.doc_id AND d.version = w.version_used\nJOIN doc_version cur ON cur.doc_id = w.doc_id AND cur.effective_on <= w.done_on\n  AND (cur.superseded_on IS NULL OR cur.superseded_on > w.done_on)\nLEFT JOIN training t ON t.person = w.person AND t.doc_id = w.doc_id\n  AND t.version = cur.version AND t.completed_on <= w.done_on;"
+            }
+          },
+          "practice": [
+            {
+              "title": "Build a controlled record set",
+              "time": "45 min",
+              "goal": "Hold documents, versions, training and work records in a form you can check for gaps.",
+              "steps": [
+                "Copy the SQLite script from the worked example into a file and run it with sqlite3 to see the two result rows.",
+                "Add the MedTech case: WI-MD-031 Rev C and Rev D, an inspector trained on Rev D, and one inspection record done on Rev C after Rev D took effect.",
+                "Rerun the query and confirm it flags the new MedTech row.",
+                "Add a column to the query, or a second query, that lists every person who has no training record for the current version of any document.",
+                "Write two sentences saying who in a real company would act on each flagged row."
+              ],
+              "done_when": "Your query flags exactly the rows you planted (one Pharma, one MedTech), and the extra query lists the untrained people."
+            }
+          ],
+          "pitfalls": [
+            "Treating approval as the moment a document can be used. People must be trained on the new version before the effective date, or the go-live must wait.",
+            "Leaving printed or downloaded copies in circulation after a revision. Withdraw superseded copies and mark printed copies so their status is clear.",
+            "Recording training against a topic rather than a document version. An auditor will ask which version the person was trained on.",
+            "Fixing a data error with a direct database update. Corrections must go through the system so the audit trail shows the old value, the new value, who and why.",
+            "Letting an AI-drafted procedure go straight to approval. The author and reviewers own the content and must check every step against the real process."
+          ],
+          "check": [
+            "Name the states a controlled document moves through, in order.",
+            "Why does a training record name a document version, not just a topic?",
+            "What does each letter of ALCOA stand for, and what does the plus add?",
+            "What must an electronic signature show under Part 11?",
+            "In the Pharma case, which two separate failures let batch B24-017 run on version 5?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.25 - Personnel qualifications",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-B/section-211.25",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex - Volume 4 (EU GMP guidelines, including Chapter 4 Documentation and Annex 11)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "ALCOA+ - An easy abbreviation for data integrity",
+              "source": "CRAMbridge",
+              "url": "https://www.youtube.com/watch?v=F3ImjUkgxyQ",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Electronic records and electronic signatures according to 21 CFR Part 11",
+              "source": "Scilife",
+              "url": "https://www.youtube.com/watch?v=s6M6-PQsY8s",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "document-control-q01",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "MBR-PH-110 version 6 is approved today with an effective date next week. An operator asks if she can use it on tonight's batch. What is the right answer?",
+          "options": [
+            "Yes, because approval by the quality unit is what makes a document usable",
+            "No, it is not effective yet and she needs training on it",
+            "Yes, if her supervisor agrees verbally",
+            "No, approved documents need a second approval first"
+          ],
+          "answer": 1,
+          "why": "A document is used only from its effective date, and only by people trained on that version."
+        },
+        {
+          "id": "document-control-q02",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "After version 6 takes effect, a printed version 5 copy is found on the line. What should happen to it?",
+          "options": [
+            "Leave it at the press as a backup in case the electronic system goes down",
+            "Shred it so nobody can find it",
+            "Write 'old' on it and keep it at the press",
+            "Withdraw it from use and handle it under the procedure"
+          ],
+          "answer": 3,
+          "why": "Superseded copies must be removed from the point of use; the master copy is archived, not used."
+        },
+        {
+          "id": "document-control-q03",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "Which training record best supports an audit of batch B24-018?",
+          "options": [
+            "Operator A, MBR-PH-110 version 6, completed before the batch",
+            "Operator A attended a general GMP awareness session at the site last year",
+            "Operator A has ten years of experience running this exact model of tablet press",
+            "Operator A's manager confirmed she knows the process"
+          ],
+          "answer": 0,
+          "why": "The record must tie the person to the version used, completed before the work was done."
+        },
+        {
+          "id": "document-control-q04",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "An analyst wrote a wrong weight in a paper logbook. How should it be corrected?",
+          "options": [
+            "Cover the wrong value with correction fluid and write the right value above it",
+            "Tear out the page and copy the entries again",
+            "One line through it, new value, initials, date and reason",
+            "Leave it and tell the supervisor verbally"
+          ],
+          "answer": 2,
+          "why": "Good documentation practice keeps the original readable and makes the correction traceable."
+        },
+        {
+          "id": "document-control-q05",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "A record shows a result but nobody can tell who entered it. Which ALCOA principle is broken?",
+          "options": [
+            "Legible",
+            "Attributable",
+            "Contemporaneous",
+            "Enduring"
+          ],
+          "answer": 1,
+          "why": "Attributable means the record shows who did the work or entered the data."
+        },
+        {
+          "id": "document-control-q06",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "An operator fills in all the batch record entries at the end of a shift from memory. Which principle is most at risk?",
+          "options": [
+            "Contemporaneous",
+            "Legible",
+            "Available",
+            "Consistent across all records"
+          ],
+          "answer": 0,
+          "why": "Contemporaneous means recording at the time the work happens, not later from memory."
+        },
+        {
+          "id": "document-control-q07",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "Your script needs to fix a typo in a field of an electronic quality record. What is the right approach?",
+          "options": [
+            "Run a direct SQL update at night when nobody is using the application, then note it",
+            "Delete the record and insert a corrected copy",
+            "Ask a user to share their login so the change looks normal",
+            "Make the change through the application so the audit trail captures it"
+          ],
+          "answer": 3,
+          "why": "Part 11 expects a secure audit trail of who changed what and when; bypassing it breaks record integrity."
+        },
+        {
+          "id": "document-control-q08",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "Under Part 11, what must an electronic approval signature show with the record?",
+          "options": [
+            "Only the signer's employee number",
+            "The signer's name, date and time, and the meaning",
+            "The signer's password, stored in encrypted form alongside the record",
+            "The IP address of the signing computer"
+          ],
+          "answer": 1,
+          "why": "Signature manifestations include the printed name, the date and time, and the meaning such as approval or review."
+        },
+        {
+          "id": "document-control-q09",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "An AI tool compares WI-MD-031 Rev C and Rev D and lists the changed steps. What is its proper role?",
+          "options": [
+            "It approves Rev D automatically if it finds that no steps were removed",
+            "It decides who needs retraining",
+            "It is a draft aid that the author and reviewers check",
+            "It replaces the formal review step"
+          ],
+          "answer": 2,
+          "why": "AI output can speed review, but named, trained people still review, approve and decide on training."
+        },
+        {
+          "id": "document-control-q10",
+          "lesson": "qms-fundamentals-document-control",
+          "q": "Why does a QMS run periodic reviews of documents that have not changed?",
+          "options": [
+            "To raise the version number every year",
+            "To keep reviewers busy between audits",
+            "Because regulators require every document to be fully rewritten at fixed intervals",
+            "To catch documents that no longer match how the work is done"
+          ],
+          "answer": 3,
+          "why": "Periodic review finds documents that have drifted from real practice or reference outdated rules."
+        }
+      ]
+    },
+    {
+      "id": "capa",
+      "title": "Deviations, complaints and CAPA",
+      "summary": "How problems enter the QMS, get contained and investigated to the root cause, and are fixed and checked for effectiveness.",
+      "outline": [
+        "Sources of quality events: complaints, deviations, nonconformances, audit findings and trends",
+        "Containment and triage, including when a CAPA is needed",
+        "Root cause analysis tools: 5 whys, fishbone, fault trees",
+        "Correction, corrective action and preventive action",
+        "Effectiveness checks and closing a CAPA",
+        "Where AI can help: trending, drafting investigations, finding similar past events"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-capa",
+          "title": "Deviations, complaints and CAPA",
+          "summary": "You will be able to trace a quality event from first report to a closed CAPA, tell a correction from a corrective action, and write an effectiveness check that can actually fail.",
+          "why": "CAPA is where quality data turns into decisions, so it is one of the first places companies ask for help: search over past investigations, trend dashboards, AI drafts of investigation reports. To build any of these well you need to know what a good investigation looks like, which steps a person must own, and why a weak root cause or a vague effectiveness check is a problem an inspector will find.",
+          "sections": [
+            {
+              "h": "Where quality events come from",
+              "p": [
+                "A quality event is anything that shows a product, process or record may not meet its requirements. The names differ by industry. In medicine manufacturing, a deviation is a departure from an approved instruction or procedure, such as running a step outside the written range. In device manufacturing, a nonconformance is a product or part that does not meet its specification. Both industries handle complaints from customers, findings from audits and inspections, out-of-specification laboratory results, and adverse trends spotted in data.",
+                "In the running case, three events enter the QMS. In Pharma, deviation DEV-PH-0592 is opened because batch B24-017 was compressed using version 5 of MBR-PH-110 after version 6 took effect. In MedTech, complaint CMP-MD-1103 reports a cracked air tube on a cuff, and nonconformance NC-MD-0417 later records a tubing lot that failed incoming inspection."
+              ]
+            },
+            {
+              "h": "Contain first, then triage",
+              "p": [
+                "The first job is to stop the problem spreading. For DEV-PH-0592 that means holding batch B24-017 in quarantine so it cannot be released while the deviation is open. For a device complaint it can mean checking whether other units from the same lot are in stock.",
+                "Next comes triage. The team assesses the possible impact on the patient and the product and classifies the event using the company's procedure, often as minor, major or critical. Rules apply here. For drugs, 21 CFR 211.192 requires any unexplained discrepancy to be thoroughly investigated, and the investigation must extend to other batches that may be affected. For devices, every complaint must be evaluated, including whether it must be reported to the FDA under the medical device reporting rule in 21 CFR Part 803.",
+                "Not every event needs a CAPA. A one-off, well-understood event with a clear correction can be closed in the deviation or complaint record. A CAPA is opened when the cause is systemic, the risk is high, or the event repeats. Each company sets these triggers in its CAPA procedure."
+              ]
+            },
+            {
+              "h": "Finding the root cause",
+              "p": [
+                "A root cause is the most basic cause that, if removed, would stop the problem from happening again. Common tools are the 5 whys (ask why until you reach a cause the company controls), the fishbone or Ishikawa diagram (sort possible causes into groups such as people, methods, materials, machines, measurement and environment), and fault tree analysis (work down from an event through AND and OR logic to basic causes).",
+                "Human error is rarely a root cause on its own. If an operator used the wrong version, ask why the wrong version was within reach and why the training system did not catch it. A finding of 'operator error, retrain' with nothing else is a classic weak investigation.",
+                "Every step in the chain needs evidence, not opinion. For DEV-PH-0592 that means the batch record pages actually used, the document system history for MBR-PH-110, the training records for the shift and interviews with the people involved. For CAPA-MD-0088 it means the returned cuffs, test results on aged tubing and the cleaning instructions given to hospitals. When the evidence does not support a cause, say so and keep looking. Record the causes you ruled out as well, with the reason, because a reviewer will ask what else you considered."
+              ]
+            },
+            {
+              "h": "Correction, corrective action, preventive action",
+              "p": [
+                "These three words are often mixed up. Keep them apart, because an inspector will."
+              ],
+              "list": [
+                "Correction: fix the immediate problem, such as reworking or rejecting the affected units, or replacing a cracked cuff for a customer.",
+                "Corrective action: remove the cause so the same problem does not happen again, such as changing how batch records are issued.",
+                "Preventive action: remove the cause of a potential problem that has not happened yet, such as applying the same fix to the packaging line before it fails there."
+              ]
+            },
+            {
+              "h": "Effectiveness checks and closure",
+              "p": [
+                "A CAPA is not closed when the actions are done. It is closed when there is evidence the actions worked. Write the effectiveness check when you plan the actions, not at the end. A good check names a measure, a target, a time window and a data source, and it must be able to fail. 'Monitor for recurrence' is not a check. 'No batch records issued from an uncontrolled printer in the next 50 issues, confirmed by the issue log' is.",
+                "If the check fails, the CAPA goes back to investigation. Open, overdue and repeat CAPAs are then trended and reported to management review, which is the subject of a later lesson."
+              ]
+            },
+            {
+              "h": "Where AI can help",
+              "p": [
+                "AI tools can group complaints by failure mode, find past deviations with similar descriptions, draft an investigation summary from the record, and suggest fishbone categories to explore. Each output is a hypothesis, not a finding. The investigator must check every claim against the evidence, and a named person still approves the root cause, the actions and the closure.",
+                "These tools are only as good as the records behind them. If complaint descriptions are free text with no failure code, or deviations are closed with one-line root causes, a trend tool will group the wrong things. Part of the FDE job is to show the quality team where the data is too thin to support the analysis they want."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From quality event to closed CAPA",
+            "caption": "Read left to right: containment comes before investigation, and closure needs evidence that the actions worked.",
+            "steps": [
+              {
+                "label": "Event reported",
+                "note": "Deviation, complaint, nonconformance, audit finding"
+              },
+              {
+                "label": "Contain",
+                "note": "Quarantine batch or stock, stop further use"
+              },
+              {
+                "label": "Triage",
+                "note": "Impact, classification, reportability, CAPA needed?"
+              },
+              {
+                "label": "Root cause",
+                "note": "5 whys, fishbone, fault tree, backed by evidence"
+              },
+              {
+                "label": "Actions",
+                "note": "Correction, corrective and preventive actions"
+              },
+              {
+                "label": "Effectiveness check",
+                "note": "Measure, target and window agreed up front"
+              },
+              {
+                "label": "Close and trend",
+                "note": "Status and repeats go to management review"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: DEV-PH-0592 and CAPA-MD-0088 (example scenario)",
+            "p": [
+              "Pharma. Batch B24-017 is quarantined. A 5 whys on DEV-PH-0592 runs as listed below. It finds two causes, one in document control and one in training, so the deviation is linked to CAPA-PH-0141. The quality unit decides the disposition of B24-017 from the investigation data; the lesson does not assume the outcome.",
+              "MedTech. CMP-MD-1103 and two similar complaints trigger CAPA-MD-0088. A fishbone points to materials and measurement: the tube material becomes brittle after repeated wiping with the disinfectant named in the instructions for use, and incoming inspection WI-MD-031 Rev C tests only new tubing. Corrective action is a new tube material, handled as change CR-MD-0231 in the next lesson. Whether a field action is needed is decided by the responsible people under the company's procedures. The effectiveness check: no cracked-tube complaints on lots made with the new material over an agreed period, plus conditioned-tube results at incoming inspection."
+            ],
+            "list": [
+              "Why was B24-017 compressed at the old settings? The operator followed MBR-PH-110 version 5.",
+              "Why version 5? A printed version 5 copy was still at the press.",
+              "Why was it still there? SOP-PH-022 let areas print batch record pages locally, with no reconciliation of copies at a version change.",
+              "Why did the operator not know version 6 existed? The training matrix assigned version 6 to day shift only, so operator B was never assigned it.",
+              "Corrective actions: issue numbered batch records only from QA and reconcile copies at each version change; fix the training matrix. Preventive action: check every other master batch record and the packaging line for the same local-print practice."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write a CAPA that can fail its own check",
+              "time": "40 min",
+              "goal": "Practise separating correction, corrective and preventive actions and writing a measurable effectiveness check.",
+              "steps": [
+                "Take NC-MD-0417 from the running case: a lot of the new tubing failed the conditioned hardness test at incoming inspection.",
+                "Write a containment step and a triage note (impact, classification, CAPA needed or not, with one reason).",
+                "Do a 5 whys on paper and stop at a cause the company controls.",
+                "Write one correction, one corrective action and one preventive action, labelled.",
+                "Write an effectiveness check with a measure, target, time window and data source.",
+                "Ask Claude to find weaknesses in your root cause and check, then decide which points are valid and why."
+              ],
+              "done_when": "Your page has all five parts labelled, and a colleague can say exactly what result would make the effectiveness check fail."
+            }
+          ],
+          "pitfalls": [
+            "Stopping the investigation at 'operator error' and closing with retraining. Ask why the system let the error happen and fix that.",
+            "Mixing up correction and corrective action. Reworking the batch fixes this batch; it does nothing to stop the next one.",
+            "Writing effectiveness checks such as 'monitor for recurrence' that cannot fail. Name a measure, a target and a time window.",
+            "Investigating only the batch or lot in front of you. Check whether other batches, lots or lines share the same cause.",
+            "Pasting an AI-drafted root cause into the record without checking the evidence. The investigator signs for every statement in it."
+          ],
+          "check": [
+            "What is the difference between a deviation and a nonconformance?",
+            "Why does containment come before root cause analysis?",
+            "Give one example each of a correction, a corrective action and a preventive action from the running case.",
+            "What four things make an effectiveness check measurable?",
+            "Why is 'operator error' usually not an acceptable root cause?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 211.192 - Production record review",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.192",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.198 - Complaint files",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.198",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Medical Device Reporting (MDR): How to Report Medical Device Problems",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting-mdr-how-report-medical-device-problems",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Five Whys and Five Hows",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/five-whys",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is a Fishbone Diagram? Ishikawa Cause and Effect Diagram",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fishbone",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is a CAPA?",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=9d83hkz3xMI",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Deviation Investigation in the Pharmaceutical Industry",
+              "source": "GMP-SOP Videos",
+              "url": "https://www.youtube.com/watch?v=ukeUUiZ0Sc8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "capa-q01",
+          "lesson": "qms-fundamentals-capa",
+          "q": "Batch B24-017 was made using a superseded batch record. What should happen to the batch first?",
+          "options": [
+            "Release it, since the tablets may still meet specification",
+            "Hold it in quarantine while the deviation is investigated",
+            "Destroy it at once to remove any risk to patients",
+            "Ship it and add a note to the batch file for later review"
+          ],
+          "answer": 1,
+          "why": "Containment comes first: the batch is held so nothing is released before the facts are known."
+        },
+        {
+          "id": "capa-q02",
+          "lesson": "qms-fundamentals-capa",
+          "q": "In a device plant, a molded part is found outside its drawing tolerance. What is this event usually called?",
+          "options": [
+            "A nonconformance",
+            "A complaint",
+            "A change request",
+            "A management review finding"
+          ],
+          "answer": 0,
+          "why": "A product or part that does not meet its specification is a nonconformance."
+        },
+        {
+          "id": "capa-q03",
+          "lesson": "qms-fundamentals-capa",
+          "q": "An investigation concludes 'operator used the wrong version; operator retrained' and closes. What is the main weakness?",
+          "options": [
+            "Retraining should be done by an outside company",
+            "The operator should have been named in the title of the investigation report",
+            "It never asks why the wrong version was available to use",
+            "The deviation should have been classified as critical"
+          ],
+          "answer": 2,
+          "why": "Human error is rarely the root cause; the system that allowed the error must be investigated and fixed."
+        },
+        {
+          "id": "capa-q04",
+          "lesson": "qms-fundamentals-capa",
+          "q": "Which of these is a corrective action rather than a correction?",
+          "options": [
+            "Replacing the cracked cuff for the hospital that complained",
+            "Rejecting the failed tubing lot at incoming inspection",
+            "Reworking the tablets from batch B24-017 if QA allows it",
+            "Changing to a tube material that resists the disinfectant"
+          ],
+          "answer": 3,
+          "why": "A corrective action removes the cause so the problem does not recur; the others fix the immediate units only."
+        },
+        {
+          "id": "capa-q05",
+          "lesson": "qms-fundamentals-capa",
+          "q": "After fixing the tablet line, the team applies the same batch record controls to the packaging line, which has had no problem yet. What is this?",
+          "options": [
+            "A correction",
+            "A preventive action",
+            "A containment step for the line",
+            "A deviation"
+          ],
+          "answer": 1,
+          "why": "Preventive action removes the cause of a potential problem before it happens."
+        },
+        {
+          "id": "capa-q06",
+          "lesson": "qms-fundamentals-capa",
+          "q": "Which is the best effectiveness check for CAPA-PH-0141?",
+          "options": [
+            "Monitor batch records closely for any recurrence of the problem over time",
+            "QA will review the CAPA again at some point next year",
+            "Zero uncontrolled batch record issues in the next 50, per the issue log",
+            "The operators confirm they understand the new process well"
+          ],
+          "answer": 2,
+          "why": "A good check has a measure, a target, a window and a data source, and it can fail."
+        },
+        {
+          "id": "capa-q07",
+          "lesson": "qms-fundamentals-capa",
+          "q": "Under 21 CFR 211.192, an unexplained discrepancy in one batch is found. What else must the investigation consider?",
+          "options": [
+            "Other batches that may be affected by the same cause",
+            "Only the single batch where the problem was found",
+            "The financial cost of the batch to the company",
+            "Whether the operator has had a recent annual performance review"
+          ],
+          "answer": 0,
+          "why": "The rule says the investigation extends to other batches of the same product and other products that may be affected."
+        },
+        {
+          "id": "capa-q08",
+          "lesson": "qms-fundamentals-capa",
+          "q": "A hospital reports a cracked cuff tube. Besides investigating, what must the device maker evaluate for this complaint?",
+          "options": [
+            "Whether to change the product price",
+            "Whether the hospital used the right supplier",
+            "Whether the complaint can be closed quietly without making a record",
+            "Whether it must be reported to the FDA under Part 803"
+          ],
+          "answer": 3,
+          "why": "Every device complaint is evaluated for reportability under the medical device reporting rule."
+        },
+        {
+          "id": "capa-q09",
+          "lesson": "qms-fundamentals-capa",
+          "q": "The effectiveness check for CAPA-MD-0088 shows two new cracked-tube complaints on new-material lots. What happens?",
+          "options": [
+            "Close the CAPA, since the actions were completed",
+            "The CAPA goes back to investigation",
+            "Delete the two complaints as unrelated",
+            "Wait another year before deciding"
+          ],
+          "answer": 1,
+          "why": "A failed effectiveness check means the root cause or the actions were wrong, so the investigation reopens."
+        },
+        {
+          "id": "capa-q10",
+          "lesson": "qms-fundamentals-capa",
+          "q": "An AI tool drafts the root cause section of DEV-PH-0592 from the record. What must the investigator do?",
+          "options": [
+            "Accept it as written if the tool reports a high confidence score",
+            "Send it straight to QA approval to save time",
+            "Ask the tool a second time and use the newer answer",
+            "Check every claim against the evidence and own the result"
+          ],
+          "answer": 3,
+          "why": "AI output is a draft hypothesis; the named investigator verifies it and signs for it."
+        }
+      ]
+    },
+    {
+      "id": "change-control",
+      "title": "Change control",
+      "summary": "How changes to products, processes, materials, suppliers, documents and software are assessed, approved, implemented and verified, and when a regulator must be told.",
+      "outline": [
+        "What counts as a change and who decides",
+        "Impact assessment: product, risk, validation, documents, training, suppliers and filings",
+        "Planning, effectivity, implementation and verification",
+        "Changes that need regulator notification or approval",
+        "Change control for software, prompts and AI models"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-change-control",
+          "title": "Change control",
+          "summary": "You will be able to say what counts as a controlled change, list what an impact assessment must cover, and explain why a prompt or model update to a quality tool is a change too.",
+          "why": "FDEs make changes for a living: a new data feed, a new version of a script, a new prompt. In a regulated company each of those can touch a validated process or a filed product, and making it without change control is one of the fastest ways to create an inspection finding. Knowing the process lets you plan the evidence early instead of having your release blocked at the end.",
+          "sections": [
+            {
+              "h": "What counts as a change",
+              "p": [
+                "A controlled change is any planned change to something the QMS depends on to keep product quality and patient safety: the product design, materials and suppliers, manufacturing processes and equipment, facilities and utilities, test methods, controlled documents, and the computerised systems used in production and quality. If a change could affect the product, the process or the evidence that they are under control, it goes through change control.",
+                "The change owner raises a change request, describes what will change and why, and proposes a plan. Reviewers from the affected areas assess impact. The quality unit approves, and for larger changes a change control board brings the functions together. The goal is not paperwork. It is to make sure nobody is surprised by the consequences of a change after it reaches the product.",
+                "In the running case, two changes come out of the CAPAs. CR-MD-0231 changes the cuff tube to a new material from a new supplier. CC-PH-0310 changes how batch records are issued: from local printing to numbered copies issued only by QA from the document system."
+              ]
+            },
+            {
+              "h": "Impact assessment",
+              "p": [
+                "The impact assessment is the heart of change control. It asks, area by area, what else this change touches. A useful habit is to go through the same list every time so nothing is skipped:"
+              ],
+              "list": [
+                "Product quality and safety: could the change affect performance, purity, sterility, shelf life or how the product is used?",
+                "Risk: does the product risk file or process risk assessment need updating?",
+                "Validation and qualification: do processes, equipment, test methods or software need new testing?",
+                "Documents and training: which procedures, specifications, drawings and batch records change, and who must be retrained?",
+                "Suppliers and materials: are new suppliers qualified, and do quality agreements cover the change?",
+                "Regulatory: does a filing, registration or certificate describe the thing being changed?",
+                "Other products and sites: is the same part, material or system used elsewhere?"
+              ]
+            },
+            {
+              "h": "Plan, effectivity and verification",
+              "p": [
+                "An approved change becomes a plan with tasks, owners and due dates. Effectivity says exactly when the change takes hold: from which lot, batch, serial number or date. Without clear effectivity nobody can tell later which products were made the old way and which the new way, and that matters when a complaint arrives.",
+                "Once the tasks are done, the owner shows evidence that the change works as intended, such as test results, a successful first batch or a completed training list, and quality closes the change. Most procedures also allow emergency or temporary changes, but they still need documented approval and a follow-up assessment, never a quiet fix.",
+                "Change control and CAPA feed each other. Many corrective actions are carried out as changes, as CR-MD-0231 and CC-PH-0310 are here, and the CAPA cannot pass its effectiveness check until the change is implemented. In the other direction, a change that goes wrong is itself a quality event and may open a deviation. Link the records both ways so an auditor can follow the chain."
+              ]
+            },
+            {
+              "h": "When the regulator must be told",
+              "p": [
+                "Some changes need the regulator to be told, or to approve, before or after they are made. For approved medicines in the US, 21 CFR 314.70 sorts changes into major changes that need a prior approval supplement, moderate changes reported in a supplement before or at the time of the change, and minor changes reported in the annual report. In the EU, changes to a marketing authorisation are handled as variations of different types. ICH Q12 adds tools that help companies plan and manage post-approval changes.",
+                "For devices in the US, FDA guidance helps decide when a change to a cleared device needs a new 510(k). A predetermined change control plan, agreed with the FDA in a marketing submission, can describe certain planned future changes in advance. In the EU, significant changes may need assessment by the notified body.",
+                "Deciding the regulatory route is the job of regulatory affairs specialists. This lesson gives you the vocabulary, not the authority to decide."
+              ]
+            },
+            {
+              "h": "Software, prompts and AI models",
+              "p": [
+                "Software used in production or the QMS is under change control like equipment. For an AI tool that means more than code. A changed prompt, a new model version, a different retrieval index, a new data source or a changed confidence threshold can all change the output. Treat each one as a change: describe it, assess impact, rerun the agreed test set, and record the result before release.",
+                "Watch for changes you do not make yourself. A hosted model can be updated by the vendor. Pin model versions where the service allows it, and agree with the quality team how vendor updates will be detected and assessed.",
+                "A simple release record helps a lot: for each release, note the prompt version, the model name and version, the date the retrieval index was built, the data sources, and the test set result. With that record, anyone can answer which configuration produced a given output on a given day."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "Who does what in a change",
+            "caption": "Read top to bottom in time order: each lane is a role, and quality approves both the plan and the closure.",
+            "lanes": [
+              "Change owner",
+              "Impacted areas",
+              "Quality",
+              "Regulatory"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Raise CR-MD-0231 with reason"
+              },
+              {
+                "lane": 1,
+                "label": "Assess product, risk, validation"
+              },
+              {
+                "lane": 3,
+                "label": "Assess filing impact"
+              },
+              {
+                "lane": 2,
+                "label": "Approve plan and effectivity"
+              },
+              {
+                "lane": 0,
+                "label": "Run tasks: tests, docs, training"
+              },
+              {
+                "lane": 1,
+                "label": "Provide evidence of completion"
+              },
+              {
+                "lane": 2,
+                "label": "Verify evidence and close"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: impact assessment for CR-MD-0231 (example scenario)",
+            "p": [
+              "CAPA-MD-0088 found that the cuff tube becomes brittle with the disinfectant named in the instructions for use. The corrective action is to switch to a new tube material from a new supplier. Here is a short impact assessment, area by area. The answers are illustrative; a real one cites the evidence for each line.",
+              "For the Pharma case, CC-PH-0310 is smaller but follows the same steps: SOP-PH-022 is revised, the document system is configured so only QA can issue numbered batch record copies, the configuration change is tested, users are trained, and effectivity is set from the first batch after go-live. Its impact on the product filing is assessed as none, which regulatory affairs confirms in the record."
+            ],
+            "list": [
+              "Product: tube is a design change, so design verification tests are repeated on cuffs with the new tube, including tests after repeated disinfection.",
+              "Risk: the risk file entry for tube cracking is updated with the new control and test evidence.",
+              "Validation: the tube assembly process is checked for any setting that depends on the old material.",
+              "Documents and training: drawing, material specification and WI-MD-031 move to new revisions; Rev D adds a conditioned hardness test; inspectors are trained (TRN-MD-5520).",
+              "Supplier: the new supplier is qualified and added to the approved supplier list with file SUP-MD-12.",
+              "Regulatory: regulatory affairs assesses whether the change needs a new submission and records the decision.",
+              "Effectivity: from the first cuff lot built with the new tube lot; old-material stock is segregated."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Assess a prompt change like an engineer in a QMS",
+              "time": "40 min",
+              "goal": "Apply the impact assessment list to a change in an AI tool used in a quality process.",
+              "steps": [
+                "Imagine a tool that drafts complaint summaries for CMP-MD records. The change: a new prompt that also asks the model to suggest a failure code.",
+                "Write the change request: what changes, why, and which records the tool touches.",
+                "Go through each line of the impact assessment list and write one sentence per area, including 'no impact' with a reason where true.",
+                "Write a verification plan: which saved test cases you rerun, what result passes, and who reviews it.",
+                "State the effectivity: from which date or version the new prompt applies, and how old summaries stay traceable."
+              ],
+              "done_when": "Your change request covers all seven impact areas, names a pass criterion for the test rerun, and states effectivity."
+            }
+          ],
+          "pitfalls": [
+            "Starting the work before the change is approved because it seems small. Even a small change needs an approved record before it touches the product or a validated system.",
+            "Writing 'no impact' without a reason. Each area needs a short justification an auditor can follow.",
+            "Leaving effectivity vague. If you cannot say which lot first used the new material, you cannot answer a complaint about it.",
+            "Forgetting other products and sites. The same part, material or system is often shared.",
+            "Treating a prompt or model update as configuration that needs no review. It can change outputs and must be assessed and tested like code."
+          ],
+          "check": [
+            "Name five areas an impact assessment must cover.",
+            "What is effectivity, and why does it matter when a complaint arrives later?",
+            "What are the three US reporting categories for changes to an approved drug application?",
+            "Who decides whether a change needs a regulatory submission?",
+            "Give three changes to an AI tool, other than code, that need change control."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 314.70 - Supplements and other changes to an approved NDA",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-D/part-314/subpart-B/section-314.70",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Changes to an Approved NDA or ANDA",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/changes-approved-nda-or-anda",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q12 Technical and Regulatory Considerations for Pharmaceutical Product Lifecycle Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q12-technical-and-regulatory-considerations-pharmaceutical-product-lifecycle-management-guidance",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Variations including extensions of marketing authorisations",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/human-regulatory-overview/post-authorisation/variations-including-extensions-marketing-authorisations",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Deciding When to Submit a 510(k) for a Change to an Existing Device",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/deciding-when-submit-510k-change-existing-device",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Predetermined Change Control Plans",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/predetermined-change-control-plans",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "GMP Deviation, CAPA & Change Control Training | Pharma QA Basics",
+              "source": "Pharma Galaxy",
+              "url": "https://www.youtube.com/watch?v=3eaM6chpsbM",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "change-control-q01",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "An engineer wants to swap the cuff tube for a new material from a new supplier. What must happen before production uses it?",
+          "options": [
+            "Nothing, as long as the new tube looks the same",
+            "The engineer updates the drawing and tells the line supervisor",
+            "A change request is assessed, approved and its tasks completed",
+            "The supplier sends a certificate and production starts the same week"
+          ],
+          "answer": 2,
+          "why": "Material and supplier changes go through change control with impact assessment and approval before use."
+        },
+        {
+          "id": "change-control-q02",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "The impact assessment for CR-MD-0231 says 'Validation: no impact' with no explanation. What is wrong?",
+          "options": [
+            "Each area needs a reason an auditor can follow",
+            "Validation should never be part of a change",
+            "Only regulatory affairs may write in that field",
+            "The assessment should be written after the change"
+          ],
+          "answer": 0,
+          "why": "A 'no impact' answer still needs a justification, or nobody can tell if it was assessed."
+        },
+        {
+          "id": "change-control-q03",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "Months after CR-MD-0231, a complaint arrives about a cracked tube. What does clear effectivity let the team answer?",
+          "options": [
+            "Who approved the original drawing years ago",
+            "How much the new tube material costs per meter",
+            "Which supplier the company plans to use next year",
+            "Whether that cuff was built with old or new tube"
+          ],
+          "answer": 3,
+          "why": "Effectivity records from which lot the change applied, so you can tell which design a unit has."
+        },
+        {
+          "id": "change-control-q04",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "Under 21 CFR 314.70, how is a major change to an approved drug application handled?",
+          "options": [
+            "Recorded only in the next annual report",
+            "Submitted in a supplement that needs approval before distribution",
+            "Made at once and simply reported to the FDA within one year",
+            "Handled internally with no filing at all"
+          ],
+          "answer": 1,
+          "why": "Major changes need a prior approval supplement before product made with the change is distributed."
+        },
+        {
+          "id": "change-control-q05",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "Who should decide whether CR-MD-0231 needs a new 510(k)?",
+          "options": [
+            "The FDE who built the complaint-summary software tool",
+            "The tubing supplier",
+            "Regulatory affairs, recording the reasoning",
+            "The production line supervisor"
+          ],
+          "answer": 2,
+          "why": "The regulatory route is decided by regulatory specialists using FDA guidance, and the decision is recorded."
+        },
+        {
+          "id": "change-control-q06",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "A hosted model used by a validated complaint-summary tool is updated by the vendor. What is the right response?",
+          "options": [
+            "Treat it as a change: assess and retest",
+            "Ignore it, since the code did not change at all",
+            "Switch the tool off permanently and go back to paper",
+            "Let users report any problems they happen to notice"
+          ],
+          "answer": 0,
+          "why": "A model update can change outputs, so it is assessed and the agreed test set is rerun before continued use."
+        },
+        {
+          "id": "change-control-q07",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "Which of these is NOT normally a change that needs change control?",
+          "options": [
+            "A new prompt for a quality AI tool",
+            "A new supplier for a component",
+            "A new setting on the tablet press",
+            "A new seating plan in the office"
+          ],
+          "answer": 3,
+          "why": "Change control covers things the QMS relies on for product quality; office seating does not affect the product."
+        },
+        {
+          "id": "change-control-q08",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "A tablet press part fails at night and is replaced with a different model to keep running. What should the procedure allow?",
+          "options": [
+            "Keep running and never record the swap anywhere",
+            "An emergency change, documented and assessed after",
+            "Stop the whole site until the change board meets",
+            "Ask the operator to note it in a personal notebook"
+          ],
+          "answer": 1,
+          "why": "Emergency changes are allowed but must be documented, approved and assessed, never left as a quiet fix."
+        },
+        {
+          "id": "change-control-q09",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "In CC-PH-0310, the document system is configured so only QA can issue numbered batch record copies. What else belongs in the change?",
+          "options": [
+            "A press release about the new process",
+            "A new product name for the tablet",
+            "Revised SOP-PH-022, testing and user training",
+            "Deleting all old batch records from the archive"
+          ],
+          "answer": 2,
+          "why": "A process and system change brings document, testing and training tasks with it; old records are kept, not deleted."
+        },
+        {
+          "id": "change-control-q10",
+          "lesson": "qms-fundamentals-change-control",
+          "q": "The same tube material is also used in a second cuff model. What does this mean for the change?",
+          "options": [
+            "Leave the other model, since only one had complaints",
+            "Wait for complaints on the other model before acting",
+            "Raise a separate change only if the auditor asks",
+            "Assess the other model as part of the impact"
+          ],
+          "answer": 3,
+          "why": "Impact assessment checks other products and sites that share the same part or material."
+        }
+      ]
+    },
+    {
+      "id": "audits-and-management-review",
+      "title": "Audits, supplier oversight and management review",
+      "summary": "How a company checks itself and its suppliers, and how leadership uses quality data to steer the system.",
+      "outline": [
+        "Planning a risk-based internal audit programme",
+        "Running an audit and writing findings that can be acted on",
+        "Supplier qualification, quality agreements and monitoring",
+        "Management review inputs and outputs",
+        "Quality metrics, trending and quality culture"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-audits-and-management-review",
+          "title": "Audits, supplier oversight and management review",
+          "summary": "You will be able to describe how internal and supplier audits work, what a quality agreement is for, and what goes into and comes out of a management review.",
+          "why": "Audits and management reviews are where quality data is read by people who make decisions. FDEs are often asked to build the trend reports, supplier scorecards and review packs that feed them. If you know what an auditor samples and what leaders must decide, you can build reports that answer real questions instead of charts that look busy.",
+          "sections": [
+            {
+              "h": "Internal audits",
+              "p": [
+                "An internal audit is a planned, independent check that the company follows its own procedures and the rules that apply to it. Independent means auditors do not audit their own work. Both device and medicine quality systems expect a planned audit programme, and the plan is risk based: every QMS process is covered over a cycle, and areas with high risk, recent changes or past problems are audited more often.",
+                "An audit has a scope, a plan, an opening meeting, fieldwork and a closing meeting. Fieldwork is mostly sampling and tracing. An auditor picks a record and follows its links: from a batch record to the batch record version, to the operator, to that operator's training record, to the deviation that was raised, to its CAPA and the effectiveness evidence. A finding states the requirement, the evidence seen and the gap between them, so the owner can act on it. Findings are then handled through CAPA.",
+                "External audits follow the same pattern. Customers audit their suppliers, notified bodies audit device makers for certification, and regulators inspect. A company that runs honest internal audits and closes the findings is rarely surprised by an external one, because it has already sampled and traced its own records the way an inspector will."
+              ]
+            },
+            {
+              "h": "Supplier oversight",
+              "p": [
+                "Much of what goes into a product is bought: materials, components, contract manufacturing, testing and software. The company stays responsible for the quality of what it buys. ICH Q10 says this directly for outsourced activities in medicines, and device rules expect purchasing controls in proportion to the risk of the purchased item.",
+                "Rules also shape how much a company can rely on a supplier's own test results. For drug components in the US, 21 CFR 211.84 allows a supplier's certificate of analysis to replace some testing only with at least a specific identity test by the company and periodic checks that the supplier's results are reliable. Supplier oversight has four parts:"
+              ],
+              "list": [
+                "Qualification: before first use, assess the supplier in proportion to risk, using questionnaires, samples, certificates and, for critical suppliers, an on-site or remote audit.",
+                "Approved supplier list: only qualified suppliers can be used for a given item, and the list is controlled.",
+                "Quality agreement: a written agreement that says who is responsible for which quality activities, such as testing, change notification and handling of deviations. For drugs, FDA guidance describes quality agreements for contract manufacturing.",
+                "Monitoring: incoming inspection results, nonconformances, delivery and audit results are trended, and problems go back to the supplier as a supplier corrective action request."
+              ]
+            },
+            {
+              "h": "Management review",
+              "p": [
+                "Management review is a regular, recorded meeting where top management looks at how the QMS is performing and decides what to do. ISO 13485 requires it for devices, and ICH Q10 names it as one of the four elements of a pharmaceutical quality system. Under the FDA QMSR, management review, internal audit and supplier audit reports are no longer exempt from FDA inspection, so these records must be written knowing an investigator may read them.",
+                "Typical inputs are audit results, complaints and customer feedback, CAPA status and effectiveness, process and product performance, changes that could affect the QMS, supplier performance, new or changed regulations, and actions from the previous review. Outputs are decisions: improvements to make, resources to provide and changes to the QMS, each with an owner. A review that lists data but records no decisions has not done its job."
+              ]
+            },
+            {
+              "h": "Metrics, trending and culture",
+              "p": [
+                "Quality metrics turn many records into a few signals: complaint rate by failure mode, deviations per batch, CAPA age, overdue training, right-first-time batch records, supplier lot acceptance. Trending looks for change over time, not only for a value crossing a limit. Three similar complaints in a quarter can matter more than one large event.",
+                "Metrics shape behaviour. If leaders only reward fast CAPA closure, people close CAPAs fast with weak root causes. If deviation counts are punished, people stop reporting. A healthy quality culture rewards early reporting, treats repeat problems as system failures, and has leaders who ask about effectiveness, not just speed. FDA has published material on quality metrics and quality culture for drug manufacturing; the link below is one example."
+              ]
+            },
+            {
+              "h": "Where AI and FDE tools fit",
+              "p": [
+                "Good targets for tools are the tedious parts: assembling a management review pack from the eQMS, tracing audit samples across linked records, spotting gaps such as a CAPA closed without effectiveness evidence, and summarising supplier history before an audit. The audit judgement, the finding classification and the review decisions stay with qualified people. A tool that writes findings or decisions on its own would move accountability to software, which no auditor will accept."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "How the system checks and steers itself",
+            "caption": "Follow the loop: audit and supplier results feed CAPA and metrics, management review decides, and the decisions shape the next audit plan.",
+            "steps": [
+              {
+                "label": "Risk-based audit plan",
+                "note": "Internal processes and critical suppliers"
+              },
+              {
+                "label": "Audits and supplier monitoring",
+                "note": "Sample records, trace links, record findings"
+              },
+              {
+                "label": "Findings into CAPA",
+                "note": "Root cause, actions, effectiveness checks"
+              },
+              {
+                "label": "Metrics and trends",
+                "note": "Complaints, deviations, CAPA age, suppliers"
+              },
+              {
+                "label": "Management review",
+                "note": "Leaders decide actions, resources, changes"
+              },
+              {
+                "label": "Decisions carried out",
+                "note": "Owners and dates; results feed the next plan"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: one audit, one supplier issue, one review (example scenario)",
+            "p": [
+              "Internal audit, Pharma. An auditor samples batch B24-018 and traces it to MBR-PH-110 version 6, operator A, and training record TRN-PH-3304: all consistent. She then samples CAPA-PH-0141 and finds the effectiveness check is defined, but the batch record issue log it relies on is a spreadsheet with no access control. Finding: the evidence source for the check is not a controlled record. It goes into a new CAPA.",
+              "Supplier, MedTech. After CR-MD-0231, the first lots of the new tubing pass, but NC-MD-0417 records a later lot that fails the conditioned hardness test added in WI-MD-031 Rev D. The new control worked: the lot was stopped at incoming inspection. A supplier corrective action request is sent, the supplier's response is filed in SUP-MD-12, and the supplier's monitoring status is raised until results recover.",
+              "Management review. The quarterly pack for both cases includes the items below. The leaders record three decisions with owners: fund a controlled batch record issue log, increase incoming testing for the tubing supplier for an agreed period, and audit the packaging line's document practice next quarter."
+            ],
+            "list": [
+              "Complaints: CMP-MD-1103 and two similar complaints, trend by failure mode.",
+              "CAPA status: CAPA-MD-0088 and CAPA-PH-0141 open, effectiveness checks running.",
+              "Changes: CR-MD-0231 and CC-PH-0310 implemented, with effectivity.",
+              "Supplier: NC-MD-0417 and the supplier corrective action request status.",
+              "Audits: the issue log finding and its new CAPA."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a management review pack",
+              "time": "45 min",
+              "goal": "Turn linked quality records into inputs that lead to decisions.",
+              "steps": [
+                "In a spreadsheet, list the running case records from this course: documents, training, complaint, nonconformance, deviation, CAPAs, changes and the supplier file.",
+                "Add a status column for each (open, closed, overdue, effectiveness pending), using invented example values.",
+                "Group the rows under the management review inputs named in this lesson.",
+                "Write three decisions a leader could take from the pack, each with an owner and a due date.",
+                "Ask Claude to act as an auditor and list what evidence it would sample to test one of your decisions, then check its list against the records you have."
+              ],
+              "done_when": "Your pack covers at least five review inputs, and each of your three decisions names an owner, a due date and the record it responds to."
+            }
+          ],
+          "pitfalls": [
+            "Writing audit findings without stating the requirement and the evidence. The owner cannot fix a gap that is not clearly described.",
+            "Qualifying a supplier once and never looking again. Monitoring results must feed back into the supplier's status.",
+            "Using a quality agreement that does not say who must notify changes. Unannounced supplier changes are a common source of problems.",
+            "Holding a management review that presents charts but records no decisions, owners or resources.",
+            "Rewarding speed metrics alone, such as days to close a CAPA. This pushes people toward weak root causes and early closure."
+          ],
+          "check": [
+            "What makes an internal audit risk based?",
+            "What three parts should every audit finding contain?",
+            "What is a quality agreement for, and name two things it should cover?",
+            "List five management review inputs and say what the outputs must be.",
+            "Give one example of a metric that can damage quality culture if used alone."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is an Audit? - Types of Audits and Auditing Certification",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/auditing",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Contract Manufacturing Arrangements for Drugs: Quality Agreements Guidance for Industry",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/contract-manufacturing-arrangements-drugs-quality-agreements-guidance-industry",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Q10 Pharmaceutical quality system - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.180 - General requirements (records, including annual product review)",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.180",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality Metrics, Quality Culture, and Data-Driven Decisions (16of33) Quality - Oct. 16-17, 2019",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=xbSjzSy4vu0",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "CQA Certification: Certified Quality Auditor",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/quality-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "audits-and-management-review-q01",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "The audit programme covers every QMS process over a cycle, but visits the batch record area twice as often after DEV-PH-0592. Why?",
+          "options": [
+            "Auditors prefer to visit areas close to their own office",
+            "The plan is risk based, so problem areas get more",
+            "Every area must be audited exactly twice a year",
+            "Regulators choose which areas a company audits"
+          ],
+          "answer": 1,
+          "why": "A risk-based programme spends more audit effort where risk, change or past problems are higher."
+        },
+        {
+          "id": "audits-and-management-review-q02",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "The production manager offers to audit the production area herself to save time. What is the problem?",
+          "options": [
+            "Managers are never allowed to join audits in any role",
+            "Audits must always be done by outside consultants",
+            "Auditors should not audit their own work",
+            "Production areas are exempt from internal audits"
+          ],
+          "answer": 2,
+          "why": "Internal audits must be independent; people do not audit areas they are responsible for."
+        },
+        {
+          "id": "audits-and-management-review-q03",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "Which audit finding is written best?",
+          "options": [
+            "Batch records across the tablet area are a mess and need some work",
+            "The team seemed unsure about the batch record process during interviews",
+            "Training could probably be better in some areas of the plant and offices",
+            "SOP-PH-022 requires numbered copies; 2 unnumbered found at press 2"
+          ],
+          "answer": 3,
+          "why": "A good finding states the requirement, the evidence seen and the gap, so the owner can act."
+        },
+        {
+          "id": "audits-and-management-review-q04",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "A new tubing supplier passed qualification last year. A recent lot failed incoming inspection. What should happen?",
+          "options": [
+            "Send a corrective action request and track their status",
+            "Nothing, since the supplier is already qualified",
+            "Remove all past lots from finished cuffs immediately",
+            "Change the specification so that the failed lot passes inspection"
+          ],
+          "answer": 0,
+          "why": "Supplier monitoring feeds back: problems go to the supplier as a corrective action request and affect their status."
+        },
+        {
+          "id": "audits-and-management-review-q05",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "What is the main purpose of a quality agreement with a contract manufacturer?",
+          "options": [
+            "To set the price and delivery terms for each order",
+            "To state who is responsible for which quality tasks",
+            "To transfer all legal responsibility to the supplier",
+            "To replace the need to qualify the supplier at all"
+          ],
+          "answer": 1,
+          "why": "A quality agreement defines quality responsibilities such as testing, change notification and deviations; the owner stays responsible."
+        },
+        {
+          "id": "audits-and-management-review-q06",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "A management review meeting shows 30 charts and ends with 'noted'. What is missing?",
+          "options": [
+            "More charts with a longer time range",
+            "A wet-ink signature from every single attendee in the room",
+            "A copy of the previous audit plan",
+            "Decisions with owners, resources and due dates"
+          ],
+          "answer": 3,
+          "why": "Management review outputs are decisions on improvements, resources and QMS changes, each with an owner."
+        },
+        {
+          "id": "audits-and-management-review-q07",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "Which item is a typical management review input?",
+          "options": [
+            "CAPA status and effectiveness results",
+            "The canteen menu for the next month",
+            "Personal performance ratings of operators",
+            "The marketing launch plan for a new region"
+          ],
+          "answer": 0,
+          "why": "CAPA status, audits, complaints, process performance, changes and suppliers are standard inputs."
+        },
+        {
+          "id": "audits-and-management-review-q08",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "Under the FDA QMSR, what changed for device makers about management review and internal audit reports?",
+          "options": [
+            "They no longer need to be written down at all",
+            "They must be published on the company website",
+            "They are no longer exempt from FDA inspection",
+            "They must now be written by an outside auditor"
+          ],
+          "answer": 2,
+          "why": "The QMSR removed the earlier exemption, so FDA investigators can review these reports."
+        },
+        {
+          "id": "audits-and-management-review-q09",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "Leaders set a target to close every CAPA within 30 days and reward teams who meet it. What risk does this create?",
+          "options": [
+            "CAPAs will take far longer to close than they did before the target",
+            "Fewer complaints will be received from customers",
+            "The audit programme will need fewer auditors",
+            "Weak root causes and early closure to hit the target"
+          ],
+          "answer": 3,
+          "why": "Speed-only metrics push teams toward shallow investigations; effectiveness must be measured too."
+        },
+        {
+          "id": "audits-and-management-review-q10",
+          "lesson": "qms-fundamentals-audits-and-management-review",
+          "q": "An FDE builds a tool that assembles the management review pack. Which task should stay with people?",
+          "options": [
+            "Pulling CAPA status from the eQMS",
+            "Deciding which actions to fund",
+            "Counting complaints by failure mode",
+            "Listing overdue training records"
+          ],
+          "answer": 1,
+          "why": "Tools can gather and summarise data; the review decisions and resources are management's accountability."
+        }
+      ]
+    },
+    {
+      "id": "devices-vs-pharma",
+      "title": "Device QMS and pharma quality systems side by side",
+      "summary": "How ISO 13485 and the QMSR compare with drug cGMP and ICH Q10, how product risk and quality risk differ, and what changes in words and inspections when you move between them.",
+      "outline": [
+        "ISO 13485 and 21 CFR 820 QMSR for devices",
+        "21 CFR 210 and 211, EU GMP and ICH Q10 for medicines",
+        "ICH Q9 quality risk management and ISO 14971 product risk management",
+        "The running case in each industry's vocabulary",
+        "Combination products",
+        "Inspections and what investigators look for"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-devices-vs-pharma",
+          "title": "Device QMS and pharma quality systems side by side",
+          "summary": "You will be able to name the main rules for each industry, translate the core QMS words between them, and explain why the same event is handled with different records and reports.",
+          "why": "Many FDE engagements cross the line between devices and medicines, and some products are both. A tool built for a pharma deviation process will not fit a device nonconformance process just by renaming fields, and a device team will not trust a tool that talks about batches when they mean lots and serial numbers. Knowing both vocabularies lets you ask the right questions and build the right data model.",
+          "sections": [
+            {
+              "h": "Same backbone, different rulebooks",
+              "p": [
+                "Both industries run the same core processes from the first lesson: document control, training, problem handling and CAPA, change control, audits and management review. What differs is the rulebook and the emphasis.",
+                "For medical devices, ISO 13485 is the international QMS standard. In the US, the FDA's Quality Management System Regulation (QMSR) in 21 CFR Part 820 incorporates ISO 13485:2016 by reference and took effect on 2 February 2026. Device rules put heavy weight on design controls, because much of a device's safety is decided at the design stage, and on product risk management under ISO 14971.",
+                "For medicines, the US rules are the cGMP regulations, such as 21 CFR Parts 210 and 211 for finished drugs. The EU publishes its GMP guide in EudraLex Volume 4. ICH Q10 describes a pharmaceutical quality system across the product lifecycle. Drug rules put heavy weight on manufacturing control, batch records, laboratory testing and an independent quality unit that approves or rejects each batch."
+              ]
+            },
+            {
+              "h": "Two kinds of risk management",
+              "p": [
+                "The two industries use risk words differently, and mixing them up causes confusion in meetings.",
+                "ISO 14971 is product risk management for devices. It follows a chain from hazard to hazardous situation to harm, estimates the risk, adds controls, verifies them and judges whether the remaining risk is acceptable against the benefit. The result lives in a risk management file that is updated across the product's life.",
+                "ICH Q9, revised as Q9(R1), is quality risk management for medicines. It is a general method for assessing, controlling, communicating and reviewing risks to quality across processes, such as deciding how deeply to investigate a deviation or how often to audit a supplier. Device companies also apply risk-based thinking to their QMS processes, but their product risk file follows ISO 14971."
+              ]
+            },
+            {
+              "h": "The running case in each vocabulary",
+              "p": [
+                "The running case shows the same process steps with different names and records. The list below pairs them. Note that under the QMSR the FDA moved to ISO 13485 terms, so older US device terms such as device master record are being replaced in procedures, though you will still hear them."
+              ],
+              "list": [
+                "Unit of production: MedTech tracks lots and often serial numbers; Pharma tracks batches such as B24-017.",
+                "Production instructions and record: MedTech uses work instructions such as WI-MD-031 and production records; Pharma uses a master batch record (MBR-PH-110) and an executed batch record.",
+                "Problem in production: MedTech raises a nonconformance (NC-MD-0417); Pharma raises a deviation (DEV-PH-0592).",
+                "Complaint reporting in the US: device complaints are evaluated for medical device reports under Part 803; for approved drugs, certain quality problems must be sent as field alert reports under 21 CFR 314.81.",
+                "Release: a device lot is released after its acceptance activities are complete; a drug batch is approved or rejected by the quality unit, and in the EU certified by a Qualified Person.",
+                "Design: device design changes run through design controls and the risk file; drug product and process knowledge comes from pharmaceutical development, and post-approval changes follow the filing rules."
+              ]
+            },
+            {
+              "h": "Combination products",
+              "p": [
+                "Some products are both, such as a prefilled syringe or a drug-coated device. In the US, 21 CFR Part 4 lets the maker of a combination product run one main quality system, either drug cGMP or the device QMS, and add specific provisions from the other. For example, a company running drug cGMP adds the device design control and purchasing requirements that Part 4 lists. If your client makes combination products, ask early which system is the base and which extra provisions apply. The answer changes which records your tool must create and which approvals it must respect."
+              ]
+            },
+            {
+              "h": "Inspections and what investigators look for",
+              "p": [
+                "Regulators check the system through inspections. In the US, at the end of an inspection an FDA investigator may issue a Form 483 listing observations, and serious or unresolved problems can lead to a warning letter. In the EU, device makers are audited by notified bodies for certification, and medicine sites are inspected by national competent authorities against EU GMP.",
+                "Investigators in both industries tend to start where problems are visible: complaints, deviations or nonconformances, CAPA and its effectiveness, change control, and data integrity. They sample a record and trace it through the system, exactly as the internal auditor did in the previous lesson. The response to a 483 and remediation after a warning letter are specialist work; this lesson gives you the vocabulary, not readiness to lead that work."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Device QMS and pharma quality system",
+            "caption": "Read across each row position: the processes match, but the rules, records and emphasis differ.",
+            "columns": [
+              {
+                "title": "Medical devices",
+                "items": [
+                  "ISO 13485 and FDA QMSR (Part 820)",
+                  "Product risk: ISO 14971 risk file",
+                  "Design controls drive much of safety",
+                  "Lots, serial numbers, nonconformances",
+                  "Complaints checked for Part 803 reports",
+                  "EU: notified body audits"
+                ]
+              },
+              {
+                "title": "Medicines",
+                "items": [
+                  "21 CFR 210/211, EU GMP, ICH Q10",
+                  "Quality risk management: ICH Q9(R1)",
+                  "Manufacturing control and batch records",
+                  "Batches, deviations, OOS results",
+                  "Field alert reports for some defects",
+                  "EU: competent authority GMP inspections"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: the same root cause in two industries (example scenario)",
+            "p": [
+              "Suppose the Pharma root cause from DEV-PH-0592, a superseded instruction left at the point of use, had happened on the MedTech line instead. An inspector at a cuff assembly line finds a printed WI-MD-031 Rev C at the bench after Rev D took effect, and one lot inspected to Rev C.",
+              "The steps match the Pharma case, but the words, records and reporting questions change. Notice what does not change: contain first, find the system cause, fix it through change control, check effectiveness and report to management review."
+            ],
+            "list": [
+              "Event: a nonconformance is raised against the affected tubing lot instead of a deviation against a batch.",
+              "Containment: the lot and any cuffs built from it are put on hold; finished cuffs are traced by lot and serial number.",
+              "Risk: the team checks the ISO 14971 risk file entry for tube cracking to judge the impact of the missed conditioned test, rather than a Q9 assessment of batch quality.",
+              "Release: the affected lot cannot complete acceptance until the missed test is done or the lot is rejected; there is no Qualified Person in the device path.",
+              "Reporting: if any complaints follow, they are evaluated under the device reporting rules, not drug field alerts."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a two-industry glossary for your data model",
+              "time": "40 min",
+              "goal": "Make a mapping you can use when one tool must serve both device and pharma teams.",
+              "steps": [
+                "In a spreadsheet, make three columns: concept, MedTech term, Pharma term.",
+                "Add at least ten concepts, starting with the pairs in this lesson: unit of production, production record, problem in production, product release, risk file, reportable event.",
+                "For each pair, mark whether one database field could hold both (same meaning) or needs separate fields (different meaning or rules).",
+                "For two of the 'separate' rows, write one sentence on what would go wrong if you merged them.",
+                "Ask Claude to challenge your mapping, then check any regulation it cites against the eCFR links in this lesson."
+              ],
+              "done_when": "Your glossary has at least ten rows, each marked same or separate, and two written reasons for keeping fields separate."
+            }
+          ],
+          "pitfalls": [
+            "Using 'risk management' to mean the same thing in both industries. Say whether you mean ISO 14971 product risk or ICH Q9 quality risk management.",
+            "Renaming fields to move a pharma deviation tool to a device team. The records, links and reporting rules differ, not just the labels.",
+            "Assuming the FDA QMSR means device makers can ignore FDA-specific requirements. The rule incorporates ISO 13485 and keeps additional FDA requirements.",
+            "Forgetting combination products. Ask early which quality system is the base and which extra provisions apply under Part 4.",
+            "Treating introductory knowledge of inspections as readiness to manage a 483 response. That work needs specialist quality and regulatory people."
+          ],
+          "check": [
+            "Which US rule now incorporates ISO 13485, and since when has it applied?",
+            "What is the difference between ISO 14971 and ICH Q9(R1)?",
+            "What do device teams usually call the event that pharma teams call a deviation?",
+            "How does 21 CFR Part 4 handle the quality system for a combination product?",
+            "What is a Form 483, and what can follow if problems are serious or unresolved?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Current Good Manufacturing Practice (CGMP) Regulations",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/drugs/pharmaceutical-quality-resources/current-good-manufacturing-practice-cgmp-regulations",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 4 - Regulation of Combination Products",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-4",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "FDA Form 483 Frequently Asked Questions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/fda-form-483-frequently-asked-questions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex - Volume 4 (EU GMP guidelines)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is ISO 13485?",
+              "source": "Qualio",
+              "url": "https://www.youtube.com/watch?v=y6ZTCyO6R38",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What to Expect after an Inspection: 483s, Responses and Beyond",
+              "source": "U.S. Food and Drug Administration",
+              "url": "https://www.youtube.com/watch?v=LU_4vTx03IU",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "devices-vs-pharma-q01",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "A colleague says the FDA QMSR replaced ISO 13485 for US device makers. What is more accurate?",
+          "options": [
+            "The QMSR incorporates ISO 13485 and adds FDA requirements",
+            "The QMSR applies only to devices that are sold in the European Union",
+            "ISO 13485 is now banned for devices sold in the US",
+            "The QMSR applies only to drug makers, not devices"
+          ],
+          "answer": 0,
+          "why": "The QMSR incorporates ISO 13485:2016 by reference and keeps some additional FDA requirements."
+        },
+        {
+          "id": "devices-vs-pharma-q02",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "A device team talks about its 'risk file'. Which standard most likely governs it?",
+          "options": [
+            "ICH Q10",
+            "21 CFR Part 211",
+            "ISO 14971",
+            "ICH Q12"
+          ],
+          "answer": 2,
+          "why": "Device product risk management and the risk management file follow ISO 14971."
+        },
+        {
+          "id": "devices-vs-pharma-q03",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "A pharma QA lead uses risk ranking to decide how deeply to investigate each deviation. Which guideline describes this method?",
+          "options": [
+            "ISO 14971",
+            "ICH Q9(R1)",
+            "21 CFR Part 803",
+            "21 CFR Part 4"
+          ],
+          "answer": 1,
+          "why": "ICH Q9(R1) quality risk management is applied to processes such as deviation handling."
+        },
+        {
+          "id": "devices-vs-pharma-q04",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "You are moving a deviation tool from a tablet site to a device assembly line. What should the device version record the problem as?",
+          "options": [
+            "A deviation against a batch, as before",
+            "A field alert report",
+            "A management review input only",
+            "A nonconformance against a lot"
+          ],
+          "answer": 3,
+          "why": "Device production problems are usually nonconformances tracked by lot and often serial number."
+        },
+        {
+          "id": "devices-vs-pharma-q05",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "In the EU, who certifies that a medicine batch can be released?",
+          "options": [
+            "A Qualified Person",
+            "The notified body",
+            "The production supervisor",
+            "The FDE who built the system"
+          ],
+          "answer": 0,
+          "why": "In the EU each medicine batch is certified by a Qualified Person before release."
+        },
+        {
+          "id": "devices-vs-pharma-q06",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "A company makes a prefilled syringe and runs drug cGMP as its main system. What does 21 CFR Part 4 expect?",
+          "options": [
+            "Two fully separate quality systems, one for each part",
+            "Only drug cGMP, with no device requirements at all",
+            "Drug cGMP plus specific listed device provisions",
+            "Only the device QMS, since the syringe is a device"
+          ],
+          "answer": 2,
+          "why": "Part 4 allows one base system plus specific provisions from the other, such as design controls."
+        },
+        {
+          "id": "devices-vs-pharma-q07",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "For an approved drug in the US, which report covers certain distributed-product quality problems?",
+          "options": [
+            "A medical device report",
+            "A field alert report",
+            "A Form 483",
+            "A design history file"
+          ],
+          "answer": 1,
+          "why": "Field alert reports under 21 CFR 314.81 cover certain quality problems with distributed drug product."
+        },
+        {
+          "id": "devices-vs-pharma-q08",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "At the end of an FDA inspection, the investigator hands over a list of observations. What is this?",
+          "options": [
+            "A warning letter",
+            "A certificate of conformity",
+            "An establishment registration",
+            "A Form 483"
+          ],
+          "answer": 3,
+          "why": "Form 483 lists inspectional observations at the close of an inspection; a warning letter can come later."
+        },
+        {
+          "id": "devices-vs-pharma-q09",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "Where do inspectors in both industries usually start looking?",
+          "options": [
+            "Marketing plans and product pricing decisions for the next financial year",
+            "Complaints, deviations, CAPA, change and data integrity",
+            "Office layout and the company's visitor log",
+            "Only finished products in the warehouse"
+          ],
+          "answer": 1,
+          "why": "Problem-handling records show quickly whether the system finds and fixes issues."
+        },
+        {
+          "id": "devices-vs-pharma-q10",
+          "lesson": "qms-fundamentals-devices-vs-pharma",
+          "q": "Your client asks you to lead their response to a 483 after this course. What is the right answer?",
+          "options": [
+            "Accept, since the course covered 483s in full",
+            "Accept, but only if an AI tool drafts the full response for your review",
+            "Decline, since FDEs may never see 483s",
+            "Support the specialists who lead it; this is introductory"
+          ],
+          "answer": 3,
+          "why": "483 response and remediation are specialist work; introductory coverage is not readiness to lead it."
+        }
+      ]
+    },
+    {
+      "id": "qms-software-and-ai",
+      "title": "Software and AI inside a QMS",
+      "summary": "How eQMS platforms work, how software used in quality processes is assured, and what to plan when an AI tool joins a quality process.",
+      "outline": [
+        "eQMS platforms, linked records and neighbouring systems",
+        "Assuring software used in production and quality processes",
+        "Writing the intended use for an AI quality tool",
+        "Human approval points and audit trails for AI output",
+        "Monitoring AI performance and handling drift"
+      ],
+      "lessons": [
+        {
+          "id": "qms-fundamentals-qms-software-and-ai",
+          "title": "Software and AI inside a QMS",
+          "summary": "You will be able to describe what an eQMS holds, explain risk-based assurance of quality software, and write an intended use, approval points and a monitoring plan for an AI tool in a quality process.",
+          "why": "This is where the earlier lessons become your daily work. When you put an AI assistant into complaint handling or deviation investigation, the tool itself becomes part of the QMS. It needs an intended use, evidence it works for that use, controls on who decides, records of what it did, and change control when it changes. If you plan these from the first week, the quality team can approve the tool; if you add them at the end, the project usually stalls.",
+          "sections": [
+            {
+              "h": "The eQMS and its neighbours",
+              "p": [
+                "An eQMS is the software that holds QMS records: controlled documents and their versions, training assignments and records, complaints, deviations and nonconformances, CAPAs, change controls, audits and supplier files. Its main value is the links between records. In the running case, DEV-PH-0592 links to batch B24-017, to MBR-PH-110, to CAPA-PH-0141 and to CC-PH-0310. A good eQMS lets an auditor follow those links in a few clicks.",
+                "Quality data also lives in neighbouring systems: ERP for materials, suppliers and lots; MES or electronic batch records for production; LIMS for laboratory results; PLM for drawings, parts and design changes. Most FDE work on quality is about joining these systems without breaking the controls in any of them.",
+                "Keep one distinction clear. Software that is part of a medical device, or is itself a device, is product software and follows device design controls. Software used to make the product or run the QMS, such as an eQMS or an AI triage tool, is production and quality system software. The rules and evidence differ, and a later course covers product software."
+              ]
+            },
+            {
+              "h": "Assuring software used in quality processes",
+              "p": [
+                "Software used in production or the quality system must be shown to work for its intended use. For device makers, the FDA's computer software assurance guidance describes a risk-based approach: identify the intended use, decide whether a failure could affect product quality or patient safety, focus the most rigorous testing on high-risk functions, and use lighter, less scripted testing where risk is lower. For medicines, GAMP 5 from ISPE is the widely used industry guide for computerised systems, and EU GMP Annex 11 sets EU expectations. Part 11 applies to the electronic records and signatures involved.",
+                "Computer system validation and assurance is a specialist discipline. This lesson gives you the ideas so you can plan with the validation team; it does not prepare you to sign off a validation package."
+              ]
+            },
+            {
+              "h": "Writing the intended use",
+              "p": [
+                "Everything starts with a clear intended use statement. It says what the tool does, for which users, with which inputs, what output it gives, which decision that output supports, and what the tool does not do. The last part matters most. A complaint triage assistant that 'suggests a failure code and lists similar past complaints for a trained complaint specialist, and does not decide reportability' has a narrow, testable scope. One that 'triages complaints' does not.",
+                "Once the intended use is written, ask the risk question from the first lesson: if the tool is wrong, what could happen to a patient, a product or a regulatory decision? The answer sets how much testing, review and monitoring the tool needs, and it often shows that the safest design keeps the tool out of the highest-risk decision altogether."
+              ]
+            },
+            {
+              "h": "Approval points and audit trails",
+              "p": [
+                "Decide where a person must act before AI output becomes part of a record. Typical approval points are accepting a suggested code, adopting a drafted investigation text, and any decision with regulatory weight, which stays fully human. The reviewer must see the sources the tool used, so they can check rather than trust.",
+                "Then record what happened. For each use, log the tool release, model and prompt version, the input record, the output, the reviewer, what the reviewer did with it and the final value. This record lets you answer an auditor's question months later, and it is also your best data for measuring the tool.",
+                "The tool must never sign anything. An electronic signature means a named person approves the content, so the screen should mark AI-drafted text clearly, show the reviewer's edits, and require the person's own signature action under the system's Part 11 controls."
+              ]
+            },
+            {
+              "h": "Monitoring and drift",
+              "p": [
+                "An AI tool can get worse without any change on your side: complaint wording shifts, a new product launches, or a vendor updates a model. Plan monitoring before go-live, and when a trigger fires, handle it through the QMS: a quality event record, an assessment, and change control for any fix. Typical monitoring steps:"
+              ],
+              "list": [
+                "Rerun a fixed, reviewed test set on every change and on a regular schedule.",
+                "Track how often reviewers accept, edit or reject suggestions, by product and failure mode.",
+                "Sample reviewed outputs for a second check, with more sampling for higher-risk records.",
+                "Set triggers that send the tool back to assessment, such as a fall in acceptance or a missed high-risk case.",
+                "Watch for automation bias: reviewers who accept everything are not reviewing."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "An AI suggestion becoming a quality record",
+            "caption": "Read top to bottom: the AI tool only suggests, the reviewer decides, and the eQMS keeps both the suggestion and the decision.",
+            "lanes": [
+              "Complaint specialist",
+              "AI tool",
+              "eQMS"
+            ],
+            "steps": [
+              {
+                "lane": 2,
+                "label": "CMP-MD-1103 logged"
+              },
+              {
+                "lane": 1,
+                "label": "Suggest code, list similar records"
+              },
+              {
+                "lane": 0,
+                "label": "Check sources, edit or reject"
+              },
+              {
+                "lane": 0,
+                "label": "Decide reportability (human only)"
+              },
+              {
+                "lane": 2,
+                "label": "Save final values with signature"
+              },
+              {
+                "lane": 1,
+                "label": "Log release, prompt, output, action"
+              },
+              {
+                "lane": 2,
+                "label": "Feed monitoring and trend reports"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a complaint triage assistant for the MedTech case (example scenario)",
+            "p": [
+              "The MedTech team wants help with complaints like CMP-MD-1103. The intended use: 'For trained complaint specialists, suggest a failure code and list up to five similar past complaints with links, for each new device complaint. The tool does not decide reportability, does not close complaints and does not write to the complaint record without the specialist's action.'",
+              "Risk drives the assurance. A wrong failure code is caught by the specialist and costs time. A missed reportable event could harm patients and break the reporting rules, so the tool is kept away from that decision entirely. Testing focuses on whether similar-record search finds known related complaints, using a reviewed set of past complaints.",
+              "Each use writes a log entry like the one below. It is valid JSON; the values are invented. A Pharma version of the same tool, searching past deviations for DEV-PH-0592, would need its own intended use and assessment under its own rules, even if the code is shared."
+            ],
+            "code": {
+              "lang": "json",
+              "text": "{\n  \"event_id\": \"AIL-000123\",\n  \"tool\": \"complaint-triage-assistant\",\n  \"tool_release\": \"1.4.0\",\n  \"model\": \"example-model-2026-06\",\n  \"prompt_version\": \"P-07\",\n  \"input_record\": \"CMP-MD-1103\",\n  \"output\": {\n    \"suggested_failure_code\": \"TUBE-CRACK\",\n    \"similar_records\": [\"CMP-MD-1088\", \"CMP-MD-1095\"],\n    \"sources_shown\": true\n  },\n  \"reviewer\": \"complaint-specialist-02\",\n  \"reviewer_action\": \"accepted_with_edit\",\n  \"final_failure_code\": \"TUBE-CRACK-AGED\",\n  \"reportability_decided_by\": \"human\",\n  \"timestamp_utc\": \"2026-06-10T14:05:00Z\"\n}"
+            }
+          },
+          "practice": [
+            {
+              "title": "Write an AI tool plan the quality team could review",
+              "time": "45 min",
+              "goal": "Produce the first four pieces of evidence for an AI tool in a quality process.",
+              "steps": [
+                "Pick the Pharma case: a tool that finds past deviations similar to DEV-PH-0592 and drafts a summary for the investigator.",
+                "Write an intended use statement with users, inputs, outputs, the decision it supports and at least two things it does not do.",
+                "List the approval points where a person must act, and mark which decisions stay fully human.",
+                "Write a log record in JSON for one use, and check it is valid with python3 -m json.tool.",
+                "Write a monitoring plan with a test set, two measures and one trigger that sends the tool back to assessment."
+              ],
+              "done_when": "You have an intended use with two explicit exclusions, a list of approval points, a JSON log that passes json.tool, and a monitoring plan with a named trigger."
+            }
+          ],
+          "pitfalls": [
+            "Writing a broad intended use such as 'helps with complaints'. A vague scope cannot be tested or approved.",
+            "Letting AI output be saved into a quality record without a person's action. Every accepted suggestion needs a named reviewer.",
+            "Logging the output but not the model, prompt and tool release. Without them you cannot explain or reproduce a past result.",
+            "Assuming one validation at go-live is enough. Inputs and vendor models change, so monitoring and periodic review are needed.",
+            "Reusing a MedTech assessment for a Pharma deployment of the same code. Each use needs its own intended use and rules."
+          ],
+          "check": [
+            "What is the main value of an eQMS beyond storing records?",
+            "What is the difference between product software and production or quality system software?",
+            "What must an intended use statement include, and why does the 'does not do' part matter?",
+            "List five fields you would log for each use of an AI quality tool.",
+            "Name two measures and one trigger for monitoring an AI quality tool."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Computer Software Assurance for Production and Quality Management System Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 11: Computerised Systems",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "GAMP 5 Guide 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "book",
+              "title": "ISPE GAMP Guide: Artificial Intelligence",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-guide-artificial-intelligence",
+              "cost": "paid"
+            },
+            {
+              "type": "docs",
+              "title": "AI Risk Management Framework",
+              "source": "NIST",
+              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Considerations for the Use of Artificial Intelligence To Support Regulatory Decision-Making for Drug and Biological Products",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-artificial-intelligence-support-regulatory-decision-making-drug-and-biological",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "AI in GxP Regulated Environments",
+              "source": "WhitehallTraining",
+              "url": "https://www.youtube.com/watch?v=D0Qla0bmfPk",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Computer System Validation (CSV) Testing Explained | GAMP 5 (2nd Ed), FDA CSA & EU Annex 11",
+              "source": "Pharmalytics",
+              "url": "https://www.youtube.com/watch?v=qkKdbO9C9Yk",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "qms-software-and-ai-q01",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "An auditor wants to follow DEV-PH-0592 to its CAPA and change. What eQMS feature makes this quick?",
+          "options": [
+            "Links between related records",
+            "A colourful dashboard home page",
+            "Unlimited file storage space",
+            "Automatic closing of old records"
+          ],
+          "answer": 0,
+          "why": "The links between records let an auditor trace an event through investigation, CAPA and change."
+        },
+        {
+          "id": "qms-software-and-ai-q02",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "Which is production and quality system software rather than product software?",
+          "options": [
+            "The firmware running inside an infusion pump at the bedside",
+            "An app that is itself a medical device",
+            "An AI tool that triages complaints in the eQMS",
+            "The display software on a glucose meter"
+          ],
+          "answer": 2,
+          "why": "A tool used to run the QMS is quality system software; the others are part of, or are, the device."
+        },
+        {
+          "id": "qms-software-and-ai-q03",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "Under a risk-based assurance approach, where should the most rigorous testing go?",
+          "options": [
+            "Equally across every screen and button",
+            "On functions whose failure could affect quality or safety",
+            "Only on the login page and the user permission settings screens",
+            "On whatever the vendor tested least"
+          ],
+          "answer": 1,
+          "why": "Risk-based assurance focuses effort on high-risk functions and uses lighter testing for low-risk ones."
+        },
+        {
+          "id": "qms-software-and-ai-q04",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "Which intended use statement is the strongest?",
+          "options": [
+            "Helps the quality team with complaints",
+            "Uses AI to make complaint handling across the company faster and better overall",
+            "Triages all complaints automatically for the company",
+            "Suggests a failure code for specialists; does not decide reportability"
+          ],
+          "answer": 3,
+          "why": "A strong statement names users, output and decision supported, and says what the tool does not do."
+        },
+        {
+          "id": "qms-software-and-ai-q05",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "The triage tool could mark a complaint as not reportable. Why does the example keep it away from that decision?",
+          "options": [
+            "A missed reportable event could harm patients and break rules",
+            "Reportability decisions are far too slow and complex for any software to make",
+            "Regulators ban all software in complaint handling",
+            "The model is not able to read complaint text at all"
+          ],
+          "answer": 0,
+          "why": "High-risk decisions with regulatory weight stay fully human; the tool supports lower-risk steps."
+        },
+        {
+          "id": "qms-software-and-ai-q06",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "A reviewer accepts an AI-suggested failure code. What must the record show?",
+          "options": [
+            "Only the final code, so that the record stays short and simple to read",
+            "The AI tool's name as the approver of the code",
+            "The suggestion, the reviewer and what they did with it",
+            "Nothing extra, as long as the code is correct"
+          ],
+          "answer": 2,
+          "why": "The audit trail must show what the tool suggested, who reviewed it and the final decision."
+        },
+        {
+          "id": "qms-software-and-ai-q07",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "Six months after go-live, nobody can say which prompt produced an old summary. What was missing from the log?",
+          "options": [
+            "The reviewer's full email signature block and job title",
+            "The colour theme of the user interface",
+            "The number of users online at the time",
+            "Tool release, model and prompt version"
+          ],
+          "answer": 3,
+          "why": "Logging the configuration with each use is what makes a past output explainable and reproducible."
+        },
+        {
+          "id": "qms-software-and-ai-q08",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "Reviewers have accepted 100 percent of AI suggestions for three months, including two later found wrong. What does this suggest?",
+          "options": [
+            "The tool is perfect and review can stop",
+            "Possible automation bias in the review",
+            "The test set should be deleted",
+            "The tool should now sign records itself"
+          ],
+          "answer": 1,
+          "why": "Accepting everything, including wrong suggestions, is a sign reviewers are trusting rather than checking."
+        },
+        {
+          "id": "qms-software-and-ai-q09",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "The same similarity-search code will be used for MedTech complaints and Pharma deviations. What is needed?",
+          "options": [
+            "One shared assessment, since the underlying code is exactly the same",
+            "No assessment, since search tools are low risk",
+            "Only a vendor certificate for the AI model used",
+            "A separate intended use and assessment for each use"
+          ],
+          "answer": 3,
+          "why": "Different uses carry different risks and rules, so each needs its own intended use and assurance."
+        },
+        {
+          "id": "qms-software-and-ai-q10",
+          "lesson": "qms-fundamentals-qms-software-and-ai",
+          "q": "After an FDE course on CSA and GAMP, what is a fair claim about your role in validation?",
+          "options": [
+            "You can plan with the validation team using the right ideas",
+            "You can sign off the full validation package for the client yourself",
+            "You can replace the validation team on small projects",
+            "You no longer need the quality unit for software"
+          ],
+          "answer": 0,
+          "why": "Introductory coverage helps you plan and collaborate; validation sign-off is specialist and quality-owned."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "medtech-m01-q01",
+      "lesson": "medtech-ai-gap",
+      "q": "A complaint summary pilot worked on 300 exported complaints, but new complaints never reach it and investigators copy text back into the QMS by hand. Which gap is this mainly?",
+      "options": [
+        "The model needs a bigger context window to read all 300 complaints at once",
+        "Pilot to production: no live link to the system of record",
+        "Too few complaints to be worth it",
+        "The demo lasted too long"
+      ],
+      "answer": 1,
+      "why": "The pilot ran on a one-off export and sat outside the real workflow, so it could never become daily work."
+    },
+    {
+      "id": "medtech-m01-q02",
+      "lesson": "medtech-ai-gap",
+      "q": "You want to quote the slide 4 figure that 17 percent of medtech regulatory leaders rate their data good enough for AI. What must you do?",
+      "options": [
+        "Round it to 20 percent so it is easier to remember and present it as typical",
+        "Present it as your client's own number",
+        "Quote it as stated and name the source, Veeva 2025",
+        "Leave out the source to keep the slide clean"
+      ],
+      "answer": 2,
+      "why": "Industry numbers may only be used as the source states them, with the source named."
+    },
+    {
+      "id": "medtech-m01-q03",
+      "lesson": "medtech-ai-gap",
+      "q": "An AI tool drafts CAPA investigation summaries for the quality team. Every draft is checked and signed by an investigator. Which autonomy level is this?",
+      "options": [
+        "Level 0, keep manual",
+        "Level 1, recommend only",
+        "Level 3, act and audit, since an investigator samples the drafts later",
+        "Level 2, draft and approve"
+      ],
+      "answer": 3,
+      "why": "The AI drafts and a qualified person approves, which is Level 2 and the usual ceiling in GxP work."
+    },
+    {
+      "id": "medtech-m01-q04",
+      "lesson": "medtech-ai-gap",
+      "q": "What does 21 CFR Part 11 mean for an AI tool that drafts records in a regulated process?",
+      "options": [
+        "Each draft, edit and approval must be recorded and attributable",
+        "The model must be trained only on FDA data and certified by the FDA before any use in a quality process",
+        "AI tools are banned from quality records",
+        "Only paper signatures are allowed"
+      ],
+      "answer": 0,
+      "why": "Part 11 asks for secure, time-stamped audit trails and signatures tied to a person and a meaning."
+    },
+    {
+      "id": "medtech-m01-q05",
+      "lesson": "medtech-ai-gap",
+      "q": "A regulatory lead asks whether your quality team assistant is a medical device. What is the best first step?",
+      "options": [
+        "Say no, AI tools are never devices",
+        "Say yes, all AI at a device maker is a device",
+        "Write the intended use together and confirm with regulatory affairs",
+        "Wait until the pilot is finished, then ask the notified body to decide for the whole company"
+      ],
+      "answer": 2,
+      "why": "The intended use decides which rules apply, and regulatory affairs should confirm it early."
+    },
+    {
+      "id": "medtech-m01-q06",
+      "lesson": "medtech-ai-gap",
+      "q": "Why does the regulated product model insist that people and AI agents use the same records and permissions?",
+      "options": [
+        "So the AI can approve routine records faster than people and free up the quality team for harder work",
+        "So the AI never gets a back door around required approvals",
+        "So no audit trail is needed",
+        "So the QMS can be switched off"
+      ],
+      "answer": 1,
+      "why": "If a person needs a qualified signature to close a record, any workflow the AI is part of needs it too."
+    }
+  ]
+}

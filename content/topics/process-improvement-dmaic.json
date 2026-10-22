@@ -1,0 +1,2259 @@
+{
+ "id": "process-improvement-dmaic",
+ "title": "Improving a process with data (DMAIC)",
+ "category": "Process",
+ "track": "MedTech and Pharma",
+ "level": 1,
+ "level_label": "Level 1: theory",
+ "summary": "How to improve a process with data using DMAIC, the Six Sigma method: define, measure, analyze, improve and control, the basic statistics behind it, and process capability.",
+ "audience": "Process, manufacturing, quality and CPV engineers, analysts and FDEs who take part in improvement work in regulated operations and want a working grasp of DMAIC.",
+ "sections": [
+  {
+   "id": "six-sigma-and-dmaic",
+   "title": "How data-driven improvement and DMAIC work",
+   "summary": "Why reducing variation matters, how to measure defects as DPMO, who does what on an improvement project, and the five DMAIC phases end to end.",
+   "outline": [
+    "Variation as the enemy of quality",
+    "Defects, opportunities and DPMO",
+    "Project roles: sponsor (Champion), project lead, team members",
+    "DMAIC phase by phase, with the key output of each",
+    "DMAIC versus DMADV for new designs",
+    "Improvement work inside a regulated QMS: CAPA and change control"
+   ],
+   "lessons": [
+    {
+     "id": "ssgb-what-six-sigma-is",
+     "title": "How data-driven improvement and DMAIC work",
+     "summary": "You will be able to explain what data-driven improvement tries to do, calculate a defect rate as DPMO, and walk a problem through the five DMAIC phases.",
+     "why": "Many clients in medical devices and pharma run improvement programmes and talk in Six Sigma terms: 'the Define phase', 'our Cpk', 'a Green Belt project'. If you join such a project to add data or AI, you need to speak that language and follow the method, because the method is how the client will judge whether your fix really worked. It also gives you a disciplined way to avoid jumping to a solution before the problem is understood.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Six Sigma is a method for improving a process by reducing variation and defects, using data rather than opinion. It grew out of manufacturing work at Motorola in the 1980s and spread to many industries. The core belief is simple: if a process gives a slightly different result every time, some of those results will fall outside what the customer accepts. Reduce the variation and you reduce the defects.",
+        "Sigma is the Greek letter statisticians use for standard deviation, a measure of how spread out results are. A process 'at six sigma' is so consistent that its limits sit far from the average. The figure usually quoted is 3.4 defects per million opportunities, which includes an allowance for the process average drifting over time."
+       ]
+      },
+      {
+       "h": "Variation: why the average is not enough",
+       "p": [
+        "Every process varies. Two vials filled on the same machine a second apart will not weigh exactly the same, and two reviewers will not take exactly the same time on the same batch record. Some of that variation is small, random and built into the process. Some comes from a specific cause, such as a worn part, a new material lot or a skipped step.",
+        "Averages hide this. A filling line can hit its target weight on average while some vials are overfilled and others underfilled. The customer does not receive the average; each patient receives one vial. That is why Six Sigma measures spread as well as the centre, and why most of its tools aim to find what drives the spread and reduce it.",
+        "This course is internal learning that follows the Green Belt body of knowledge. Completing it is not an external belt certification; bodies such as ASQ run their own exams for that."
+       ]
+      },
+      {
+       "h": "Defects, opportunities and DPMO",
+       "p": [
+        "A defect is any result that does not meet a requirement. An opportunity is each place a defect could happen. A printed label might have four opportunities: product name, lot number, expiry date and barcode. One label with a wrong expiry date is one defect, even though the other three fields were right.",
+        "DPMO (defects per million opportunities) lets you compare processes of different complexity. You divide defects by total opportunities, then multiply by one million. The short script below shows the calculation for an example line."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "units = 500            # labels inspected (example)\nopportunities = 4      # fields that could be wrong per label\ndefects = 18           # wrong fields found\n\ntotal = units * opportunities\ndpmo = defects / total * 1_000_000\nprint(f\"Opportunities: {total}\")\nprint(f\"DPMO: {dpmo:,.0f}\")\n# Opportunities: 2000\n# DPMO: 9,000"
+       }
+      },
+      {
+       "h": "Who does what",
+       "p": [
+        "Six Sigma uses belt names for roles. A Champion is a manager who sponsors the project, removes blockers and owns the business result. A Black Belt leads larger projects and coaches others; it is often a full-time role. A Green Belt leads smaller projects or works on a Black Belt's team while keeping their normal job. Team members are the people who do the work in the process every day, and they usually know more about it than anyone else.",
+        "Professional bodies such as ASQ (the American Society for Quality) publish a body of knowledge for each belt and offer certification exams. Companies also run their own internal belt programmes."
+       ]
+      },
+      {
+       "h": "DMAIC phase by phase",
+       "p": [
+        "DMAIC is the five-phase road map for improving an existing process. Each phase ends with a short review, often called a tollgate, where the Champion checks the work before the team moves on."
+       ],
+       "list": [
+        "Define: state the problem, the customer and the goal in a one-page project charter. Draw a high-level process map, often a SIPOC (suppliers, inputs, process, outputs, customers).",
+        "Measure: decide what to measure, check the measurement system can be trusted, collect data and set the baseline performance.",
+        "Analyze: use data and tools such as a fishbone diagram, Pareto chart and hypothesis tests to find and prove the root causes.",
+        "Improve: design, test and pilot solutions that remove the proven causes, and confirm with data that performance improved.",
+        "Control: lock in the gain with updated procedures, training, control charts and a response plan, then hand the process back to its owner."
+       ]
+      },
+      {
+       "h": "Six Sigma in a regulated company",
+       "p": [
+        "In a medical device or pharma company, Six Sigma does not run beside the quality system; it runs inside it. A DMAIC project started from a recurring complaint is often linked to a CAPA record. Any change made in the Improve phase to a validated process, a procedure or equipment must go through change control, and may need revalidation before it is used for product. The Control phase usually ends with revised, approved procedures and training records.",
+        "For new products or processes there is a related road map, DMADV (define, measure, analyze, design, verify), often grouped under the name Design for Six Sigma. DMAIC is for fixing what exists."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "DMAIC and the key output of each phase",
+      "caption": "Read left to right; each note names what the team hands over at that phase's tollgate.",
+      "steps": [
+       {
+        "label": "Define",
+        "note": "Project charter, SIPOC, customer requirements"
+       },
+       {
+        "label": "Measure",
+        "note": "Trusted measurement, baseline data, current DPMO"
+       },
+       {
+        "label": "Analyze",
+        "note": "Root causes proven with data"
+       },
+       {
+        "label": "Improve",
+        "note": "Piloted solution, data showing the gain"
+       },
+       {
+        "label": "Control",
+        "note": "Control plan, updated SOPs, training, owner"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: missing lot numbers on a device label (example scenario)",
+      "p": [
+       "A device plant finds that some shipping labels are printed with a blank or wrong lot number. Every one is caught at final inspection, but rework costs time and a missed one could block traceability in a recall. A Green Belt runs a DMAIC project. All numbers below are example values.",
+       "Notice that the team did not start with a solution. Someone had suggested 'buy a new printer' in week one. The data showed the printer was not the cause."
+      ],
+      "list": [
+       "Define: charter states the problem as label defects found at final inspection, goal to cut DPMO by at least half in three months, Champion is the operations manager.",
+       "Measure: the team checks that two inspectors judge the same labels the same way, then counts defects on 500 labels with 4 opportunities each and finds 18 defects, a DPMO of 9,000.",
+       "Analyze: a Pareto chart shows most defects are wrong lot numbers. Data shows they cluster after shift changes, when operators type the new lot number by hand.",
+       "Improve: a pilot pulls the lot number from the ERP work order by barcode scan instead of typing. After the change is approved through change control, a two-week pilot finds 2 defects in 500 labels.",
+       "Control: the label procedure is revised and approved, operators are trained, and a weekly control chart of label defects is added to the line's dashboard with a named owner."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Run a mini DMAIC on your own process",
+       "time": "60 min",
+       "goal": "Practise each DMAIC phase on a small process you control.",
+       "steps": [
+        "Pick a small repeat process you do yourself, such as preparing a weekly report or making coffee for the team.",
+        "Define: write a three-line charter with the problem, the measure of success and the goal.",
+        "Measure: list the opportunities for a defect and record how many defects happen over the next five runs, then calculate DPMO with the Python script in this lesson.",
+        "Analyze: draw a simple fishbone of possible causes on paper and mark the one your data points to.",
+        "Improve and Control: write one change and one check you would keep doing so the gain lasts, and ask Claude to critique your plan."
+       ],
+       "done_when": "You have a one-page DMAIC summary with a charter, a DPMO number, a root cause and a control step."
+      }
+     ],
+     "pitfalls": [
+      "Jumping to a solution in Define. Write the problem without naming the fix; the data decides the cause.",
+      "Trusting data before checking the measurement. If two inspectors disagree on what a defect is, the baseline is noise.",
+      "Changing a validated process during Improve without change control. In a regulated plant the pilot itself may need approval.",
+      "Ending the project without a Control plan. Without an owner and a check, the old defect rate returns."
+     ],
+     "check": [
+      "What does DPMO mean and how do you calculate it?",
+      "Name the five DMAIC phases and one output of each.",
+      "What is the difference between a Champion and a Green Belt?",
+      "When would you use DMADV instead of DMAIC?",
+      "Why must an Improve phase change in a regulated plant go through change control?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Six Sigma Definition - What is Lean Six Sigma?",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/six-sigma",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "DMAIC Process: Define, Measure, Analyze, Improve, Control",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/dmaic",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Process Improvement",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pri/pri.htm",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "What is DMAIC? Lean Six Sigma Framework Explained",
+       "source": "Six Sigma Global Institute",
+       "url": "https://www.youtube.com/watch?v=QvspEbkTuAM",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Green Belt Specialization",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/specializations/six-sigma-green-belt",
+       "cost": "paid"
+      },
+      {
+       "type": "cert",
+       "title": "Six Sigma Green Belt Certification (CSSGB)",
+       "source": "ASQ",
+       "url": "https://www.asq.org/cert/six-sigma-green-belt",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "ssgb-q01",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "A team inspects 200 forms with 5 fields each and finds 10 wrong fields. What is the DPMO?",
+     "options": [
+      "50,000",
+      "10,000",
+      "2,000",
+      "100,000"
+     ],
+     "answer": 1,
+     "why": "10 defects divided by 1,000 opportunities is 0.01, times one million is 10,000."
+    },
+    {
+     "id": "ssgb-q02",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "In week one a manager says 'we just need a new printer'. Which DMAIC habit does this break?",
+     "options": [
+      "Naming the fix before the cause is proven",
+      "Skipping the Control phase handover to the process owner",
+      "Forgetting to calculate process capability in week one",
+      "Using too many team members from the production line"
+     ],
+     "answer": 0,
+     "why": "Define states the problem without the fix; Analyze proves the cause before Improve picks a solution."
+    },
+    {
+     "id": "ssgb-q03",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "Two inspectors often disagree on whether a label is defective. In which phase should this be fixed?",
+     "options": [
+      "Control, by adding a weekly control chart to the line",
+      "Improve, by piloting a brand new label design",
+      "Measure, by checking the measurement system",
+      "Define, by rewriting the project charter and scope"
+     ],
+     "answer": 2,
+     "why": "Measure checks that the measurement system is trustworthy before baseline data is used."
+    },
+    {
+     "id": "ssgb-q04",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "Who owns the business result of a Six Sigma project and removes blockers for the team?",
+     "options": [
+      "The Green Belt who runs the analysis",
+      "The newest team member on the line",
+      "The external certification body",
+      "The Champion"
+     ],
+     "answer": 3,
+     "why": "The Champion sponsors the project and owns the business outcome."
+    },
+    {
+     "id": "ssgb-q05",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "Your company is designing a brand new filling line. Which road map fits better?",
+     "options": [
+      "DMAIC, because it fits every case",
+      "DMADV, which is meant for new designs",
+      "Neither, Six Sigma is only for services",
+      "Control phase only, since nothing exists yet"
+     ],
+     "answer": 1,
+     "why": "DMAIC improves existing processes; DMADV is the design road map for new ones."
+    },
+    {
+     "id": "ssgb-q06",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "During Improve, the team wants to change a setting on a validated packaging machine for a pilot. What should happen first?",
+     "options": [
+      "Run the pilot first, then tell the quality team afterwards",
+      "Change it overnight when the line is not running",
+      "Raise a change control and agree revalidation",
+      "Ask the Champion only, since it is just a short pilot"
+     ],
+     "answer": 2,
+     "why": "In a regulated plant, changes to validated equipment go through change control before use for product."
+    },
+    {
+     "id": "ssgb-q07",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "What does 'sigma' stand for in Six Sigma?",
+     "options": [
+      "Standard deviation, a measure of spread",
+      "The average value of all the process results",
+      "The number of defects found on the line per day",
+      "The total sample size used in the whole study"
+     ],
+     "answer": 0,
+     "why": "Sigma is the symbol statisticians use for standard deviation."
+    },
+    {
+     "id": "ssgb-q08",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "A project ends after Improve with great pilot results and no further steps. What is the likely outcome?",
+     "options": [
+      "The gain lasts on its own because the pilot data was good",
+      "The external certification body takes over the process",
+      "The DPMO keeps dropping on its own after the pilot",
+      "The old defect rate creeps back"
+     ],
+     "answer": 3,
+     "why": "Control locks in the gain with procedures, training, monitoring and an owner."
+    },
+    {
+     "id": "ssgb-q09",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "A Pareto chart shows that most label defects are wrong lot numbers. In which phase is this tool most often used?",
+     "options": [
+      "Define, while writing the charter",
+      "Control, while handing over to the owner",
+      "Analyze",
+      "Improve, while piloting the fix"
+     ],
+     "answer": 2,
+     "why": "Pareto charts help focus on the biggest causes during Analyze."
+    },
+    {
+     "id": "ssgb-q10",
+     "lesson": "ssgb-what-six-sigma-is",
+     "q": "A recurring complaint triggers a DMAIC project in a device company. How does it usually fit the QMS?",
+     "options": [
+      "It replaces the CAPA process for that product completely",
+      "It is linked to the CAPA record",
+      "It runs outside the QMS so that the team can move faster",
+      "It needs no records at all because it is only a project"
+     ],
+     "answer": 1,
+     "why": "In regulated companies Six Sigma runs inside the QMS, often linked to a CAPA."
+    }
+   ]
+  },
+  {
+   "id": "define-phase",
+   "title": "Define: charter, customer and scope",
+   "summary": "How to write a project charter with a measurable problem and goal, turn the voice of the customer into CTQs, map the process with a SIPOC and pass the Define tollgate.",
+   "outline": [
+    "Problem and goal statements that can be measured",
+    "Voice of the customer and critical to quality requirements",
+    "SIPOC and high-level process maps",
+    "Scope, stakeholders and the Define tollgate"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-define-phase",
+     "title": "Define: charter, customer and scope",
+     "summary": "You will be able to write a one-page project charter with a measurable problem and goal, link it to customer requirements, draw a SIPOC and set a scope the team can finish.",
+     "why": "Most failed improvement projects fail in Define, not in the statistics. The team chases a problem nobody measured, or a scope so wide it never ends. As an FDE you are often asked to 'add data' or 'add AI' to a project that has no clear problem statement. Knowing how a good charter looks lets you ask the right questions on day one and stops you building a tool for the wrong problem.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Define is the first DMAIC phase. Its job is to agree what problem the team is solving, for which customer, how success will be measured and what is out of bounds. The main output is the project charter: a one-page document that the Champion signs before any data work starts.",
+        "A charter is a contract between the team and the sponsor. It protects the team from scope creep and protects the business from a project that drifts for a year. In a regulated company it is also evidence. If the project is linked to a CAPA or a complaint trend, the charter shows auditors why the work started and what it aimed to change."
+       ]
+      },
+      {
+       "h": "Problem and goal statements",
+       "p": [
+        "A problem statement says what is wrong, where, since when, how big it is and why it matters. It describes the gap, not the cause and not the fix. 'Operators make mistakes on labels' blames people and guesses a cause. 'Over the last 13 weeks, 1.8 percent of shipping labels on Line 3 failed final inspection, causing rework and a risk to lot traceability' is a usable problem statement.",
+        "A goal statement says how much the measure should move and by when. Use the same metric as the problem statement so the result is easy to judge: 'Reduce label failures on Line 3 from 1.8 percent to below 0.5 percent by the end of the quarter, without adding inspection steps.' Many teams use SMART as a check: specific, measurable, achievable, relevant and time bound.",
+        "If you cannot fill in the number yet, write 'baseline to be confirmed in Measure' rather than inventing one. A charter is a living document and is updated at each tollgate."
+       ]
+      },
+      {
+       "h": "Voice of the customer and CTQs",
+       "p": [
+        "The voice of the customer (VOC) is what customers say they need, in their own words. Customers can be external, such as a hospital or a patient, or internal, such as the warehouse that receives your labels. Sources include complaints, service records, interviews, surveys and returned product.",
+        "Customer words are usually vague: 'labels must be readable'. A CTQ (critical to quality) requirement turns that need into something you can measure, with a target and limits. 'Readable' might become 'barcode grade C or better on every label, and lot number matching the batch record'. The path is need, then driver, then CTQ. Each CTQ later becomes a measure in the Measure phase."
+       ]
+      },
+      {
+       "h": "SIPOC and the high-level map",
+       "p": [
+        "A SIPOC is a one-page, high-level map of the process. The letters stand for suppliers, inputs, process, outputs and customers. Fill it in this order: name the process, list its 4 to 7 main steps, then the outputs and customers, then the inputs and suppliers. Keep it high level. The detailed step-by-step map comes later.",
+        "The SIPOC does three jobs. It agrees where the process starts and stops, it shows which inputs could cause the problem, and it names the people who must be involved. In a regulated plant it also shows which records, systems and validated equipment sit inside the scope.",
+        "A good test of a SIPOC is to show it to someone who works in the process every day. If they cannot recognise their own work in the five or so steps, or they name an input you missed, fix the map before the tollgate."
+       ],
+       "list": [
+        "Suppliers: who provides the inputs, such as ERP, the label stock vendor or the previous shift.",
+        "Inputs: what goes in, such as the work order, label template, printer and ribbon.",
+        "Process: the main steps from start trigger to end point.",
+        "Outputs: what comes out, such as the printed and applied label and the batch record entry.",
+        "Customers: who receives the outputs, such as final inspection, the warehouse and the end user."
+       ]
+      },
+      {
+       "h": "Scope, stakeholders and the tollgate",
+       "p": [
+        "Scope says what is in and what is out: which line, which products, which sites, which time period. An in-and-out list is the simplest tool. A Green Belt project should be small enough to finish in a few months by a part-time leader. If the problem spans many sites and systems, split it or pass it to a Black Belt.",
+        "List the stakeholders: the Champion, the process owner, the people doing the work, quality, validation, IT and anyone whose approval is needed for a change. Note what each needs to know and when.",
+        "The Define tollgate is a short review with the Champion. The team shows the charter, the SIPOC, the CTQs and the stakeholder list. The Champion agrees, asks for changes or stops the project. Stopping a weak project here is a good outcome, not a failure."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "From customer need to an approved charter",
+      "caption": "Read left to right; each step feeds the next and the tollgate checks all of them.",
+      "steps": [
+       {
+        "label": "Collect the voice of the customer",
+        "note": "Complaints, interviews, internal customers"
+       },
+       {
+        "label": "Turn needs into CTQs",
+        "note": "Measurable requirement with a target"
+       },
+       {
+        "label": "Write problem and goal",
+        "note": "Same metric in both, no cause, no fix"
+       },
+       {
+        "label": "Draw the SIPOC",
+        "note": "Start and stop points, inputs, customers"
+       },
+       {
+        "label": "Set scope and stakeholders",
+        "note": "In and out list, who must approve"
+       },
+       {
+        "label": "Define tollgate",
+        "note": "Champion approves, changes or stops"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: a charter for late batch record review (example scenario)",
+      "p": [
+       "A tablet plant releases batches late because batch record review takes too long. Quality says the reviewers are slow. A Green Belt is asked to fix it. All numbers are example values.",
+       "The first draft of the problem statement said 'reviewers need an electronic tool'. That names a fix. The team rewrote it as a gap with a number, then built the rest of the charter around it."
+      ],
+      "list": [
+       "Problem: over the last 6 months, the median time from batch completion to QA release was 9 working days against a target of 5, delaying shipments.",
+       "Goal: median release time of 5 working days or less within 4 months, with no increase in review errors.",
+       "VOC to CTQ: planning says 'we need batches on time', which becomes 'release within 5 working days for at least 90 percent of batches'.",
+       "SIPOC: suppliers are production and the lab; inputs are batch records and test results; outputs are released batches; customers are planning and distribution.",
+       "Scope: in scope are solid dose batches at one site; out of scope are the electronic batch record system replacement and other sites.",
+       "Tollgate: the Champion approves, and asks the team to add the lab manager as a stakeholder because test results are an input."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Write a charter for a process you know",
+       "time": "45 min",
+       "goal": "Produce a one-page charter that would pass a Define tollgate.",
+       "steps": [
+        "Pick a slow or error-prone process you know, such as expense approval, onboarding a new starter or a weekly report.",
+        "Write a problem statement with what, where, since when, how big and why it matters. Use 'to be confirmed' where you have no number.",
+        "Write a goal statement using the same metric, with a target and a date.",
+        "Fill in a SIPOC table in a spreadsheet with 4 to 7 process steps.",
+        "Write an in-and-out scope list and a stakeholder list.",
+        "Paste the charter into Claude and ask it to find any cause or solution hidden in the problem statement, then fix what it finds."
+       ],
+       "done_when": "Your charter has a problem and goal using the same metric, no named fix, a SIPOC, and an in-and-out list with at least two items out of scope."
+      }
+     ],
+     "pitfalls": [
+      "Writing the solution into the problem statement, such as 'we need a new system', which closes the mind of the team before any data is seen.",
+      "Using a different metric in the goal than in the problem, so at the end nobody can tell whether the project succeeded.",
+      "Setting a scope so wide that a part-time Green Belt cannot finish it in a few months.",
+      "Treating customer words as requirements without turning them into measurable CTQs with targets.",
+      "Leaving out quality, validation or IT stakeholders until Improve, then finding the change needs months of approvals."
+     ],
+     "check": [
+      "What five things should a good problem statement contain?",
+      "Why should the problem and goal statements use the same metric?",
+      "How do you turn a vague customer need into a CTQ?",
+      "In what order do you fill in a SIPOC, and why keep it high level?",
+      "What can a Champion decide at the Define tollgate?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "SIPOC+CM Diagram",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/sipoc",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Voice of the Customer Table (VOCT) and Tools",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/voice-of-the-customer",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is the Kano Model?",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/kano-model",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Introduction to the Lean Six Sigma Project Charter",
+       "source": "Six Sigma Development Solutions Inc.",
+       "url": "https://www.youtube.com/watch?v=QMp5MDAgghc",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "LEARNING Lean Six Sigma - The SIPOC Diagram",
+       "source": "Learning Lean Six Sigma",
+       "url": "https://www.youtube.com/watch?v=anzolZ5Mhhk",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Advanced Define and Measure Phases",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-define-measure-advanced",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "define-phase-q01",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "Which is the best problem statement for a Six Sigma charter?",
+     "options": [
+      "Operators are careless when they print and apply labels on Line 3",
+      "We need to buy a new label printer for Line 3",
+      "In 13 weeks, 1.8 percent of Line 3 labels failed inspection",
+      "Labels are a big problem and everyone knows it"
+     ],
+     "answer": 2,
+     "why": "It states the gap with a number, place and time, and names no cause or fix."
+    },
+    {
+     "id": "define-phase-q02",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "The problem is measured as percent of late batches, but the goal says 'cut review hours by 20 percent'. What is wrong?",
+     "options": [
+      "The goal uses a different metric from the problem",
+      "Goals should never contain a number",
+      "Review hours cannot be measured in a plant",
+      "Nothing is wrong, since any metric works fine for a goal"
+     ],
+     "answer": 0,
+     "why": "Using the same metric in both lets everyone judge success at the end."
+    },
+    {
+     "id": "define-phase-q03",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "A hospital customer says 'labels must be readable'. What should the team do with this?",
+     "options": [
+      "Use it as the goal statement word for word",
+      "Turn it into a CTQ with a measurable target",
+      "Ignore it because customer words are never numbers",
+      "Send it straight to the Improve phase"
+     ],
+     "answer": 1,
+     "why": "VOC is turned into a measurable CTQ, such as a barcode grade on every label."
+    },
+    {
+     "id": "define-phase-q04",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "What do the letters in SIPOC stand for?",
+     "options": [
+      "Systems, issues, people, owners, controls",
+      "Scope, inputs, plan, outcome, cost",
+      "Steps, inspections, procedures, outputs, checks",
+      "Suppliers, inputs, process, outputs, customers"
+     ],
+     "answer": 3,
+     "why": "SIPOC is suppliers, inputs, process, outputs and customers."
+    },
+    {
+     "id": "define-phase-q05",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "Your SIPOC has 35 detailed steps. What is the main issue?",
+     "options": [
+      "It is far too short to show how the real process works",
+      "It needs more suppliers listed",
+      "It is too detailed; keep 4 to 7 main steps",
+      "SIPOCs must have exactly 10 steps"
+     ],
+     "answer": 2,
+     "why": "A SIPOC is high level; detailed maps come later."
+    },
+    {
+     "id": "define-phase-q06",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "A part-time Green Belt is handed a problem across five sites and three IT systems. What is a sensible step in Define?",
+     "options": [
+      "Accept it as is and plan for two years of part-time work",
+      "Narrow the scope or pass it to a Black Belt",
+      "Skip the charter to save time",
+      "Start piloting fixes at all five sites"
+     ],
+     "answer": 1,
+     "why": "Green Belt projects should be small enough to finish in a few months."
+    },
+    {
+     "id": "define-phase-q07",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "The team has no baseline number yet. What should the charter say?",
+     "options": [
+      "Baseline to be confirmed in Measure",
+      "A rough guess that sounds right",
+      "Nothing, leave the problem out",
+      "The number from another site's report"
+     ],
+     "answer": 0,
+     "why": "Never invent a number; mark it to be confirmed and update the charter later."
+    },
+    {
+     "id": "define-phase-q08",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "At the Define tollgate the Champion decides the problem is too small to matter. What does that mean?",
+     "options": [
+      "The Green Belt has failed the course",
+      "The team must go on to Measure anyway",
+      "The data analysis should start straight away",
+      "Stopping here is a good use of the tollgate"
+     ],
+     "answer": 3,
+     "why": "Tollgates exist so weak projects can stop early at low cost."
+    },
+    {
+     "id": "define-phase-q09",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "Why involve quality and validation people already in Define in a regulated plant?",
+     "options": [
+      "They must write the whole charter",
+      "They only care about the Control phase",
+      "Changes to validated processes need their approval",
+      "Six Sigma rules require every team to have at least ten people"
+     ],
+     "answer": 2,
+     "why": "Late involvement often means a fix that cannot be approved in time."
+    },
+    {
+     "id": "define-phase-q10",
+     "lesson": "six-sigma-green-belt-define-phase",
+     "q": "The warehouse receives your labelled boxes. In a SIPOC, the warehouse is a:",
+     "options": [
+      "Supplier",
+      "Customer",
+      "Input",
+      "Process step"
+     ],
+     "answer": 1,
+     "why": "Anyone who receives the outputs is a customer, internal or external."
+    }
+   ]
+  },
+  {
+   "id": "measure-and-statistics",
+   "title": "Measure and basic statistics",
+   "summary": "How to collect trustworthy data, check the measurement system and describe the process with the basic statistics every improvement project uses, ending in a defensible baseline.",
+   "outline": [
+    "Types of data: continuous and discrete",
+    "Mean, median, range, standard deviation",
+    "Histograms and the normal distribution",
+    "Sampling plans",
+    "Measurement system analysis and gage R and R",
+    "Setting the baseline"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-measure-and-statistics",
+     "title": "Measure and basic statistics",
+     "summary": "You will be able to pick the right type of data, describe it with mean, median, range and standard deviation, read a histogram, plan a simple sample, judge whether a measurement system can be trusted and state a baseline.",
+     "why": "An FDE usually arrives with data skills, and the Measure phase is where those skills meet the shop floor. Clients will ask you to pull data from MES, LIMS or a spreadsheet and 'show the baseline'. If you do not check how the data was measured and sampled, you can build a confident chart on numbers that are mostly noise. Measure is where the project earns the right to trust its own numbers.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Measure turns the CTQs from Define into numbers. The team decides exactly what to measure and how, checks that the measurement system gives consistent answers, collects data with a sampling plan, and describes current performance. The output is the baseline: how the process performs today, stated in the same metric as the charter goal.",
+        "Write an operational definition for every measure. It says what is measured, with which instrument or system, by whom, when and how a result is recorded. 'Label defect' needs a definition, such as 'any field that does not match the batch record, or a barcode below grade C'. Without it, two people count two different things."
+       ]
+      },
+      {
+       "h": "Types of data",
+       "p": [
+        "Continuous data is measured on a scale and can take any value in a range: fill weight in grams, seal strength in newtons, review time in hours. Discrete data is counted or sorted into categories: number of defects, pass or fail, which shift made the unit.",
+        "Prefer continuous data when you can get it. A pass or fail result tells you only that a unit was outside the limit. A weight tells you how far from target it was, so you can see a process drifting long before it fails. Continuous data also needs far smaller samples to detect the same change.",
+        "Discrete data still has a place. Complaints, deviations and late batches are naturally counted, and a defect rate or DPMO is the right metric for them. Just plan for larger samples, and record the reason or category for each defect so a Pareto chart can be drawn later."
+       ]
+      },
+      {
+       "h": "Describing data: centre and spread",
+       "p": [
+        "Every data set has a centre and a spread. The mean is the average: add the values and divide by how many there are. The median is the middle value when the data is sorted; it is not pulled around by one extreme value, which makes it better for skewed data such as times and delays.",
+        "The range is the largest value minus the smallest. It is quick but uses only two points. The standard deviation uses every point: roughly, it is the typical distance of a value from the mean. Six Sigma cares more about spread than about the mean, because a process with a good average and a large spread still makes defects.",
+        "A histogram shows the shape. Values are grouped into bins and each bar shows how many fall in that bin. Many measured processes give a bell shape called the normal distribution, where about 68 percent of values lie within one standard deviation of the mean and about 99.7 percent within three. Look at the shape before you use any test that assumes normality: two humps often mean two machines, shifts or materials mixed together."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "import statistics as st\n\n# Fill weights in grams from one shift (example data)\nw = [50.2, 49.8, 50.5, 50.1, 49.6, 50.3, 50.0, 49.9, 50.7, 50.2,\n     49.7, 50.4, 50.1, 49.5, 50.0, 50.6, 50.2, 49.9, 50.3, 50.0]\n\nprint(f\"n      = {len(w)}\")\nprint(f\"mean   = {st.mean(w):.2f}\")\nprint(f\"median = {st.median(w):.2f}\")\nprint(f\"range  = {max(w) - min(w):.2f}\")\nprint(f\"stdev  = {st.stdev(w):.3f}\")  # sample standard deviation\n\n# Text histogram with 0.3 g wide bins\nlo = 49.4\nfor i in range(5):\n    a, b = lo + i * 0.3, lo + (i + 1) * 0.3\n    count = sum(a <= x < b for x in w)\n    print(f\"{a:.1f}-{b:.1f} | {'#' * count}\")"
+       }
+      },
+      {
+       "h": "Sampling and measurement system analysis",
+       "p": [
+        "You rarely measure everything, so you sample. A sampling plan says how many units, how often and how they are chosen. Random sampling avoids bias. Rational subgroups, such as five units in a row every hour, keep short-term variation inside a subgroup and let differences between hours show up. Record the time, shift, machine and lot with each value so you can stratify the data later in Analyze.",
+        "Measurement system analysis (MSA) asks whether the measurement itself adds too much variation. A gage R and R study has several operators measure the same parts several times without knowing which part is which. Repeatability is the variation when one operator measures the same part again. Reproducibility is the variation between operators. For pass or fail judgements, an attribute agreement study plays the same role.",
+        "A widely used guideline from the automotive MSA reference manual treats gage R and R under 10 percent of total variation as acceptable, 10 to 30 percent as possibly acceptable depending on use, and over 30 percent as not acceptable. Your client may have its own limits in a procedure; use those."
+       ]
+      },
+      {
+       "h": "Setting the baseline",
+       "p": [
+        "The baseline states current performance with enough data to be believed: the mean and standard deviation, or the defect rate or DPMO, over a stated period and sample. Note anything unusual during collection. The Champion signs off the baseline at the Measure tollgate, and the charter goal is updated if the real number differs from the first estimate.",
+        "When the data comes from a system such as MES, LIMS or ERP rather than a manual sheet, check it the same way. Confirm what the field really holds, whether rounding or default values were applied, and whether some records are missing. Pull a handful of records and compare them with the paper or screen source before you trust the extract."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "From CTQ to a trusted baseline",
+      "caption": "Read left to right; do not collect baseline data until the measurement check has passed.",
+      "steps": [
+       {
+        "label": "Pick the CTQ measure",
+        "note": "Continuous data if you can get it"
+       },
+       {
+        "label": "Write the operational definition",
+        "note": "What, how, who, when, how recorded"
+       },
+       {
+        "label": "Check the measurement system",
+        "note": "Gage R and R or attribute agreement"
+       },
+       {
+        "label": "Plan and collect the sample",
+        "note": "Random or rational subgroups, with context"
+       },
+       {
+        "label": "Describe the data",
+        "note": "Centre, spread and histogram shape"
+       },
+       {
+        "label": "State the baseline",
+        "note": "Same metric as the charter goal"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: fill weight baseline on a powder line (example scenario)",
+      "p": [
+       "A team is reducing overfill on a powder filling line where the label claim is 50 grams. All numbers are example values.",
+       "The first gage R and R on the check-weigher showed that operators zeroed the balance differently. After one short training and a written zeroing step, a repeat study passed. Only then did the team collect baseline data, five consecutive units every hour for two weeks, with time, shift and filling head recorded.",
+       "The Python block in this lesson shows one shift of that data: mean 50.10 g, median 50.10 g, range 1.20 g, standard deviation 0.32 g, and a roughly bell-shaped histogram. The team stated the baseline as mean and standard deviation across the full two weeks, by filling head, and updated the charter goal to target the spread rather than the mean."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Describe a real data set",
+       "time": "40 min",
+       "goal": "Turn raw numbers into a baseline statement.",
+       "steps": [
+        "Copy the Python block in this lesson into a file and run it with Python 3.",
+        "Replace the data with 20 to 30 real numbers you can collect today, such as your commute time, page load times or daily email count.",
+        "Write an operational definition for your measure in two sentences.",
+        "Run the script and note the mean, median, standard deviation and histogram shape.",
+        "Write a one-sentence baseline statement that includes the period, sample size, centre and spread."
+       ],
+       "done_when": "You have an operational definition, the script output for your own data and a baseline sentence that a colleague could check."
+      },
+      {
+       "title": "Run a tiny measurement check",
+       "time": "20 min",
+       "goal": "See repeatability and reproducibility with your own eyes.",
+       "steps": [
+        "Pick five small objects and a ruler.",
+        "Measure each object's length twice, in random order, and record the values in a spreadsheet.",
+        "Ask a colleague to do the same without seeing your numbers.",
+        "Compare your two readings per object, then compare your average with your colleague's."
+       ],
+       "done_when": "You can point to one example of repeatability error and one of reproducibility error in your table."
+      }
+     ],
+     "pitfalls": [
+      "Collecting baseline data before checking the measurement system, which can make the whole baseline noise.",
+      "Recording only pass or fail when the measured value was available, which hides drift and needs much larger samples.",
+      "Using the mean alone to describe skewed data such as delays, where the median gives a fairer picture.",
+      "Taking samples only when it is convenient, such as the first hour of day shift, so the baseline misses the real variation.",
+      "Throwing away the time, shift and machine for each value, which leaves Analyze with nothing to stratify."
+     ],
+     "check": [
+      "What is the difference between continuous and discrete data, and why prefer continuous?",
+      "When is the median a better measure of the centre than the mean?",
+      "What do repeatability and reproducibility each mean in a gage R and R?",
+      "What does a histogram with two humps usually tell you?",
+      "What must a baseline statement include?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "Measures of Location (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Measures of Scale (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Gauge R and R studies (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/mpc/section4/mpc4.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What are Histograms? Analysis and Frequency Distribution",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/histogram",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "statistics - Mathematical statistics functions",
+       "source": "Python docs",
+       "url": "https://docs.python.org/3/library/statistics.html",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Gauge R&R Fully Explained!! (Measurement System Analysis) Part 1",
+       "source": "Green Belt Academy",
+       "url": "https://www.youtube.com/watch?v=CkLEmiKFnTw",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Standard Deviation vs Standard Error, Clearly Explained!!!",
+       "source": "StatQuest with Josh Starmer",
+       "url": "https://www.youtube.com/watch?v=A82brFpdr9g",
+       "cost": "free"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "measure-and-statistics-q01",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "Which of these is continuous data?",
+     "options": [
+      "Number of complaints per month from the field",
+      "Whether a vial passed or failed inspection",
+      "Seal strength measured in newtons",
+      "Which shift produced each batch on the line"
+     ],
+     "answer": 2,
+     "why": "Seal strength is measured on a scale; the others are counts or categories."
+    },
+    {
+     "id": "measure-and-statistics-q02",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "Batch release times are mostly 4 to 6 days, with two batches at 40 days. Which centre measure is fairer?",
+     "options": [
+      "The median",
+      "The mean of all the batches",
+      "The range of all release times",
+      "The largest value seen"
+     ],
+     "answer": 0,
+     "why": "The median is not pulled by a few extreme values, which suits skewed data."
+    },
+    {
+     "id": "measure-and-statistics-q03",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "Two lines have the same mean fill weight, but Line B has a much larger standard deviation. What follows?",
+     "options": [
+      "Both lines will make the same number of defects",
+      "Line B only differs in its average weight",
+      "Standard deviation does not matter if the mean is right",
+      "Line B will likely make more out-of-limit units"
+     ],
+     "answer": 3,
+     "why": "Six Sigma focuses on spread; a wider spread puts more units outside the limits."
+    },
+    {
+     "id": "measure-and-statistics-q04",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "In a gage R and R, one operator measures the same part three times and gets different values. This is:",
+     "options": [
+      "Reproducibility",
+      "Repeatability",
+      "Bias against the standard",
+      "Capability of the process"
+     ],
+     "answer": 1,
+     "why": "Repeatability is variation when the same person measures the same part again."
+    },
+    {
+     "id": "measure-and-statistics-q05",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "The histogram of tablet weights shows two clear humps. What is the most likely reason?",
+     "options": [
+      "Two machines or materials are mixed in the data",
+      "The sample size was too large to be useful",
+      "The data is perfectly normal and needs no action",
+      "The measurement system has passed its check"
+     ],
+     "answer": 0,
+     "why": "Two humps usually mean two sources mixed together; stratify the data."
+    },
+    {
+     "id": "measure-and-statistics-q06",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "A gage R and R result is 45 percent of total variation. Under the widely used guideline, what should you do?",
+     "options": [
+      "Use the data, since any result above 30 percent passes",
+      "Collect more baseline data with the same gage first",
+      "Fix the measurement system before trusting the data",
+      "Report the baseline and move to Analyze"
+     ],
+     "answer": 2,
+     "why": "Over 30 percent is commonly treated as not acceptable; fix the measurement first."
+    },
+    {
+     "id": "measure-and-statistics-q07",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "Why record the time, shift and machine with each measurement?",
+     "options": [
+      "Auditors require it on every chart in every plant",
+      "So Analyze can stratify the data later",
+      "It makes the histogram look smoother",
+      "It replaces the need for an operational definition"
+     ],
+     "answer": 1,
+     "why": "Context lets you split the data and find where variation comes from."
+    },
+    {
+     "id": "measure-and-statistics-q08",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "Two inspectors count 'label defects' and get very different totals on the same labels. What was most likely missing?",
+     "options": [
+      "A larger sample size for the study",
+      "A Pareto chart of the defect types",
+      "A control chart for the label line",
+      "An operational definition of a defect"
+     ],
+     "answer": 3,
+     "why": "An operational definition makes sure everyone counts the same thing."
+    },
+    {
+     "id": "measure-and-statistics-q09",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "For normally distributed data, roughly what share of values lies within three standard deviations of the mean?",
+     "options": [
+      "About 50 percent",
+      "About 68 percent",
+      "About 99.7 percent",
+      "Exactly 100 percent"
+     ],
+     "answer": 2,
+     "why": "About 68 percent lie within one and about 99.7 percent within three standard deviations."
+    },
+    {
+     "id": "measure-and-statistics-q10",
+     "lesson": "six-sigma-green-belt-measure-and-statistics",
+     "q": "A team samples fill weights only in the first hour of day shift. What is the risk?",
+     "options": [
+      "The baseline may miss the real variation",
+      "The mean will always be too high",
+      "The gage R and R becomes invalid",
+      "There is no risk if the sample is large"
+     ],
+     "answer": 0,
+     "why": "Convenience samples can miss variation from other shifts, times and conditions."
+    }
+   ]
+  },
+  {
+   "id": "analyze-phase",
+   "title": "Analyze: finding and proving root causes",
+   "summary": "How to move from many possible causes to the few that the data proves, using fishbone, 5 whys, Pareto, scatter plots and basic hypothesis tests.",
+   "outline": [
+    "Fishbone diagrams and 5 whys",
+    "Pareto analysis",
+    "Scatter plots and correlation",
+    "Basic hypothesis tests: t-test and chi-square",
+    "Confirming the vital few causes"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-analyze-phase",
+     "title": "Analyze: finding and proving root causes",
+     "summary": "You will be able to list possible causes with a fishbone and 5 whys, focus with a Pareto chart, look for relationships with a scatter plot, and use a t-test or chi-square test to confirm or reject a suspected cause.",
+     "why": "In regulated companies the phrase 'root cause' appears in every deviation, complaint and CAPA, and inspectors read those records closely. Too many of them say 'operator error' or 'retrained staff' without proof. An FDE who can separate a hypothesis from a proven cause, and show the data behind it, makes the investigation stronger and stops the client fixing the wrong thing.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Analyze has two halves. First you open up: list every plausible cause without judging. Then you narrow down: use data to keep the few causes that really drive the problem, often called the vital few, and drop the rest. The output is a short list of proven root causes, each with the evidence that supports it.",
+        "Keep two words apart in your head and in your records: a hypothesis is a cause you suspect, and a root cause is a cause the data supports. A fishbone diagram is full of hypotheses. Only tests, comparisons and experiments turn a hypothesis into a root cause."
+       ]
+      },
+      {
+       "h": "Opening up: fishbone and 5 whys",
+       "p": [
+        "A fishbone diagram, also called an Ishikawa or cause and effect diagram, puts the problem at the head and groups possible causes along the bones. In manufacturing the usual groups are the 6 Ms: man (people), machine, method, material, measurement and mother nature (environment). Build it with the people who do the work; they know causes no data set holds.",
+        "The 5 whys asks 'why' again and again until you reach a cause you can act on. The number five is a guide, not a rule. Its weakness is that it follows one path and trusts each answer. Use it to explore, then check each link in the chain with data before you write it in a CAPA."
+       ]
+      },
+      {
+       "h": "Narrowing down: Pareto and scatter plots",
+       "p": [
+        "A Pareto chart sorts defect categories from most to least frequent, with a line showing the cumulative percent. Often a small number of categories explain most of the defects, which tells the team where to look first. Make sure the categories come from one operational definition, and consider weighting by cost or severity: the most frequent defect is not always the most harmful.",
+        "A scatter plot puts one continuous variable on each axis, such as seal temperature and seal strength, one point per unit. A pattern that rises or falls suggests a relationship. The correlation coefficient, r, runs from minus 1 to plus 1 and measures how tightly the points follow a straight line. Correlation does not prove cause: both variables may be driven by a third, such as the time of day.",
+        "Stratification is the simplest tool of all and often the most useful. Split the same data by shift, machine, operator, material lot or product and compare the groups side by side. This is why Measure asked you to record that context. A defect rate that looks steady overall can hide one machine running far worse than the rest."
+       ]
+      },
+      {
+       "h": "Basic hypothesis tests",
+       "p": [
+        "A hypothesis test asks: if there were really no difference, how surprising would this data be? The starting assumption of no difference is the null hypothesis. The p-value is the probability of seeing a difference at least this large when the null is true. Many teams use 0.05 as the cut-off: below it, they reject the null and treat the difference as real. Decide the cut-off before you look at the data.",
+        "Use a two-sample t-test to compare the means of continuous data from two groups, such as two sealer settings. Use a chi-square test to check whether two categorical variables are related, such as shift and pass or fail. The script below compares two settings. It computes the t statistic and estimates the p-value with a permutation test, which shuffles the group labels many times and counts how often chance alone gives a result as large.",
+        "Here the p-value comes out at about 0.07. That is above 0.05, so the data does not yet prove the settings differ. It does not prove they are the same either. The honest next step is more data or a planned experiment, not a conclusion."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "import random\nimport statistics as st\n\n# Seal strength (N) from two heat-sealer settings (example data)\na = [41.2, 39.8, 40.5, 42.1, 40.9, 41.7, 39.5, 40.8, 41.3, 40.2]\nb = [41.9, 40.6, 41.4, 42.3, 41.0, 40.8, 42.0, 41.6, 40.9, 41.7]\n\ndef welch_t(x, y):\n    se = (st.variance(x) / len(x) + st.variance(y) / len(y)) ** 0.5\n    return (st.mean(y) - st.mean(x)) / se\n\nt_obs = welch_t(a, b)\nprint(f\"mean A = {st.mean(a):.2f}, mean B = {st.mean(b):.2f}\")\nprint(f\"t = {t_obs:.2f}\")\n\n# Permutation test: how often does a random relabelling give a t this large?\nrandom.seed(1)\npooled, hits, runs = a + b, 0, 10_000\nfor _ in range(runs):\n    random.shuffle(pooled)\n    if abs(welch_t(pooled[:10], pooled[10:])) >= abs(t_obs):\n        hits += 1\nprint(f\"p-value (approx) = {hits / runs:.4f}\")"
+       }
+      },
+      {
+       "h": "Confirming the vital few",
+       "p": [
+        "A cause is confirmed when the evidence is consistent from several angles: the data shows the link, the mechanism makes physical sense, and, where it is safe, switching the cause on and off moves the result. Record each confirmed cause with its evidence, and record the rejected hypotheses too. At the Analyze tollgate the Champion should see why each cause was kept or dropped, not just the final answer.",
+        "In a medical device or pharma company, this record usually feeds a deviation, complaint or CAPA investigation. Write each cause in plain words, link the data and analysis files, and say how confident you are. If the data cannot confirm a cause, say so and describe the interim control that protects product while the work continues."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "From many possible causes to proven ones",
+      "caption": "Read left to right; the list gets shorter at every step and each kept cause needs evidence.",
+      "steps": [
+       {
+        "label": "Brainstorm with a fishbone",
+        "note": "All plausible causes, grouped by the 6 Ms"
+       },
+       {
+        "label": "Drill down with 5 whys",
+        "note": "Follow each chain to an actionable cause"
+       },
+       {
+        "label": "Focus with a Pareto chart",
+        "note": "Pick the categories that explain most defects"
+       },
+       {
+        "label": "Look for links",
+        "note": "Scatter plots and stratified data"
+       },
+       {
+        "label": "Test the hypotheses",
+        "note": "t-test, chi-square, planned trials"
+       },
+       {
+        "label": "Confirm the vital few",
+        "note": "Evidence recorded for kept and dropped causes"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: wrong lot numbers by shift (example scenario)",
+      "p": [
+       "A label project found in Measure that most defects were wrong lot numbers. The fishbone listed many hypotheses, including printer faults, label stock, a confusing screen and shift changes. All numbers are example values.",
+       "The Pareto chart confirmed wrong lot numbers as the largest category. The team then counted labels with a wrong lot number on 400 labels from each shift. Day shift had 6 and night shift had 22. A chi-square test, shown below, gives a value of about 9.5, well above 3.84, the 5 percent critical value for a two by two table. Shift and defects are related.",
+       "That was still not the root cause. The 5 whys and a floor walk showed that night shift starts more new lots, and each new lot means typing the lot number by hand. The confirmed cause was manual entry at lot changeover, which the Improve phase could remove."
+      ],
+      "code": {
+       "lang": "python",
+       "text": "# Labels with a wrong lot number, by shift (example data)\ntable = {\"day\": (6, 394), \"night\": (22, 378)}  # (defective, good)\n\nrows = list(table.values())\ncol = [sum(r[i] for r in rows) for i in range(2)]\ntotal = sum(col)\nchi2 = 0.0\nfor r in rows:\n    for i in range(2):\n        expected = sum(r) * col[i] / total\n        chi2 += (r[i] - expected) ** 2 / expected\n\nprint(f\"chi-square = {chi2:.2f}\")\n# 3.84 is the 5 percent critical value for 1 degree of freedom (a 2 x 2 table)\nprint(\"shift and defects are related\" if chi2 > 3.84 else \"no evidence of a link\")"
+      }
+     },
+     "practice": [
+      {
+       "title": "Test a hypothesis with your own data",
+       "time": "45 min",
+       "goal": "Go from a suspected cause to a tested one.",
+       "steps": [
+        "Pick a question with two groups, such as 'is my commute slower on Mondays than on Fridays' or 'do longer emails get slower replies'.",
+        "Write the null hypothesis and your cut-off p-value before you look at the data.",
+        "Collect 8 to 15 values per group, or use past records from your calendar or inbox.",
+        "Paste your two lists into the t-test script in this lesson and run it.",
+        "Write a two-sentence conclusion that says whether the data supports the difference, and what you would do next."
+       ],
+       "done_when": "You have a written null hypothesis, the script output and a conclusion that does not claim more than the p-value allows."
+      },
+      {
+       "title": "Build a fishbone and Pareto",
+       "time": "30 min",
+       "goal": "Practise opening up and then narrowing down.",
+       "steps": [
+        "Choose a small recurring problem, such as late meeting starts.",
+        "Draw a fishbone on paper with at least two causes under each of the 6 Ms that apply.",
+        "Count actual occurrences of each cause over a week in a spreadsheet.",
+        "Sort the counts from high to low and add a cumulative percent column to make a Pareto table."
+       ],
+       "done_when": "You have a fishbone, a Pareto table and one cause you would test next, with a reason."
+      }
+     ],
+     "pitfalls": [
+      "Writing 'operator error' as the root cause, which names a person instead of the condition that made the error easy.",
+      "Treating a strong correlation as proof of cause without checking for a third variable such as time or material lot.",
+      "Choosing the p-value cut-off after seeing the result, which turns the test into a way to confirm what you hoped.",
+      "Reading a p-value above 0.05 as proof that there is no difference, when it only means the data is not strong enough yet.",
+      "Keeping only the confirmed cause in the record and losing the hypotheses that were rejected and why."
+     ],
+     "check": [
+      "What is the difference between a hypothesis and a root cause?",
+      "What does a Pareto chart show, and when should you weight it by cost or severity?",
+      "Why does a strong correlation not prove a cause?",
+      "When would you use a two-sample t-test and when a chi-square test?",
+      "What does a p-value of 0.07 tell you, and what does it not tell you?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What is a Fishbone Diagram? Ishikawa Cause and Effect Diagram",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/fishbone",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is a Pareto Chart? Analysis and Diagram",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/pareto",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Five Whys and Five Hows",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/five-whys",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Two-Sample t-Test for Equal Means (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda353.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Scatter Plot (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/scatterp.htm",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "How to create cause-and-effect diagrams",
+       "source": "Harvard Online",
+       "url": "https://www.youtube.com/watch?v=mLvizyDFLQ4",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Chi-Square Tests: Crash Course Statistics #29",
+       "source": "CrashCourse",
+       "url": "https://www.youtube.com/watch?v=7_cs1YlZoug",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Tools for Analyze",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-analyze",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "analyze-phase-q01",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "A fishbone diagram lists 25 possible causes. What are they at this point?",
+     "options": [
+      "Proven root causes ready for Improve",
+      "Hypotheses that still need data",
+      "Defects that must go in the CAPA",
+      "Control plan items for the owner"
+     ],
+     "answer": 1,
+     "why": "A fishbone opens up possibilities; only data turns a hypothesis into a root cause."
+    },
+    {
+     "id": "analyze-phase-q02",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "A deviation report gives 'operator error' as the root cause. What is the main weakness?",
+     "options": [
+      "It is too technical for most readers of the report",
+      "It should have been found in Define",
+      "It needs a control chart attached",
+      "It blames a person, not the condition"
+     ],
+     "answer": 3,
+     "why": "Good root causes describe the condition that made the error likely, so it can be removed."
+    },
+    {
+     "id": "analyze-phase-q03",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "You want to compare mean seal strength between two sealer settings. Which test fits?",
+     "options": [
+      "Two-sample t-test",
+      "Chi-square test of two categories",
+      "Gage R and R study on the sealer",
+      "Pareto chart of defect types"
+     ],
+     "answer": 0,
+     "why": "A two-sample t-test compares the means of continuous data from two groups."
+    },
+    {
+     "id": "analyze-phase-q04",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "You want to know whether pass or fail results depend on the shift. Which test fits?",
+     "options": [
+      "Two-sample t-test on the means",
+      "Chi-square test",
+      "Correlation coefficient r",
+      "Histogram of the results"
+     ],
+     "answer": 1,
+     "why": "Chi-square tests whether two categorical variables are related."
+    },
+    {
+     "id": "analyze-phase-q05",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "A t-test gives a p-value of 0.07 with a 0.05 cut-off. What is the right conclusion?",
+     "options": [
+      "The settings are proven to be the same",
+      "The settings are proven to be different",
+      "The data does not yet prove a difference",
+      "The test was done wrongly and the result is void"
+     ],
+     "answer": 2,
+     "why": "Above the cut-off means not proven, which is not the same as proven equal."
+    },
+    {
+     "id": "analyze-phase-q06",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "Ice cream sales and sunburn cases rise together. What does this show about cause?",
+     "options": [
+      "Ice cream causes sunburn in most people",
+      "Sunburn makes people buy ice cream",
+      "Correlation alone proves nothing here",
+      "The correlation coefficient must be wrong"
+     ],
+     "answer": 2,
+     "why": "A third variable, hot sunny weather, drives both; correlation is not cause."
+    },
+    {
+     "id": "analyze-phase-q07",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "When should the p-value cut-off be chosen?",
+     "options": [
+      "Before looking at the data",
+      "After seeing the p-value",
+      "Only if the result is close",
+      "At the Control tollgate"
+     ],
+     "answer": 0,
+     "why": "Fixing it in advance stops you bending the rule to match the result you hoped for."
+    },
+    {
+     "id": "analyze-phase-q08",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "A Pareto chart shows scratches are the most frequent defect, but cracks are rarer and cause recalls. What should you do?",
+     "options": [
+      "Work only on scratches since they are the most frequent",
+      "Drop the Pareto chart and use a fishbone diagram",
+      "Remove cracks from the data as outliers",
+      "Weight the Pareto by severity or cost"
+     ],
+     "answer": 3,
+     "why": "The most frequent defect is not always the most harmful; weight by impact."
+    },
+    {
+     "id": "analyze-phase-q09",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "Night shift has more wrong lot numbers. The 5 whys finds night shift starts more lots, each typed by hand. Which is the root cause to act on?",
+     "options": [
+      "The night shift staff who print labels",
+      "The label printer model",
+      "The chi-square value",
+      "Manual lot entry at changeover"
+     ],
+     "answer": 3,
+     "why": "The condition that creates the error is manual entry; the shift only exposes it more often."
+    },
+    {
+     "id": "analyze-phase-q10",
+     "lesson": "six-sigma-green-belt-analyze-phase",
+     "q": "What should the Analyze tollgate record show?",
+     "options": [
+      "Only the single final root cause the team chose",
+      "Kept and dropped causes, with evidence",
+      "The new procedure, ready to sign",
+      "The control chart limits for the line"
+     ],
+     "answer": 1,
+     "why": "Showing why each hypothesis was kept or dropped makes the conclusion defensible."
+    }
+   ]
+  },
+  {
+   "id": "improve-phase",
+   "title": "Improve: designing and piloting solutions",
+   "summary": "How to generate and select solutions for proven causes, mistake proof the process, run a small pilot, check new risks with an FMEA and pass change control before rollout.",
+   "outline": [
+    "Generating and selecting solutions",
+    "Mistake proofing (poka-yoke)",
+    "Simple experiments and pilots",
+    "FMEA on the new process",
+    "Change control and revalidation before rollout"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-improve-phase",
+     "title": "Improve: designing and piloting solutions",
+     "summary": "You will be able to generate solutions for each proven cause, choose between them with clear criteria, prefer mistake proofing over reminders, plan a small pilot, update an FMEA for the new process and explain why change control comes before rollout.",
+     "why": "Improve is where FDE work often lands: a barcode scan instead of typing, an automatic check in a system, a data feed that removes a manual step. In a regulated plant even a good fix cannot simply be switched on. It has to be risk assessed, approved through change control and, where it touches a validated process or system, verified or revalidated. Knowing this path lets you design solutions that can actually be approved and used.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Improve takes the proven root causes from Analyze and removes or controls them. The team generates options, selects the best with agreed criteria, tests the choice on a small scale, checks what new risks it creates and then gets it approved before full use. The output is a piloted solution with data showing the gain, an updated risk assessment and an approved change.",
+        "Every solution should point back to a proven cause. If a proposed fix does not address any cause on the Analyze list, ask why it is in the plan. This one question removes many pet projects that have been waiting for a budget.",
+        "Keep the Champion close in this phase. Solutions cost money, change how people work and may need approvals from several functions, so the sponsor's support matters more here than anywhere else in DMAIC."
+       ]
+      },
+      {
+       "h": "Generating and selecting solutions",
+       "p": [
+        "Start wide. Brainstorm with the people who run the process and ask, for each cause, how it could be removed, made impossible or detected sooner. Look at how other lines, sites or industries solved the same kind of problem. Write down even odd ideas; they often lead to a practical one.",
+        "Then select. A decision matrix lists the options as rows and the criteria as columns, such as effect on the cause, cost, time to implement, validation effort and risk. Each criterion gets a weight, each option a score, and the weighted total gives a ranking. The matrix does not make the decision, but it makes the reasons visible and stops the loudest voice in the room from winning by default.",
+        "In regulated work, validation effort is a real criterion. A change to a label template may need a short verification; a change to a sterilisation cycle may need a full revalidation. Two fixes with the same effect can differ by months in approval time."
+       ]
+      },
+      {
+       "h": "Mistake proofing",
+       "p": [
+        "Mistake proofing, or poka-yoke, designs the process so that an error is impossible, or is caught at once. It is stronger than training or a warning sign, because it does not rely on people remembering under pressure. Think of the stages in order of strength:"
+       ],
+       "list": [
+        "Prevent: the error cannot happen, such as a connector that only fits one way or a lot number pulled from the work order by scan.",
+        "Detect at once: the error is caught before the next step, such as a vision system that stops the line when a label is skewed.",
+        "Detect later: inspection finds the error downstream, which is weaker because the defect has already been made.",
+        "Warn: a sign, a checklist or retraining, the weakest control and the one most often overused in CAPAs."
+       ]
+      },
+      {
+       "h": "Pilots and simple experiments",
+       "p": [
+        "A pilot tests the solution on a small scale before full rollout: one line, one shift, a few weeks. Plan it like an experiment. State what you expect to change, the measure and sample size, how long it will run and what result counts as success. Use the same operational definition and measurement system as the baseline, otherwise you cannot compare.",
+        "When several factors may matter, such as temperature, pressure and dwell time on a sealer, a designed experiment (DOE) changes them together in a planned pattern. It finds the effect of each factor, and how they interact, with far fewer runs than changing one factor at a time. A Green Belt should recognise when a DOE is needed; designing larger experiments is Black Belt territory.",
+        "In a regulated plant a pilot that makes product for sale is itself a change. It usually needs an approved protocol or a planned deviation and quality agreement before it starts."
+       ]
+      },
+      {
+       "h": "FMEA, change control and revalidation",
+       "p": [
+        "Every fix changes the process, and every change can create new failure modes. Update the process FMEA (failure mode and effects analysis) for the new process. For each step, list how it could fail, the effect, and score severity, occurrence and detection, often from 1 to 10. Their product, the risk priority number or RPN, helps rank the work. Some newer FMEA methods replace the RPN with an action priority table. Either way, look at high severity items on their own, not only the ranking.",
+        "Before rollout, the change goes through the change control procedure in the quality system. Quality, validation, regulatory and the process owner assess the impact on validated processes, equipment, software, procedures, training and, where relevant, registered product details. FDA's process validation guidance describes validation as a lifecycle, so a significant change can send the process back for further qualification. Deciding the depth of revalidation for sterile, aseptic or complex processes is specialist work; this lesson gives awareness, not readiness to make that call."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "# Process FMEA rows: (failure mode, severity, occurrence, detection), example scores 1-10\nrows = [\n    (\"Wrong lot typed on label\", 8, 6, 4),\n    (\"Label applied skewed\", 3, 5, 2),\n    (\"Barcode scan misread\", 8, 2, 3),\n    (\"Label missing\", 9, 2, 2),\n]\nprint(f\"{'Failure mode':28} S  O  D  RPN\")\nfor mode, s, o, d in sorted(rows, key=lambda r: r[1] * r[2] * r[3], reverse=True):\n    print(f\"{mode:28} {s}  {o}  {d}  {s * o * d}\")\n# Look at high severity on its own too, not only the RPN order\nprint(\"Severity 8+:\", [r[0] for r in rows if r[1] >= 8])"
+       }
+      }
+     ],
+     "diagram": {
+      "type": "flow",
+      "title": "From proven cause to approved rollout",
+      "caption": "Read left to right; no step goes live on product until change control has approved it.",
+      "steps": [
+       {
+        "label": "Generate options per cause",
+        "note": "Remove, prevent, detect sooner"
+       },
+       {
+        "label": "Select with a decision matrix",
+        "note": "Effect, cost, time, validation effort"
+       },
+       {
+        "label": "Mistake proof the design",
+        "note": "Prevent beats detect beats warn"
+       },
+       {
+        "label": "Update the FMEA",
+        "note": "New failure modes from the change"
+       },
+       {
+        "label": "Approve the pilot",
+        "note": "Protocol or planned change in the QMS"
+       },
+       {
+        "label": "Pilot and measure",
+        "note": "Same measure and gage as the baseline"
+       },
+       {
+        "label": "Change control and rollout",
+        "note": "Verification or revalidation as assessed"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: removing manual lot entry (example scenario)",
+      "p": [
+       "The Analyze phase proved that wrong lot numbers came from typing the lot number by hand at lot changeover. All numbers are example values.",
+       "The team listed four options: a second-person check, a reminder sign, a drop-down list of open lots, and scanning the lot from the work order barcode. The decision matrix scored the scan highest on effect and only medium on validation effort, because the label software was already validated and the change was a new configured input. The sign and the second-person check scored low on effect because they rely on attention.",
+       "The updated FMEA, shown in the FMEA script in this lesson, ranks 'wrong lot typed' as the top risk before the change. After the change that failure mode no longer exists, but a new one appears: 'barcode scan misread'. The team added a check that the scanned lot matches an open work order. Change control approved a two-week pilot on one line under a protocol. The pilot found 2 defects in 500 labels against 18 in 500 at baseline, measured with the same inspection method. The change was then rolled out to the other lines after the software change was verified."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Score and mistake proof a fix",
+       "time": "45 min",
+       "goal": "Pick a solution with clear reasons and make it as error proof as you can.",
+       "steps": [
+        "Take a cause from your Analyze practice or a small problem at work, such as files saved to the wrong folder.",
+        "List at least four possible solutions, including one 'prevent' and one 'warn' option.",
+        "Build a decision matrix in a spreadsheet with four weighted criteria and score each option.",
+        "Run the FMEA script in this lesson with three failure modes of your chosen solution, scored 1 to 10.",
+        "Write a short pilot plan: what changes, the measure, the sample size, how long and what counts as success."
+       ],
+       "done_when": "You have a scored matrix, an FMEA table from the script and a pilot plan with a success criterion written before the pilot starts."
+      }
+     ],
+     "pitfalls": [
+      "Choosing retraining or a reminder sign as the main fix, when a mistake proofing control could remove the error.",
+      "Piloting a change on product for sale without change control or an approved protocol, which creates a deviation of its own.",
+      "Measuring the pilot with a different definition or gage than the baseline, so the before and after numbers cannot be compared.",
+      "Ranking FMEA items only by RPN and missing a high severity failure mode with a low score for occurrence.",
+      "Ignoring validation effort when selecting, then finding the chosen fix needs months of revalidation the project did not plan for."
+     ],
+     "check": [
+      "Why should every solution point back to a proven cause?",
+      "Name the stages of mistake proofing from strongest to weakest.",
+      "What should a pilot plan state before the pilot starts?",
+      "What new risks does the FMEA on the new process look for, and why look at severity on its own?",
+      "Why must a change to a validated process go through change control before rollout?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What is Poka-Yoke? Mistake and Error Proofing",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/mistake-proofing",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is a Decision Matrix? Pugh, Problem, or Selection Grid",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/decision-matrix",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is FMEA? Failure Mode and Effects Analysis",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/fmea",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is experimental design? (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Process Validation: General Principles and Practices",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "FMEA, the 10 Step Process to do an FMEA (PFMEA or DFMEA)",
+       "source": "CQE Academy",
+       "url": "https://www.youtube.com/watch?v=369a7z7uUio",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Tools for Improve and Control",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-improve-control",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "improve-phase-q01",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "A manager wants a new conveyor in the Improve plan, but no proven cause relates to it. What should the Green Belt ask?",
+     "options": [
+      "How fast can it be installed on the line?",
+      "Which proven cause does it address?",
+      "Who will pay for the training?",
+      "Can it be added to the Control plan?"
+     ],
+     "answer": 1,
+     "why": "Every solution should trace back to a proven root cause."
+    },
+    {
+     "id": "improve-phase-q02",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "Which control is the strongest form of mistake proofing for wrong lot numbers?",
+     "options": [
+      "Scanning the lot from the work order",
+      "A sign above the printer to check lots",
+      "Retraining operators every quarter",
+      "A second person checking each label"
+     ],
+     "answer": 0,
+     "why": "Scanning removes manual entry, so the error cannot happen."
+    },
+    {
+     "id": "improve-phase-q03",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "Two fixes have the same effect. One needs a short verification, the other a full revalidation. How should this affect selection?",
+     "options": [
+      "It should not matter at all",
+      "Always pick the one that costs most",
+      "Validation effort is a real criterion",
+      "Pick the full revalidation, just to be on the safe side"
+     ],
+     "answer": 2,
+     "why": "Approval and validation time is a legitimate selection criterion in regulated work."
+    },
+    {
+     "id": "improve-phase-q04",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "A pilot will make product for sale on one line for two weeks. What is needed before it starts?",
+     "options": [
+      "Nothing, pilots are short and low risk",
+      "Only a verbal OK from the line leader",
+      "A new project charter for the pilot",
+      "Change control or an approved protocol"
+     ],
+     "answer": 3,
+     "why": "A pilot on saleable product is itself a change to the process."
+    },
+    {
+     "id": "improve-phase-q05",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "Baseline defects were counted by inspectors; the pilot uses a new camera. What is the problem?",
+     "options": [
+      "Cameras are never allowed in validated plants",
+      "Before and after cannot be compared fairly",
+      "The pilot will be too short to finish",
+      "Inspectors will be out of work"
+     ],
+     "answer": 1,
+     "why": "Use the same definition and measurement system so the comparison is valid."
+    },
+    {
+     "id": "improve-phase-q06",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "In an FMEA, a failure mode has severity 9, occurrence 2, detection 2, RPN 36. Another has RPN 60 and severity 3. What should you do?",
+     "options": [
+      "Ignore the severity 9 item because its RPN is lower",
+      "Delete both items from the FMEA",
+      "Average the two scores",
+      "Review the high severity item on its own"
+     ],
+     "answer": 3,
+     "why": "High severity items need attention even when their RPN is low."
+    },
+    {
+     "id": "improve-phase-q07",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "What does an FMEA RPN multiply together?",
+     "options": [
+      "Severity, occurrence and detection",
+      "Cost, time and benefit",
+      "Mean, range and standard deviation",
+      "Cp, Cpk and sigma level"
+     ],
+     "answer": 0,
+     "why": "RPN is severity times occurrence times detection."
+    },
+    {
+     "id": "improve-phase-q08",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "Temperature, pressure and dwell time may all affect seal strength. Which approach finds their effects with fewer runs?",
+     "options": [
+      "Change one factor at a time",
+      "A designed experiment (DOE)",
+      "A Pareto chart of the defects",
+      "A longer baseline period"
+     ],
+     "answer": 1,
+     "why": "A DOE varies factors together in a plan and also shows interactions."
+    },
+    {
+     "id": "improve-phase-q09",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "A CAPA lists 'retrain operators' as the only action for a typing error. What is the concern?",
+     "options": [
+      "Retraining is never allowed in a CAPA",
+      "Training records take far too long to file and approve",
+      "It is the weakest control and relies on memory",
+      "Operators cannot be retrained in pharma"
+     ],
+     "answer": 2,
+     "why": "Warnings and training are the weakest controls; look for a way to prevent the error."
+    },
+    {
+     "id": "improve-phase-q10",
+     "lesson": "six-sigma-green-belt-improve-phase",
+     "q": "A team must decide how much revalidation an aseptic filling change needs. Who should make that call?",
+     "options": [
+      "Any Green Belt who has finished this introductory course",
+      "The FDE who built the data tool",
+      "Qualified validation and quality specialists",
+      "The pilot operators on the line"
+     ],
+     "answer": 2,
+     "why": "Revalidation depth for aseptic processes is specialist work, beyond introductory training."
+    }
+   ]
+  },
+  {
+   "id": "control-phase",
+   "title": "Control: making the gain last",
+   "summary": "How a control plan, a response plan, control charts, updated procedures and a clean handover keep the improved process stable after the project team leaves.",
+   "outline": [
+    "Control plans and response plans",
+    "Statistical process control and control charts",
+    "Updating procedures and training",
+    "Handover to the process owner and project closure"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-control-phase",
+     "title": "Control: making the gain last",
+     "summary": "You will be able to write a control plan with a response plan, choose and read a simple control chart, list the documents and training that must change, and hand the process over to its owner with evidence that the gain holds.",
+     "why": "Improvements fade when the project team moves on. Old habits return, a new operator never learns the new step, a setting drifts. FDEs often build the dashboards and alerts that sit in the Control phase, so you need to know what a control chart is really telling you, who must act on it and what the regulated quality system expects before a project can be closed.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Control is the last DMAIC phase. Its job is to make the improved process the normal process and to detect quickly if it slips. The team writes a control plan, sets up monitoring such as control charts, updates procedures and training, confirms the gain with data over a sustained period, and hands the process to its owner.",
+        "The test of a good Control phase is simple: if the whole project team left tomorrow, would the process owner know what to watch, what normal looks like and what to do when something goes wrong? If the answer is no, the project is not finished."
+       ]
+      },
+      {
+       "h": "Control plans and response plans",
+       "p": [
+        "A control plan is a table that lists, for each critical input and output of the process, what is checked, how, how often, by whom and where it is recorded. It covers the CTQs from Define and the key causes proven in Analyze. If manual lot entry was the cause and the fix was a barcode scan, the control plan checks that the scan step is working, not only that the labels are right.",
+        "Each row needs a response plan: what the person does when the check fails or a signal appears. 'Inform the supervisor' is not enough. A good response plan says how to contain product, who is told, who decides and where the event is recorded. In a regulated plant this usually means linking to the existing deviation procedure, not inventing a new one.",
+        "Prefer controls that run themselves. A system check that blocks a wrong lot needs no one to remember it, while a manual audit depends on time and attention. Where a manual check is the only option, keep it short, make the record simple and put it at the point where the work is done, not in a separate report at the end of the week."
+       ]
+      },
+      {
+       "h": "Statistical process control",
+       "p": [
+        "Every process varies. Statistical process control (SPC) separates two kinds of variation. Common cause variation is the normal, random noise of a stable process. Special cause variation comes from something specific and new: a worn tool, a new material lot, a missed step. The aim is to react to special causes and leave common cause noise alone, because adjusting a stable process in response to noise makes it worse.",
+        "A control chart plots a measure in time order with a centre line and upper and lower control limits. The limits are calculated from the process's own data, usually at three standard deviations of the plotted statistic from the centre. They are not specification limits. Specification limits come from the customer or the product requirements; control limits describe what the process is actually doing.",
+        "Pick the chart to match the data. An individuals and moving range (I-MR) chart suits one value at a time, such as one result per batch. An X-bar and R chart suits small subgroups, such as five units every hour. A p-chart tracks the proportion defective, and a c-chart tracks a count of defects per unit. The script below builds an I-MR style check from example data. It sets the limits from the first 15 days, then flags any day outside them."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "import statistics as st\n\n# Daily label defects per 1,000 labels after the fix (example data)\nx = [2.1, 1.8, 2.4, 2.0, 1.6, 2.2, 1.9, 2.5, 2.0, 1.7,\n     2.3, 2.1, 1.8, 2.0, 2.2, 4.1, 2.0, 1.9]\n\nbase = x[:15]  # use the first 15 days to set limits\nmr = [abs(base[i] - base[i - 1]) for i in range(1, len(base))]\ncenter, mr_bar = st.mean(base), st.mean(mr)\nucl = center + 2.66 * mr_bar  # 2.66 = 3 / 1.128 for moving ranges of 2\nlcl = max(0.0, center - 2.66 * mr_bar)\nprint(f\"CL = {center:.2f}  UCL = {ucl:.2f}  LCL = {lcl:.2f}\")\n\nfor day, v in enumerate(x, start=1):\n    flag = \"  <-- out of control, start the response plan\" if not lcl <= v <= ucl else \"\"\n    print(f\"day {day:2}: {v:.1f}{flag}\")"
+       }
+      },
+      {
+       "h": "Reading the chart",
+       "p": [
+        "A point outside the control limits is the clearest signal. Other signals are patterns that random noise rarely makes, such as a long run of points on one side of the centre line (rules commonly use 8 or 9 in a row) or a steady trend up or down. Choose a small set of rules, write them in the procedure and train people on them. Too many rules cause false alarms and people stop reacting.",
+        "Recalculate limits only for a reason, such as a proven and approved process change. Do not widen limits because the process keeps breaking them; that hides the problem the chart was built to show.",
+        "Dashboards built by data teams often show a measure with a target line but no control limits. That tells you whether you met the target, not whether the process changed. Add the limits, or a link to the control chart, so the viewer can tell a real signal from normal noise."
+       ]
+      },
+      {
+       "h": "Procedures, training, handover and closure",
+       "p": [
+        "Update every document the change touches: SOPs, work instructions, batch record templates, forms, system configuration records and the FMEA. In a regulated company these go through document control and are approved before use. Train the people who do the work, and keep training records, before the new procedure takes effect.",
+        "Confirm the gain with data over a sustained period, long enough to include normal changes such as shifts, material lots and staff rotation. Compare against the baseline with the same measure and measurement system.",
+        "Then hand over. The process owner signs that they accept the control plan, the monitoring and the response plan. The team writes a short closure report: problem, root causes, solutions, results against the goal, open actions and lessons learned. If the project was linked to a CAPA, the effectiveness check in the CAPA record should point to this evidence. The Champion closes the project at the Control tollgate."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "cycle",
+      "title": "The control loop after handover",
+      "caption": "Read clockwise; the loop runs for as long as the process runs, owned by the process owner.",
+      "steps": [
+       {
+        "label": "Run the process to the new SOP",
+        "note": "Trained people, approved documents"
+       },
+       {
+        "label": "Measure per the control plan",
+        "note": "What, how, how often, who"
+       },
+       {
+        "label": "Plot on the control chart",
+        "note": "Centre line and control limits"
+       },
+       {
+        "label": "Check for signals",
+        "note": "Point outside limits, runs, trends"
+       },
+       {
+        "label": "Follow the response plan",
+        "note": "Contain, inform, investigate, record"
+       },
+       {
+        "label": "Review and update",
+        "note": "Owner reviews; changes go through change control"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: holding the label gain (example scenario)",
+      "p": [
+       "After the barcode scan was rolled out, the label defect rate fell to about 2 per 1,000 labels. All numbers are example values.",
+       "The control plan had three rows: a daily check that the scanner rejects a lot that is not on an open work order, the daily defect rate per 1,000 labels on an I-MR chart, and a monthly audit of ten batch records. Each row named an owner and a response.",
+       "The Python block in this lesson shows the chart. Limits from the first 15 days were about 1.0 to 3.1. On day 16 the rate jumped to 4.1, outside the upper limit. The response plan said to hold the day's labelled stock, inform the line supervisor and quality, and open a deviation. The investigation found a replacement scanner had been fitted without the lot check enabled. The setting was corrected under change control, the held stock was inspected, and the next days returned inside the limits.",
+       "The team confirmed the gain over three months, updated the label SOP and training records, and the line manager signed the handover. The CAPA effectiveness check referenced the chart and the closure report."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Build and read a control chart",
+       "time": "40 min",
+       "goal": "Set control limits from your own data and spot a signal.",
+       "steps": [
+        "Copy the control chart script in this lesson into a file and run it with Python 3.",
+        "Replace the data with 20 or more daily values you can gather, such as sleep hours, steps or inbox count.",
+        "Set the limits from your first 15 values, as the script does.",
+        "Add one made-up unusual value at the end and confirm the script flags it.",
+        "Write a three-line response plan for your measure: what you would check, who you would tell and where you would record it."
+       ],
+       "done_when": "The script prints your limits, flags the unusual value and you have a written response plan for a signal."
+      },
+      {
+       "title": "Draft a control plan",
+       "time": "30 min",
+       "goal": "Turn an improvement into checks someone else can run.",
+       "steps": [
+        "Use the improvement from your Improve practice or a recent change at work.",
+        "In a spreadsheet, make columns for item, check method, frequency, owner, record and response.",
+        "Fill at least three rows, including one that checks the fix itself is still working.",
+        "Ask Claude to review the plan as a process owner who was not on the project and list what is unclear."
+       ],
+       "done_when": "Your control plan has three complete rows and every response says what to do, not only whom to tell."
+      }
+     ],
+     "pitfalls": [
+      "Drawing specification limits on a control chart and calling them control limits, which mixes up what the customer needs with what the process does.",
+      "Adjusting a stable process after every small movement, which reacts to common cause noise and increases variation.",
+      "Widening control limits because the process keeps breaking them, which hides the special cause instead of fixing it.",
+      "Writing 'inform supervisor' as the whole response plan, so nobody knows how to contain product or who decides.",
+      "Closing the project before the gain has held over a sustained period that includes normal changes in shifts and materials."
+     ],
+     "check": [
+      "What is the difference between common cause and special cause variation?",
+      "How are control limits different from specification limits?",
+      "Which control chart would you use for one result per batch, and which for proportion defective?",
+      "What should a response plan contain beyond 'inform the supervisor'?",
+      "What must be true before the process owner signs the handover?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What are Control Charts? (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What are Variables Control Charts? (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Control Chart - Statistical Process Control Charts",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/control-chart",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Statistical Process Control? SPC Quality Tools",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/statistical-process-control",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "Control Charts simply explained - Statistical process control - Xbar-R Chart, I-MR Chart,...",
+       "source": "numiqo",
+       "url": "https://www.youtube.com/watch?v=iOJDBpOa3Ko",
+       "cost": "free"
+      },
+      {
+       "type": "course",
+       "title": "Six Sigma Tools for Improve and Control",
+       "source": "Coursera",
+       "url": "https://www.coursera.org/learn/six-sigma-improve-control",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "control-phase-q01",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "A control chart shows one day far above the upper control limit. What kind of variation is this most likely?",
+     "options": [
+      "Common cause noise",
+      "Special cause variation",
+      "Measurement bias only",
+      "Normal shift-to-shift change"
+     ],
+     "answer": 1,
+     "why": "A point outside the limits signals something specific has changed."
+    },
+    {
+     "id": "control-phase-q02",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "An operator adjusts the filler after every small up or down movement inside the control limits. What happens?",
+     "options": [
+      "Variation usually gets worse",
+      "The process becomes more capable",
+      "The control limits get narrower",
+      "Nothing changes at all"
+     ],
+     "answer": 0,
+     "why": "Reacting to common cause noise adds variation instead of removing it."
+    },
+    {
+     "id": "control-phase-q03",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "Where do control limits come from?",
+     "options": [
+      "The customer drawing or product specification",
+      "The regulator's guidance document",
+      "The goal statement in the project charter",
+      "The process's own data"
+     ],
+     "answer": 3,
+     "why": "Control limits are calculated from process data; specification limits come from requirements."
+    },
+    {
+     "id": "control-phase-q04",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "You record one assay result per batch. Which chart fits?",
+     "options": [
+      "p-chart",
+      "c-chart",
+      "I-MR chart",
+      "Pareto chart"
+     ],
+     "answer": 2,
+     "why": "An individuals and moving range chart suits one value at a time."
+    },
+    {
+     "id": "control-phase-q05",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "A response plan says only 'inform supervisor'. What is missing?",
+     "options": [
+      "A longer list of people to copy in",
+      "How to contain product, who decides, where to record",
+      "A second control chart that tracks the very same measure",
+      "The original project charter for reference"
+     ],
+     "answer": 1,
+     "why": "A response plan must say what to do, not only whom to tell."
+    },
+    {
+     "id": "control-phase-q06",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "The process keeps breaking its upper control limit. A colleague suggests widening the limits. What is the problem?",
+     "options": [
+      "Limits can only ever be made narrower",
+      "Widening needs approval from the customer",
+      "It hides the special cause the chart revealed",
+      "Wider limits make the chart much harder for operators to read"
+     ],
+     "answer": 2,
+     "why": "Find and fix the special cause; widening limits hides the signal."
+    },
+    {
+     "id": "control-phase-q07",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "The fix was a barcode scan. Which control plan row checks the fix itself?",
+     "options": [
+      "A daily check that the scanner rejects a wrong lot",
+      "A yearly review of the original project charter and its goal",
+      "A count of operators trained last year",
+      "A Pareto chart of all defect types"
+     ],
+     "answer": 0,
+     "why": "The control plan should confirm the solution is still working, not only the output."
+    },
+    {
+     "id": "control-phase-q08",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "When should the new label SOP take effect?",
+     "options": [
+      "As soon as the pilot ends",
+      "Before it is approved, to save time",
+      "Only at the next scheduled annual review of all SOPs",
+      "After approval and training of users"
+     ],
+     "answer": 3,
+     "why": "In a regulated company procedures are approved through document control and people are trained before use."
+    },
+    {
+     "id": "control-phase-q09",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "A project shows good results for one week and the team wants to close it. What is the concern?",
+     "options": [
+      "One week is always too long to wait",
+      "The gain may not hold across normal changes",
+      "The FMEA must be deleted first",
+      "Closure needs a brand new charter and a new Champion first"
+     ],
+     "answer": 1,
+     "why": "Confirm the gain over a sustained period that includes shifts, lots and staff changes."
+    },
+    {
+     "id": "control-phase-q10",
+     "lesson": "six-sigma-green-belt-control-phase",
+     "q": "The project was linked to a CAPA. How does the Control phase evidence help?",
+     "options": [
+      "It replaces the CAPA record and its effectiveness check",
+      "It removes the need for a deviation",
+      "It supports the CAPA effectiveness check",
+      "It is kept apart from the QMS"
+     ],
+     "answer": 2,
+     "why": "Sustained data from Control is the evidence the CAPA effectiveness check needs."
+    }
+   ]
+  },
+  {
+   "id": "process-capability",
+   "title": "Process capability",
+   "summary": "How to judge whether a stable process can meet its specification, using Cp, Cpk, Pp, Ppk and sigma level, and how capability is used in validation and supplier quality.",
+   "outline": [
+    "Specification limits versus control limits",
+    "Cp and Cpk and what they tell you",
+    "Short-term and long-term capability",
+    "Capability for non-normal data",
+    "Using capability in process validation and supplier quality"
+   ],
+   "lessons": [
+    {
+     "id": "six-sigma-green-belt-process-capability",
+     "title": "Process capability",
+     "summary": "You will be able to tell specification limits from control limits, calculate and explain Cp, Cpk, Pp and Ppk, check the conditions that make them valid, and know where capability is used in validation and supplier quality.",
+     "why": "Capability numbers travel far. They appear in validation reports, supplier scorecards, management reviews and sometimes in submissions. A Cpk calculated on unstable or non-normal data can make a weak process look safe. FDEs who build quality dashboards or analyse batch data are often asked to 'add Cpk'. You need to know when the number means something and when it should not be shown at all.",
+     "sections": [
+      {
+       "h": "The short version",
+       "p": [
+        "Process capability compares what the process does with what the specification allows. The specification is the voice of the customer: the lower and upper specification limits (LSL and USL) a product must meet. The process spread is the voice of the process. A capable process fits its natural spread comfortably inside the specification, with room to spare.",
+        "Capability only makes sense for a stable process. If a control chart shows special causes, trends or shifts, the process has no single predictable spread, and any capability index describes the past rather than the future. Check stability first, then capability. This order is the most important idea in this lesson."
+       ]
+      },
+      {
+       "h": "Specification limits and control limits",
+       "p": [
+        "Specification limits come from requirements: a product specification, a drawing, a registered limit or a customer agreement. They say what is acceptable. Control limits come from the process's own data and say what the process normally does. The two have nothing to do with each other in the calculation.",
+        "A process can be in control and still not capable: stable, but its normal spread is wider than the specification, so it makes a predictable share of defects. It can also be capable but out of control: today's results are inside specification, but special causes mean you cannot predict tomorrow. You want both: in control and capable.",
+        "Because of this, keep the two kinds of limits on separate visuals, or label them very clearly when they share a chart. Operators react to control limits; release decisions use specification limits."
+       ]
+      },
+      {
+       "h": "Cp and Cpk",
+       "p": [
+        "Cp compares the width of the specification with the width of the process spread, taken as six standard deviations: Cp = (USL - LSL) / (6 x sigma). Cp of 1 means the process spread just fills the specification. Cp of 2 means the specification is twice as wide as the spread. Cp ignores where the process is centred.",
+        "Cpk adds centring. It measures the distance from the mean to the nearer specification limit, in units of three standard deviations: Cpk = min(USL - mean, mean - LSL) / (3 x sigma). If the process is perfectly centred, Cpk equals Cp. If it drifts towards one limit, Cpk falls. A Cpk below 1 means part of the natural spread lies outside the specification.",
+        "Many companies set a minimum Cpk in their procedures, often 1.33 for existing processes and sometimes higher for critical characteristics. Use the client's procedure, not a number from a website. Some teams also quote a sigma level, which for a centred, normal process is roughly three times Cpk.",
+        "Sample size matters too. An index from 20 values carries much more uncertainty than one from 100, and two calculations on different small samples can differ a lot. Always state the number of values and the period with the index, and be careful comparing lines or suppliers on small samples."
+       ]
+      },
+      {
+       "h": "Short-term and long-term capability",
+       "p": [
+        "Which sigma you use matters. Within-subgroup sigma captures short-term variation, estimated for example from the average moving range divided by 1.128. Overall sigma is the ordinary standard deviation of all the data and includes drift between shifts, lots and days. Cp and Cpk usually use within sigma and describe potential capability. Pp and Ppk use overall sigma and describe the performance customers actually received.",
+        "A big gap between Cpk and Ppk is a finding in itself. It means the process could do well in the short term, but something shifts it over time. The script below shows that case. The example data drifts steadily upwards: Cp and Cpk look excellent at about 2.4, while Pp and Ppk are about 1.4. The right reaction is not to report the higher number. It is to find and remove the drift, then recalculate on stable data."
+       ],
+       "code": {
+        "lang": "python",
+        "text": "import statistics as st\n\n# Tablet weight in mg, one value per batch in time order (example data)\nx = [249.6, 249.9, 249.5, 250.1, 249.8, 250.2, 250.0, 250.4, 250.1, 250.6,\n     250.3, 250.8, 250.5, 251.0, 250.7, 251.2, 250.9, 251.4, 251.1, 251.5]\nlsl, usl = 248.0, 253.0  # specification limits (example)\n\nmean = st.mean(x)\nmr_bar = st.mean(abs(x[i] - x[i - 1]) for i in range(1, len(x)))\ns_within = mr_bar / 1.128     # short-term spread\ns_overall = st.stdev(x)       # long-term spread\n\ndef indices(s):\n    p = (usl - lsl) / (6 * s)\n    pk = min(usl - mean, mean - lsl) / (3 * s)\n    return p, pk\n\ncp, cpk = indices(s_within)\npp, ppk = indices(s_overall)\nprint(f\"mean = {mean:.2f}  s_within = {s_within:.3f}  s_overall = {s_overall:.3f}\")\nprint(f\"Cp = {cp:.2f}  Cpk = {cpk:.2f}\")\nprint(f\"Pp = {pp:.2f}  Ppk = {ppk:.2f}\")"
+       }
+      },
+      {
+       "h": "Non-normal data, validation and suppliers",
+       "p": [
+        "The formulas above assume the data is roughly normal. Many real measures are not: impurity levels, particle counts, times and anything near a natural limit of zero tend to be skewed. On skewed data the normal formulas can be badly wrong in the tail, which is exactly where defects live. Options include fitting a suitable distribution, transforming the data, or using a percentile method that replaces the six sigma spread with the distance between the 0.135 and 99.865 percentiles. Look at a histogram and a normality check before choosing.",
+        "Capability is used widely in regulated work. Many companies set capability expectations in process validation protocols and in continued process verification, which FDA's process validation guidance describes as stage 3 of the validation lifecycle. Supplier quality agreements often require capability data for critical dimensions or attributes. Setting acceptance criteria and sample sizes for validation, and handling non-normal data in a validation report, is specialist statistical work that should be reviewed by a qualified statistician. This lesson builds understanding, not readiness to sign that work off."
+       ]
+      }
+     ],
+     "diagram": {
+      "type": "branch",
+      "title": "Can I report a capability index?",
+      "caption": "Start at the top; only the last branch leads to a number worth reporting.",
+      "start": "Data in time order with specification limits",
+      "question": "Is the process stable and the data shape understood?",
+      "branches": [
+       {
+        "answer": "Not stable",
+        "result": "Find special causes first; do not report Cpk"
+       },
+       {
+        "answer": "Stable, clearly non-normal",
+        "result": "Fit a distribution or use percentiles"
+       },
+       {
+        "answer": "Stable, roughly normal",
+        "result": "Report Cp, Cpk, Pp, Ppk with n and period"
+       }
+      ]
+     },
+     "example": {
+      "title": "Worked example: tablet weight before a supplier review (example scenario)",
+      "p": [
+       "A quality engineer is asked for the Cpk of tablet weight for a quarterly review. The specification is 248 to 253 mg and there are 20 batch results in time order. All numbers are example values, the same as the script in this lesson.",
+       "A first calculation gives Cpk of about 2.4, which would look excellent on a slide. Before reporting it, the engineer plots the data on an individuals chart and sees a steady upward trend from 249.6 to 251.5 mg. The process is not stable. The overall-sigma Ppk of about 1.4 is closer to what was really delivered, and if the drift continues the mean will approach the upper limit.",
+       "The engineer reports the trend instead of a single index, with both numbers and a note that capability cannot be claimed until the drift is explained. The investigation finds gradual wear on a press tooling set. After the tooling is replaced under the maintenance procedure and new stable data is collected, capability is recalculated and reported with the sample size and period."
+      ]
+     },
+     "practice": [
+      {
+       "title": "Calculate and challenge a capability index",
+       "time": "45 min",
+       "goal": "Compute Cp, Cpk, Pp and Ppk and decide whether they should be reported.",
+       "steps": [
+        "Copy the capability script in this lesson into a file and run it with Python 3.",
+        "Shuffle the order of the 20 values by hand, run it again and note which indices change and which stay the same.",
+        "Change the specification limits so the mean sits close to the upper limit, and watch Cpk fall while Cp stays the same.",
+        "Run the control chart script from the Control lesson on the original data and describe what you see.",
+        "Write three sentences for a manager: the numbers, whether the process is stable, and what you would report."
+       ],
+       "done_when": "You can explain why Cp and Cpk changed when you reordered the data, why Cpk fell when you moved the limits, and you have a three-sentence report that does not claim capability for an unstable process."
+      }
+     ],
+     "pitfalls": [
+      "Calculating Cpk on a process that is not stable, so the number describes a mix of conditions and predicts nothing.",
+      "Drawing specification limits on a control chart, or using control limits as if they were specifications.",
+      "Applying normal-based formulas to skewed data such as impurity levels, which misstates the defect rate in the tail.",
+      "Reporting only the higher of Cpk and Ppk without saying which sigma was used, the sample size or the period.",
+      "Taking a minimum Cpk from a website instead of the client's own procedure or quality agreement."
+     ],
+     "check": [
+      "Why must a process be stable before its capability is calculated?",
+      "What does Cpk add that Cp does not show?",
+      "What is the difference between Cpk and Ppk, and what does a big gap between them tell you?",
+      "Name two ways to handle capability for clearly non-normal data.",
+      "Where is capability used in process validation and supplier quality?"
+     ],
+     "links": [
+      {
+       "type": "docs",
+       "title": "What is Process Capability? (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "What is Process Capability? Capability Estimates and Studies",
+       "source": "ASQ",
+       "url": "https://asq.org/quality-resources/process-capability",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Normal Distribution (e-Handbook of Statistical Methods)",
+       "source": "NIST",
+       "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm",
+       "cost": "free"
+      },
+      {
+       "type": "docs",
+       "title": "Process Validation: General Principles and Practices",
+       "source": "FDA",
+       "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+       "cost": "free"
+      },
+      {
+       "type": "video",
+       "title": "PROCESS CAPABILITY: Explaining Cp, Cpk, Pp, Ppk and HOW TO INTERPRET THOSE RESULTS",
+       "source": "CQE Academy",
+       "url": "https://www.youtube.com/watch?v=H6St9mCKWuA",
+       "cost": "free"
+      },
+      {
+       "type": "cert",
+       "title": "Six Sigma Green Belt Certification (CSSGB)",
+       "source": "ASQ",
+       "url": "https://www.asq.org/cert/six-sigma-green-belt",
+       "cost": "paid"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "id": "process-capability-q01",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "A control chart shows a clear upward trend in tablet weight. A manager asks for the Cpk. What should you do first?",
+     "options": [
+      "Report the Cpk, since trends do not matter",
+      "Find the cause of the trend; the process is not stable",
+      "Widen the specification limits so that they fit the data better",
+      "Report Cp instead because it ignores centring"
+     ],
+     "answer": 1,
+     "why": "Capability needs a stable process; an index on a trending process predicts nothing."
+    },
+    {
+     "id": "process-capability-q02",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "Where do specification limits come from?",
+     "options": [
+      "Requirements such as the product specification",
+      "The process's own data over the last month",
+      "Three standard deviations from the mean",
+      "The control chart centre line"
+     ],
+     "answer": 0,
+     "why": "Specification limits are the voice of the customer; control limits come from the process."
+    },
+    {
+     "id": "process-capability-q03",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "Specification is 90 to 110 and sigma is 2.5. What is Cp?",
+     "options": [
+      "0.75",
+      "2.00",
+      "4.00",
+      "1.33"
+     ],
+     "answer": 3,
+     "why": "Cp = (110 - 90) / (6 x 2.5) = 20 / 15 = 1.33."
+    },
+    {
+     "id": "process-capability-q04",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "A process has Cp of 2.0 but Cpk of 0.8. What is the most likely situation?",
+     "options": [
+      "The spread is too wide for the specification",
+      "The data must be non-normal",
+      "The process is off centre, near one limit",
+      "The measurement system has failed"
+     ],
+     "answer": 2,
+     "why": "A good Cp with a low Cpk means the spread fits but the mean is near one limit."
+    },
+    {
+     "id": "process-capability-q05",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "Cpk is 2.4 but Ppk is 1.4 on the same data. What does the gap tell you?",
+     "options": [
+      "The calculation must contain an arithmetic error",
+      "Something shifts the process over time",
+      "The specification is too narrow",
+      "The data should be thrown away"
+     ],
+     "answer": 1,
+     "why": "Within sigma is small but overall sigma is larger, so drift between periods adds variation."
+    },
+    {
+     "id": "process-capability-q06",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "A process is stable, but its natural spread is wider than the specification. It is:",
+     "options": [
+      "In control but not capable",
+      "Capable but out of control",
+      "Both capable and in control",
+      "Neither, by definition"
+     ],
+     "answer": 0,
+     "why": "Stability and capability are separate; this process predictably makes defects."
+    },
+    {
+     "id": "process-capability-q07",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "Impurity results are strongly skewed towards zero. What is a sound way to assess capability?",
+     "options": [
+      "Use the normal formula anyway, it is close enough",
+      "Remove the high values as outliers first",
+      "Report only the mean impurity level",
+      "Fit a suitable distribution or use percentiles"
+     ],
+     "answer": 3,
+     "why": "Normal formulas misstate the tail on skewed data; fit a distribution or use a percentile method."
+    },
+    {
+     "id": "process-capability-q08",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "What minimum Cpk should a validation protocol use?",
+     "options": [
+      "Always exactly 1.00",
+      "Whatever looks good on the day",
+      "The value in the client's procedure",
+      "The highest value you can find on any website"
+     ],
+     "answer": 2,
+     "why": "Minimum values are set by the company's own procedures and agreements."
+    },
+    {
+     "id": "process-capability-q09",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "You must set sample sizes and acceptance criteria for a process validation. Who should review that work?",
+     "options": [
+      "Nobody, the script output is enough",
+      "A qualified statistician",
+      "Only the line operators",
+      "The supplier's sales team"
+     ],
+     "answer": 1,
+     "why": "Validation statistics is specialist work; introductory training is not enough to sign it off."
+    },
+    {
+     "id": "process-capability-q10",
+     "lesson": "six-sigma-green-belt-process-capability",
+     "q": "A report says 'Cpk = 1.6' and nothing else. What important details are missing?",
+     "options": [
+      "The colour of the chart",
+      "The project charter number and the Champion's name",
+      "The operator names",
+      "Which sigma, sample size and period"
+     ],
+     "answer": 3,
+     "why": "Without these, nobody can judge what the index really describes."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,265 @@
+{
+  "module": 10,
+  "questions": [
+    {
+      "id": "m10-q01",
+      "lesson": "demo-craft",
+      "q": "You have fifteen minutes with the leadership team on Friday. What should you write down before building any slide?",
+      "options": [
+        "The list of features to show",
+        "The architecture diagram of the solution",
+        "The one decision you want at the end of the meeting",
+        "The questions you hope nobody asks"
+      ],
+      "answer": 2,
+      "why": "A demo is a meeting with a purpose, so it is planned backwards from the decision you need."
+    },
+    {
+      "id": "m10-q02",
+      "lesson": "demo-craft",
+      "q": "Your demo runs perfectly on every case you picked. Why should you also show a case where the solution is wrong?",
+      "options": [
+        "It builds trust by showing you know where it fails and how the workflow catches it",
+        "To lower expectations so the pilot looks better later",
+        "Because the leadership team needs to see the error messages",
+        "To prove the eval set has enough cases"
+      ],
+      "answer": 0,
+      "why": "Everyone knows AI makes mistakes; showing you understand them earns more trust than a perfect run."
+    },
+    {
+      "id": "m10-q03",
+      "lesson": "demo-craft",
+      "q": "During the demo the sponsor asks, 'Can it also do purchase orders?' It cannot today. What do you do?",
+      "options": [
+        "Say yes and promise it for next month",
+        "Say it is easy and show a quick prompt change live",
+        "Ignore it and move on to keep to time",
+        "Say honestly what it does today, ask what problem that would solve and note it as a backlog candidate"
+      ],
+      "answer": 3,
+      "why": "Never promise features on the spot; the underlying problem may point to a better next step."
+    },
+    {
+      "id": "m10-q04",
+      "lesson": "demo-craft",
+      "q": "The client's team calls them 'exceptions' and 'the AP queue'. How should you refer to them in the demo?",
+      "options": [
+        "Use correct technical terms like edge cases and pipeline",
+        "Use their words: exceptions and the AP queue",
+        "Mix both so everyone learns the technical terms",
+        "Avoid naming them at all"
+      ],
+      "answer": 1,
+      "why": "Using the client's words keeps the story about their problem, not your tools."
+    },
+    {
+      "id": "m10-q05",
+      "lesson": "demo-craft",
+      "q": "The audience heard 'it is 90 percent accurate', but the eval set had only 30 cases. Where do you correct this?",
+      "options": [
+        "Nowhere; a high number helps the project move forward",
+        "In the same-day written follow-up that states what was shown, the limits and the next step",
+        "In the final hand-over pack months later",
+        "Only if someone asks about it"
+      ],
+      "answer": 1,
+      "why": "The follow-up note is read by people who were not there and stops the story growing in the retelling."
+    },
+    {
+      "id": "m10-q06",
+      "lesson": "poc-pilot-production",
+      "q": "After a good POC, the client asks to switch it on for everyone next month. What is the best reply?",
+      "options": [
+        "Agree, since the POC already proved it works",
+        "Refuse, since POCs should never move forward",
+        "Agree, but only if you stay on to run it",
+        "Explain that a pilot with real users comes next, and list what must change before production"
+      ],
+      "answer": 3,
+      "why": "A POC proves feasibility; value, usability and reliability at volume still need to be proven."
+    },
+    {
+      "id": "m10-q07",
+      "lesson": "poc-pilot-production",
+      "q": "What does a pilot prove that a POC does not?",
+      "options": [
+        "Value and usability in real daily work with a small group, and that the review step works",
+        "That the technology can work at all on real cases",
+        "That the system is reliable at full volume for everyone",
+        "That the eval set has enough edge cases"
+      ],
+      "answer": 0,
+      "why": "The POC proves feasibility; the pilot tests value and usability with real users and a person reviewing."
+    },
+    {
+      "id": "m10-q08",
+      "lesson": "poc-pilot-production",
+      "q": "Why agree exit criteria for a pilot before it starts?",
+      "options": [
+        "So the pilot can run as long as needed without pressure",
+        "So the FDE can adjust the targets once results come in",
+        "So the decision to move on, rerun or stop is judged against measures set in advance, not after seeing results",
+        "Because IT requires it before approving sign-in"
+      ],
+      "answer": 2,
+      "why": "Without written criteria a pilot can drag on with no clear decision."
+    },
+    {
+      "id": "m10-q09",
+      "lesson": "poc-pilot-production",
+      "q": "A POC shows the client's data is too poor for the use case. How should you present this?",
+      "options": [
+        "As a failure to hide until a better model appears",
+        "As a reason to start the pilot anyway",
+        "As a minor issue the production team can fix later",
+        "As a valid result that saved the client from a larger failed project, with what was learned"
+      ],
+      "answer": 3,
+      "why": "Stopping is a valid outcome and should be stated plainly with the lessons recorded."
+    },
+    {
+      "id": "m10-q10",
+      "lesson": "poc-pilot-production",
+      "q": "Near the end of a pilot, the FDE still runs the system and owns the success measures. What is wrong with this?",
+      "options": [
+        "Nothing; the FDE should own everything until production ends",
+        "Ownership should already be shifting to a client business owner, or the solution will depend on the FDE forever",
+        "The IT team should own the success measures",
+        "The pilot users should own the running system"
+      ],
+      "answer": 1,
+      "why": "In the pilot a client business owner should own the success measures, with full ownership moving to the client in production."
+    },
+    {
+      "id": "m10-q11",
+      "lesson": "roadmap-backlog",
+      "q": "Which of these is an outcome rather than an output?",
+      "options": [
+        "A mailbox connector",
+        "A weekly report screen",
+        "Clerks no longer download invoices by hand",
+        "A confidence score field on each match"
+      ],
+      "answer": 2,
+      "why": "An outcome is a change in the business; outputs are the things you build to get there."
+    },
+    {
+      "id": "m10-q12",
+      "lesson": "roadmap-backlog",
+      "q": "After the first demo, finance, support and supply chain all ask for new features by next month. How do you choose what to build?",
+      "options": [
+        "Tie each request to an outcome, score value with the client and effort with the builders, and rank them",
+        "Build what the most senior person asked for",
+        "Build the requests in the order they arrived",
+        "Build the hardest item first to show capability"
+      ],
+      "answer": 0,
+      "why": "An outcome-tied, ranked backlog lets you say yes and no with reasons the client agrees with."
+    },
+    {
+      "id": "m10-q13",
+      "lesson": "roadmap-backlog",
+      "q": "A backlog item scores high value and high effort. What do you do with it?",
+      "options": [
+        "Plan it and break it into smaller pieces",
+        "Do it first, before anything else",
+        "Park it and tell the requester why",
+        "Do it only when there is spare time"
+      ],
+      "answer": 0,
+      "why": "High value, high effort items are worth doing but need splitting into pieces that finish in days."
+    },
+    {
+      "id": "m10-q14",
+      "lesson": "roadmap-backlog",
+      "q": "You start a pilot that aims to cut invoice handling time, but you never recorded handling time beforehand. What is the problem?",
+      "options": [
+        "Handling time is a lagging measure and should not be used",
+        "The pilot should measure eval pass rate only",
+        "Without a baseline you cannot show the pilot improved anything",
+        "Baselines are only needed in production"
+      ],
+      "answer": 2,
+      "why": "You must measure the starting point before changing anything, or improvement cannot be shown."
+    },
+    {
+      "id": "m10-q15",
+      "lesson": "roadmap-backlog",
+      "q": "Single sign-on scores only medium value and medium effort, but IT review requires it. How should you treat it?",
+      "options": [
+        "Park it, because the score is not high enough",
+        "Plan it anyway; some items are needed regardless of score",
+        "Drop it, because it does not serve an outcome",
+        "Ask the client to raise its value score so it ranks first"
+      ],
+      "answer": 1,
+      "why": "The value versus effort score is a conversation tool, and required items still have to be done."
+    },
+    {
+      "id": "m10-q16",
+      "lesson": "handover-pack",
+      "q": "The client asks who they call when it breaks after you leave. Which three parts must the hand-over pack contain?",
+      "options": [
+        "The source code, a slide deck and a final invoice",
+        "An eval set, a roadmap and a demo recording",
+        "A RACI, an architecture diagram and the API keys",
+        "A runbook, a named owner and a support model"
+      ],
+      "answer": 3,
+      "why": "These three let the client operate the system, own the outcome and route problems without you."
+    },
+    {
+      "id": "m10-q17",
+      "lesson": "handover-pack",
+      "q": "A draft RACI lists 'the IT team' as Accountable for approving releases. What should you change?",
+      "options": [
+        "Add the FDE as a second Accountable",
+        "Move IT to Informed and leave Accountable empty",
+        "Name one person as Accountable for that task",
+        "Nothing; a team is fine as Accountable"
+      ],
+      "answer": 2,
+      "why": "Only one named person should be Accountable per task, or everyone assumes someone else will handle it."
+    },
+    {
+      "id": "m10-q18",
+      "lesson": "handover-pack",
+      "q": "When writing the common problems section of a runbook, how should each row start?",
+      "options": [
+        "From the technical root cause",
+        "From the name of the code file involved",
+        "From the date the problem first happened",
+        "From the symptom a person notices, then the first check and the fix or escalation"
+      ],
+      "answer": 3,
+      "why": "Problems are reported by what people notice, so support teams look them up by symptom."
+    },
+    {
+      "id": "m10-q19",
+      "lesson": "handover-pack",
+      "q": "The runbook needs to explain where the LLM API key lives. What should it contain?",
+      "options": [
+        "The name of the secret and where it is stored, never its value",
+        "The key value, so the support team can rotate it fast",
+        "Nothing about secrets, for security reasons",
+        "A screenshot of the key in the cloud console"
+      ],
+      "answer": 0,
+      "why": "The next owner needs to find the secret, but putting its value in a document leaks it."
+    },
+    {
+      "id": "m10-q20",
+      "lesson": "handover-pack",
+      "q": "How do you know the hand-over has worked?",
+      "options": [
+        "The client has signed the final invoice",
+        "The owner can do a routine check and a rollback without your help, and the client owns every account and key",
+        "The runbook is longer than ten pages",
+        "You are still on call to fix any issue"
+      ],
+      "answer": 1,
+      "why": "If the client team can run it alone and holds all access, the system no longer depends on you."
+    }
+  ]
+}

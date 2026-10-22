@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "pharma-m06-q01",
+      "lesson": "pharma-gxp-design",
+      "q": "Under 21 CFR 11.50, what must a signed electronic record show?",
+      "options": [
+        "The signer's job title, department and site",
+        "Name, date and time, and meaning of the signature",
+        "Only a scanned image of the handwritten signature",
+        "The model version and prompt used to draft the record"
+      ],
+      "answer": 1,
+      "why": "Section 11.50 requires the printed name, the date and time of signing, and the meaning such as review or approval."
+    },
+    {
+      "id": "pharma-m06-q02",
+      "lesson": "pharma-gxp-design",
+      "q": "To save effort, the team runs the AI assistant under the investigator's own login. What is wrong with that?",
+      "options": [
+        "The trail shows the person wrote what the AI wrote",
+        "It costs more in licences for every investigator",
+        "The model runs much slower under a personal account",
+        "Nothing is wrong, since the investigator approves it anyway"
+      ],
+      "answer": 0,
+      "why": "Records must be attributable. The AI needs its own service identity so the trail is honest."
+    },
+    {
+      "id": "pharma-m06-q03",
+      "lesson": "pharma-gxp-design",
+      "q": "A developer edits the prompt on a validated tool to fix a small wording issue. What should happen?",
+      "options": [
+        "Nothing, because prompts are not really code",
+        "Tell the users about the change in a chat message",
+        "Wait for the annual periodic review to record it",
+        "Raise a change control and rerun the tests"
+      ],
+      "answer": 3,
+      "why": "Prompts shape behaviour, so they are configuration under change control with impact assessment and retesting."
+    },
+    {
+      "id": "pharma-m06-q04",
+      "lesson": "pharma-gxp-design",
+      "q": "Which automation level is the usual default for AI that drafts GMP records?",
+      "options": [
+        "Fully automated, with no human step at any point at all",
+        "Assistive only, so the AI may never draft anything",
+        "Semi-automated: AI drafts, a qualified person approves",
+        "Whatever level the AI vendor recommends in its guide"
+      ],
+      "answer": 2,
+      "why": "AI drafts and checks while a qualified person reviews and approves, keeping GMP decisions with people."
+    },
+    {
+      "id": "pharma-m06-q05",
+      "lesson": "pharma-gxp-design",
+      "q": "Why pin a specific model version for a validated AI step?",
+      "options": [
+        "So validated behaviour does not change without control",
+        "Because pinned versions are always cheaper to run per call",
+        "Because newer models are not allowed in pharma use",
+        "Because it makes the model answer faster for every user"
+      ],
+      "answer": 0,
+      "why": "If the model changes underneath you, the evidence from validation no longer describes what is running."
+    },
+    {
+      "id": "pharma-m06-q06",
+      "lesson": "pharma-gxp-design",
+      "q": "What is the first document you write when designing an AI step for GMP use?",
+      "options": [
+        "The user training slides",
+        "The validation summary report",
+        "The vendor contract",
+        "The intended use"
+      ],
+      "answer": 3,
+      "why": "Intended use drives the risk assessment, the requirements and how much testing is needed."
+    }
+  ]
+}

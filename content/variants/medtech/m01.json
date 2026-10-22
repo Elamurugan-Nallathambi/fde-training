@@ -1,0 +1,126 @@
+{
+  "module": 1,
+  "overlay": true,
+  "add_first": [
+    {
+      "id": "medtech-ai-gap",
+      "title": "Why AI stalls in MedTech, and what an FDE does about it",
+      "summary": "You will be able to explain the four gaps that keep AI out of daily use at medical device companies, and how an FDE closes each one inside the rules.",
+      "why": "A quality director at a device maker will say 'we ran a gen AI pilot on complaints, it looked great, and it never went live'. That is the normal story here. If you understand why, you can plan the data work, the validation evidence and the approval points from day one, so the next pilot reaches daily use.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A medical device company designs, makes and sells products such as infusion pumps, catheters, imaging systems, glucose monitors or surgical instruments. Every one of those products is regulated. In the US the rules come from the FDA. In the EU they come from the Medical Device Regulation (EU MDR). Both expect the company to run a quality management system (QMS): a documented, controlled way of designing, making, checking and improving the product.",
+            "AI models are now good enough to read a complaint, draft a root cause or compare two versions of a label. The hard part is everything around the model: getting clean data out of the systems of record, fitting the result into a controlled process, proving it works, and finding people who can build all of that. Those four things are the gaps this lesson covers."
+          ]
+        },
+        {
+          "h": "The four gaps, with their sources",
+          "p": [
+            "One industry overview groups the problem into four gaps and cites a source for each. The numbers are quoted as that overview states them, with its named source. Treat them as signals, not measurements of your client."
+          ],
+          "list": [
+            "Pilots stall before production. Two in three medtech companies are implementing gen AI, and only about one in five are scaling it (McKinsey, 40 medtech executives, 2024).",
+            "Data is not AI-ready. 17 percent of medtech regulatory leaders rate their data quality good enough for AI (Veeva, 130 directors at companies with more than 1 billion dollars revenue, 2025).",
+            "Validation slows every release. AI in a regulated process must satisfy three rule sets: FDA Computer Software Assurance (CSA), 21 CFR Part 11 and, for EU devices, the EU AI Act (FDA CSA final guidance, September 2025).",
+            "Few engineers can deploy AI. Forward deployed engineer roles grew 42 times from 2023 to 2025, and talent that knows both AI and the domain is scarce (LinkedIn data, as reported by recruiters)."
+          ]
+        },
+        {
+          "h": "The rules in plain words",
+          "p": [
+            "You must know which rule a step touches and what it asks for. Start with these four.",
+            "21 CFR Part 820, now called the Quality Management System Regulation (QMSR), is the FDA rule for how device makers run their quality system. Since 2 February 2026 it incorporates ISO 13485:2016, the international QMS standard for medical devices. For an AI solution it means any software used in production or in the quality system must be shown to work for its intended use.",
+            "21 CFR Part 11 covers electronic records and electronic signatures. It asks for secure, computer-generated, time-stamped audit trails and signatures that are tied to a real person and state what the signature means. For an AI solution it means every draft, edit and approval must be recorded and attributable.",
+            "FDA Computer Software Assurance (CSA) guidance explains how to validate production and quality system software in a risk-based way: more testing where a failure could harm a patient or product quality, less where it could not. It was finalised in September 2025 and updated in February 2026 to line up with the QMSR. For an AI solution it means you scale your evidence to the risk of the step.",
+            "The EU AI Act, Regulation (EU) 2024/1689, treats an AI system as high risk when it is a medical device, or a safety component of one, that needs a notified body assessment under the EU MDR. That is about AI inside the product. A tool that drafts CAPA reports for the quality team is a different case, but the client's regulatory team will ask you which side of that line your tool sits on, so learn to answer it."
+          ]
+        },
+        {
+          "h": "The regulated product model",
+          "p": [
+            "A useful way to picture the target is one shared model of the company's products, parts, documents, labels, changes, CAPAs and machines, plus the actions people may take on them (approve, release, close) and who is allowed to take each action. People and AI agents work from the same model. The AI never gets a back door: if closing a CAPA needs a qualified signature, so does any workflow the AI is part of.",
+            "In practice this model is built by connecting the systems of record: PLM for designs and bills of materials, QMS for complaints, nonconformances and CAPAs, ERP for orders and suppliers, MES for production records. Modules 4 and 6 show how to build it safely."
+          ]
+        },
+        {
+          "h": "What an FDE does about each gap",
+          "p": [
+            "An FDE closes the gaps on purpose, from week one, using a simple loop: embed with the process owner and map the real workflow, engineer the integrations and agents inside the client's systems, evaluate accuracy on the client's own gold data before go-live, validate with risk-based evidence and an audit trail, then hand over or operate.",
+            "The level of automation is a decision, not a default. Think of a ladder. Level 0 keeps a step manual because it is rare, high stakes or has no data. Level 1 recommends: the AI gives context and people decide. Level 2 drafts and approves: the AI drafts, a qualified person approves. Level 3 acts and audits: the AI acts and people check samples. In GxP work, meaning work covered by good practice rules such as the QMSR, Level 2 is the usual ceiling. A step only moves up when measured accuracy and the process owner, and quality assurance where it applies, agree."
+          ],
+          "list": [
+            "Pilot gap: name the process owner and the system of record before building, and plan the path to production in the first week.",
+            "Data gap: pull real records from QMS, PLM and ERP early, and treat every data problem you find as a deliverable.",
+            "Validation gap: write the intended use and the risk of each step first, then build the test evidence alongside the code.",
+            "Skills gap: pair with the client's quality and regulatory people. They know the rules; you know the build."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From pilot to validated daily use",
+        "caption": "Read left to right. Each step closes one of the four gaps before the next starts.",
+        "steps": [
+          {"label": "Pilot on a demo", "note": "Clean sample, chosen inputs"},
+          {"label": "Real data from QMS, PLM, ERP", "note": "Closes the data gap"},
+          {"label": "Owner and process mapped", "note": "Closes the pilot gap"},
+          {"label": "Risk-based evidence", "note": "CSA, Part 11 audit trail; closes validation gap"},
+          {"label": "Pair with quality and RA", "note": "Closes the skills gap"},
+          {"label": "Daily use at Level 2", "note": "AI drafts, a qualified person approves"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: a complaint summary pilot that stalled (fictional)",
+        "p": [
+          "A mid-size maker of infusion pumps ran a pilot. An engineer exported 300 closed complaints to a spreadsheet, pasted them into a chat model and showed that it could summarise each complaint and suggest whether it might be reportable to the FDA. Six months later nobody used it.",
+          "Read it against the four gaps. The data was a one-off export, so new complaints never reached the tool, and nobody had checked that the export matched the QMS. The tool lived outside the complaint workflow, so investigators had to copy text back and forth. There was no intended use statement, no test set and no audit trail, so quality assurance could not approve it for use in a process that feeds FDA reporting decisions. And its builder moved on.",
+          "An FDE restarting this would name the complaint handling owner, connect read-only to the QMS, keep the reportability decision with a qualified person (Level 2), build a test set of past complaints with known outcomes, and write the risk-based validation plan with the quality team before the first line of code."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Read a real device recall and place it on the gaps",
+          "time": "40 min",
+          "goal": "Connect real public device problems to the processes an AI solution would touch.",
+          "steps": [
+            "Open the FDA Medical Device Recalls database (linked below) and pick any recent recall.",
+            "Write down the product, the reason for recall and which process probably caught it: complaints, manufacturing, design or supplier.",
+            "List the systems of record that would hold evidence for this recall (for example QMS for complaints, MES for production records, PLM for the design change).",
+            "Write one sentence on where an AI assistant could help the people involved, and which autonomy level (0 to 3) it should run at.",
+            "Ask Claude to challenge your autonomy level and list the rules (QMSR, Part 11, CSA) that would apply. Check its answer against the official pages linked below."
+          ],
+          "done_when": "You have a half-page note with the recall, the systems involved, one AI use, its autonomy level and the rules it touches, with any point you could not confirm marked as open."
+        }
+      ],
+      "pitfalls": [
+        "Treating a successful demo on exported data as a pilot. Without a live connection to the system of record it proves very little.",
+        "Assuming every AI use at a device maker is regulated as a medical device. A tool used inside the quality system falls under the QMS and CSA rules; AI inside the product falls under device rules. Ask the regulatory team to confirm.",
+        "Quoting industry statistics without their source. If you use the four gap numbers, always name where they come from.",
+        "Letting the AI skip an approval that a person would need. If a step needs a qualified signature, the AI drafts and the person signs."
+      ],
+      "check": [
+        "Name the four gaps and give one concrete action an FDE takes for each.",
+        "What does 21 CFR Part 11 ask for, in one sentence, and what does it mean for an AI drafting tool?",
+        "What is the difference between Level 1 and Level 2 on the autonomy ladder, and why is Level 2 the usual ceiling in GxP work?",
+        "Why does the regulated product model insist that people and AI agents work from the same records and permissions?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Quality Management System Regulation (QMSR)", "source": "FDA", "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr", "cost": "free"},
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "docs", "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11", "cost": "free"},
+        {"type": "docs", "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)", "source": "EUR-Lex", "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj", "cost": "free"},
+        {"type": "docs", "title": "Medical Device Recalls database", "source": "FDA", "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfRES/res.cfm", "cost": "free"},
+        {"type": "docs", "title": "List of Artificial Intelligence-Enabled Medical Devices", "source": "FDA", "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/list-artificial-intelligence-enabled-medical-devices", "cost": "free"},
+        {"type": "video", "title": "Zach Harned - FDA, AI/ML, and Medical Devices", "source": "Stanford AIMI", "url": "https://www.youtube.com/watch?v=zu9r2Zsto58", "cost": "free"}
+      ],
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "Example scenario: a regulatory affairs lead asks in the first meeting whether your tool will 'need its own 510(k)'. The right answer is not yes or no. It is: 'Let us write down the intended use together. If the tool only drafts text for your quality team and a qualified person decides, it is quality system software validated under your QMS. If it ever ends up inside the product or making a clinical decision, that is a different conversation we should have with you now.'"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1616 @@
+{
+  "groups": [
+    {
+      "id": "languages",
+      "title": "Programming languages",
+      "intro": "The languages you are most likely to read or write on client work, each with a path from first steps to the official reference.",
+      "items": [
+        {
+          "id": "python",
+          "name": "Python",
+          "why": "Python is the main language for data work, scripts and AI. Most LLM SDKs, agent frameworks and data tools are Python first, so it is the language you will use most on client work.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Python in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=x7X9w_GIm1s",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Learn Python - Full Course for Beginners [Tutorial]",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+                  "mins": 267,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Python for Beginners - Getting Started",
+                  "source": "python.org",
+                  "url": "https://www.python.org/about/gettingstarted/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "The Python Tutorial",
+                  "source": "Python docs",
+                  "url": "https://docs.python.org/3/tutorial/index.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Intermediate Python Programming Course",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=HGOBQPFzWKo",
+                  "mins": 356,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "CS50's Introduction to Programming with Python",
+                  "source": "Harvard CS50",
+                  "url": "https://cs50.harvard.edu/python/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "The Python Language Reference",
+                  "source": "Python docs",
+                  "url": "https://docs.python.org/3/reference/index.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Python Standard Library",
+                  "source": "Python docs",
+                  "url": "https://docs.python.org/3/library/index.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Transforming Code into Beautiful, Idiomatic Python",
+                  "source": "Next Day Video",
+                  "url": "https://www.youtube.com/watch?v=OSGv2VnC0go",
+                  "mins": 49,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "James Powell: So you want to be a Python expert? | PyData Seattle 2017",
+                  "source": "PyData",
+                  "url": "https://www.youtube.com/watch?v=cKPlPJyQrt4",
+                  "mins": 114,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "javascript",
+          "name": "JavaScript",
+          "why": "JavaScript runs every web page and, with Node.js, many servers. You need it to build the screens and small web apps that let a client use an AI feature.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "JavaScript in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=DHjqpvDnNGE",
+                  "mins": 3,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Learn JavaScript - Full Course for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=PkZNo7MFNFg",
+                  "mins": 207,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Dynamic scripting with JavaScript",
+                  "source": "MDN Web Docs",
+                  "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "JavaScript Guide",
+                  "source": "MDN Web Docs",
+                  "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Modern JavaScript Tutorial",
+                  "source": "javascript.info",
+                  "url": "https://javascript.info/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "JavaScript Programming - Full Course",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=jS4aFq5-91M",
+                  "mins": 464,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "JavaScript reference",
+                  "source": "MDN Web Docs",
+                  "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "What the heck is the event loop anyway? | Philip Roberts | JSConf EU",
+                  "source": "JSConf",
+                  "url": "https://www.youtube.com/watch?v=8aGhZQkoFbQ",
+                  "mins": 27,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Jake Archibald on the web browser event loop, setTimeout, micro tasks, requestAnimationFrame, ...",
+                  "source": "JSConf",
+                  "url": "https://www.youtube.com/watch?v=cCOL7MC4Pl0",
+                  "mins": 35,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "typescript",
+          "name": "TypeScript",
+          "why": "TypeScript is JavaScript with types. Most modern web apps and many AI SDKs use it, and the types catch mistakes before the code runs.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "TypeScript in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=zQnBQ4tB3ZA",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "TypeScript Tutorial for Beginners",
+                  "source": "Programming with Mosh",
+                  "url": "https://www.youtube.com/watch?v=d56mG7DezGs",
+                  "mins": 64,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "TypeScript for JavaScript Programmers",
+                  "source": "TypeScript docs",
+                  "url": "https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "The TypeScript Handbook",
+                  "source": "TypeScript docs",
+                  "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Basics",
+                  "source": "TypeScript docs",
+                  "url": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "TypeScript Course for Beginners - Learn TypeScript from Scratch!",
+                  "source": "Academind",
+                  "url": "https://www.youtube.com/watch?v=BwuLxPH8IDs",
+                  "mins": 197,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Creating Types from Types",
+                  "source": "TypeScript docs",
+                  "url": "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "TSConfig Reference",
+                  "source": "TypeScript docs",
+                  "url": "https://www.typescriptlang.org/tsconfig/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "go",
+          "name": "Go",
+          "why": "Go is a simple, fast language for backend services, command line tools and cloud software. Docker, Kubernetes and Terraform are written in Go, and it is a good fit for the services that sit around an AI model.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Go in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=446E-r0rXHI",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Learn Go Programming - Golang Tutorial for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=YS4e4q9oBaU",
+                  "mins": 400,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Tutorial: Get started with Go",
+                  "source": "go.dev",
+                  "url": "https://go.dev/doc/tutorial/getting-started",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "course",
+                  "title": "A Tour of Go",
+                  "source": "go.dev",
+                  "url": "https://go.dev/tour/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Go by Example",
+                  "source": "gobyexample.com",
+                  "url": "https://gobyexample.com/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Golang Tutorial for Beginners | Full Go Course",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=yyUHQIec83I",
+                  "mins": 205,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Effective Go",
+                  "source": "go.dev",
+                  "url": "https://go.dev/doc/effective_go",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Go Programming Language Specification",
+                  "source": "go.dev",
+                  "url": "https://go.dev/ref/spec",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Google I/O 2012 - Go Concurrency Patterns",
+                  "source": "Google for Developers",
+                  "url": "https://www.youtube.com/watch?v=f6kdp27TYZs",
+                  "mins": 51,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rust",
+          "name": "Rust",
+          "why": "Rust is a fast systems language that prevents whole classes of memory bugs. It shows up in performance critical parts of AI tooling, such as tokenizers and inference servers.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Rust in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=5C_HPTJg5ek",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Learn Rust Programming - Complete Course",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=BpPEoZW5IiY",
+                  "mins": 839,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Getting started",
+                  "source": "rust-lang.org",
+                  "url": "https://rust-lang.org/learn/get-started/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "book",
+                  "title": "The Rust Programming Language (The Rust Book)",
+                  "source": "rust-lang.org",
+                  "url": "https://doc.rust-lang.org/book/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "Beginner's Series to Rust",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/shows/beginners-series-to-rust/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Rust for the impatient",
+                  "source": "No Boilerplate",
+                  "url": "https://www.youtube.com/watch?v=br3GIIQeefY",
+                  "mins": 11,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Rust By Example",
+                  "source": "rust-lang.org",
+                  "url": "https://doc.rust-lang.org/rust-by-example/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Rust Reference",
+                  "source": "rust-lang.org",
+                  "url": "https://doc.rust-lang.org/reference/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Crust of Rust: Lifetime Annotations",
+                  "source": "Jon Gjengset",
+                  "url": "https://www.youtube.com/watch?v=rAl-9HwD858",
+                  "mins": 93,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "java",
+          "name": "Java",
+          "why": "Java runs a large share of enterprise backends, banking and ERP integrations. On client work you will often read or call Java services when you connect AI to existing systems.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Java in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=l9AzO1FMgM8",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Java Full Course for Beginners",
+                  "source": "Programming with Mosh",
+                  "url": "https://www.youtube.com/watch?v=eIrMbAQSU34",
+                  "mins": 151,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Getting Started with Java",
+                  "source": "dev.java",
+                  "url": "https://dev.java/learn/getting-started/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Learn Java tutorials",
+                  "source": "dev.java",
+                  "url": "https://dev.java/learn/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Java Tutorials",
+                  "source": "Oracle",
+                  "url": "https://docs.oracle.com/javase/tutorial/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Learn Java 8 - Full Tutorial for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=grEKMHGYyns",
+                  "mins": 573,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Getting to know the JVM",
+                  "source": "dev.java",
+                  "url": "https://dev.java/learn/jvm/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Java SE 21 API documentation",
+                  "source": "Oracle",
+                  "url": "https://docs.oracle.com/en/java/javase/21/docs/api/index.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Java SE Specifications",
+                  "source": "Oracle",
+                  "url": "https://docs.oracle.com/javase/specs/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "csharp",
+          "name": "C#",
+          "why": "C# is Microsoft's main language for .NET backends, desktop apps and Azure services. Many enterprise clients run on it, so you will meet it when you integrate AI into Microsoft based systems.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "C# in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=ravLFzIguCM",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "C# Tutorial - Full Course for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=GhQdlIFylQ8",
+                  "mins": 271,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "A tour of C#",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "course",
+                  "title": "Write your first code using C# (Get started with C#, Part 1)",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/training/paths/get-started-c-sharp-part-1/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Classes and objects tutorial",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/tutorials/classes",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "C# Tutorial For Beginners - Learn C# Basics in 1 Hour",
+                  "source": "Programming with Mosh",
+                  "url": "https://www.youtube.com/watch?v=gfkTfcpWqAY",
+                  "mins": 71,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "C# Guide",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/dotnet/csharp/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "C# language reference",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sql",
+          "name": "SQL",
+          "why": "SQL is how you ask questions of a database. Almost every client keeps its business data in SQL databases, and you will query it to feed, check and measure AI features.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "SQL Explained in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=zsjvFFKOm3c",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "SQL Tutorial - Full Database Course for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=HXV3zeQKqGY",
+                  "mins": 261,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "SQLBolt - Learn SQL",
+                  "source": "SQLBolt",
+                  "url": "https://sqlbolt.com/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "course",
+                  "title": "CS50's Introduction to Databases with SQL",
+                  "source": "Harvard CS50",
+                  "url": "https://cs50.harvard.edu/sql/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "CS50 SQL - Lecture 0 - Querying",
+                  "source": "CS50",
+                  "url": "https://www.youtube.com/watch?v=vHYeChEf2lA",
+                  "mins": 79,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "PostgreSQL Tutorial",
+                  "source": "PostgreSQL docs",
+                  "url": "https://www.postgresql.org/docs/current/tutorial.html",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "The SQL Language",
+                  "source": "PostgreSQL docs",
+                  "url": "https://www.postgresql.org/docs/current/sql.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "SQL As Understood By SQLite",
+                  "source": "SQLite docs",
+                  "url": "https://www.sqlite.org/lang.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "#01 - Relational Model & Algebra (CMU Intro to Database Systems)",
+                  "source": "CMU Database Group",
+                  "url": "https://www.youtube.com/watch?v=7NPIENPr-zk",
+                  "mins": 75,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bash",
+          "name": "Bash and the shell",
+          "why": "The shell is the text interface to a computer. You use it to run scripts, move files, check logs and drive tools like Git, Docker and cloud command line tools on servers.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Bash in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=I4EWvMFj37g",
+                  "mins": 3,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Lecture 1: Course Overview + The Shell (2020)",
+                  "source": "Missing Semester",
+                  "url": "https://www.youtube.com/watch?v=Z56Jmr9Z34Q",
+                  "mins": 48,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Course Overview + The Shell",
+                  "source": "Missing Semester",
+                  "url": "https://missing.csail.mit.edu/2020/course-shell/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Bash Scripting Tutorial for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=tK9Oc6AEnR4",
+                  "mins": 48,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Lecture 2: Shell Tools and Scripting (2020)",
+                  "source": "Missing Semester",
+                  "url": "https://www.youtube.com/watch?v=kgII-YWo3Zw",
+                  "mins": 49,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Shell Tools and Scripting",
+                  "source": "Missing Semester",
+                  "url": "https://missing.csail.mit.edu/2020/shell-tools/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Bash Reference Manual",
+                  "source": "GNU",
+                  "url": "https://www.gnu.org/software/bash/manual/bash.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "ShellCheck - shell script analysis tool",
+                  "source": "shellcheck.net",
+                  "url": "https://www.shellcheck.net/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "book",
+                  "title": "The Linux Command Line (free book)",
+                  "source": "William Shotts",
+                  "url": "https://linuxcommand.org/tlcl.php",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps and delivery",
+      "intro": "The tools that take code from your laptop to a running, monitored system at the client.",
+      "items": [
+        {
+          "id": "linux",
+          "name": "Linux command line",
+          "why": "Most servers, containers and cloud machines run Linux. You need to move around, read logs and fix things on a Linux box without a graphical screen.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Linux in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=rrB13utjYV4",
+                  "mins": 3,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "The 50 Most Popular Linux & Terminal Commands - Full Course for Beginners",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=ZtqBQ68cfJc",
+                  "mins": 300,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "The Linux command line for beginners",
+                  "source": "Ubuntu",
+                  "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Learning the shell",
+                  "source": "LinuxCommand.org",
+                  "url": "https://linuxcommand.org/lc3_learning_the_shell.php",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "100+ Linux Things you Need to Know",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=LKCVKw9CzFo",
+                  "mins": 12,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Lecture 5: Command-line Environment (2020)",
+                  "source": "Missing Semester",
+                  "url": "https://www.youtube.com/watch?v=e8BO_dYxk5c",
+                  "mins": 56,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "book",
+                  "title": "The Linux Command Line (free book)",
+                  "source": "William Shotts",
+                  "url": "https://linuxcommand.org/tlcl.php",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "The Missing Semester of Your CS Education",
+                  "source": "MIT",
+                  "url": "https://missing.csail.mit.edu/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "git",
+          "name": "Git and GitHub",
+          "why": "Git tracks every change to code and GitHub is where teams share it, review it and run automation. Every client project you touch will live in a Git repository.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Git Explained in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=hwP7WQkmECE",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Git and GitHub for Beginners - Crash Course",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+                  "mins": 68,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Hello World",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/get-started/using-github/hello-world",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Git Tutorial for Beginners: Learn Git in 1 Hour",
+                  "source": "Programming with Mosh",
+                  "url": "https://www.youtube.com/watch?v=8JJ101D3knE",
+                  "mins": 69,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "Learn Git Branching",
+                  "source": "learngitbranching.js.org",
+                  "url": "https://learngitbranching.js.org/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "About Git",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/get-started/using-git/about-git",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "book",
+                  "title": "Pro Git book",
+                  "source": "git-scm.com",
+                  "url": "https://git-scm.com/book/en/v2",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Git Reference",
+                  "source": "git-scm.com",
+                  "url": "https://git-scm.com/docs",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Lecture 6: Version Control (git) (2020)",
+                  "source": "Missing Semester",
+                  "url": "https://www.youtube.com/watch?v=2sjqTHE0zok",
+                  "mins": 85,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Git for Professionals Tutorial - Tools & Concepts for Mastering Version Control with Git",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=Uszj_k0DGsg",
+                  "mins": 41,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "docker",
+          "name": "Docker",
+          "why": "Docker packages an app with everything it needs into a container, so it runs the same on a laptop and on a server. It is the usual way to ship an AI service to a client.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Docker in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=Gjnup-PuquQ",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Docker Crash Course for Absolute Beginners [NEW]",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=pg19Z8LL06w",
+                  "mins": 68,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Get started",
+                  "source": "Docker Docs",
+                  "url": "https://docs.docker.com/get-started/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Docker Tutorial for Beginners [FULL COURSE in 3 Hours]",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=3c-iBn73dDE",
+                  "mins": 166,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Build and share a containerized application",
+                  "source": "Docker Docs",
+                  "url": "https://docs.docker.com/get-started/tutorials/run-an-app/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Docker Compose",
+                  "source": "Docker Docs",
+                  "url": "https://docs.docker.com/compose/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Reference documentation",
+                  "source": "Docker Docs",
+                  "url": "https://docs.docker.com/reference/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Building best practices",
+                  "source": "Docker Docs",
+                  "url": "https://docs.docker.com/build/building/best-practices/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Complete Docker Course - From BEGINNER to PRO! (Learn Containers)",
+                  "source": "DevOps Directive",
+                  "url": "https://www.youtube.com/watch?v=RqTEHSBrYFw",
+                  "mins": 284,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kubernetes",
+          "name": "Kubernetes",
+          "why": "Kubernetes runs many containers across many machines and restarts them when they fail. Larger clients run their services on it, so you need to deploy to it and read what it is doing.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Kubernetes Explained in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=PziYflu8cB8",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Kubernetes Crash Course for Absolute Beginners [NEW]",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=s_o8dwzRlu4",
+                  "mins": 72,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Learn Kubernetes Basics",
+                  "source": "Kubernetes docs",
+                  "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Kubernetes Tutorial for Beginners [FULL COURSE in 4 Hours]",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=X48VuDVv0do",
+                  "mins": 217,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Kubernetes Course - Full Beginners Tutorial (Containerize Your Apps!)",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=d6WC5n9G_sM",
+                  "mins": 178,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Tutorials",
+                  "source": "Kubernetes docs",
+                  "url": "https://kubernetes.io/docs/tutorials/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Concepts",
+                  "source": "Kubernetes docs",
+                  "url": "https://kubernetes.io/docs/concepts/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Kubernetes Documentation",
+                  "source": "Kubernetes docs",
+                  "url": "https://kubernetes.io/docs/home/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Kubernetes Explained in 6 Minutes | k8s Architecture",
+                  "source": "ByteByteGo",
+                  "url": "https://www.youtube.com/watch?v=TlHvYWVUZyc",
+                  "mins": 6,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cicd",
+          "name": "CI/CD with GitHub Actions",
+          "why": "CI/CD runs your tests and deploys your code automatically on every change. GitHub Actions is the most common way to set this up for a project hosted on GitHub.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "CI/CD Explained in 5 Minutes",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=ddDJxFnv-qs",
+                  "mins": 5,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "5 Ways to DevOps-ify your App - Github Actions Tutorial",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=eB0nUzAI7M8",
+                  "mins": 12,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Quickstart for GitHub Actions",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/actions/get-started/quickstart",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "GitHub Actions Tutorial - Basic Concepts and CI/CD Pipeline with Docker",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=R8_veQiYBjI",
+                  "mins": 32,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Github Actions CI/CD - Everything you need to know to get started",
+                  "source": "DevOps Journey",
+                  "url": "https://www.youtube.com/watch?v=mFFXuXjVgkU",
+                  "mins": 12,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "GitHub Actions documentation",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/actions",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Reference for GitHub Actions",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/actions/reference",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Using secrets in GitHub Actions",
+                  "source": "GitHub Docs",
+                  "url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "terraform",
+          "name": "Terraform (infrastructure as code)",
+          "why": "Terraform describes cloud resources as code files, so you can create, review and repeat an environment instead of clicking in a console. Many clients use it to control what gets deployed.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Terraform in 100 Seconds",
+                  "source": "Fireship",
+                  "url": "https://www.youtube.com/watch?v=tomUWcQ0P3k",
+                  "mins": 2,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Terraform explained in 15 mins | Terraform Tutorial for Beginners",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=l5k1ai_GBDE",
+                  "mins": 18,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "What is Terraform",
+                  "source": "HashiCorp Developer",
+                  "url": "https://developer.hashicorp.com/terraform/intro",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "course",
+                  "title": "Get started with Terraform on AWS",
+                  "source": "HashiCorp Developer",
+                  "url": "https://developer.hashicorp.com/terraform/tutorials/aws-get-started",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Terraform Course - Automate your AWS cloud infrastructure",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=SLB_c_ayRMo",
+                  "mins": 141,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Complete Terraform Course - From BEGINNER to PRO! (Learn Infrastructure as Code)",
+                  "source": "DevOps Directive",
+                  "url": "https://www.youtube.com/watch?v=7xngnjfIlK4",
+                  "mins": 158,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "Configuration Language",
+                  "source": "HashiCorp Developer",
+                  "url": "https://developer.hashicorp.com/terraform/language",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Terraform tutorials",
+                  "source": "HashiCorp Developer",
+                  "url": "https://developer.hashicorp.com/terraform/tutorials",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "HashiCorp Terraform Associate Certification Course - Pass the Exam!",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=V4waklkBC38",
+                  "mins": 790,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cloud",
+          "name": "Cloud fundamentals",
+          "why": "AWS, Azure and Google Cloud rent out computers, storage, databases and AI models. Every client uses at least one of them, so you need the shared basics: accounts, regions, networks, identity and cost.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "Cloud Computing In 6 Minutes | What Is Cloud Computing? | Cloud Computing Explained | Simplilearn",
+                  "source": "Simplilearn",
+                  "url": "https://www.youtube.com/watch?v=M988_fsOSWo",
+                  "mins": 6,
+                  "cost": "free"
+                },
+                {
+                  "type": "course",
+                  "title": "Introduction to Cloud Infrastructure: Describe Cloud Concepts",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/training/paths/microsoft-azure-fundamentals-describe-cloud-concepts/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Getting Started - Cloud Computing Tutorials for Building on AWS",
+                  "source": "AWS",
+                  "url": "https://aws.amazon.com/getting-started/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "AWS Certified Cloud Practitioner Certification Course (CLF-C02) - Pass the Exam!",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=NhDYbskXRgc",
+                  "mins": 858,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Microsoft Azure Fundamentals Certification Course (AZ-900) - Pass the exam in 3 hours!",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=NKEFWyqJ5XA",
+                  "mins": 190,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "Google Cloud Digital Leader Certification Course - Pass the Exam!",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=UGRDM86MBIQ",
+                  "mins": 366,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Get started with Google Cloud",
+                  "source": "Google Cloud docs",
+                  "url": "https://docs.cloud.google.com/docs/get-started",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "AWS Well-Architected Framework",
+                  "source": "AWS",
+                  "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Azure Well-Architected Framework",
+                  "source": "Microsoft Learn",
+                  "url": "https://learn.microsoft.com/en-us/azure/well-architected/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Google Cloud Well-Architected Framework",
+                  "source": "Google Cloud docs",
+                  "url": "https://docs.cloud.google.com/architecture/framework",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "observability",
+          "name": "Observability (logs, metrics, traces)",
+          "why": "Observability means you can tell what a running system is doing from its logs, metrics and traces. For AI features this is how you see slow calls, errors and cost after go-live.",
+          "levels": [
+            {
+              "level": "Start",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "What is Site Reliability Engineering (SRE)?",
+                  "source": "IBM Technology",
+                  "url": "https://www.youtube.com/watch?v=ztIIcXNzMN4",
+                  "mins": 8,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Observability primer",
+                  "source": "OpenTelemetry",
+                  "url": "https://opentelemetry.io/docs/concepts/observability-primer/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "What is OpenTelemetry?",
+                  "source": "OpenTelemetry",
+                  "url": "https://opentelemetry.io/docs/what-is-opentelemetry/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Build",
+              "links": [
+                {
+                  "type": "video",
+                  "title": "OpenTelemetry Course - Understand Software Performance",
+                  "source": "freeCodeCamp.org",
+                  "url": "https://www.youtube.com/watch?v=r8UvWSX3KA8",
+                  "mins": 69,
+                  "cost": "free"
+                },
+                {
+                  "type": "video",
+                  "title": "How Prometheus Monitoring works | Prometheus Architecture explained",
+                  "source": "TechWorld with Nana",
+                  "url": "https://www.youtube.com/watch?v=h4Sl21AKiDg",
+                  "mins": 22,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Prometheus overview",
+                  "source": "Prometheus docs",
+                  "url": "https://prometheus.io/docs/introduction/overview/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "docs",
+                  "title": "Get started with Grafana Open Source",
+                  "source": "Grafana docs",
+                  "url": "https://grafana.com/docs/grafana/latest/fundamentals/getting-started/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            },
+            {
+              "level": "Advanced",
+              "links": [
+                {
+                  "type": "docs",
+                  "title": "OpenTelemetry documentation",
+                  "source": "OpenTelemetry",
+                  "url": "https://opentelemetry.io/docs/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "book",
+                  "title": "Monitoring Distributed Systems (Site Reliability Engineering book)",
+                  "source": "Google SRE",
+                  "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+                  "mins": null,
+                  "cost": "free"
+                },
+                {
+                  "type": "book",
+                  "title": "Google SRE books",
+                  "source": "Google SRE",
+                  "url": "https://sre.google/books/",
+                  "mins": null,
+                  "cost": "free"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

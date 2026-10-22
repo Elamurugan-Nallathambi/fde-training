@@ -1,0 +1,265 @@
+{
+  "replace": true,
+  "questions": [
+    {
+      "id": "pharma-m04-q01",
+      "lesson": "pharma-value-chain",
+      "q": "A tablet batch has a test result in LIMS, a deviation in the eQMS and a hold status in SAP. Which system decides whether the stock can ship?",
+      "options": [
+        "LIMS, because it holds the results",
+        "The eQMS, because it holds the deviation",
+        "SAP, through the batch status",
+        "Email, once QA sends approval"
+      ],
+      "answer": 2,
+      "why": "Batch status in ERP usually controls whether stock can ship. It changes only after QA release."
+    },
+    {
+      "id": "pharma-m04-q02",
+      "lesson": "pharma-value-chain",
+      "q": "A sponsor outsources manufacturing to a CDMO. Who stays responsible for the product's quality?",
+      "options": [
+        "The sponsor that owns the product",
+        "Only the CDMO, since it makes the product",
+        "The CRO running the trial",
+        "Whoever signed the purchase order"
+      ],
+      "answer": 0,
+      "why": "The product owner keeps responsibility for quality. A quality agreement sets out who does which activity."
+    },
+    {
+      "id": "pharma-m04-q03",
+      "lesson": "pharma-value-chain",
+      "q": "Which ICH guideline is the GMP guide for active pharmaceutical ingredients?",
+      "options": [
+        "ICH Q10",
+        "ICH E6",
+        "ICH Q9",
+        "ICH Q7"
+      ],
+      "answer": 3,
+      "why": "ICH Q7 covers GMP for APIs. Q9 is quality risk management, Q10 is the pharmaceutical quality system and E6 is GCP."
+    },
+    {
+      "id": "pharma-m04-q04",
+      "lesson": "pharma-value-chain",
+      "q": "A lab analyst writes a result on a sticky note and types it into LIMS an hour later. Which ALCOA+ principles does this break?",
+      "options": [
+        "Legible and enduring",
+        "Contemporaneous and original",
+        "Consistent and available",
+        "None, as long as the value is right"
+      ],
+      "answer": 1,
+      "why": "The record was not made at the time of the activity, and the first record of the value was not kept."
+    },
+    {
+      "id": "pharma-m04-q05",
+      "lesson": "pharma-cost-delay",
+      "q": "Batches with no deviation still wait eight days before release, mostly in QA review. The client asks for an AI report writer. What is the better first target?",
+      "options": [
+        "A faster deviation report writer",
+        "More operators on the line",
+        "Batch record review by exception",
+        "A new LIMS with better reporting features"
+      ],
+      "answer": 2,
+      "why": "The data shows the wait is in batch record review, so that is where the biggest saving is."
+    },
+    {
+      "id": "pharma-m04-q06",
+      "lesson": "pharma-cost-delay",
+      "q": "Under 21 CFR 211.192, what must happen when a batch shows an unexplained discrepancy?",
+      "options": [
+        "Investigate it and any other batches it may affect",
+        "Retest the samples until a passing result finally appears",
+        "Note it in the batch record and release as normal",
+        "Report it to FDA within one day and wait for advice"
+      ],
+      "answer": 0,
+      "why": "The rule requires a thorough investigation that extends to other batches that may have been affected."
+    },
+    {
+      "id": "pharma-m04-q07",
+      "lesson": "pharma-cost-delay",
+      "q": "A validation team tests every software function with full scripted tests, including report formatting. What would GAMP 5 and CSA suggest?",
+      "options": [
+        "Test every function twice to be extra safe",
+        "Skip testing completely for vendor software",
+        "Only test after go-live using real batches",
+        "Focus effort on functions with higher risk"
+      ],
+      "answer": 3,
+      "why": "Both push towards risk-based effort: deeper testing where failure could harm patients or product, lighter testing elsewhere."
+    },
+    {
+      "id": "pharma-m04-q08",
+      "lesson": "pharma-cost-delay",
+      "q": "A QA manager says most deviation time is spent writing. Your date analysis shows long waits for lab data. What do you do?",
+      "options": [
+        "Trust the manager and build a report writer",
+        "Show the data and discuss the lab hand-off",
+        "Ignore the lab since it is outside the project scope",
+        "Ask the lab manager to tell analysts to work faster"
+      ],
+      "answer": 1,
+      "why": "Measure the waits before choosing a tool. The data points to an integration or hand-off problem, not writing."
+    },
+    {
+      "id": "pharma-m04-q09",
+      "lesson": "pharma-gap-assessment",
+      "q": "You are planning a gap assessment of the deviation process. What should you do first?",
+      "options": [
+        "Set the scope and the requirements to assess against",
+        "Interview operators about their daily pain points",
+        "Draft the remediation plan and its budget for approval",
+        "Rank the gaps by effort so quick wins come first"
+      ],
+      "answer": 0,
+      "why": "The scope and requirements define what 'gap' means. Everything else builds on them."
+    },
+    {
+      "id": "pharma-m04-q10",
+      "lesson": "pharma-gap-assessment",
+      "q": "Two root cause codes, 'Equipment' and 'Machine', mean the same thing. There is no direct GMP rule broken. Why rank it high for an AI project?",
+      "options": [
+        "Inspectors always cite duplicate codes in every 483",
+        "It slows down the eQMS for every single user on site",
+        "It breaks trending and the data a model learns from",
+        "Duplicate codes are not allowed under the Part 11 rules"
+      ],
+      "answer": 2,
+      "why": "Inconsistent categories block trending and give an AI tool confusing data, so they must be cleaned first."
+    },
+    {
+      "id": "pharma-m04-q11",
+      "lesson": "pharma-gap-assessment",
+      "q": "Which finding is a data integrity gap?",
+      "options": [
+        "SOPs reviewed on a two-year cycle as the procedure says",
+        "Training records stored in a validated system",
+        "QA approval needed for CAPA closure",
+        "Two analysts share one login on an instrument"
+      ],
+      "answer": 3,
+      "why": "Shared logins break 'attributable': you cannot tell who did what."
+    },
+    {
+      "id": "pharma-m04-q12",
+      "lesson": "pharma-gap-assessment",
+      "q": "How should you rank the gaps you found?",
+      "options": [
+        "Patient and product risk first, then inspection risk",
+        "Easiest fixes first so the client sees progress quickly",
+        "In the order you found them during the site visits",
+        "By how many people mentioned each one in interviews"
+      ],
+      "answer": 0,
+      "why": "Risk to patients and product comes first, even when the fix is hard."
+    },
+    {
+      "id": "pharma-m04-q13",
+      "lesson": "pharma-value-sizing",
+      "q": "Your business case for a deviation assistant shows build and run cost only. What is missing?",
+      "options": [
+        "The vendor's marketing and launch plan",
+        "Validation, SOPs, training and change control",
+        "The cost of the client's office space and power",
+        "Nothing, build and run are the full cost of the tool"
+      ],
+      "answer": 1,
+      "why": "Regulated costs are real and QA and finance will look for them."
+    },
+    {
+      "id": "pharma-m04-q14",
+      "lesson": "pharma-value-sizing",
+      "q": "Why does an AI assistant in GMP work usually save preparation time rather than review time?",
+      "options": [
+        "Reviewers usually refuse to use AI drafts",
+        "Review is always quick, so there is little to save",
+        "AI cannot read GMP records stored in an eQMS",
+        "A qualified person must still review and sign"
+      ],
+      "answer": 3,
+      "why": "The human approval step stays. The saving comes from searching, gathering and drafting."
+    },
+    {
+      "id": "pharma-m04-q15",
+      "lesson": "pharma-value-sizing",
+      "q": "The CFO asks how much a lower chance of a warning letter is worth. What is the honest answer?",
+      "options": [
+        "Quote a typical industry fine as the value",
+        "Multiply last year's revenue by a guessed risk factor",
+        "Describe the risk reduction, linked to specific gaps",
+        "Say it is worth nothing because it cannot be measured"
+      ],
+      "answer": 2,
+      "why": "Do not invent a number. Describe the risk value plainly and link it to the gaps it closes."
+    },
+    {
+      "id": "pharma-m04-q16",
+      "lesson": "pharma-value-sizing",
+      "q": "In the worked example, the low case is negative in year one. What does that mean?",
+      "options": [
+        "The project should be cancelled before it starts",
+        "Validation and setup fall in year one; later years gain",
+        "The figures must be wrong and should be redone",
+        "The hourly cost should be raised until it turns positive"
+      ],
+      "answer": 1,
+      "why": "One-time validation and setup costs land in year one. That is a normal, honest result."
+    },
+    {
+      "id": "pharma-m04-q17",
+      "lesson": "pharma-build-buy-configure",
+      "q": "The client's eQMS vendor offers a licensed AI feature that covers most of the need. Which option should you look at first?",
+      "options": [
+        "Configure the existing platform",
+        "Build a custom tool on a new cloud stack",
+        "Buy a second eQMS just for the AI part",
+        "Wait a year for a better model release"
+      ],
+      "answer": 0,
+      "why": "Configuring an owned, validated platform can reuse its validation package and avoids duplicate tools."
+    },
+    {
+      "id": "pharma-m04-q18",
+      "lesson": "pharma-build-buy-configure",
+      "q": "Under GAMP 5, which category usually needs the most validation effort?",
+      "options": [
+        "Category 1, infrastructure",
+        "Category 3, standard software",
+        "Category 4, configured software",
+        "Category 5, custom software"
+      ],
+      "answer": 3,
+      "why": "Custom software is not covered by a supplier's own testing, so more of the evidence must come from you."
+    },
+    {
+      "id": "pharma-m04-q19",
+      "lesson": "pharma-build-buy-configure",
+      "q": "Who usually has the final say on whether a tool that touches GMP records is used?",
+      "options": [
+        "The IT director",
+        "The procurement team",
+        "The head of quality",
+        "The AI vendor"
+      ],
+      "answer": 2,
+      "why": "The quality unit is responsible for GMP records and can refuse any tool it cannot trust."
+    },
+    {
+      "id": "pharma-m04-q20",
+      "lesson": "pharma-build-buy-configure",
+      "q": "A vendor's AI tool is impressive, but it cannot pin a version and updates itself monthly. Why is that a problem?",
+      "options": [
+        "Monthly updates are too slow for a fast-moving site",
+        "Validated behaviour could change without control",
+        "The licence will cost more each month after updates",
+        "Users will dislike seeing new features every month"
+      ],
+      "answer": 1,
+      "why": "If the tool changes without assessment and retesting, its validated state cannot be maintained."
+    }
+  ]
+}

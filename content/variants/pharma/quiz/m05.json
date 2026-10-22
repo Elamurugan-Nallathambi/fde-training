@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "pharma-m05-q01",
+      "lesson": "pharma-deviation-discovery",
+      "q": "The client wants an AI report writer for deviations on day one. In the six-step method, when does the LLM come in?",
+      "options": [
+        "First, so the client sees value in week one",
+        "Last, after process, data and systems are checked",
+        "Second, right after the first round of interviews",
+        "Never, because LLMs are not allowed in GMP work at all"
+      ],
+      "answer": 1,
+      "why": "The LLM step is last. Earlier steps clean the process and data so the LLM step adds value and can be validated."
+    },
+    {
+      "id": "pharma-m05-q02",
+      "lesson": "pharma-deviation-discovery",
+      "q": "Interviewing for a deviation process, who should you ask to walk through a recently closed deviation?",
+      "options": [
+        "Operators, investigators, lab and QA reviewers",
+        "Only the site director, who sees the whole picture",
+        "Only the IT owner of the eQMS and its interfaces",
+        "Only the eQMS vendor's implementation consultant"
+      ],
+      "answer": 0,
+      "why": "The people who touch each step know where time really goes and how the work differs from the SOP."
+    },
+    {
+      "id": "pharma-m05-q03",
+      "lesson": "pharma-deviation-discovery",
+      "q": "The same event is typed into the MES, an email to QA and the eQMS. You want to remove the email step. What must happen?",
+      "options": [
+        "Stop sending the emails from tomorrow morning",
+        "Ask IT to block the shared QA mailbox for everyone",
+        "Leave it, since duplicated entries are harmless",
+        "Raise a change control and update the SOP"
+      ],
+      "answer": 3,
+      "why": "In GMP, a process change needs an approved SOP update through change control."
+    },
+    {
+      "id": "pharma-m05-q04",
+      "lesson": "pharma-deviation-discovery",
+      "q": "Your SQL check shows 'human error' and 'Human Error' as two root causes. Which step of the method found this?",
+      "options": [
+        "Interview the people",
+        "Map process and systems",
+        "Validate the data",
+        "Connect systems and add an LLM"
+      ],
+      "answer": 2,
+      "why": "Validating the data means profiling exports for missing fields and inconsistent categories."
+    },
+    {
+      "id": "pharma-m05-q05",
+      "lesson": "pharma-deviation-discovery",
+      "q": "In step 5 you find the eQMS audit trail is on but never reviewed. What is a sensible action?",
+      "options": [
+        "Turn the audit trail off to save storage space",
+        "Ignore it, because the system is already validated",
+        "Add periodic audit trail review to the SOP",
+        "Build the AI tool now and fix the review later on"
+      ],
+      "answer": 2,
+      "why": "Audit trail review is part of data integrity control, and the AI tool will rely on that trail too."
+    },
+    {
+      "id": "pharma-m05-q06",
+      "lesson": "pharma-deviation-discovery",
+      "q": "The assistant drafts a summary and candidate root causes. Where should the draft go?",
+      "options": [
+        "Straight into the approved investigation text field",
+        "Into a separate, attributed field with the record",
+        "Into a personal notes file kept by the investigator",
+        "Nowhere, it should only appear on screen and vanish"
+      ],
+      "answer": 1,
+      "why": "Keeping the draft separate and attributed lets QA and inspectors see what the tool proposed and what the person decided."
+    }
+  ]
+}

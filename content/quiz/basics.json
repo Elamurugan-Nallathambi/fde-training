@@ -1,0 +1,265 @@
+{
+ "module": "basics",
+ "questions": [
+  {
+   "id": "basics-q01",
+   "lesson": "network",
+   "q": "What is a network?",
+   "options": [
+    "Computers connected so they can send data to each other",
+    "A program that stores customer records",
+    "A type of AI model",
+    "A password for your Wi-Fi"
+   ],
+   "answer": 0,
+   "why": "A network is computers connected so they can send data to each other. Home Wi-Fi and the internet are networks."
+  },
+  {
+   "id": "basics-q02",
+   "lesson": "network",
+   "q": "What is an IP address?",
+   "options": [
+    "The name of a website",
+    "The numeric address of a device on a network",
+    "A secret key for an API",
+    "The speed of your internet"
+   ],
+   "answer": 1,
+   "why": "An IP address is the numeric address of a device, such as 203.0.113.10."
+  },
+  {
+   "id": "basics-q03",
+   "lesson": "network",
+   "q": "What does DNS do?",
+   "options": [
+    "Encrypts your files",
+    "Blocks unsafe websites",
+    "Turns names like api.example.com into IP addresses",
+    "Stores your emails"
+   ],
+   "answer": 2,
+   "why": "DNS is the internet's phone book: it turns names into IP addresses."
+  },
+  {
+   "id": "basics-q04",
+   "lesson": "network",
+   "q": "What is the difference between HTTP and HTTPS?",
+   "options": [
+    "HTTPS is HTTP encrypted so nobody on the path can read it",
+    "HTTPS is only for images",
+    "HTTP is newer and faster",
+    "There is no difference"
+   ],
+   "answer": 0,
+   "why": "HTTPS is HTTP encrypted with TLS."
+  },
+  {
+   "id": "basics-q05",
+   "lesson": "network",
+   "q": "What is the cloud?",
+   "options": [
+    "Software that only runs on your laptop",
+    "Renting computing and storage from providers such as AWS, Azure and Google Cloud",
+    "A backup copy on a USB drive",
+    "A kind of Wi-Fi"
+   ],
+   "answer": 1,
+   "why": "Cloud means renting computing, storage and services instead of owning the hardware."
+  },
+  {
+   "id": "basics-q06",
+   "lesson": "network",
+   "q": "What does a firewall do?",
+   "options": [
+    "Speeds up the internet",
+    "Stores passwords",
+    "Allows or blocks traffic by rules",
+    "Translates web pages"
+   ],
+   "answer": 2,
+   "why": "A firewall is a set of rules that allow or block traffic."
+  },
+  {
+   "id": "basics-q07",
+   "lesson": "build",
+   "q": "What is a database?",
+   "options": [
+    "A web page people click on",
+    "Organized storage for records, often in tables",
+    "A model that writes text",
+    "A cable that connects computers"
+   ],
+   "answer": 1,
+   "why": "A database is organized storage for records. Relational databases store data in tables you query with SQL."
+  },
+  {
+   "id": "basics-q08",
+   "lesson": "build",
+   "q": "Which is the frontend of an application?",
+   "options": [
+    "The part people see and click, such as a web page",
+    "The server code that talks to the database",
+    "The data center",
+    "The API key"
+   ],
+   "answer": 0,
+   "why": "The frontend is what people see and click; the backend is the server-side code."
+  },
+  {
+   "id": "basics-q09",
+   "lesson": "build",
+   "q": "What is JSON?",
+   "options": [
+    "A programming language for databases",
+    "A plain-text format for structured data with names and values",
+    "A type of firewall",
+    "An AI company"
+   ],
+   "answer": 1,
+   "why": "JSON is a plain-text format of names and values, used by almost every API."
+  },
+  {
+   "id": "basics-q10",
+   "lesson": "build",
+   "q": "What does Git do?",
+   "options": [
+    "Hosts websites",
+    "Records every change to code",
+    "Runs AI models",
+    "Sends emails"
+   ],
+   "answer": 1,
+   "why": "Git records every change to code. A repository is a project folder with its full history."
+  },
+  {
+   "id": "basics-q11",
+   "lesson": "products",
+   "q": "What is an API?",
+   "options": [
+    "A screen in a mobile app",
+    "An agreed way for one program to ask another for data or actions",
+    "A database table",
+    "A type of computer"
+   ],
+   "answer": 1,
+   "why": "An API is an agreed way for one program to ask another for data or actions over the network."
+  },
+  {
+   "id": "basics-q12",
+   "lesson": "products",
+   "q": "What is an API key?",
+   "options": [
+    "A secret string that identifies your account when you call an API",
+    "A keyboard shortcut",
+    "The name of a model",
+    "A public web address"
+   ],
+   "answer": 0,
+   "why": "An API key is a secret that identifies your account, so keep it out of code and chats."
+  },
+  {
+   "id": "basics-q13",
+   "lesson": "products",
+   "q": "What is a chat app, such as ChatGPT or the Claude app?",
+   "options": [
+    "A database",
+    "A finished product for people: you type, it answers",
+    "A network cable",
+    "A programming language"
+   ],
+   "answer": 1,
+   "why": "A chat app is a finished product for people; developers use the API instead."
+  },
+  {
+   "id": "basics-q14",
+   "lesson": "models",
+   "q": "What is AI?",
+   "options": [
+    "Software that does tasks we used to think needed human judgment",
+    "A faster internet connection",
+    "A type of database",
+    "A spreadsheet formula"
+   ],
+   "answer": 0,
+   "why": "AI is software that does tasks like reading, writing and recognizing images."
+  },
+  {
+   "id": "basics-q15",
+   "lesson": "models",
+   "q": "What is an LLM?",
+   "options": [
+    "A large language model trained on a lot of text, such as Claude or GPT",
+    "A type of network cable",
+    "A cloud region",
+    "A database query"
+   ],
+   "answer": 0,
+   "why": "An LLM is a language model with billions of parameters, trained on a large amount of text."
+  },
+  {
+   "id": "basics-q16",
+   "lesson": "models",
+   "q": "What is a token?",
+   "options": [
+    "A password",
+    "The unit an LLM reads and writes: a word or part of a word",
+    "A coin you pay with",
+    "A type of server"
+   ],
+   "answer": 1,
+   "why": "A token is a word, part of a word or a punctuation mark. 100 tokens is about 75 words."
+  },
+  {
+   "id": "basics-q17",
+   "lesson": "models",
+   "q": "A model confidently gives an answer that is false. What is this called?",
+   "options": [
+    "A hallucination",
+    "A firewall",
+    "A deployment",
+    "A backup"
+   ],
+   "answer": 0,
+   "why": "A hallucination is when a model states something false with confidence."
+  },
+  {
+   "id": "basics-q18",
+   "lesson": "context",
+   "q": "What is the context window?",
+   "options": [
+    "The browser window you chat in",
+    "The maximum amount of text a model can take in one request",
+    "The time of day the model works",
+    "The list of users"
+   ],
+   "answer": 1,
+   "why": "The context window is the maximum text, in tokens, the model can take in one request."
+  },
+  {
+   "id": "basics-q19",
+   "lesson": "data",
+   "q": "What is personal data (PII)?",
+   "options": [
+    "Information that identifies a person, such as name, email or phone",
+    "Any number in a spreadsheet",
+    "The code of an app",
+    "The weather forecast"
+   ],
+   "answer": 0,
+   "why": "Personal data identifies a person directly or indirectly."
+  },
+  {
+   "id": "basics-q20",
+   "lesson": "data",
+   "q": "Where should API keys and passwords be kept?",
+   "options": [
+    "In the code so it is easy to find",
+    "In a shared chat",
+    "In a secret store or environment variables",
+    "In an email to the team"
+   ],
+   "answer": 2,
+   "why": "Secrets go in a secret store or environment variables, never in code, documents or chats."
+  }
+ ]
+}

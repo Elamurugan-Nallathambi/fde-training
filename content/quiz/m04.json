@@ -1,0 +1,272 @@
+{
+  "module": 4,
+  "questions": [
+    {
+      "id": "m04-q01",
+      "lesson": "value-chains",
+      "q": "AP staff track invoice exceptions in a shared spreadsheet, but invoices and payments live in the ERP. Your PoC drafts exception decisions. Where should its results end up?",
+      "options": [
+        "In the shared spreadsheet, since that is where people work",
+        "In a new database built for the PoC",
+        "Back in the ERP, the system of record",
+        "In the shared mailbox as an email thread"
+      ],
+      "answer": 2,
+      "why": "Writing anywhere other than the system of record creates a second truth someone must reconcile by hand."
+    },
+    {
+      "id": "m04-q02",
+      "lesson": "value-chains",
+      "q": "A customer's credit limit is one number in the CRM and another in a sales spreadsheet. Which one wins?",
+      "options": [
+        "The CRM, as the system of record for customer data",
+        "The spreadsheet, because it is updated more often",
+        "Whichever number is higher",
+        "Whichever one the sales team prefers",
+        "Neither until IT builds a new system"
+      ],
+      "answer": 0,
+      "why": "The system of record is the official source of truth for that type of data."
+    },
+    {
+      "id": "m04-q03",
+      "lesson": "value-chains",
+      "q": "Exceptions are about 5 percent of invoice volume. A colleague says they are too small to bother with. What is the better view?",
+      "options": [
+        "Agree, focus only on the standard flow",
+        "Agree, exceptions belong to IT not operations",
+        "Disagree, because exceptions are always the majority of volume",
+        "Exceptions are often a small share of volume but a large share of effort"
+      ],
+      "answer": 3,
+      "why": "Exceptions fall outside the standard flow and go to people, so they often hold most of the effort and cost."
+    },
+    {
+      "id": "m04-q04",
+      "lesson": "value-chains",
+      "q": "You start with a new client next week. What is a good way to learn their main systems before the first meeting?",
+      "options": [
+        "Ask IT for admin access to every system",
+        "Read their annual report and a few of their job postings, which often name the systems",
+        "Assume they use the same systems as your last client",
+        "Wait until week six to avoid looking unprepared"
+      ],
+      "answer": 1,
+      "why": "Annual reports show what leadership cares about and job postings often name the exact systems."
+    },
+    {
+      "id": "m04-q05",
+      "lesson": "canvases",
+      "q": "You are writing the Value Proposition Canvas for AP clerks. One draft pain says 'inefficient process'. How should you improve it?",
+      "options": [
+        "Leave it, since general pains cover more cases",
+        "Write what actually happens, such as 'waits two days for buyer approval by email'",
+        "Move it to the gains section instead",
+        "Replace it with a feature the PoC will build"
+      ],
+      "answer": 1,
+      "why": "Generic pains carry no information; specific ones come from evidence and can be acted on."
+    },
+    {
+      "id": "m04-q06",
+      "lesson": "canvases",
+      "q": "When should you use the Business Model Canvas rather than the Value Proposition Canvas?",
+      "options": [
+        "BMC for the user group, VPC for the whole company",
+        "BMC only for software companies, VPC for everyone else",
+        "BMC at the end of the project, VPC at the start",
+        "BMC for the client company as a whole, VPC for the specific user group of your PoC",
+        "They are interchangeable, pick either"
+      ],
+      "answer": 3,
+      "why": "The BMC shows which part of the business your work touches; the VPC shows fit for one user group."
+    },
+    {
+      "id": "m04-q07",
+      "lesson": "canvases",
+      "q": "In a value proposition, when do you have 'fit'?",
+      "options": [
+        "When pain relievers and gain creators match the pains and gains that matter most to the user",
+        "When the value map lists more features than the competitor",
+        "When every block of the BMC is filled",
+        "When the sponsor approves the canvas",
+        "When the pains you find most interesting are addressed"
+      ],
+      "answer": 0,
+      "why": "Fit means your offer answers what the customer profile says matters, not what you find interesting."
+    },
+    {
+      "id": "m04-q08",
+      "lesson": "canvases",
+      "q": "In a canvas session, how should you present the draft you bring?",
+      "options": [
+        "Present it as final so the session stays short",
+        "Hide it and start from a blank canvas",
+        "Present every box as a question and let the client correct you out loud",
+        "Present only the boxes you are sure about"
+      ],
+      "answer": 2,
+      "why": "Client corrections are the most valuable output of the session."
+    },
+    {
+      "id": "m04-q09",
+      "lesson": "market-scan",
+      "q": "Your market scan lists three vendors and your custom PoC. What important option is missing?",
+      "options": [
+        "A fourth vendor with the most features",
+        "A market sizing estimate",
+        "Your preferred cloud provider",
+        "Do nothing, the real baseline every option must beat"
+      ],
+      "answer": 3,
+      "why": "Do nothing is always an option, and often the real competition."
+    },
+    {
+      "id": "m04-q10",
+      "lesson": "market-scan",
+      "q": "A vendor's site says its tool is '98 percent accurate'. How should this go in your scan?",
+      "options": [
+        "As a fact, since it is on the vendor's site",
+        "Marked as 'vendor says', separate from what you verified yourself",
+        "Left out completely",
+        "Averaged with the other vendors' figures"
+      ],
+      "answer": 1,
+      "why": "Accuracy figures without a test set you can see are claims and should be labelled as such."
+    },
+    {
+      "id": "m04-q11",
+      "lesson": "market-scan",
+      "q": "Why ask the client's IT and procurement teams what they have evaluated before?",
+      "options": [
+        "So you can reuse the old vendor's pricing",
+        "Because procurement must approve every interview",
+        "Many problems were looked at once and dropped for a reason worth knowing",
+        "So you can avoid mentioning products they already own",
+        "To find out which vendor IT dislikes"
+      ],
+      "answer": 2,
+      "why": "Past evaluations reveal constraints, such as a product that could not read supplier emails."
+    },
+    {
+      "id": "m04-q12",
+      "lesson": "market-scan",
+      "q": "A product fits the need well but fails the client's security questionnaire. How should the scan treat it?",
+      "options": [
+        "Not a real option this year",
+        "The best option, since features matter most",
+        "A good option once the PoC is done",
+        "Equal to the other options"
+      ],
+      "answer": 0,
+      "why": "A good product that fails the security review cannot be used, whatever its features."
+    },
+    {
+      "id": "m04-q13",
+      "lesson": "business-case",
+      "q": "A sponsor wants to quote 10 percent fewer late fees as a benefit, but nobody has looked at the ledger. How do you treat it?",
+      "options": [
+        "List it as an unquantified benefit until there is data to back a number",
+        "Put 10 percent in the total, it is a reasonable guess",
+        "Double it to make the case stronger",
+        "Drop all quality benefits from the case"
+      ],
+      "answer": 0,
+      "why": "Only put a number on risk and quality effects when you have a basis; otherwise list them as unquantified."
+    },
+    {
+      "id": "m04-q14",
+      "lesson": "business-case",
+      "q": "Your PoC saves 200 hours a month across a team of ten. Nobody is leaving and no hiring is planned to change. How should you present this?",
+      "options": [
+        "As cash savings equal to 200 hours of salary",
+        "As two headcount cuts",
+        "As freed capacity, stating what the team will do with the hours",
+        "As zero value, since no cash is saved"
+      ],
+      "answer": 2,
+      "why": "Hours are not cash unless something changes, such as a vacancy not filled; otherwise they are freed capacity."
+    },
+    {
+      "id": "m04-q15",
+      "lesson": "business-case",
+      "q": "Where should the loaded cost per hour in your business case come from?",
+      "options": [
+        "Your own estimate of salaries in that industry",
+        "Finance",
+        "The vendor's pricing page",
+        "The average of what users tell you",
+        "The LLM provider's cost calculator"
+      ],
+      "answer": 1,
+      "why": "Loaded cost includes salary, benefits, taxes and overheads, and must be agreed with finance."
+    },
+    {
+      "id": "m04-q16",
+      "lesson": "business-case",
+      "q": "Halving run cost barely moves payback, but halving minutes saved moves it a lot. What should the PoC measure first?",
+      "options": [
+        "Run cost, by benchmarking LLM prices",
+        "Build cost, by tracking developer hours",
+        "Volume, by asking managers for estimates",
+        "Minutes saved per case, by timing real cases"
+      ],
+      "answer": 3,
+      "why": "The input that moves the answer most is what the sponsor is really betting on, so measure it first."
+    },
+    {
+      "id": "m04-q17",
+      "lesson": "build-buy-configure",
+      "q": "A client needs exceptions routed to the right buyer. Their ticketing tool already supports routing rules. What is the best path?",
+      "options": [
+        "Build a custom routing service",
+        "Buy a new routing product",
+        "Configure the ticketing tool they already own",
+        "Hire a contractor to route by hand"
+      ],
+      "answer": 2,
+      "why": "Configuring an owned system is often cheapest and safest, since licences, security approval and support are in place."
+    },
+    {
+      "id": "m04-q18",
+      "lesson": "build-buy-configure",
+      "q": "Two options score almost the same against the agreed criteria. Which should you lean towards?",
+      "options": [
+        "The one with the longest licence term",
+        "The one you find most interesting to build",
+        "The one with the most features",
+        "The one that is easier to reverse",
+        "The one IT has never used"
+      ],
+      "answer": 3,
+      "why": "When scores are close, a reversible choice keeps options open; a small build is easier to undo than a three-year licence."
+    },
+    {
+      "id": "m04-q19",
+      "lesson": "build-buy-configure",
+      "q": "You plan a custom LLM build, but nobody at the client can maintain it after you leave. What does that make it?",
+      "options": [
+        "A liability rather than an asset",
+        "An asset, because it fits the need exactly",
+        "Fine, since LLM builds need no maintenance",
+        "Fine, as long as the code is commented"
+      ],
+      "answer": 0,
+      "why": "If no one can own and maintain a build, it becomes a liability once the FDE leaves."
+    },
+    {
+      "id": "m04-q20",
+      "lesson": "build-buy-configure",
+      "q": "When should you agree the decision criteria and their weights with the sponsor and IT?",
+      "options": [
+        "After scoring, to check your favourite wins",
+        "Before you score any options",
+        "Only if IT pushes back",
+        "At handover",
+        "Never, the FDE decides the weights"
+      ],
+      "answer": 1,
+      "why": "Agreeing criteria first makes the result their decision, not your preference."
+    }
+  ]
+}

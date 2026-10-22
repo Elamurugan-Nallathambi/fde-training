@@ -1,0 +1,1215 @@
+{
+ "module": 7,
+ "title": "Building the POC with LLMs",
+ "intro": "A client says 'show us it working on our own data by the end of the month', and now the design has to become real software. This module gives you the core build patterns: calling a model from code with checked output, tools, RAG over client documents, agents, MCP, and AI coding assistants used without losing control of quality.",
+ "lessons": [
+  {
+   "id": "prompts-in-code",
+   "title": "Prompts and structured output in code",
+   "summary": "You will be able to call the Claude API from Python with a system prompt, get JSON back in a fixed shape, and check it before using it.",
+   "why": "A finance team asks 'can it pull the key fields out of these supplier contracts and put them in our tracker'. A chat window works for one document, not for hundreds that have to feed another system. This lesson shows you how to call the model from code and get output a program can read safely, which is where almost every POC starts.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "You send the model a request over HTTPS and get a response back, just like any other web API. Every provider (Anthropic, OpenAI, Google and others) publishes its own SDK, but this course uses LiteLLM, an open-source Python library that calls all of them through one OpenAI-style interface, so switching provider is a change to one model string. A request has a model, a maximum number of output tokens and a list of messages; the first message can be a system message. The response holds a list of choices, each with a message and a finish reason, plus the token usage.",
+      "For a program to use the answer, ask for JSON that follows a schema you define, then validate it in your code. If it does not pass, you reject it or send it for review. Never pass unchecked model output into a database or another system."
+     ]
+    },
+    {
+     "h": "Setting up",
+     "p": [
+      "Install it with pip install litellm pydantic. Create an API key with the provider you use and store it in the environment variable LiteLLM reads for that provider, for example ANTHROPIC_API_KEY, OPENAI_API_KEY or GEMINI_API_KEY. The key never appears in your code. On a client project, keys come from their secrets manager, not from a file in the repository.",
+      "Choose a model from your provider's models page and keep it in one setting; the example reads it from the LLM_MODEL environment variable. The model string starts with the provider, such as anthropic/claude-sonnet-5-5, openai/ followed by an OpenAI model id, or ollama/ followed by a local model name. Model ids change over time, so check the provider's page rather than copying an id from an old project."
+     ]
+    },
+    {
+     "h": "System prompt and messages",
+     "p": [
+      "The system prompt sets the role, rules and context for the whole conversation: what the task is, what to do when information is missing, and what tone or format to use. User messages carry the specific input for this request. Keep the stable instructions in the system prompt and the changing data in the user message.",
+      "Put input data inside clear tags such as <invoice>...</invoice>. This helps the model tell your instructions apart from the content it is processing, and it is also a first defence against instructions hidden in that content. Be explicit about edge cases: 'If a field is missing, return an empty string' is far better than hoping the model guesses what you want.",
+      "Treat prompts like code. Keep them in files under version control, change one thing at a time, and rerun your test examples after each change."
+     ]
+    },
+    {
+     "h": "Getting JSON in a fixed shape",
+     "p": [
+      "There are two levels of control. The simple level is asking for JSON in the prompt and parsing the reply. That works most of the time but can fail on edge cases, for example extra text around the JSON. The stronger level is structured outputs: you pass a schema, here a Pydantic model, as response_format, and providers that support it constrain the response to match. Check the LiteLLM structured outputs page and your provider's docs for which models support it; keep the schema simple and list every required field.",
+      "Each provider's own SDK adds helpers on top, such as a parse method that returns the Pydantic object directly. The example below validates the reply itself so you can see every step, and the same code runs against any provider."
+     ],
+     "code": {
+      "lang": "python",
+      "text": "import os\nfrom litellm import completion\nfrom pydantic import BaseModel, ValidationError\n\nclass Invoice(BaseModel):\n    supplier: str\n    invoice_number: str\n    total: float\n    currency: str\n\n# One setting picks the provider: \"anthropic/...\", \"openai/...\", \"gemini/...\", \"ollama/...\"\nMODEL = os.environ.get(\"LLM_MODEL\", \"anthropic/claude-sonnet-5-5\")\nSYSTEM = (\"You extract fields from supplier invoices. Use only facts in the text. \"\n          \"If a field is missing, return an empty string for it.\")\ntext = \"Invoice INV-2291 from Northwind Supplies. Total due: 1,240.50 EUR.\"\n\nresponse = completion(\n    model=MODEL,\n    max_tokens=1024,\n    messages=[{\"role\": \"system\", \"content\": SYSTEM},\n              {\"role\": \"user\", \"content\": f\"<invoice>{text}</invoice>\"}],\n    response_format=Invoice,  # the schema the reply must match\n)\nchoice = response.choices[0]\nif choice.finish_reason != \"stop\":\n    raise RuntimeError(f\"Unexpected stop: {choice.finish_reason}\")\ntry:\n    invoice = Invoice.model_validate_json(choice.message.content)\n    print(invoice)\nexcept ValidationError as err:\n    print(\"Rejected:\", err)"
+     }
+    },
+    {
+     "h": "Validating the output",
+     "p": [
+      "A schema guarantees shape, not truth. The model can still return a total of 0, a supplier name it made up, or a currency code that does not exist. So validate in two steps. First, parse into a typed object, which the code does with Pydantic's model_validate_json. Second, apply business rules: totals must be positive, currency must be in an allowed list, the invoice number must match the client's format, and values should appear in the source text.",
+      "Also check the finish reason. stop means the model finished normally. length means it ran out of room and the output may be cut off. content_filter means the provider blocked the answer. Handle each one on purpose instead of assuming success. Record failures with the input that caused them; they become test cases for your next prompt change."
+     ]
+    },
+    {
+     "h": "From one call to a batch run",
+     "p": [
+      "A POC usually processes a folder of real items, not one string. Wrap the call in a function that takes one item and returns either a validated object or an error record, then loop over the items and write the results to a CSV or SQLite table with the item id, the output, the finish reason, the validation result and the token usage from the response. That table is your first evaluation report: you can sort by failures, count how many passed, and work out cost per item.",
+      "Add basic resilience. LiteLLM can retry temporary errors (the num_retries setting) and fall back to another model, but you should still catch exceptions per item so one bad file does not stop the run, and set a sensible timeout. For large runs that do not need instant answers, most providers offer a batch API that accepts many requests at once at a lower price and returns the results later."
+     ]
+    }
+   ],
+   "diagram": {
+    "type": "flow",
+    "title": "From input to trusted data",
+    "caption": "Each step either passes data on or sends it to review; nothing skips validation.",
+    "steps": [
+     {
+      "label": "Raw input",
+      "note": "Email, PDF text or form"
+     },
+     {
+      "label": "Build request",
+      "note": "System prompt, tagged input, schema"
+     },
+     {
+      "label": "Call the API",
+      "note": "Model id and max_tokens set in config"
+     },
+     {
+      "label": "Check finish reason",
+      "note": "stop, length or content_filter"
+     },
+     {
+      "label": "Parse into a type",
+      "note": "Pydantic model or json.loads"
+     },
+     {
+      "label": "Apply business rules",
+      "note": "Ranges, formats, allowed values"
+     },
+     {
+      "label": "Store or send to review",
+      "note": "Failures become test cases"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: extracting invoice fields",
+    "p": [
+     "The finance team wants supplier, invoice number, total and currency from invoice emails. The code in the section above defines the fields twice: as a Pydantic model for validation and as a JSON schema for the API. The system prompt tells the model to use only facts in the text and what to do when a field is missing. The invoice text goes inside <invoice> tags.",
+     "For the sample text the expected result is supplier 'Northwind Supplies', invoice number 'INV-2291', total 1240.5 and currency 'EUR'. Notice the input wrote the total as '1,240.50'; the schema forces a number, so your code receives 1240.5 and does not have to strip commas.",
+     "To make this production-ready you would add business rules after parsing, for example checking that the invoice number appears in the original text. That single check catches a whole class of invented values."
+    ],
+    "list": [
+     "Run it on 20 real samples, not one.",
+     "Record each failure with its input.",
+     "Change the prompt or schema, then rerun all 20.",
+     "Only then try a smaller, cheaper model on the same 20."
+    ]
+   },
+   "practice": [
+    {
+     "title": "Design a schema and validator without an API key",
+     "time": "30 min",
+     "goal": "Practice the validation half of the pattern, which you can run today for free.",
+     "steps": [
+      "Install pydantic with pip install pydantic.",
+      "Copy the Invoice model from this lesson into a file.",
+      "Write three JSON strings by hand: one valid, one with total as text, one missing currency.",
+      "Call Invoice.model_validate_json on each and print the result or the error.",
+      "Add a rule that rejects a total of zero or less, using a Pydantic field validator, and test it."
+     ],
+     "done_when": "Your script accepts the valid string and prints a clear error for each invalid one."
+    },
+    {
+     "title": "Iterate a system prompt in a free chat",
+     "time": "20 min",
+     "goal": "See how instructions and tags change the output.",
+     "steps": [
+      "In a free LLM chat, paste the system prompt from this lesson as your first message, then an invoice text inside <invoice> tags.",
+      "Ask for JSON with the four fields and check the result.",
+      "Try an invoice with no invoice number and see what happens.",
+      "Tighten the instruction for missing fields and try again."
+     ],
+     "done_when": "You have a prompt that returns valid JSON with an empty string for the missing field."
+    }
+   ],
+   "pitfalls": [
+    "Putting the API key in the code or a committed file. Use an environment variable or a secrets manager.",
+    "Trusting JSON because it parsed. Shape is not truth; apply business rules too.",
+    "Ignoring finish_reason. A length stop can give you half an answer.",
+    "Changing several things in a prompt at once. You will not know which change helped or hurt.",
+    "Testing on one example. Use a small set of real, messy samples from the start."
+   ],
+   "check": [
+    "What goes in the system prompt and what goes in the user message?",
+    "What does structured output guarantee, and what does it not guarantee?",
+    "Name three finish reasons and what your code should do for each.",
+    "Why should the input data be placed inside tags?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "Getting Started",
+     "source": "LiteLLM",
+     "url": "https://docs.litellm.ai/docs/",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Structured Outputs (JSON Mode)",
+     "source": "LiteLLM",
+     "url": "https://docs.litellm.ai/docs/completion/json_mode",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Providers",
+     "source": "LiteLLM",
+     "url": "https://docs.litellm.ai/docs/providers",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Get started with Claude",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/get-started",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Prompt engineering overview",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Models",
+     "source": "Pydantic Docs",
+     "url": "https://pydantic.dev/docs/validation/latest/concepts/models/",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "Prompting 101 | Code w/ Claude",
+     "source": "Anthropic",
+     "url": "https://www.youtube.com/watch?v=ysPbXH0LpIE",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Building with the Claude API",
+     "source": "Anthropic Academy",
+     "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Anthropic's educational courses",
+     "source": "GitHub (anthropics/courses)",
+     "url": "https://github.com/anthropics/courses",
+     "cost": "free"
+    }
+   ]
+  },
+  {
+   "id": "tool-use",
+   "title": "Tool use and function calling",
+   "summary": "You will be able to explain how a model asks your code to run a function, and build that loop with one tool.",
+   "why": "A support lead asks 'can it tell customers where their order is'. The model does not know that, the answer lives in the client's order system. This lesson shows you how a model asks your code to fetch live data or take an action, with your code deciding what is allowed, and every assistant or agent you build sits on top of it.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "You describe one or more tools to the model: a name, a plain-language description and a JSON schema for the inputs. When the model decides a tool would help, it does not run anything. It replies with a request: 'call get_order_status with order_id A-1002'. Your code runs the function, sends the result back, and the model uses it to continue.",
+      "This is also called function calling. The key idea is that the model proposes and your code disposes. You stay in control of what actually runs, with what permissions, and what the model gets to see."
+     ]
+    },
+    {
+     "h": "Defining a tool",
+     "p": [
+      "A tool definition has three parts. The name is a short identifier such as get_order_status. The description says what the tool does, when to use it and what the inputs mean. The parameters field is a JSON schema listing the parameters, their types and which are required.",
+      "The description matters more than people expect. The model decides whether and how to call a tool mostly from that text. 'Gets order' is weak. 'Look up the delivery status of one customer order by its id, for example A-1001' is clear. Say what the tool does not do as well, if confusion is likely.",
+      "Keep tools small and specific. One tool per clear action is easier for the model to use correctly and easier for you to secure and test than one large tool with many modes."
+     ]
+    },
+    {
+     "h": "The loop, step by step",
+     "p": [
+      "The loop is the core of tool use. Get it right once and you will reuse it everywhere."
+     ],
+     "list": [
+      "Send the user's message plus the tool definitions to the API.",
+      "Read the reply message. If it has tool_calls, each one has an id, a function name and its arguments as a JSON string.",
+      "Add the assistant's full response to the message history unchanged.",
+      "For each tool call, parse the arguments and run your matching function.",
+      "Add the model's message to the history, then one message with the role 'tool' for each call, carrying the matching tool_call_id and the output as content.",
+      "Call the model again with the updated history. Repeat until the reply has no tool calls, then read the final text."
+     ]
+    },
+    {
+     "h": "Handling results and errors",
+     "p": [
+      "Tool results are plain text or structured content. Return what the model needs to answer, not a full database row with internal fields. If a tool fails, still send a tool message, say clearly in it that it failed set to true, and describe the problem in words, such as 'no order with that id'. The model can then ask the user for a correct id instead of inventing an answer.",
+      "Validate the input the model sends before running anything. The schema helps, and strict tool use can enforce it, but your function should still check values: is this order id in the expected format, and does the current user have the right to see it? The model choosing a tool is not the same as the user being allowed to use it.",
+      "The model may ask for several tools in one response. The loop in the example handles that by collecting a result for every tool call before calling the model again."
+     ]
+    },
+    {
+     "h": "Choosing what to expose",
+     "p": [
+      "Start with read-only tools. A tool that looks things up cannot do much damage if the model calls it at the wrong time. Add tools that change data only when needed, and put a human approval step in front of them, as covered in the security lesson.",
+      "Provider SDKs and agent frameworks also offer a tool runner helper that runs this loop for you. It is worth using once you understand the loop. Build it by hand first, so that you know what is happening when something goes wrong."
+     ]
+    },
+    {
+     "h": "Controlling when tools are used",
+     "p": [
+      "By default the model decides on each turn whether to call a tool or answer directly. That is usually what you want. The tool_choice parameter lets you change it: you can require that some tool is used, force one named tool, or turn tools off for a turn. Forcing a tool is handy when the tool is really a way to get structured data out, for example a record_invoice tool whose input schema is the shape you want.",
+      "Your system prompt also steers tool use. A line such as 'Always look up the order before answering questions about delivery' makes the model check live data instead of answering from general knowledge. If the model asks for a value the user has not given, such as a missing order id, it may ask the user, or it may guess. Check for guessed inputs in your function, and tell the model in the prompt to ask when a required value is missing.",
+      "Every tool definition is sent with every request, so it adds input tokens. Keep the tool list to what the task needs."
+     ]
+    }
+   ],
+   "diagram": {
+    "type": "swimlane",
+    "title": "One tool call, end to end",
+    "caption": "Time runs top to bottom; only your code touches the order system.",
+    "lanes": [
+     "User",
+     "Your code",
+     "Claude API",
+     "Order system"
+    ],
+    "steps": [
+     {
+      "lane": 0,
+      "label": "Asks: where is order A-1002?"
+     },
+     {
+      "lane": 1,
+      "label": "Sends message plus tool list"
+     },
+     {
+      "lane": 2,
+      "label": "Replies with tool call: get_order_status"
+     },
+     {
+      "lane": 1,
+      "label": "Checks input and permissions"
+     },
+     {
+      "lane": 3,
+      "label": "Returns: waiting for stock"
+     },
+     {
+      "lane": 1,
+      "label": "Sends tool message, same id"
+     },
+     {
+      "lane": 2,
+      "label": "Writes the final answer"
+     },
+     {
+      "lane": 0,
+      "label": "Reads the answer"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: an order status tool",
+    "p": [
+     "A retailer wants its support assistant to answer 'where is my order?' from real data. You define one tool, get_order_status, backed here by a small dictionary standing in for the order system. The code below sends the question with the tool list, runs the loop and prints the final answer.",
+     "Trace one run. The first reply has a tool call asking for get_order_status with order_id 'A-1002'. Your code appends that message, runs the function, which returns 'waiting for stock', and sends a tool message with the same tool_call_id. The second reply has no tool calls and text such as 'Order A-1002 is waiting for stock.' The model never touched the order system; your function did."
+    ],
+    "code": {
+     "lang": "python",
+     "text": "import json, os\nfrom litellm import completion\n\nMODEL = os.environ.get(\"LLM_MODEL\", \"anthropic/claude-sonnet-5-5\")\nORDERS = {\"A-1001\": \"shipped on 14 Oct\", \"A-1002\": \"waiting for stock\"}\n\ndef get_order_status(order_id: str) -> str:\n    return ORDERS.get(order_id, \"no order with that id\")\n\ntools = [{\"type\": \"function\", \"function\": {\n    \"name\": \"get_order_status\",\n    \"description\": \"Look up the delivery status of one customer order by its id, e.g. A-1001.\",\n    \"parameters\": {\n        \"type\": \"object\",\n        \"properties\": {\"order_id\": {\"type\": \"string\", \"description\": \"Order id like A-1001\"}},\n        \"required\": [\"order_id\"],\n    },\n}}]\nmessages = [{\"role\": \"user\", \"content\": \"Where is my order A-1002?\"}]\n\nwhile True:\n    response = completion(model=MODEL, max_tokens=1024, tools=tools, messages=messages)\n    message = response.choices[0].message\n    if not message.tool_calls:\n        break\n    messages.append(message.model_dump())  # keep the model's request in the history\n    for call in message.tool_calls:\n        output = get_order_status(**json.loads(call.function.arguments))\n        messages.append({\"role\": \"tool\", \"tool_call_id\": call.id, \"content\": output})\n\nprint(message.content)"
+    }
+   },
+   "practice": [
+    {
+     "title": "Design three tools on paper",
+     "time": "25 min",
+     "goal": "Practice writing tool definitions a model can use correctly.",
+     "steps": [
+      "Pick a business assistant, such as an HR helper for leave requests.",
+      "Write three tool definitions as JSON: name, description and parameters with required fields.",
+      "Mark each tool as read or write, and write who must approve each write tool.",
+      "Write two user questions and, for each, which tool calls you expect and in what order.",
+      "Ask a free LLM chat to review your descriptions for anything ambiguous and fix what it finds."
+     ],
+     "done_when": "You have three valid JSON tool definitions and an expected call sequence for two questions."
+    },
+    {
+     "title": "Run the loop with a fake model",
+     "time": "30 min",
+     "goal": "Understand the message history without needing an API key.",
+     "steps": [
+      "Write a Python function fake_model(messages) that returns a dict like the API response: first a message with one tool call, then a plain text message once it sees a message with the role 'tool'.",
+      "Copy the while loop from this lesson and replace the API call with fake_model.",
+      "Print the messages list after each turn.",
+      "Check that each tool message has the same tool_call_id as its tool call."
+     ],
+     "done_when": "Your script prints the full history and ends with the final text, with ids that match."
+    }
+   ],
+   "pitfalls": [
+    "Vague tool descriptions. The model picks and fills tools from the description, so make it specific.",
+    "Dropping the model's tool call message from the history. The next request must include it, followed by the matching tool messages.",
+    "Running tool inputs without checks. Validate format and the user's permissions in your function.",
+    "Returning huge raw records as results. Send only what the model needs; it saves tokens and reduces leakage.",
+    "Failing silently. Return an error result with a clear message so the model can recover."
+   ],
+   "check": [
+    "What are the three parts of a tool definition?",
+    "What does a reply with tool_calls tell your code to do?",
+    "How does a tool message get matched to the right tool call?",
+    "Why does the model choosing a tool not mean the user is allowed to use it?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "Function Calling",
+     "source": "LiteLLM",
+     "url": "https://docs.litellm.ai/docs/completion/function_call",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Tool use with Claude",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Define tools",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Handle tool calls",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Tool runner (SDK)",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Writing effective tools for AI agents - using AI agents",
+     "source": "Anthropic",
+     "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "Tips for building AI agents",
+     "source": "Anthropic",
+     "url": "https://www.youtube.com/watch?v=LP5OCa20Zpg",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Building with the Claude API",
+     "source": "Anthropic Academy",
+     "url": "https://anthropic.skilljar.com/claude-with-the-anthropic-api",
+     "cost": "free"
+    }
+   ]
+  },
+  {
+   "id": "rag-in-practice",
+   "title": "RAG in practice",
+   "summary": "You will be able to build a simple RAG pipeline that splits documents, searches them, and answers with citations.",
+   "why": "A quality team asks 'can we just ask questions of our SOPs and get the right answer with the source'. The model does not know their documents, and the full set rarely fits in one prompt. This lesson shows you how to find the few passages that matter and give only those to the model, and why getting that search right usually matters more than which model you use.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "RAG has two phases. Before any question is asked, you prepare the documents: split them into small pieces called chunks and store them in a searchable index. When a question arrives, you search the index for the most relevant chunks, put them in the prompt with the question, and ask the model to answer using only those chunks and to cite them.",
+      "An everyday comparison: an open-book exam. The model is the student, the index is the textbook with a good table of contents, and citations are the page numbers that let the examiner check the answer."
+     ]
+    },
+    {
+     "h": "Chunking",
+     "p": [
+      "A chunk is a piece of a document small enough to be relevant to one idea and large enough to make sense alone. Common starting points are a few hundred words, or splitting on headings and paragraphs. Many pipelines add a small overlap between neighbouring chunks so a sentence that crosses a boundary is not lost.",
+      "Keep metadata with every chunk: the source file, section heading, page number, date and who is allowed to see it. You need this for citations and for permission filtering. Structure-aware splitting, for example one chunk per contract clause, usually beats splitting at a fixed word count."
+     ]
+    },
+    {
+     "h": "Searching: keywords, embeddings or both",
+     "p": [
+      "Keyword search finds chunks that share words with the question. It is simple, fast, needs no extra service and is excellent for exact terms like product codes and policy names. SQLite's built-in FTS5 extension, used in the code below, ranks results with the BM25 method.",
+      "Embedding search turns each chunk and the question into a list of numbers, a vector, that represents meaning. Chunks whose vectors are close to the question's vector are about the same thing even if they use different words, for example 'annual leave' and 'vacation days'. You need an embedding model and a place to store vectors, such as a vector database or a Postgres extension. Anthropic does not offer its own embedding model; its documentation points to providers such as Voyage AI.",
+      "Many production systems use both and merge the results. For a first POC, keyword search is often good enough to prove value and much easier to debug."
+     ],
+     "code": {
+      "lang": "python",
+      "text": "import sqlite3\n\ndef chunk(text: str, size: int = 20, overlap: int = 5) -> list[str]:\n    words = text.split()\n    step = size - overlap\n    return [\" \".join(words[i:i + size]) for i in range(0, max(len(words) - overlap, 1), step)]\n\npolicy = {\n    \"travel-policy.md\": \"Economy class is required for flights under six hours. \"\n        \"Business class needs written approval from a director. Hotel stays are \"\n        \"capped at the city rate published by finance each January.\",\n    \"expenses-faq.md\": \"Receipts are required for every expense over 25 EUR. \"\n        \"Claims must be submitted within 30 days of the trip end date.\",\n}\ndb = sqlite3.connect(\":memory:\")\ndb.execute(\"CREATE VIRTUAL TABLE chunks USING fts5(source, body)\")\nfor source, text in policy.items():\n    for piece in chunk(text):\n        db.execute(\"INSERT INTO chunks VALUES (?, ?)\", (source, piece))\n\ndef search(question: str, k: int = 3) -> list[tuple[str, str]]:\n    terms = \" OR \".join(w.strip(\"?.,\").lower() for w in question.split() if len(w) > 3)\n    sql = \"SELECT source, body FROM chunks WHERE chunks MATCH ? ORDER BY rank LIMIT ?\"\n    return db.execute(sql, (terms, k)).fetchall()\n\nfor source, body in search(\"Do I need approval for business class flights?\"):\n    print(source, \"|\", body[:70])"
+     }
+    },
+    {
+     "h": "Putting retrieved text in the prompt",
+     "p": [
+      "Place each retrieved chunk in its own tagged block with an id and its source. Tell the model to answer only from the sources, to cite the id after each claim, and to say it does not know when the sources do not contain the answer. That last instruction is what stops the model filling gaps with plausible guesses.",
+      "Send a handful of good chunks rather than many weak ones. Too much loosely related text can distract the model and costs more. The Claude API also has a citations feature that returns exact cited passages from documents you pass in; it is worth reading about once your basic pipeline works."
+     ]
+    },
+    {
+     "h": "Checking quality",
+     "p": [
+      "Test retrieval and generation separately. For retrieval, write 20 to 50 real questions with the chunk that should answer each one, and measure how often that chunk appears in the top results. For generation, check that answers are correct, that citations point to chunks that actually support the claim, and that the system says 'I do not know' when it should.",
+      "When answers are wrong, look at what was retrieved first. Most RAG problems are retrieval problems: the right chunk was never found, was split in half, or was ranked below irrelevant ones."
+     ]
+    },
+    {
+     "h": "Keeping the index fresh and safe",
+     "p": [
+      "Documents change. Policies get a new version, contracts are amended, old manuals are withdrawn. Plan how the index is updated: a nightly job that re-reads changed files, removes chunks from deleted files and records the document version on each chunk. Show the document date next to each citation so users can see if an answer comes from an old version.",
+      "Retrieved text is untrusted input, just like an email. A document in the index could contain hidden instructions, so the security controls from the previous module apply here too: mark sources as data, keep tools limited and check outputs. Also apply each user's document permissions at search time. A RAG system that returns a confidential board paper to anyone who asks the right question is a data leak with a friendly interface.",
+      "Finally, keep the original documents reachable from the citation, so a user can open the source and read the full context in one click."
+     ]
+    }
+   ],
+   "diagram": {
+    "type": "flow",
+    "title": "The RAG pipeline",
+    "caption": "The first three steps run when documents change; the rest run for every question.",
+    "steps": [
+     {
+      "label": "Load documents",
+      "note": "Policies, contracts, manuals"
+     },
+     {
+      "label": "Split into chunks",
+      "note": "Keep source, page and access metadata"
+     },
+     {
+      "label": "Index the chunks",
+      "note": "Keyword index, vectors, or both"
+     },
+     {
+      "label": "Search with the question",
+      "note": "Filter by user permissions first"
+     },
+     {
+      "label": "Build the prompt",
+      "note": "Numbered sources plus the question"
+     },
+     {
+      "label": "Model answers with citations",
+      "note": "Or says it does not know"
+     },
+     {
+      "label": "Show answer and sources",
+      "note": "User can click to check"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: a travel policy question",
+    "p": [
+     "An employee asks: 'Can I fly business class to Madrid?' The keyword search in the section above finds the travel policy chunk that mentions business class and director approval. The function below turns the retrieved chunks into a prompt with numbered sources and clear rules.",
+     "A good answer would be: 'Business class needs written approval from a director [1].' It is short, it cites its source, and it does not invent a rule about destinations that is not in the policy. If the employee asked about train travel, which the sources do not cover, the right answer is that the policy provided does not say."
+    ],
+    "code": {
+     "lang": "python",
+     "text": "def build_prompt(question: str, hits: list[tuple[str, str]]) -> str:\n    sources = \"\\n\".join(\n        f'<source id=\"{i}\" file=\"{name}\">\\n{text}\\n</source>'\n        for i, (name, text) in enumerate(hits, start=1)\n    )\n    return (\n        \"Answer the question using only the sources below.\\n\"\n        \"After each sentence, cite the source id in square brackets, like [1].\\n\"\n        \"If the sources do not contain the answer, say you do not know.\\n\\n\"\n        f\"<sources>\\n{sources}\\n</sources>\\n\\n<question>{question}</question>\"\n    )\n\nhits = [\n    (\"travel-policy.md\", \"Business class needs written approval from a director.\"),\n    (\"expenses-faq.md\", \"Receipts are required for every expense over 25 EUR.\"),\n]\nprint(build_prompt(\"Can I fly business class to Madrid?\", hits))"
+    }
+   },
+   "practice": [
+    {
+     "title": "Build keyword RAG on your own documents",
+     "time": "45 min",
+     "goal": "Run retrieval end to end with only Python and SQLite.",
+     "steps": [
+      "Collect three to five short public documents, such as policy pages or product FAQs, and save them as text files.",
+      "Adapt the chunk and search code from this lesson to load your files.",
+      "Write five questions, and for each write which file and passage should answer it.",
+      "Run the search for each question and record whether the right chunk is in the top three.",
+      "Build a prompt with build_prompt for one question and paste it into a free LLM chat to see the cited answer."
+     ],
+     "done_when": "You have a small table of five questions with a hit or miss for each, and one cited answer."
+    },
+    {
+     "title": "Tune the chunk size",
+     "time": "20 min",
+     "goal": "See how chunking changes retrieval.",
+     "steps": [
+      "Rerun your five questions with chunk sizes of 20, 60 and 150 words.",
+      "Record the hit rate for each size.",
+      "Write one sentence on which size worked best for your documents and why."
+     ],
+     "done_when": "You have three hit rates and a reasoned choice of chunk size."
+    }
+   ],
+   "pitfalls": [
+    "Blaming the model first. Check what was retrieved before changing the prompt or the model.",
+    "Dropping metadata when chunking. Without source and page you cannot cite, and without access data you cannot filter.",
+    "Filtering by permission after retrieval and generation. Filter before chunks go into the prompt.",
+    "Stuffing the prompt with many weak chunks. A few strong ones work better and cost less.",
+    "No 'I do not know' instruction. Without it, the model may fill gaps with guesses."
+   ],
+   "check": [
+    "What are the two phases of a RAG system?",
+    "When is keyword search a better choice than embedding search?",
+    "What metadata should every chunk carry, and why?",
+    "How would you test retrieval separately from generation?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "Embeddings",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/build-with-claude/embeddings",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Citations",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/build-with-claude/citations",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Contextual Retrieval in AI Systems",
+     "source": "Anthropic",
+     "url": "https://www.anthropic.com/engineering/contextual-retrieval",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "SQLite FTS5 Extension",
+     "source": "SQLite",
+     "url": "https://www.sqlite.org/fts5.html",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "What is RAG (Retrieval Augmented Generation)?",
+     "source": "IBM",
+     "url": "https://www.ibm.com/think/topics/retrieval-augmented-generation",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "What is Retrieval-Augmented Generation (RAG)?",
+     "source": "IBM Technology",
+     "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Retrieval Augmented Generation (RAG)",
+     "source": "DeepLearning.AI",
+     "url": "https://www.deeplearning.ai/courses/retrieval-augmented-generation",
+     "cost": "free"
+    }
+   ]
+  },
+  {
+   "id": "agents",
+   "title": "Agents: when to use them and when not to",
+   "summary": "You will be able to tell a workflow from an agent, explain the agent loop, and add guardrails that keep an agent safe and bounded.",
+   "why": "A client says 'we want an agent' because the word is everywhere. Often a fixed workflow with one or two model calls is cheaper, faster, easier to test and just as useful. This lesson helps you make that call, explain it, and when an agent is justified, build one with limits the client's risk team will accept.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "A workflow is a path you design in code: step one, then step two, maybe a branch. The model fills in parts, such as classifying or drafting, but your code decides the order. An agent is a model that decides its own next step in a loop: it looks at the goal and what has happened so far, picks a tool, sees the result, and repeats until it thinks the job is done.",
+      "Anthropic's guide 'Building effective agents' makes this same distinction and recommends starting with the simplest approach that works, adding agent behaviour only when it clearly helps. Agents trade cost, speed and predictability for flexibility."
+     ]
+    },
+    {
+     "h": "Workflows first",
+     "p": [
+      "Several workflow patterns cover most business tasks. Prompt chaining splits a job into fixed steps, such as extract, then check, then draft. Routing classifies the input and sends it down the right path. Parallel calls run several checks at once and combine them. An evaluator step asks a second call to review the first one's output.",
+      "If you can draw the steps on a whiteboard in advance, build a workflow. It is easier to test because each step has a clear input and output, and it is easier to explain to the client and their auditors."
+     ]
+    },
+    {
+     "h": "When an agent fits",
+     "p": [
+      "Use an agent when the number and order of steps truly cannot be known in advance and depends on what is found along the way. Examples: investigating why a shipment is late across several systems, researching a question across many documents, or fixing a failing test in a codebase. Coding assistants are a good example of agents that work well, because the environment gives clear feedback: the tests pass or fail.",
+      "Good agent tasks also have a clear finish line and a way to check the result. Without those, an agent can wander, spend a lot and still not be clearly right.",
+      "Weigh the costs honestly. Each turn of an agent is another model call, so an agent task may cost many times more than a single call and take much longer. Its path also changes from run to run, which makes testing harder: you test outcomes on a set of cases rather than checking each step. Explain these trade-offs to the client before you recommend one.",
+      "A useful middle ground is a workflow with one agent step inside it. The fixed parts, such as fetching the case and writing the result, stay predictable, and only the investigation in the middle is left to the agent, with its own turn limit."
+     ]
+    },
+    {
+     "h": "The agent loop",
+     "p": [
+      "Underneath, an agent is the tool-use loop from the previous lesson, run with more tools and less fixed structure. The model receives the goal and the tools. It thinks about the next step, asks for a tool, your code runs it, the result goes back, and the model decides again. The loop ends when the model gives a final answer, when it asks for a person, or when a limit is hit.",
+      "Context grows with every turn, because each tool call and result is added to the history. Long-running agents need care with what goes into context: keep tool results short and summarize old steps. Anthropic's article on context engineering covers this in depth.",
+      "The system prompt for an agent should describe the goal, the tools and when to use each, what a finished result looks like, and when to stop and ask a person. Good tool results help too: a clear message such as 'no order with that id, check the format' lets the agent correct itself, while a raw stack trace often sends it in circles. You do not need a framework to build this loop; the code below is plain Python on top of the API, which keeps every step visible."
+     ]
+    },
+    {
+     "h": "Guardrails",
+     "p": [
+      "Guardrails are the rules around the loop that keep the agent safe even when the model makes a poor choice. Put them in code, not only in the prompt.",
+      "Many teams also add an evaluator or a person at the end to check the final result before it is used."
+     ],
+     "list": [
+      "A maximum number of turns and a maximum cost per task.",
+      "A small set of tools, read-only by default.",
+      "Human approval for any action that sends, pays, deletes or changes access.",
+      "Clear error results so the agent can recover instead of looping.",
+      "An audit log of every tool call, input and output.",
+      "A defined hand-over to a person when the agent is stuck."
+     ],
+     "code": {
+      "lang": "python",
+      "text": "import json, os\nfrom litellm import completion\n\nMODEL = os.environ.get(\"LLM_MODEL\", \"anthropic/claude-sonnet-5-5\")\nMAX_TURNS = 8                       # hard stop so a confused agent cannot loop forever\nNEEDS_APPROVAL = {\"issue_refund\"}   # actions a person must confirm\n\ndef run_tool(name: str, args: dict) -> tuple[str, bool]:\n    if name == \"lookup_order\":\n        return f\"Order {args['order_id']}: paid 49.00, delivered damaged\", False\n    if name == \"issue_refund\":\n        answer = input(f\"Approve refund {args}? (yes/no) \")\n        if answer.strip().lower() != \"yes\":\n            return \"A person declined this refund. Do not retry.\", True\n        return f\"Refund of {args['amount']} issued\", False\n    return f\"Unknown tool {name}\", True\n\ndef run_agent(task: str, tools: list) -> str:\n    messages = [{\"role\": \"user\", \"content\": task}]\n    for turn in range(MAX_TURNS):\n        message = completion(model=MODEL, max_tokens=2048, tools=tools, messages=messages).choices[0].message\n        if not message.tool_calls:\n            return message.content or \"\"\n        messages.append(message.model_dump())\n        for call in message.tool_calls:\n            output, failed = run_tool(call.function.name, json.loads(call.function.arguments))\n            print(f\"turn {turn}: {call.function.name} -> {output}\")   # audit trail\n            messages.append({\"role\": \"tool\", \"tool_call_id\": call.id,\n                             \"content\": (\"ERROR: \" if failed else \"\") + output})\n    return \"Stopped: turn limit reached, handing over to a person.\""
+     }
+    }
+   ],
+   "diagram": {
+    "type": "cycle",
+    "title": "The agent loop",
+    "caption": "The loop repeats until the goal is met, a person is needed, or a limit is reached.",
+    "steps": [
+     {
+      "label": "Read goal and history",
+      "note": "Includes all earlier tool results"
+     },
+     {
+      "label": "Decide next step",
+      "note": "Answer, or ask for a tool"
+     },
+     {
+      "label": "Check guardrails",
+      "note": "Turn limit, allowed tool, approval"
+     },
+     {
+      "label": "Run the tool",
+      "note": "Your code, with scoped permissions"
+     },
+     {
+      "label": "Add result to history",
+      "note": "Short, clear, marked if an error"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: damaged order refunds",
+    "p": [
+     "A retailer wants help with 'my order arrived damaged' emails. First ask: can this be a workflow? Often yes: look up the order, check the rules (delivered within 30 days, value under a limit), draft a reply and a refund for approval. That is a fixed path and should be built as one.",
+     "Suppose the client's cases are messier: some need the courier's tracking history, some need a photo check, some involve several orders. Then an agent with a few tools is reasonable. The code in the guardrails section shows the shape: a turn limit of eight, a lookup tool that runs freely, a refund tool that always asks a person, error results marked with is_error, and a printed audit line for every call. If the limit is reached, the task goes to a person instead of continuing."
+    ],
+    "list": [
+     "Write the fixed workflow first and see how many cases it handles.",
+     "Collect the cases it cannot handle.",
+     "Only if those cases matter, add an agent for them, with the guardrails above.",
+     "Measure cost, time and accuracy for both paths on the same test cases."
+    ]
+   },
+   "practice": [
+    {
+     "title": "Workflow or agent?",
+     "time": "25 min",
+     "goal": "Practice making and defending the choice.",
+     "steps": [
+      "Write down five tasks from a business you know, such as expense approval, onboarding a supplier or answering a policy question.",
+      "For each, try to draw the steps in advance on paper.",
+      "Mark each task as workflow or agent, with one sentence of reason.",
+      "For any agent task, write its finish line and how you would check the result.",
+      "List the guardrails you would need for that agent."
+     ],
+     "done_when": "You have five tasks classified with reasons, and at least one agent design with a finish line and guardrails."
+    },
+    {
+     "title": "Watch an agent work",
+     "time": "20 min",
+     "goal": "See the loop and its limits in a real tool.",
+     "steps": [
+      "Watch the Anthropic video 'Tips for building AI agents' linked below.",
+      "In a free LLM chat with web search, give a small research task and watch the steps it takes.",
+      "Write down each step it took, where it went off track, and what limit would have stopped it sooner."
+     ],
+     "done_when": "You have a written step list and at least one guardrail you would add."
+    }
+   ],
+   "pitfalls": [
+    "Building an agent for a task with fixed steps. A workflow is cheaper, faster and easier to test.",
+    "Guardrails only in the prompt. Turn limits, tool permissions and approvals belong in code.",
+    "No finish line. Without one, the agent cannot know when to stop and you cannot know if it succeeded.",
+    "Letting context grow without limit. Long raw tool outputs slow the agent and raise cost.",
+    "Not logging each step. When an agent goes wrong, the log is the only way to understand why."
+   ],
+   "check": [
+    "In one sentence each, define a workflow and an agent.",
+    "Give two signs that a task needs an agent rather than a workflow.",
+    "List four guardrails and say where each one is enforced.",
+    "Why does context grow in an agent loop, and what can you do about it?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "Building Effective AI Agents",
+     "source": "Anthropic",
+     "url": "https://www.anthropic.com/engineering/building-effective-agents",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Effective context engineering for AI agents",
+     "source": "Anthropic",
+     "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "A practical guide to building agents (PDF)",
+     "source": "OpenAI",
+     "url": "https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Tutorial: Build a tool-using agent",
+     "source": "Claude Platform Docs",
+     "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "Tips for building AI agents",
+     "source": "Anthropic",
+     "url": "https://www.youtube.com/watch?v=LP5OCa20Zpg",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Agentic AI",
+     "source": "DeepLearning.AI",
+     "url": "https://www.deeplearning.ai/courses/agentic-ai",
+     "cost": "free"
+    },
+    {
+     "type": "cert",
+     "title": "AWS Certified AI Practitioner",
+     "source": "Amazon Web Services",
+     "url": "https://aws.amazon.com/certification/certified-ai-practitioner/",
+     "cost": "paid"
+    }
+   ]
+  },
+  {
+   "id": "mcp",
+   "title": "Connecting tools with MCP",
+   "summary": "You will be able to explain what MCP is, how servers and clients fit together, and build and test a small MCP server in Python.",
+   "why": "A client asks 'can we use that customer lookup in our other AI tools too, not just your app'. Tools built inside one app have to be rebuilt everywhere else. This lesson shows you how the Model Context Protocol lets you build a connector once and use it from any app that supports it, including connectors the client may already have.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "MCP is an open standard for connecting AI applications to data and tools. Think of it like a standard plug: any device with the right socket can use any appliance with the right plug. An MCP server exposes capabilities, such as tools, and an MCP client inside an AI application connects to it and makes those capabilities available to the model.",
+      "Anthropic introduced MCP and released it as an open protocol, and it is now supported by many AI applications and developer tools. The official site, modelcontextprotocol.io, holds the specification, guides and SDKs for several languages."
+     ]
+    },
+    {
+     "h": "Hosts, clients and servers",
+     "p": [
+      "The host is the AI application the user works in, for example Claude Desktop, Claude Code or your own app. Inside the host, an MCP client manages the connection to one MCP server. The server is a separate program that provides the capabilities, such as access to a database, a file system or a company API.",
+      "Servers can run locally, started by the host and talking over standard input and output (the stdio transport), or remotely, reached over HTTP. Local servers are simple for development and personal tools. Remote servers suit shared company connectors, where authentication and access control matter."
+     ]
+    },
+    {
+     "h": "Tools, resources and prompts",
+     "p": [
+      "A server can offer three main kinds of capability. Tools are functions the model can call, like the tools in the previous lesson, for example lookup_policy. Resources are data the application can read and put in context, identified by a URI, for example a list of policy topics or a file. Prompts are reusable templates a user can pick, for example 'check this expense claim against policy'.",
+      "The difference is about who is in control. The model decides when to call tools. The application or user decides which resources to include. The user chooses prompts explicitly. Most servers start with tools only and add resources and prompts when they help."
+     ]
+    },
+    {
+     "h": "A minimal server in Python",
+     "p": [
+      "The official Python SDK is installed with pip install \"mcp[cli]\" (the official tutorial uses uv add \"mcp[cli]\") and needs Python 3.10 or newer. The current tutorial creates a server with the MCPServer class and registers capabilities with decorators. Type hints and the docstring become the tool's input schema and description, so write them carefully. Older tutorials use a class called FastMCP; check the version of the guide you are following.",
+      "The example below defines one tool, one resource and one prompt, then runs over stdio. Because a stdio server talks through standard input and output, do not print debug messages to standard output from inside it; use logging to standard error instead, as the official guide explains."
+     ],
+     "code": {
+      "lang": "python",
+      "text": "from mcp.server import MCPServer\n\nmcp = MCPServer(\"policy-helper\")\n\nPOLICIES = {\n    \"travel\": \"Economy class for flights under six hours. Business class needs director approval.\",\n    \"expenses\": \"Receipts are required for every expense over 25 EUR.\",\n}\n\n@mcp.tool()\ndef lookup_policy(topic: str) -> str:\n    \"\"\"Return the company policy text for a topic.\n\n    Args:\n        topic: One of travel or expenses\n    \"\"\"\n    return POLICIES.get(topic.lower(), f\"No policy found for {topic}\")\n\n@mcp.resource(\"policy://index\")\ndef policy_index() -> str:\n    \"\"\"List the policy topics this server knows about.\"\"\"\n    return \", \".join(POLICIES)\n\n@mcp.prompt()\ndef check_claim(claim: str) -> str:\n    \"\"\"Ask the model to check an expense claim against policy.\"\"\"\n    return f\"Check this expense claim against company policy and list any problems:\\n{claim}\"\n\nif __name__ == \"__main__\":\n    mcp.run(transport=\"stdio\")"
+     }
+    },
+    {
+     "h": "Testing and connecting",
+     "p": [
+      "Test a server before connecting it to any assistant. The MCP Inspector is the official developer tool: run npx @modelcontextprotocol/inspector followed by the command that starts your server, for example python server.py. It opens a browser view where you can list tools, call them with test inputs and see the raw messages. It needs a recent version of Node.js.",
+      "To use the server from Claude Code, register it with claude mcp add, for example claude mcp add --transport stdio policy-helper -- python /full/path/server.py, then check it with claude mcp list. Other hosts have their own configuration steps, described in their documentation.",
+      "Treat every MCP server like any other software you install. A server can read data and take actions with the permissions you give it. Use servers from trusted sources, read what each tool does, and give remote servers only the access they need."
+     ]
+    },
+    {
+     "h": "When MCP is worth it",
+     "p": [
+      "MCP adds a separate program and a protocol between your app and your tools. That is worth it when the same capability will be used from more than one host, when the client wants their staff to use company data inside off-the-shelf assistants, or when a ready-made MCP server already exists for the system you need, such as a database, a ticket tracker or a file store. The official servers repository and many vendors publish servers you can start from.",
+      "If you are building one custom application with two or three tools that nobody else will use, plain tool use inside the app is simpler and has fewer moving parts. You can still move those functions into an MCP server later, because the idea is the same: a name, a description, an input schema and a function.",
+      "For a shared, remote server, plan authentication from the start. Each user should reach only the data their own account allows, and every call should be logged."
+     ]
+    }
+   ],
+   "diagram": {
+    "type": "swimlane",
+    "title": "How an MCP tool call flows",
+    "caption": "The host owns the model conversation; the server owns access to the data.",
+    "lanes": [
+     "User",
+     "Host and MCP client",
+     "MCP server",
+     "Data source"
+    ],
+    "steps": [
+     {
+      "lane": 1,
+      "label": "Starts server, lists its tools"
+     },
+     {
+      "lane": 2,
+      "label": "Returns lookup_policy schema"
+     },
+     {
+      "lane": 0,
+      "label": "Asks about business class"
+     },
+     {
+      "lane": 1,
+      "label": "Model asks for lookup_policy"
+     },
+     {
+      "lane": 2,
+      "label": "Runs the tool"
+     },
+     {
+      "lane": 3,
+      "label": "Returns the policy text"
+     },
+     {
+      "lane": 1,
+      "label": "Gives result to the model"
+     },
+     {
+      "lane": 0,
+      "label": "Reads the answer"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: a policy helper server",
+    "p": [
+     "An HR team wants their staff's AI assistants to answer policy questions from the official text, not from memory. You build the policy-helper server from the section above. The lookup_policy tool returns the policy text for a topic. The policy://index resource lists the available topics, so a host can show them. The check_claim prompt gives users a ready-made instruction for reviewing an expense claim.",
+     "In this lesson's tests the server was loaded in-process and asked to list and call its capabilities. It listed one tool, lookup_policy, one resource, policy://index, which returned 'travel, expenses', and one prompt, check_claim. Calling lookup_policy with topic 'travel' returned the travel policy text. In a real deployment the dictionary would be replaced by a call to the client's document system, with the user's permissions."
+    ],
+    "list": [
+     "Write the server with one tool first.",
+     "Test it in the MCP Inspector.",
+     "Add it to one host and ask a real question.",
+     "Only then add resources, prompts and a real data source."
+    ]
+   },
+   "practice": [
+    {
+     "title": "Build and inspect your first MCP server",
+     "time": "45 min",
+     "goal": "Run a working MCP server on your own machine.",
+     "steps": [
+      "Create a new folder and a virtual environment with Python 3.10 or newer, then run pip install \"mcp[cli]\".",
+      "Save the policy-helper code from this lesson as server.py and replace the policies with two topics from your own life, such as gym rules or house chores.",
+      "Run npx @modelcontextprotocol/inspector python server.py and open the page it prints.",
+      "In the Inspector, list the tools and call lookup_policy with each topic and with an unknown one.",
+      "Read the resource and fetch the prompt, and note what each returns."
+     ],
+     "done_when": "The Inspector shows your tool, resource and prompt, and each returns the expected text."
+    },
+    {
+     "title": "Map MCP onto a client case",
+     "time": "20 min",
+     "goal": "Decide what should be a tool, a resource or a prompt.",
+     "steps": [
+      "Pick a client scenario, such as a sales team that needs CRM data in their assistant.",
+      "List five capabilities they would want.",
+      "Label each one tool, resource or prompt, with one sentence of reason.",
+      "Write which ones need write access and who should approve them."
+     ],
+     "done_when": "You have five labelled capabilities with reasons and an approval note for any write action."
+    }
+   ],
+   "pitfalls": [
+    "Printing to standard output inside a stdio server. It breaks the protocol messages; log to standard error.",
+    "Weak docstrings and type hints. They become the tool description and schema the model relies on.",
+    "Installing community servers without reading what they can access. Treat them as third-party software.",
+    "Building an MCP server when only one app will ever use the tool. Plain tool use inside the app may be simpler.",
+    "Following an old tutorial without checking the SDK version. Class names and commands have changed over time."
+   ],
+   "check": [
+    "What are the roles of the host, the client and the server?",
+    "How do tools, resources and prompts differ in who controls them?",
+    "When would you choose a remote server over a local stdio server?",
+    "How do you test an MCP server before connecting it to an assistant?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "What is the Model Context Protocol (MCP)?",
+     "source": "Model Context Protocol",
+     "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Build an MCP server",
+     "source": "Model Context Protocol",
+     "url": "https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Understanding MCP servers",
+     "source": "Model Context Protocol",
+     "url": "https://modelcontextprotocol.io/docs/2026-07-28/learn/server-concepts",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "MCP Inspector",
+     "source": "Model Context Protocol",
+     "url": "https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Connect Claude Code to tools via MCP",
+     "source": "Claude Code Docs",
+     "url": "https://code.claude.com/docs/en/mcp",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "MCP 201 | Code w/ Claude",
+     "source": "Anthropic",
+     "url": "https://www.youtube.com/watch?v=HNzH5Us1Rvg",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Introduction to Model Context Protocol",
+     "source": "Anthropic Academy",
+     "url": "https://anthropic.skilljar.com/introduction-to-model-context-protocol",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "MCP: Build Rich-Context AI Apps with Anthropic",
+     "source": "DeepLearning.AI",
+     "url": "https://learn.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic/lesson/fkbhh/introduction",
+     "cost": "free"
+    }
+   ]
+  },
+  {
+   "id": "ai-coding-workflow",
+   "title": "Building fast with Claude Code, Cursor or Copilot",
+   "summary": "You will be able to use an AI coding assistant in a plan, build, test and review loop, write a clear brief for it, and keep control of quality.",
+   "why": "The client wants a working demo in two weeks, inside a codebase you have never seen. AI coding assistants such as Claude Code, Cursor and GitHub Copilot can help you get there, but they can also produce a lot of code that looks right and is wrong. This lesson gives you the working method that keeps it in check: clear briefs, small steps, tests it must pass and your own review.",
+   "sections": [
+    {
+     "h": "The short version",
+     "p": [
+      "Modern coding assistants do more than complete lines. In agent modes they read files, run commands and tests, and edit many files to complete a task. Claude Code works in the terminal, IDEs and desktop app; Cursor is an editor with built-in agents; GitHub Copilot works in editors and on GitHub. The ideas in this lesson apply to all of them.",
+      "Treat the assistant like a very fast, capable new colleague who does not know the project. You set the goal, give context, agree a plan, let it build, make it prove the result with tests, and review the change yourself."
+     ]
+    },
+    {
+     "h": "The loop: plan, build, test, review",
+     "p": [
+      "Plan. Ask the assistant to read the relevant code and propose a plan before writing anything. Claude Code has a plan mode for exactly this. Read the plan, correct it, and only then let it build. Skip planning for tiny, obvious changes.",
+      "Build. Let it implement one small piece at a time. Small steps are easier to check and easier to undo. Commit working states to Git often, so you can always return to the last good version.",
+      "Test. Give the assistant a check it can run itself: a test suite, a build, a script that compares output to an expected file. The Claude Code best practices guide calls this the single most useful habit, because the assistant can then loop until the check passes instead of stopping when the code merely looks done.",
+      "Review. Read the diff yourself. Look for changes outside the task, deleted tests, hard-coded values, secrets and missing error handling. A fresh review session or a second assistant asked to find gaps can help, but the decision to merge is yours."
+     ]
+    },
+    {
+     "h": "How to brief the assistant",
+     "p": [
+      "Most poor results come from vague requests. A good brief states the goal, points to the files and existing patterns, lists constraints, gives example inputs and outputs, says what 'done' means in a way that can be checked, and names what is out of scope. The worked example shows one.",
+      "Put long-lived project knowledge in a project memory file so you do not repeat it every time. Claude Code reads CLAUDE.md, Cursor uses rules files and Copilot supports custom instructions. Keep these short: the commands to build and test, code style rules that differ from defaults, and project-specific gotchas. Long files get ignored."
+     ]
+    },
+    {
+     "h": "Keeping control of quality",
+     "p": [
+      "Write or agree the tests first when you can. Tests written before the code describe what you want, independently of how the assistant chose to build it. The test file in this section was written before asking for the function; the assistant's job is to make it pass without changing it.",
+      "Watch for an assistant 'fixing' a failing test by weakening it or deleting it. Say in the brief that tests must not be changed without asking. Keep permission settings sensible: let the assistant run tests and read files freely, but approve commands that touch remote systems, delete data or deploy. Never paste client secrets into a prompt.",
+      "Know the client's rules on AI coding tools. Some clients restrict which tools may see their code. Ask in the first week, not after you have used one."
+     ],
+     "code": {
+      "lang": "python",
+      "text": "# Written before asking the assistant to build parse_amount. Run with: pytest -q\nimport pytest\nfrom invoice_utils import parse_amount\n\ndef test_plain_amount():\n    assert parse_amount(\"1240.50 EUR\") == (1240.50, \"EUR\")\n\ndef test_thousands_separator():\n    assert parse_amount(\"1,240.50 EUR\") == (1240.50, \"EUR\")\n\ndef test_dollar_symbol():\n    assert parse_amount(\"$99\") == (99.0, \"USD\")\n\ndef test_rejects_text_without_amount():\n    with pytest.raises(ValueError):\n        parse_amount(\"see attached\")"
+     }
+    },
+    {
+     "h": "Managing a long session",
+     "p": [
+      "Assistants work within a context window that fills up with files, command output and conversation. As it fills, quality drops. Start a fresh session between unrelated tasks, keep investigations scoped, and if you have corrected the same mistake twice, start again with a better brief that includes what you learned. Use subagents or a separate session for broad research so the main session stays focused."
+     ]
+    },
+    {
+     "h": "Using the assistant to understand a codebase",
+     "p": [
+      "On a new engagement, one of the most valuable uses of a coding assistant is reading, not writing. Ask it the questions you would ask a senior engineer on the client team: how does authentication work here, where are environment variables loaded, how is a new API endpoint added, what does this job do every night. Ask it to point to the files and lines behind each answer, then open them and check. You will learn the codebase in hours instead of days.",
+      "Use what you learn to write better briefs. A brief that says 'follow the pattern in the existing orders endpoint' produces code that fits the client's style, which matters at handover. The client's developers will maintain this code after you leave, so it should look like their code, use their libraries and pass their checks, not look like it came from somewhere else."
+     ]
+    }
+   ],
+   "diagram": {
+    "type": "cycle",
+    "title": "Working loop with a coding assistant",
+    "caption": "Each pass is small; the loop repeats for every piece of the POC.",
+    "steps": [
+     {
+      "label": "Brief the goal and context",
+      "note": "Files, patterns, constraints, done-when"
+     },
+     {
+      "label": "Assistant proposes a plan",
+      "note": "You correct it before any edits"
+     },
+     {
+      "label": "Build one small step",
+      "note": "Commit each working state"
+     },
+     {
+      "label": "Run the checks",
+      "note": "Tests, build, sample outputs"
+     },
+     {
+      "label": "Review the diff yourself",
+      "note": "Scope, tests, secrets, errors"
+     }
+    ]
+   },
+   "example": {
+    "title": "Worked example: a brief that gets a good result",
+    "p": [
+     "You need a function that turns invoice amount strings into a number and a currency for the extraction POC. A weak request would be 'add amount parsing'. The brief below is better: it names the file and the pattern to follow, gives concrete examples, says what to do on bad input, defines 'done' as a passing test run with evidence, and limits the scope.",
+     "With the test file from the section above already in the repository, the assistant has a clear target. A straightforward implementation of about a dozen lines passes all four tests; that was checked when this lesson was written. If the assistant had changed the test file to get a pass, your review of the diff would catch it, because the brief said tests are fixed."
+    ],
+    "code": {
+     "lang": "text",
+     "text": "Goal: add parse_amount(text) to invoice_utils.py.\nIt turns an amount string from an invoice into (value, currency).\n\nContext:\n- Read invoice_utils.py and test_parse_amount.py first.\n- Use type hints and a one-line docstring, like the rest of the file.\n- Standard library only, no new packages.\n\nRules:\n- \"1,240.50 EUR\" gives (1240.5, \"EUR\"); \"$99\" gives (99.0, \"USD\").\n- Raise ValueError when no amount is found. Never return a guess.\n\nDone when:\n- pytest -q passes. Do not edit the test file.\n- You show me the test output and a short list of files changed.\n\nOut of scope: currency conversion, other files."
+    }
+   },
+   "practice": [
+    {
+     "title": "Brief, build and verify a small function",
+     "time": "45 min",
+     "goal": "Run the full loop once with any AI assistant you can use for free.",
+     "steps": [
+      "Create a folder with an empty invoice_utils.py and the test file from this lesson, then install pytest with pip install pytest.",
+      "Run pytest -q and confirm the tests fail.",
+      "Open any AI coding assistant or a free LLM chat and give it the brief from the worked example, plus the test file.",
+      "Put the code it returns into invoice_utils.py and run pytest -q again.",
+      "Read the code line by line and write down one thing you would change before merging.",
+      "Add one more test of your own, such as an amount with a space before the currency, and repeat."
+     ],
+     "done_when": "All tests, including yours, pass, and you have a written review note on the generated code."
+    },
+    {
+     "title": "Write a project memory file",
+     "time": "20 min",
+     "goal": "Practice giving an assistant lasting, short context.",
+     "steps": [
+      "Pick a project you have, or this lesson's folder.",
+      "Write a CLAUDE.md (or equivalent rules file) of at most 15 lines: build and test commands, style rules, and two gotchas.",
+      "Ask an assistant to perform a small task in the project and note whether it followed each line.",
+      "Delete any line it did not need and make unclear lines more specific."
+     ],
+     "done_when": "You have a short memory file where every line changed or protected the assistant's behaviour."
+    }
+   ],
+   "pitfalls": [
+    "Vague requests such as 'make it better'. State the goal, the files, examples and what done means.",
+    "Accepting code because it looks right. Require a check the assistant runs and read the diff yourself.",
+    "Letting the assistant edit or delete tests to make them pass. Say in the brief that tests are fixed.",
+    "One very long session for everything. Start fresh between tasks and after repeated corrections.",
+    "Using an AI coding tool on client code without checking the client's policy first."
+   ],
+   "check": [
+    "What are the four stages of the working loop?",
+    "List five things a good brief contains.",
+    "Why does giving the assistant a runnable check change how well it works?",
+    "What should you look for when reviewing an assistant's diff?"
+   ],
+   "links": [
+    {
+     "type": "docs",
+     "title": "Overview",
+     "source": "Claude Code Docs",
+     "url": "https://code.claude.com/docs/en/overview",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Best practices for Claude Code",
+     "source": "Claude Code Docs",
+     "url": "https://code.claude.com/docs/en/best-practices",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "How Claude remembers your project",
+     "source": "Claude Code Docs",
+     "url": "https://code.claude.com/docs/en/memory",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Best practices for using GitHub Copilot",
+     "source": "GitHub Docs",
+     "url": "https://docs.github.com/en/copilot/get-started/best-practices",
+     "cost": "free"
+    },
+    {
+     "type": "docs",
+     "title": "Cursor Docs",
+     "source": "Cursor",
+     "url": "https://cursor.com/docs",
+     "cost": "free"
+    },
+    {
+     "type": "video",
+     "title": "Mastering Claude Code in 30 minutes",
+     "source": "Anthropic",
+     "url": "https://www.youtube.com/watch?v=6eBSHbLKuN0",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Claude Code in Action",
+     "source": "Anthropic Academy",
+     "url": "https://anthropic.skilljar.com/claude-code-in-action",
+     "cost": "free"
+    },
+    {
+     "type": "course",
+     "title": "Claude Code: A Highly Agentic Coding Assistant",
+     "source": "DeepLearning.AI",
+     "url": "https://www.deeplearning.ai/courses/claude-code-a-highly-agentic-coding-assistant",
+     "cost": "free"
+    }
+   ]
+  }
+ ]
+}

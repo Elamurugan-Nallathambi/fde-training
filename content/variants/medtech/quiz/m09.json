@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "medtech-m09-q01",
+      "lesson": "medtech-eval-validation",
+      "q": "When should acceptance criteria for an AI drafting tool be set?",
+      "options": [
+        "In the protocol, before the test run",
+        "After seeing the first results, so the bar matches what the model can realistically do",
+        "Only if the run fails",
+        "After go-live"
+      ],
+      "answer": 0,
+      "why": "Criteria agreed in advance make the evidence objective."
+    },
+    {
+      "id": "medtech-m09-q02",
+      "lesson": "medtech-eval-validation",
+      "q": "Two hard cases keep failing. A colleague suggests removing them from the test set. What is right?",
+      "options": [
+        "Remove them, since rare cases distort the pass rate and are not part of normal use",
+        "Record the failures, fix the system and re-test",
+        "Replace them with easy cases",
+        "Lower the bar without telling QA"
+      ],
+      "answer": 1,
+      "why": "Failures are recorded and resolved, never quietly removed."
+    },
+    {
+      "id": "medtech-m09-q03",
+      "lesson": "medtech-eval-validation",
+      "q": "For a reportability draft, which criterion focuses on the misses that matter?",
+      "options": [
+        "Average draft length",
+        "Number of words per answer",
+        "Every expert-marked reportable case is flagged for review",
+        "Average draft length within ten percent of the human-written records"
+      ],
+      "answer": 2,
+      "why": "A missed reportable case is the costly error, so the criterion targets it."
+    },
+    {
+      "id": "medtech-m09-q04",
+      "lesson": "medtech-eval-validation",
+      "q": "Besides the AI outputs, what else should validation test?",
+      "options": [
+        "The colour of the screen",
+        "The model provider's office",
+        "Only the prompt wording, since the controls are covered by the QMS vendor's validation",
+        "Audit trail, signatures, roles and fallback to manual"
+      ],
+      "answer": 3,
+      "why": "The controls around the AI are part of the validated system."
+    },
+    {
+      "id": "medtech-m09-q05",
+      "lesson": "medtech-eval-validation",
+      "q": "After go-live, which signal suggests the validated state may be drifting?",
+      "options": [
+        "A rise in how often reviewers reject drafts",
+        "A stable edit rate",
+        "Fewer meetings",
+        "A stable edit rate while complaint volume grows steadily each month"
+      ],
+      "answer": 0,
+      "why": "Rising rejection or edit rates show inputs or behavior have changed."
+    },
+    {
+      "id": "medtech-m09-q06",
+      "lesson": "medtech-eval-validation",
+      "q": "The team wants to ship a new prompt version. What does change control need?",
+      "options": [
+        "Nothing if the change is small and the developer has tested a few examples by hand",
+        "A description, impact assessment, regression run against criteria and approval",
+        "Only a message to users",
+        "A new vendor contract"
+      ],
+      "answer": 1,
+      "why": "Prompt and model changes go through change control with re-testing and approval."
+    }
+  ]
+}

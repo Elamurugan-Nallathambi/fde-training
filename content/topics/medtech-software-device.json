@@ -1,0 +1,2284 @@
+{
+  "id": "medtech-software-device",
+  "title": "Software as a medical device and IEC 62304",
+  "category": "MedTech",
+  "track": "MedTech",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "When software is a medical device, how IEC 62304 shapes its lifecycle, and what changes when the software contains AI.",
+  "audience": "Software engineers, data scientists and FDEs who build or change software that could be a medical device, or that runs inside one.",
+  "sections": [
+    {
+      "id": "samd-and-62304",
+      "title": "SaMD, IEC 62304 and what AI changes",
+      "summary": "What makes software a medical device, the IEC 62304 lifecycle and safety classes, and the extra work AI brings.",
+      "outline": [
+        "SaMD and software in a medical device",
+        "Checking whether a software function is a device",
+        "IEC 62304 processes and safety classes A, B and C",
+        "SOUP and third-party components",
+        "What changes with AI: data, performance, monitoring, planned change",
+        "A worked case from idea to safety class"
+      ],
+      "lessons": [
+        {
+          "id": "mtsw-samd-and-62304",
+          "title": "SaMD, IEC 62304 and what AI changes",
+          "summary": "You will be able to tell when software is likely a medical device, explain the IEC 62304 lifecycle and safety classes, and list what extra work an AI model brings.",
+          "why": "Software engineers are often surprised to learn that a feature they built is regulated as a medical device. Once it is, the way you plan, write, test, release and maintain it must follow a defined lifecycle, and every change needs evidence. If the software uses AI, regulators also expect you to show how the model was built, how well it performs, and how you will manage it as it changes. Knowing this early saves a project from rework or from shipping something that cannot legally be sold.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Software can be a medical device on its own, or it can be part of a hardware device. The International Medical Device Regulators Forum (IMDRF) defines software as a medical device (SaMD) as software intended to be used for one or more medical purposes that performs those purposes without being part of a hardware medical device. Firmware that runs an infusion pump is software in a medical device; an app that analyses heart rhythm data to flag a condition can be SaMD.",
+                "Whether software is a device depends on its intended use, meaning what the maker says it is for, not on the technology inside it. The same code can be a device in one product and not in another."
+              ]
+            },
+            {
+              "h": "Is this software a device?",
+              "p": [
+                "In the US, the starting point is the legal definition of a device and the FDA's guidance on device software functions. Some software functions are excluded from the device definition by law, such as many administrative and general wellness functions, and FDA guidance explains which. Clinical decision support software has its own FDA guidance that sets out when it is and is not a device. In the EU, the Medical Device Regulation (EU) 2017/745 applies, with a specific classification rule for software.",
+                "As an engineer you do not make this call alone. Your job is to describe clearly what the software does, who uses it and what decision it informs, so the regulatory team can decide. Watch for wording in requirements or marketing like 'diagnoses', 'detects', 'recommends a dose' or 'alerts the clinician', which often signals a device function."
+              ]
+            },
+            {
+              "h": "IEC 62304 in one page",
+              "p": [
+                "IEC 62304 is the international standard for medical device software lifecycle processes. It assumes the maker already runs a quality management system and applies risk management under ISO 14971; it adds what is specific to software. Regulators widely recognise it."
+              ],
+              "list": [
+                "Development process: plan, software requirements, architecture, detailed design, unit implementation and verification, integration and integration testing, system testing, release.",
+                "Maintenance process: how changes and fixes after release are planned, analysed and made.",
+                "Software risk management: how software can contribute to hazardous situations and how those risks are controlled, linked to the ISO 14971 file.",
+                "Configuration management: identifying every item and version, including third-party parts, and controlling changes to them.",
+                "Problem resolution: how bugs and anomalies are recorded, investigated and closed.",
+                "SOUP (software of unknown provenance): third-party or legacy software not developed under this process. You must state what you need from it, check its known issues, and control its version."
+              ]
+            },
+            {
+              "h": "Safety classes",
+              "p": [
+                "IEC 62304 sorts each software system into a safety class based on the worst harm its failure could contribute to, after considering risk controls outside the software. Class A: no injury or damage to health is possible. Class B: non-serious injury is possible. Class C: death or serious injury is possible.",
+                "The class decides how much process and documentation is required. Class A needs the least; class C asks for the most, including detailed design and more rigorous unit verification. Teams often split the architecture so that the parts that can cause serious harm are segregated, and only those parts carry the highest class, which keeps the rest of the system lighter to maintain."
+              ]
+            },
+            {
+              "h": "What changes when the software contains AI",
+              "p": [
+                "IEC 62304 still applies to the software around the model, but a trained model brings questions that classic code does not. The FDA, Health Canada and the UK MHRA published ten guiding principles for good machine learning practice (GMLP), and the FDA has guidance on AI-enabled device software functions and on predetermined change control plans (PCCPs)."
+              ],
+              "list": [
+                "Data: training and test data must represent the intended patients and settings, and test data must be kept independent of training data.",
+                "Performance: report how well the model works on relevant subgroups and in conditions close to real use, not just one overall number.",
+                "Human and model together: show how the user will see and act on the output, and test the human with the model, not the model alone.",
+                "Monitoring: plan how to watch performance after release and catch drift when real data starts to differ from training data.",
+                "Planned change: a PCCP lets a maker describe in its marketing submission the model changes it plans, how they will be developed and validated, and how their impact will be assessed, so those changes can be made within the authorised plan.",
+                "Third-party models: a model you did not build, such as a hosted large language model, is close to what IEC 62304 calls SOUP. A common approach is to specify what you need from it, test it for your use, and pin and control its version."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "Choosing the IEC 62304 safety class",
+            "caption": "Start with a failure of the software system and ask the worst harm it could contribute to, after risk controls outside the software.",
+            "start": "Software system fails",
+            "question": "Worst harm possible after external risk controls?",
+            "branches": [
+              {
+                "answer": "No injury or damage to health",
+                "result": "Class A: least process required"
+              },
+              {
+                "answer": "Non-serious injury",
+                "result": "Class B: more design and testing"
+              },
+              {
+                "answer": "Death or serious injury",
+                "result": "Class C: most rigorous process"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: an AI early warning score in a hospital (example scenario)",
+            "p": [
+              "A hospital group asks an engineering team to build software that reads vital signs from bedside monitors every 15 minutes and uses a machine learning model to flag patients at risk of rapid deterioration to the ward nurse. Walk through the questions the team asks before writing code.",
+              "The team ends up with a smaller first release, a clear class, and a plan for how the model can be updated. None of this was code, but all of it shaped the code."
+            ],
+            "list": [
+              "Is it a device? It analyses physiological signals from a device to flag a time-critical condition for a clinician. The regulatory team reviews it against FDA's clinical decision support guidance and concludes it is very likely a device function.",
+              "Safety class: if the model misses a deteriorating patient, treatment could be delayed and serious injury is possible. There is no reliable external control, so the system would be class C. The team splits the design so the scoring and alerting part is segregated and carries class C, while the reporting dashboard is class A.",
+              "SOUP: the open source ML library and the database are listed as SOUP with versions, required behaviour and known issues reviewed.",
+              "Data: training and test data come from different hospitals and time periods, and performance is reported by age group, sex and ward type.",
+              "Human factors: nurses test the alert screen in simulated use, including what happens when they disagree with the score.",
+              "Change plan: the team drafts a PCCP describing planned retraining on new data, the test protocol each new model must pass, and how impact will be assessed."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Classify three software features",
+              "time": "45 min",
+              "goal": "Practise judging whether a feature is likely a device and which safety class it would carry.",
+              "steps": [
+                "Read the FDA pages 'How to Determine if Your Product is a Medical Device' and 'Software as a Medical Device (SaMD)' linked below.",
+                "Write three short feature descriptions: one administrative (for example appointment booking), one wellness (for example step counting), one clinical (for example flagging irregular heart rhythm).",
+                "For each, write the intended use in one sentence and whether you think it is likely a device function, with your reason.",
+                "For any feature you think is a device, write the worst harm a failure could contribute to and the IEC 62304 class it would carry.",
+                "Ask Claude to argue the opposite view for each feature, then note what extra facts you would need from the regulatory team."
+              ],
+              "done_when": "You have a table of three features, each with intended use, device judgement with reason, and a safety class where relevant, plus a list of open questions."
+            }
+          ],
+          "pitfalls": [
+            "Assuming software is not a device because it 'only gives advice'. Intended use and what decision it informs decide, not the form of the output.",
+            "Putting the whole system in class C because one part is. Segregate the high-risk parts so the rest can be maintained with a lighter process.",
+            "Using third-party libraries or hosted models without listing them as SOUP with pinned versions and known issues reviewed.",
+            "Reporting one overall accuracy figure for an AI model. Show performance on relevant subgroups and in conditions close to real use, and plan monitoring after release."
+          ],
+          "check": [
+            "What is the difference between SaMD and software in a medical device?",
+            "What decides whether a software function is a medical device?",
+            "Name the IEC 62304 safety classes and what each means.",
+            "What is SOUP and what must you do for each SOUP item?",
+            "What is a predetermined change control plan and why does it matter for AI?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Software as a Medical Device (SaMD)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "How to Determine if Your Product is a Medical Device",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/classify-your-medical-device/how-determine-if-your-product-medical-device",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Clinical Decision Support Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/clinical-decision-support-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Good Machine Learning Practice for Medical Device Development: Guiding Principles",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Predetermined Change Control Plans",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/predetermined-change-control-plans",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "IEC 62304:2006 Medical device software - Software life cycle processes",
+              "source": "IEC Webstore",
+              "url": "https://webstore.iec.ch/en/publication/6792",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "Medical Device Software Development: Introduction To The IEC 62304",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=eGSaV5tH2c4",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Introduction to Medical Software",
+              "source": "Coursera",
+              "url": "https://www.coursera.org/learn/introduction-to-medical-software",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "mtsw-q01",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "Two apps use the same heart rate code. One is sold for fitness tracking, the other to flag a heart rhythm condition. Why might only one be a device?",
+          "options": [
+            "One uses newer code",
+            "Intended use decides, not the code",
+            "Only paid apps are devices",
+            "Fitness apps run on phones, devices do not"
+          ],
+          "answer": 1,
+          "why": "Whether software is a device depends on its intended use, meaning what the maker says it is for."
+        },
+        {
+          "id": "mtsw-q02",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "If a software failure could contribute to serious injury and no external control exists, which IEC 62304 class applies?",
+          "options": [
+            "Class C",
+            "Class A",
+            "Class B",
+            "No class, since it is software"
+          ],
+          "answer": 0,
+          "why": "Class C covers software whose failure could contribute to death or serious injury."
+        },
+        {
+          "id": "mtsw-q03",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "Your team adds an open source charting library to a class B device app. How should it be handled under IEC 62304?",
+          "options": [
+            "Ignore it, since open source libraries need no records at all",
+            "Rewrite the library from scratch to avoid any paperwork",
+            "List it as SOUP and control its version",
+            "Ask the users to download and install it themselves"
+          ],
+          "answer": 2,
+          "why": "Third-party software not developed under the process is SOUP and must be specified, assessed and version-controlled."
+        },
+        {
+          "id": "mtsw-q04",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "Only the alert module of a system could cause serious harm; the reporting screens could not. What design choice keeps maintenance lighter?",
+          "options": [
+            "Put the whole system in class C, just to be on the safe side",
+            "Put the whole system in class A to save development time",
+            "Remove the alert module from the design to avoid the class",
+            "Segregate the alert module as class C"
+          ],
+          "answer": 3,
+          "why": "Segregating high-risk parts lets the rest of the system carry a lower class."
+        },
+        {
+          "id": "mtsw-q05",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "A model reports 94 percent accuracy overall. What should a reviewer ask next?",
+          "options": [
+            "Subgroup and real-use performance",
+            "Whether the reported number can be rounded up to 95",
+            "Whether a much larger model would score even higher",
+            "Whether the training data can be reused as test data"
+          ],
+          "answer": 0,
+          "why": "GMLP expects performance on relevant subgroups and close-to-real conditions, with independent test data."
+        },
+        {
+          "id": "mtsw-q06",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "A maker wants to retrain its AI device model on new data after clearance without a new submission each time. What FDA mechanism is meant for this?",
+          "options": [
+            "A 510(k) exemption letter from the agency",
+            "A PCCP",
+            "A design review held before each retraining run",
+            "A software bill of materials for the model"
+          ],
+          "answer": 1,
+          "why": "A PCCP describes planned model changes, how they will be developed and validated, and their impact assessment."
+        },
+        {
+          "id": "mtsw-q07",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "Which statement about IEC 62304 is correct?",
+          "options": [
+            "It replaces the need for a quality management system",
+            "It replaces ISO 14971 risk management for software",
+            "It applies only to software in safety class C",
+            "It builds on a QMS and ISO 14971"
+          ],
+          "answer": 3,
+          "why": "IEC 62304 adds software lifecycle processes on top of a QMS and ISO 14971 risk management."
+        },
+        {
+          "id": "mtsw-q08",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "A product manager writes 'the app recommends the insulin dose' in the requirements. What should the engineer do?",
+          "options": [
+            "Nothing, since the wording of requirements does not matter",
+            "Remove the word 'recommends' so the app avoids regulation",
+            "Flag it to the regulatory team",
+            "Ship it as a general wellness app to keep things simple"
+          ],
+          "answer": 2,
+          "why": "Words like 'recommends a dose' often signal a device function; regulatory decides, based on intended use."
+        },
+        {
+          "id": "mtsw-q09",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "Your device uses a hosted large language model from a third party. What is a sensible way to manage it?",
+          "options": [
+            "Treat it like SOUP and pin the version",
+            "Let the vendor update the model whenever they choose to",
+            "Skip your own testing since the vendor already tested it",
+            "Avoid recording which model version is in use in production"
+          ],
+          "answer": 0,
+          "why": "A model you did not build is close to SOUP; specify, test and control its version."
+        },
+        {
+          "id": "mtsw-q10",
+          "lesson": "mtsw-samd-and-62304",
+          "q": "After release, the patient population using an AI device shifts and performance may drop. Which practice catches this?",
+          "options": [
+            "An annual marketing review of the product claims",
+            "Post-release drift monitoring",
+            "Re-running the original unit tests from the first release",
+            "Raising the IEC 62304 safety class of the whole system"
+          ],
+          "answer": 1,
+          "why": "Monitoring after release catches drift when real data starts to differ from training data."
+        }
+      ]
+    },
+    {
+      "id": "is-it-a-device",
+      "title": "Qualification and classification of software",
+      "summary": "How to tell product software from production and QMS software, decide whether a software function is a device, and how it is classified in the US and the EU.",
+      "outline": [
+        "Product software versus production and QMS software",
+        "Intended use and indications for use",
+        "US: device software functions, exclusions and clinical decision support",
+        "EU: MDCG 2019-11 and classification Rule 11",
+        "Working with the regulatory team on the decision"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-is-it-a-device",
+          "title": "Is this software a device, and which kind of software is it?",
+          "summary": "You will be able to sort software in a device company into product, production and QMS, or non-device software, and describe a software function well enough for the regulatory team to qualify and classify it.",
+          "why": "On a MedTech engagement you will meet many kinds of software: the app the patient uses, the test script on the production line, the complaint handling system, the analytics dashboard. They are governed by different rules. If you treat a production tool like a device you waste months; if you treat a device function like an internal tool, the product may be sold illegally. Getting the category right on day one decides which process, which evidence and which approvers your work needs.",
+          "sections": [
+            {
+              "h": "Three kinds of software in a device company",
+              "p": [
+                "Start by asking what the software is for, not what it is built with. In a medical device company almost all software falls into one of three groups, and each group follows a different set of rules.",
+                "The line between the first two groups matters most for an FDE. A defect in product software can reach a patient directly. A defect in production or QMS software reaches the patient indirectly, by letting a bad unit ship or a complaint go unhandled. Both need evidence, but the evidence is different, and so are the people who approve it."
+              ],
+              "list": [
+                "Product software: software that is a medical device on its own (software as a medical device, SaMD) or that runs inside or controls a device (software in a medical device). It goes through design controls, the IEC 62304 lifecycle and, where required, a premarket submission to a regulator.",
+                "Production and QMS software: software the manufacturer uses to make, test, release or control the quality of devices. Examples are a manufacturing execution system, an automated test station script, an electronic QMS, a complaint handling system or a label printing tool. It is not a device and is not submitted to a regulator. Under the US Quality Management System Regulation (21 CFR 820) and ISO 13485, it must be validated for its intended use, and FDA's computer software assurance guidance describes a risk-based way to do that.",
+                "Non-device software: software that does neither, such as a billing system, an appointment app or a marketing website. Normal good engineering applies, but no device rules."
+              ]
+            },
+            {
+              "h": "Intended use and indications for use",
+              "p": [
+                "Whether product software is a device depends on its intended use: the purpose the maker states or shows for it. Regulators look at labeling, instructions, the website, sales material and even what sales staff say. Indications for use go one level deeper and name the disease or condition and the patients the product is meant for.",
+                "This is why the same code can be a device in one product and not in another. A step counter sold for fitness is usually not a device. The same algorithm sold to detect a heart condition is. If marketing changes the claim, the regulatory status can change without a single line of code changing."
+              ]
+            },
+            {
+              "h": "The US view",
+              "p": [
+                "In the US a device is defined in section 201(h) of the Federal Food, Drug, and Cosmetic Act. The 21st Century Cures Act then excluded several kinds of software functions from that definition, including administrative support, general wellness, electronic health records, functions that only transfer, store, convert or display data, and some clinical decision support. FDA's guidance on device software functions and mobile medical applications explains where these lines fall, and it also lists low-risk device functions for which FDA intends not to enforce its requirements.",
+                "Clinical decision support (CDS) software has its own guidance, which FDA revised in January 2026. In short, CDS falls outside the device definition only when it meets all of the criteria in the law: it does not analyse medical images or signals, it uses medical information about a patient, it supports a health care professional rather than replacing their judgement, and the professional can independently review the basis for the recommendation. Software that reads an ECG signal or a CT image fails the first test.",
+                "If a function is a device, FDA places it in class I, II or III by risk, which leads to a pathway such as 510(k), De Novo or premarket approval. A product with several functions is assessed function by function, using FDA's multiple function device products guidance."
+              ]
+            },
+            {
+              "h": "The EU view",
+              "p": [
+                "In the EU the Medical Device Regulation (EU) 2017/745 (MDR) applies. The Medical Device Coordination Group guidance MDCG 2019-11, revised in June 2025, walks through qualification step by step: is it software, does it act on data for the benefit of individual patients, and does it have a medical purpose listed in the MDR definition?",
+                "Classification then uses Rule 11 in Annex VIII of the MDR. Software that provides information used to take diagnostic or therapeutic decisions is at least class IIa, rising to IIb or III when a wrong decision could cause serious deterioration of health or death. Software that monitors physiological processes is class IIa, or IIb when it monitors vital parameters where changes could mean immediate danger. Other software is class I. In practice many software devices end up class IIa or higher in the EU, which means a notified body must review them."
+              ]
+            },
+            {
+              "h": "Working with the regulatory team",
+              "p": [
+                "Qualification and classification are regulatory decisions, made by the manufacturer's regulatory team and recorded with a rationale. Your job is to give them a clear, honest description of each software function. A useful format is a function inventory: one row per function, with its inputs, what it does to them, its output, who sees the output, and what decision that person makes with it.",
+                "Flag wording that signals a device function, such as 'detects', 'diagnoses', 'predicts deterioration' or 'recommends a dose'. Ask again whenever the claims, users or inputs change, because the answer can change too."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Three kinds of software, three sets of rules",
+            "caption": "Read each column top to bottom: what the software is, then which rules and evidence apply.",
+            "columns": [
+              {
+                "title": "Product software",
+                "items": [
+                  "SaMD or software in a device",
+                  "Design controls and IEC 62304",
+                  "Classified by the regulator's rules",
+                  "Premarket submission where required"
+                ]
+              },
+              {
+                "title": "Production and QMS software",
+                "items": [
+                  "Makes, tests or releases devices",
+                  "Or runs CAPA, complaints, documents",
+                  "Validated for intended use",
+                  "Risk-based assurance, not submitted"
+                ]
+              },
+              {
+                "title": "Non-device software",
+                "items": [
+                  "Billing, scheduling, websites",
+                  "Some wellness and admin functions",
+                  "Normal engineering practice",
+                  "Recheck if claims change"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: sorting the software in a remote monitoring program (example scenario)",
+            "p": [
+              "A device maker runs a home blood pressure program. A team is asked to list all the software involved before planning a new release. Here is how they sort it, and what they hand to the regulatory team.",
+              "The team does not decide the final answers. They hand regulatory a function inventory with clear descriptions and open questions, and they now know which parts of their plan need the IEC 62304 process and which need software validation under the QMS."
+            ],
+            "list": [
+              "Patient app shows readings from a cleared blood pressure cuff in a simple log: possibly an excluded display function or low risk; regulatory to confirm.",
+              "Patient app sends appointment reminders: administrative, likely non-device.",
+              "Nurse dashboard flags patients whose readings meet a risk score calculated by a model from several signals: analyses patient data to flag a condition, likely a device function. In the EU, Rule 11 would apply.",
+              "Firmware in the cuff: software in a medical device, already part of the cleared cuff.",
+              "Production line test script that checks each cuff's pressure sensor before release: production software, validated under the QMS, not submitted.",
+              "Complaint handling system that logs patient issues: QMS software, validated for its intended use."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a software function inventory",
+              "time": "60 min",
+              "goal": "Practise describing software functions so they can be qualified, and sorting product software from production and QMS software.",
+              "steps": [
+                "Read FDA's page 'Step 1: Is the Software Function Intended for a Medical Purpose?' and skim the decision steps in MDCG 2019-11 rev.1, both linked below.",
+                "Pick a public description of a connected health product, such as a glucose monitor app or a sleep app, from its website.",
+                "In a spreadsheet, make one row per software function with columns: input, processing, output, user, decision informed, claim wording.",
+                "Add three rows for software the maker would use in production or quality, such as a test station, a complaint system and a label printer.",
+                "For each row mark product, production or QMS, or non-device, with a one-line reason and any device-signal words you found.",
+                "Ask Claude to challenge two of your calls, and write down which facts would settle each one."
+              ],
+              "done_when": "Your spreadsheet has at least eight rows, each with a category, a reason, and either a confident call or a named open question for the regulatory team."
+            }
+          ],
+          "pitfalls": [
+            "Treating a production test script or complaint system as product software, and putting it through IEC 62304 and submission planning it does not need, instead of risk-based validation under the QMS.",
+            "Assuming that because an internal tool is not a device it needs no evidence at all. Production and QMS software still has to be validated for its intended use.",
+            "Judging device status from the code alone. Claims on the website and in sales material are part of intended use and can turn the same code into a device.",
+            "Assessing the product as one block. A product with several functions is assessed function by function, and one device function does not make every function a device.",
+            "Assuming the US and EU answers will match. Rule 11 in the EU often places software in a higher class than an engineer expects."
+          ],
+          "check": [
+            "What separates product software from production and QMS software, and what evidence does each need?",
+            "Why can the same algorithm be a device in one product and not in another?",
+            "Name two kinds of software functions the 21st Century Cures Act excluded from the US device definition.",
+            "When does clinical decision support software fall outside the US device definition?",
+            "Under EU Rule 11, what class is software that provides information used to take diagnostic decisions, at minimum?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Policy for Device Software Functions and Mobile Medical Applications",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/policy-device-software-functions-and-mobile-medical-applications",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Step 1: Is the Software Function Intended For a Medical Purpose?",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/digital-health-center-excellence/step-1-software-function-intended-medical-purpose",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Clinical Decision Support Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/clinical-decision-support-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "MDCG 2019-11 rev.1: Guidance on Qualification and Classification of Software in Regulation (EU) 2017/745 and Regulation (EU) 2017/746",
+              "source": "European Commission, Medical Device Coordination Group",
+              "url": "https://health.ec.europa.eu/document/download/b45335c5-1679-4c71-a91c-fc7a4d37f12b_en?filename=mdcg_2019_11_en.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulation (EU) 2017/745 on medical devices",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Computer Software Assurance for Production and Quality Management System Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Software as a Medical Device Classification Rule 11 (EU MDR 2017/745)",
+              "source": "Easy Medical Device",
+              "url": "https://www.youtube.com/watch?v=XFW-3481j2k",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "is-it-a-device-q01",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "A script on the production line checks each pressure sensor before units ship. Which group does this software belong to?",
+          "options": [
+            "Product software",
+            "Production software",
+            "Non-device software",
+            "Software as a medical device"
+          ],
+          "answer": 1,
+          "why": "It is used to test devices during manufacture, so it is production software validated under the QMS, not a device."
+        },
+        {
+          "id": "is-it-a-device-q02",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "The complaint handling system is not a medical device. What does the manufacturer still need for it?",
+          "options": [
+            "Nothing at all, since it is only used internally",
+            "A 510(k) clearance",
+            "Validation for its intended use",
+            "A Rule 11 classification"
+          ],
+          "answer": 2,
+          "why": "QMS software is not submitted, but the QMS rules require it to be validated for its intended use, using a risk-based approach."
+        },
+        {
+          "id": "is-it-a-device-q03",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "Marketing changes an app's website from 'track your sleep' to 'detects sleep apnea'. The code is unchanged. What should happen?",
+          "options": [
+            "Re-check device status",
+            "Nothing, code is the same",
+            "Only update the app store text",
+            "Raise the IEC 62304 class to C"
+          ],
+          "answer": 0,
+          "why": "Intended use includes claims on the website, so a new medical claim can make the same code a device."
+        },
+        {
+          "id": "is-it-a-device-q04",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "A CDS tool gives doctors a recommendation by analysing the raw ECG signal. Why does it likely stay a device in the US?",
+          "options": [
+            "Doctors are the users",
+            "It is sold to hospitals",
+            "It shows a written recommendation on screen",
+            "It analyses a medical signal"
+          ],
+          "answer": 3,
+          "why": "CDS that analyses medical images or signals fails one of the criteria for exclusion from the device definition."
+        },
+        {
+          "id": "is-it-a-device-q05",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "Under EU Rule 11, software that gives information used for diagnostic decisions is at least which class?",
+          "options": [
+            "Class I",
+            "Class IIa",
+            "Class IIb",
+            "Class III"
+          ],
+          "answer": 1,
+          "why": "Rule 11 places such software in class IIa at minimum, higher when a wrong decision could cause serious harm or death."
+        },
+        {
+          "id": "is-it-a-device-q06",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "A product has a reminder function and a risk-scoring function. How does FDA expect it to be assessed?",
+          "options": [
+            "As one block",
+            "Only by its main screen",
+            "Function by function",
+            "By the most popular feature"
+          ],
+          "answer": 2,
+          "why": "FDA's multiple function device products guidance assesses each function, so one device function does not make all functions devices."
+        },
+        {
+          "id": "is-it-a-device-q07",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "Who makes and records the final call that a software function is a device?",
+          "options": [
+            "The regulatory team",
+            "The developer who wrote it",
+            "The cloud vendor",
+            "The first hospital customer"
+          ],
+          "answer": 0,
+          "why": "Qualification is a regulatory decision with a documented rationale; the engineer supplies a clear function description."
+        },
+        {
+          "id": "is-it-a-device-q08",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "Which row in a function inventory best helps the regulatory team qualify a function?",
+          "options": [
+            "Programming language and framework",
+            "Number of lines of code",
+            "Hosting region and cost",
+            "Input, output, user and decision informed"
+          ],
+          "answer": 3,
+          "why": "Qualification depends on what the function does with data and what decision it informs, not on the technology."
+        },
+        {
+          "id": "is-it-a-device-q09",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "An engineer plans full IEC 62304 documentation and a submission for the label printing tool used in the factory. What is wrong?",
+          "options": [
+            "Labels never need any form of control or review",
+            "It is QMS software, so validate it",
+            "It needs a PMA instead",
+            "Printing tools are class III"
+          ],
+          "answer": 1,
+          "why": "A label printing tool is production or QMS software: it needs risk-based validation for its intended use, not a device submission."
+        },
+        {
+          "id": "is-it-a-device-q10",
+          "lesson": "medtech-software-device-is-it-a-device",
+          "q": "A team got a 'not a device' answer for a US launch and assumes the EU answer is the same. What is the risk?",
+          "options": [
+            "None, the rules match",
+            "EU only covers hardware",
+            "EU rules may give another answer",
+            "The EU simply follows whatever FDA has decided"
+          ],
+          "answer": 2,
+          "why": "The EU uses its own definition, MDCG 2019-11 and Rule 11, which often place software in a higher class."
+        }
+      ]
+    },
+    {
+      "id": "lifecycle-62304",
+      "title": "The IEC 62304 development process",
+      "summary": "How each IEC 62304 development activity is done and recorded for product software, from plan to release, and how agile teams fit the standard.",
+      "outline": [
+        "Software development plan",
+        "Software requirements and architecture",
+        "Detailed design and unit verification by class",
+        "Integration and system testing",
+        "Release and the records it needs",
+        "Fitting agile ways of working to the standard"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-lifecycle-62304",
+          "title": "The IEC 62304 development process, step by step",
+          "summary": "You will be able to name each IEC 62304 development activity, say what record it produces, and trace one requirement from risk control to released test evidence.",
+          "why": "When you write code for a device, the code is only half the deliverable. The other half is the evidence that it was planned, specified, designed and tested in a controlled way, so a reviewer can trust it without reading every line. If you know what each activity must produce, you can build that evidence as you go instead of reconstructing it in a panic before release.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "IEC 62304 describes what a manufacturer must do to develop product software: the software that is a device or runs inside one. It does not tell you which language, tools or method to use. It tells you which activities must happen and what each must produce, and it scales the work by safety class A, B or C.",
+                "It does not cover production or QMS software, such as a factory test script or a complaint system. That software is validated for its intended use under the QMS, using a risk-based approach like the one in FDA's computer software assurance guidance. Keep the two separate in your head and in your plans.",
+                "The development activities run in a logical order, from plan to release, but the standard allows you to repeat them in short cycles. What matters is that each output exists, is reviewed, and links to the others."
+              ]
+            },
+            {
+              "h": "Plan, requirements and architecture",
+              "p": [
+                "The software development plan says how the work will be done: the activities and deliverables, the standards, methods and tools, how traceability is kept between system requirements, software requirements, tests and risk controls, how configuration and changes are managed, and how verification will be done. It is a living document and must be updated as the project changes.",
+                "Software requirements state what the software must do. Good ones are specific and testable, and they include more than features.",
+                "Before design starts, the requirements themselves are checked. Each one should trace to a system requirement or risk control, be free of contradictions, be written so it can be tested, and be clear enough that two engineers would build the same thing. When the system requirements or the risk file change, the software requirements are re-checked and updated, which is why the plan says how traceability is kept."
+              ],
+              "list": [
+                "Functions and capabilities, inputs and outputs, and interfaces with other systems.",
+                "Alarms, warnings and messages to the user.",
+                "Security requirements, such as authentication and protection of data.",
+                "Requirements that come from usability work and from data definitions.",
+                "Risk control measures that are implemented in software. These must be visible as requirements so they are tested."
+              ]
+            },
+            {
+              "h": "Architecture, detailed design and units",
+              "p": [
+                "The architecture breaks the software into software items and shows their interfaces, including interfaces to third-party software (SOUP). It is where you show segregation between items of different risk, and where you state what each SOUP item must do and what hardware and software it needs. Architecture is required for class B and C.",
+                "Each item is then broken into software units, the smallest pieces you verify. Class C also needs a documented detailed design for each unit and its interfaces, detailed enough to implement correctly. For class B and C, each unit must be verified against acceptance criteria you define, using reviews, static analysis or unit tests. Class C adds extra criteria, such as correct event sequence, data and control flow, fault handling and initialisation."
+              ]
+            },
+            {
+              "h": "Integration, system testing and release",
+              "p": [
+                "Integration testing checks that the units and items work together as the architecture says, including SOUP. System testing checks the whole software system against every software requirement. Each test record names the version tested, who tested it, the result, and the expected and actual outcome. Any failure goes into the problem resolution process, and after a fix you run regression tests to show nothing else broke.",
+                "Release is a deliberate step, not the last merge. Before release you confirm that verification is complete, list the known residual anomalies, the bugs you are not fixing, and evaluate each one to show it does not create unacceptable risk. You document the exact version released and how it was built, so it can be rebuilt, and you archive the software and its records."
+              ]
+            },
+            {
+              "h": "Fitting agile to the standard",
+              "p": [
+                "Nothing in IEC 62304 forces a waterfall model. Many teams run sprints and map them to the standard. The AAMI technical report TIR45 gives guidance on using agile methods for medical device software. The practical approach is to make the standard's outputs part of your normal work.",
+                "Put requirements and risk controls in the same tool as your backlog, link each test to its requirement, and include document updates in the definition of done. Use continuous integration to run unit and integration tests on every change and keep the results. Hold a formal system test and release review for each release candidate, because a sprint demo is not release evidence.",
+                "Watch for one common trap: the backlog tool keeps changing, so the evidence must be frozen. At each release, export or baseline the requirements, tests and trace links as they stood for that version, so a reviewer months later sees exactly what was true at release, not what the tool shows today."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "IEC 62304 development activities",
+            "caption": "Read left to right. Each step produces a record that links back to the step before it; teams can loop through these in sprints.",
+            "steps": [
+              {
+                "label": "Development plan",
+                "note": "How the work is done and traced"
+              },
+              {
+                "label": "Software requirements",
+                "note": "Includes risk controls in software"
+              },
+              {
+                "label": "Architecture",
+                "note": "Items, interfaces, SOUP, segregation"
+              },
+              {
+                "label": "Detailed design and units",
+                "note": "Detail scales with safety class"
+              },
+              {
+                "label": "Integration testing",
+                "note": "Items and SOUP working together"
+              },
+              {
+                "label": "System testing",
+                "note": "Every requirement verified"
+              },
+              {
+                "label": "Release",
+                "note": "Version, anomalies, build, archive"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: tracing one requirement end to end (example scenario)",
+            "p": [
+              "A class B glucose diary app lets patients type in meter readings, and the risk file notes that a typing error, such as 55 entered as 555, could lead the patient to a wrong action. The team traces the risk control through every activity. The identifiers and limits below are illustrative.",
+              "At release, a reviewer can start at the hazard and follow links to passing evidence, or start at a test and see why it exists. That two-way link is what traceability means in practice."
+            ],
+            "list": [
+              "Risk file: hazardous situation 'implausible reading accepted' with risk control RC-07 'reject values outside the meter's measuring range and ask the user to re-enter'.",
+              "Software requirement SRS-014: the app shall reject a glucose value outside the configured range and show message M-12. It links to RC-07.",
+              "Architecture: the input validation item owns this rule; the range is read from a controlled configuration file.",
+              "Unit verification: unit tests cover the lower and upper limits, one below, one above, empty input and non-numeric input. They run in continuous integration.",
+              "System test TC-031: a tester enters out-of-range values on a release build and checks message M-12. The record shows build number, tester, date and result.",
+              "Release: the traceability report shows RC-07 to SRS-014 to TC-031 all passing, and one cosmetic anomaly in the message text is listed and evaluated as no safety impact."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write a mini plan and traceability matrix",
+              "time": "75 min",
+              "goal": "Produce the core development records for a small feature and see how they link.",
+              "steps": [
+                "Pick a small device feature, such as a medication reminder that warns when two doses are logged too close together.",
+                "Write a one-page development plan: activities, tools, how you will trace requirements to tests, and how you will handle changes and bugs.",
+                "Write five software requirements, including at least one alarm and one risk control, each specific and testable.",
+                "In a spreadsheet, build a traceability matrix with columns: risk control, requirement, architecture item, unit test, system test, result.",
+                "Write two system test cases with steps, expected result and a blank for actual result and tester.",
+                "Ask Claude to find requirements that are not testable or not traced, and fix them."
+              ],
+              "done_when": "Every requirement in your matrix links to at least one test, every risk control links to a requirement, and no requirement uses vague words like 'fast' or 'user friendly' without a measure."
+            }
+          ],
+          "pitfalls": [
+            "Writing documents at the end of the project to describe what was built. Records made after the fact rarely match the code and reviewers can tell.",
+            "Leaving software risk controls buried in the risk file instead of writing them as software requirements, so nobody tests them.",
+            "Treating a sprint demo or a passing CI run as release evidence. Release needs a formal record of the version, verification status and residual anomalies.",
+            "Releasing a build that cannot be reproduced because the build steps, tool versions or SOUP versions were not recorded.",
+            "Applying the full IEC 62304 process to factory or QMS tools that only need risk-based validation for their intended use."
+          ],
+          "check": [
+            "What does a software development plan have to cover?",
+            "Why must risk control measures implemented in software appear as software requirements?",
+            "Which safety class needs a documented detailed design for each software unit?",
+            "What must be documented about known residual anomalies at release?",
+            "How can an agile team meet IEC 62304 without a waterfall model?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "IEC 62304:2006 Medical device software - Software life cycle processes",
+              "source": "IEC Webstore",
+              "url": "https://webstore.iec.ch/en/publication/6792",
+              "cost": "paid"
+            },
+            {
+              "type": "docs",
+              "title": "General Principles of Software Validation",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/general-principles-software-validation",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Content of Premarket Submissions for Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "How Does The IEC 62304 V-Model Work For Software Development Of Medical Devices?",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=DXf0tCLxy7Q",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "IEC 62304: Become an expert in Software Testing. All you need to know.",
+              "source": "Matrix One",
+              "url": "https://www.youtube.com/watch?v=kwn3DVLdqdA",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Introduction to Medical Software",
+              "source": "Coursera",
+              "url": "https://www.coursera.org/learn/introduction-to-medical-software",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "lifecycle-62304-q01",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "Your team wants to use two-week sprints on a class B device app. What does IEC 62304 say?",
+          "options": [
+            "Agile is allowed",
+            "Only waterfall is permitted for any device",
+            "Sprints are allowed only in class A",
+            "You must first get approval from the regulator"
+          ],
+          "answer": 0,
+          "why": "IEC 62304 sets required activities and outputs, not a method. Agile works if the outputs exist and link together."
+        },
+        {
+          "id": "lifecycle-62304-q02",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "The risk file says the app must reject impossible readings. Where should this also appear?",
+          "options": [
+            "Only in the user manual for patients",
+            "As a software requirement",
+            "In the marketing brochure as a feature",
+            "Nowhere else, the risk file is enough"
+          ],
+          "answer": 1,
+          "why": "A risk control implemented in software must be a software requirement so it is designed and tested."
+        },
+        {
+          "id": "lifecycle-62304-q03",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "Which software class needs a documented detailed design for each unit?",
+          "options": [
+            "Class A",
+            "Class B",
+            "Class C",
+            "All three classes equally"
+          ],
+          "answer": 2,
+          "why": "Detailed design of each unit and its interfaces is required for class C."
+        },
+        {
+          "id": "lifecycle-62304-q04",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "Two days before release, three minor bugs remain open. What must the release record include?",
+          "options": [
+            "Nothing, minor bugs can be left out",
+            "Only the number of open bugs in total",
+            "A promise to fix them in the next sprint",
+            "Each anomaly and its evaluated risk"
+          ],
+          "answer": 3,
+          "why": "Known residual anomalies must be listed and evaluated to show they do not create unacceptable risk."
+        },
+        {
+          "id": "lifecycle-62304-q05",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "A release build cannot be rebuilt later because the compiler version was not recorded. Which release duty was missed?",
+          "options": [
+            "Documenting how it was built",
+            "Writing the user manual for release",
+            "Running a usability test with patients",
+            "Updating the marketing release notes"
+          ],
+          "answer": 0,
+          "why": "Release records must document the version and how it was built, so the exact software can be recreated."
+        },
+        {
+          "id": "lifecycle-62304-q06",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "A system test fails during release testing. Where does the failure go?",
+          "options": [
+            "A private note kept by the tester only",
+            "Into problem resolution",
+            "It is ignored if the retest passes once",
+            "Into the marketing feedback inbox"
+          ],
+          "answer": 1,
+          "why": "Failures found in testing enter the problem resolution process, and fixes are followed by regression testing."
+        },
+        {
+          "id": "lifecycle-62304-q07",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "Which requirement is written well enough to test?",
+          "options": [
+            "The app shall be fast and responsive",
+            "The app shall be user friendly for all",
+            "Reject values outside 20 to 600",
+            "The app shall handle errors gracefully"
+          ],
+          "answer": 2,
+          "why": "A testable requirement states a specific, measurable behaviour. The others use vague words with no measure."
+        },
+        {
+          "id": "lifecycle-62304-q08",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "The factory's automated test station software needs evidence. Which approach fits?",
+          "options": [
+            "Full IEC 62304 and a premarket submission",
+            "No evidence, as it is only used in-house",
+            "A clinical study with patients first",
+            "Risk-based validation under the QMS"
+          ],
+          "answer": 3,
+          "why": "Production software is validated for its intended use under the QMS; IEC 62304 covers product software."
+        },
+        {
+          "id": "lifecycle-62304-q09",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "Where should a team show segregation between high-risk and low-risk software items?",
+          "options": [
+            "In the architecture",
+            "In the user manual for nurses",
+            "In the sprint retrospective notes",
+            "In the marketing launch plan"
+          ],
+          "answer": 0,
+          "why": "The architecture shows software items, their interfaces and the segregation between them."
+        },
+        {
+          "id": "lifecycle-62304-q10",
+          "lesson": "medtech-software-device-lifecycle-62304",
+          "q": "An agile team wants document updates to keep pace with code. What is a sound practice?",
+          "options": [
+            "Write all documents at the end of the project",
+            "Add them to the definition of done",
+            "Let auditors write the missing documents",
+            "Skip documents until a customer asks"
+          ],
+          "answer": 1,
+          "why": "Including record updates in the definition of done keeps evidence in step with the code."
+        }
+      ]
+    },
+    {
+      "id": "classes-soup-architecture",
+      "title": "Safety classes, SOUP and architecture",
+      "summary": "How to assign and document safety classes, segregate risk in the architecture, manage third-party software as SOUP, keep a software bill of materials, and link it all to the ISO 14971 risk file.",
+      "outline": [
+        "Assigning and documenting safety classes",
+        "Segregation in architecture",
+        "SOUP requirements and known anomaly review",
+        "Software bill of materials",
+        "Linking software risk to the ISO 14971 file"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-classes-soup-architecture",
+          "title": "Safety classes, SOUP and architecture in practice",
+          "summary": "You will be able to justify a software safety class from the risk file, design segregation that holds up in review, and keep SOUP and SBOM records that support both safety and cybersecurity.",
+          "why": "The safety class decides how much work every later step needs, and SOUP is in almost every modern product: open source libraries, operating systems, databases, cloud SDKs and models. FDEs are often the ones adding a library or a model to a device codebase. Knowing how a class is argued, how segregation is shown and what a SOUP record needs keeps a quick integration from turning into a release blocker.",
+          "sections": [
+            {
+              "h": "Assigning and documenting the safety class",
+              "p": [
+                "The class comes from the risk file, not from a gut feeling. Start with the hazardous situations in the ISO 14971 risk analysis that software could contribute to. For each one, assume the software fails: software failures are systematic, so you cannot argue they are unlikely the way you might for a worn part. Then ask what harm could follow, after considering risk control measures outside the software system, such as a hardware limit, an independent alarm or a clinical check.",
+                "If no hazardous situation can arise, or none leads to unacceptable risk after external controls, the system is class A. If the worst outcome is non-serious injury, class B. If death or serious injury is possible, class C. Write down the reasoning, the hazards considered and the external controls relied on. Software items inherit the class of the system unless you document why a lower class is justified for a segregated item."
+              ]
+            },
+            {
+              "h": "Segregation in the architecture",
+              "p": [
+                "Segregation lets you keep the class C work small. The idea is simple: if a lower-class item fails, it must not be able to make the higher-class item fail. Folders, namespaces or separate Git repositories are not segregation on their own, because the code still shares memory, threads and data.",
+                "Credible segregation usually rests on runtime separation and controlled interfaces, and you must explain in the architecture why it is effective."
+              ],
+              "list": [
+                "Separate processes or processors with operating system memory protection.",
+                "Interfaces that pass data one way, with the receiving item checking every value it gets.",
+                "Independent watchdogs or monitors that can stop or override the higher-risk function.",
+                "Separate deployment, so a crash or update of the low-risk item cannot stop the high-risk one."
+              ]
+            },
+            {
+              "h": "SOUP: what each item needs",
+              "p": [
+                "SOUP, software of unknown provenance, is software you did not develop under your IEC 62304 process: open source libraries, commercial components, operating systems, and legacy code. You do not have to prove how it was built, but you must control how you use it. FDA's guidance on off-the-shelf software use in medical devices covers the same ground from the regulator's side.",
+                "For each SOUP item, record:",
+                "The same thinking applies to things that are not classic libraries. A pre-trained model you download, a cloud service your software calls, or a hosted language model all behave like SOUP: you did not build them under your process, they can change, and they can fail in ways you must anticipate. Treat their version or model identifier as a controlled item, state what you need from them, and test that on your own data."
+              ],
+              "list": [
+                "Its name, supplier and exact version, pinned so it cannot change silently.",
+                "The functional and performance requirements your software needs from it, for class B and C.",
+                "The hardware and software it needs to run correctly.",
+                "A review of its published known anomalies, such as the issue tracker or release notes, judging whether any could contribute to a hazardous situation.",
+                "How you will keep watching for new anomalies and vulnerabilities after release."
+              ]
+            },
+            {
+              "h": "The software bill of materials",
+              "p": [
+                "A software bill of materials (SBOM) is a machine-readable list of every software component in the product, with versions, suppliers and dependency relationships, including the dependencies of your dependencies. Common formats are SPDX and CycloneDX, and many build tools can generate them.",
+                "The SOUP list and the SBOM overlap but serve different purposes. The SOUP list is safety documentation: what you need from each item and whether its known bugs matter. The SBOM is a complete inventory used mainly to find which products are affected when a new vulnerability is published. In the US, section 524B of the FD&C Act requires manufacturers of cyber devices to provide an SBOM covering commercial, open source and off-the-shelf components in their premarket submission. Generate the SBOM from the build, not by hand, so it matches what actually ships."
+              ]
+            },
+            {
+              "h": "Linking software to the ISO 14971 file",
+              "p": [
+                "Software risk management in IEC 62304 is not a separate risk process; it feeds the device's ISO 14971 risk file. Each software item that can contribute to a hazardous situation is listed with the possible causes, such as a wrong calculation, a frozen screen, corrupted data or a SOUP failure. Each risk control in software becomes a requirement, is verified, and its verification is traced back in the risk file.",
+                "When software changes, check the risk file again: a new feature can add a cause, and a SOUP update can remove or add one. If the file and the code drift apart, the class argument no longer holds."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "layers",
+            "title": "A segregated device software architecture",
+            "caption": "Read top to bottom. The class C core runs in its own process and only receives checked data, so the items around it can carry a lower class.",
+            "layers": [
+              {
+                "label": "Reports and settings UI",
+                "note": "Class A: cannot affect therapy"
+              },
+              {
+                "label": "Clinician display",
+                "note": "Class B: shows values, core re-checks inputs"
+              },
+              {
+                "label": "Dose calculation core",
+                "note": "Class C: own process, one-way checked input"
+              },
+              {
+                "label": "SOUP: OS, runtime, database",
+                "note": "Pinned versions, anomalies reviewed"
+              },
+              {
+                "label": "Hardware with flow limiter",
+                "note": "External risk control outside software"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: how an external control changes the class (example scenario)",
+            "p": [
+              "A team builds software that sets the delivery rate on an infusion device. A rate far above the prescription could cause serious injury. They work through the class argument twice, once with and once without a hardware control.",
+              "The point is not to aim for a lower class. It is to state honestly what protects the patient and to put the heavier process where the risk really is."
+            ],
+            "list": [
+              "Without external control: if the software sets a wrong rate, nothing stops it. Serious injury is possible, so the rate control software is class C.",
+              "With an independent hardware flow limiter, built and verified outside the software, that caps the rate at a safe maximum: the team checks whether harm is still possible at rates below the cap. The clinical team says a rate just under the cap could still harm some patients, so the item stays class C.",
+              "The reporting screen that shows past infusions cannot change the rate and runs in a separate process. With that segregation documented, it is class A.",
+              "The team lists the real-time operating system and the database as SOUP, pins versions, reviews their published issue lists and records which issues were judged not relevant and why.",
+              "The SBOM is generated by the build pipeline for each release and stored with the release records."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a SOUP list from a real project",
+              "time": "60 min",
+              "goal": "See how many third-party components a small project really has and what a SOUP record needs.",
+              "steps": [
+                "Create a Python virtual environment and install two common packages, for example requests and pandas, with pip.",
+                "Run 'python -m pip list --format=json' and save the output. Note how many packages you have compared with the two you asked for.",
+                "In a spreadsheet, make a SOUP table for five of the packages: name, version, supplier or project, what your software needs from it, and what it needs to run.",
+                "For each of the five, search osv.dev for known vulnerabilities in that version and read the project's recent issues or release notes.",
+                "Write one line per package on whether any known issue could matter for a device that displays lab results, and what you would do about it."
+              ],
+              "done_when": "You have a five-row SOUP table with pinned versions, stated requirements, a known-anomaly review date and a reasoned decision for each row."
+            }
+          ],
+          "pitfalls": [
+            "Calling separate folders or repositories 'segregation' when the items share one process and can corrupt each other's memory or data.",
+            "Lowering the class by arguing that software failure is unlikely. IEC 62304 asks you to assume the software fails and rely only on controls outside it.",
+            "Listing only direct dependencies as SOUP and missing the libraries they pull in, which is where many vulnerabilities sit.",
+            "Writing the SBOM by hand once and never regenerating it, so it no longer matches the software that ships.",
+            "Letting the risk file and the code drift apart, so the safety class argument rests on an architecture that no longer exists."
+          ],
+          "check": [
+            "Why does IEC 62304 assume the software fails when assigning a class?",
+            "What makes segregation credible in a review, and what is not enough on its own?",
+            "List four things a SOUP record must contain.",
+            "How do a SOUP list and an SBOM differ in purpose?",
+            "How does a risk control implemented in software link back to the ISO 14971 file?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Off-The-Shelf Software Use in Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/shelf-software-use-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Software Bill of Materials (SBOM)",
+              "source": "CISA",
+              "url": "https://www.cisa.gov/topics/information-communications-technology-supply-chain-security/sbom",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices (search IEC 62304 and ISO 14971)",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "OSV - Open Source Vulnerabilities",
+              "source": "OSV",
+              "url": "https://osv.dev",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Documenting Software of Unknown Provenance (SOUP) for IEC 62304",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=z-hq1-d3m3g",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Software Architecture For Medical Device Software (IEC 62304 Compliance)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=RmuaRqk5ofQ",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "classes-soup-architecture-q01",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "A developer argues the alarm code is class A because it is well tested and will rarely fail. What is wrong?",
+          "options": [
+            "Testing always lowers the class by one",
+            "You assume the software fails",
+            "Rare failures are only class B",
+            "Nothing, good tests justify class A"
+          ],
+          "answer": 1,
+          "why": "Software failures are systematic, so the class is set by assuming failure and relying only on controls outside the software."
+        },
+        {
+          "id": "classes-soup-architecture-q02",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "The UI and the dose logic sit in different folders but run in one process. Is that segregation?",
+          "options": [
+            "Yes, folders are enough",
+            "Yes, if they use different file names",
+            "Not on its own",
+            "Yes, if two teams wrote them"
+          ],
+          "answer": 2,
+          "why": "Shared processes can corrupt each other; credible segregation needs runtime separation and controlled interfaces."
+        },
+        {
+          "id": "classes-soup-architecture-q03",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "You add an open source date library to a class B app. Which record is required?",
+          "options": [
+            "A SOUP entry with a pinned version",
+            "A new marketing claim for the app",
+            "A clinical study of the library",
+            "Nothing, open source is exempt"
+          ],
+          "answer": 0,
+          "why": "Third-party code not built under your process is SOUP and needs identification, requirements and known-anomaly review."
+        },
+        {
+          "id": "classes-soup-architecture-q04",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "Your requirements file lists 4 packages but pip installs 31. What does this mean for the SOUP list and SBOM?",
+          "options": [
+            "Only the 4 direct packages count",
+            "The other 27 are part of Python",
+            "Only paid packages need listing",
+            "Transitive packages count too"
+          ],
+          "answer": 3,
+          "why": "Dependencies of dependencies ship with the product and are where many vulnerabilities sit, so they must be inventoried."
+        },
+        {
+          "id": "classes-soup-architecture-q05",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "What is the main purpose of an SBOM compared with a SOUP list?",
+          "options": [
+            "Listing user requirements in full",
+            "Finding affected products fast",
+            "Replacing the risk management file",
+            "Setting the IEC 62304 safety class"
+          ],
+          "answer": 1,
+          "why": "The SBOM is a complete component inventory, used mainly to see which products a new vulnerability affects."
+        },
+        {
+          "id": "classes-soup-architecture-q06",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "An independent hardware limiter caps the pump rate, but a rate just under the cap could still harm some patients. What class should the rate software carry?",
+          "options": [
+            "Class A, since hardware protects",
+            "Class B, as a middle ground",
+            "Class C",
+            "No class, it is firmware"
+          ],
+          "answer": 2,
+          "why": "If serious injury is still possible after the external control, the software stays class C."
+        },
+        {
+          "id": "classes-soup-architecture-q07",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "In US law, which kind of device must include an SBOM in its premarket submission under section 524B?",
+          "options": [
+            "A cyber device",
+            "Every class I device without software",
+            "Only devices sold in Europe",
+            "Only devices with AI models"
+          ],
+          "answer": 0,
+          "why": "Section 524B of the FD&C Act requires manufacturers of cyber devices to provide an SBOM."
+        },
+        {
+          "id": "classes-soup-architecture-q08",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "A SOUP library's issue tracker shows a bug in date parsing across time zones. What should you do?",
+          "options": [
+            "Ignore it, SOUP bugs are the supplier's issue",
+            "Remove the issue from your records",
+            "Wait until a customer complains",
+            "Judge if it can cause a hazard"
+          ],
+          "answer": 3,
+          "why": "Published anomalies must be reviewed for whether they could contribute to a hazardous situation, with the decision recorded."
+        },
+        {
+          "id": "classes-soup-architecture-q09",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "A new feature adds a data export that could be corrupted. What should happen to the risk file?",
+          "options": [
+            "Nothing, risk files are fixed at launch",
+            "Review it for the new cause",
+            "Delete old risks to keep it short",
+            "Move risks into the user manual"
+          ],
+          "answer": 1,
+          "why": "Software changes can add hazard causes, so the ISO 14971 file is re-checked and kept in step with the code."
+        },
+        {
+          "id": "classes-soup-architecture-q10",
+          "lesson": "medtech-software-device-classes-soup-architecture",
+          "q": "How should an SBOM be produced so it stays accurate?",
+          "options": [
+            "Typed by hand once at launch",
+            "Copied from a similar product",
+            "Generated by each build",
+            "Written from memory by the lead"
+          ],
+          "answer": 2,
+          "why": "Generating the SBOM from the build keeps it matched to what actually ships."
+        }
+      ]
+    },
+    {
+      "id": "maintenance-and-security",
+      "title": "Maintenance, problem resolution and cybersecurity",
+      "summary": "How released device software is maintained, how problems and changes are handled, how configuration is controlled, and how cybersecurity runs through the QMS, the submission and the field.",
+      "outline": [
+        "Maintenance plan and change analysis",
+        "Problem resolution and trending",
+        "Configuration management in practice",
+        "Cybersecurity in the QMS and in premarket submissions",
+        "Patching SOUP and handling vulnerabilities"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-maintenance-and-security",
+          "title": "Keeping released device software safe and secure",
+          "summary": "You will be able to take a field problem or a new vulnerability through change analysis, a controlled fix and release, and explain what cybersecurity evidence regulators expect before and after market.",
+          "why": "Most of a device's software life happens after its first release. Bugs are reported, SOUP gets new versions, and vulnerabilities are published in components you ship. Each of these needs a controlled response: a quick hotfix pushed without analysis can create a new hazard or a regulatory problem, and a known vulnerability left alone can put patients and hospitals at risk. FDEs often work on exactly these changes.",
+          "sections": [
+            {
+              "h": "Maintenance plan and change analysis",
+              "p": [
+                "IEC 62304 asks for a software maintenance plan: how feedback is collected after release, how it is evaluated, which items become problem reports, and how changes are made and released. Feedback includes complaints, service reports, internal testing, SOUP updates and security advisories.",
+                "Every proposed change is analysed before work starts. Does it affect safety: could it add a hazard cause, change a risk control or touch a higher-class item? Does it affect regulatory status: in the US, FDA's guidance on deciding when to submit a 510(k) for a software change helps answer whether a new submission is needed, and in the EU a significant change may need notified body review. Only then is the change made, using the same development process, with regression testing sized to what the change could affect."
+              ]
+            },
+            {
+              "h": "Problem resolution and trending",
+              "p": [
+                "A problem report records what was seen, which version, how severe it is and whether it affects safety. The team investigates the cause, decides whether and how to fix it, and tracks the report to closure, including verification that the fix works and did not break anything else.",
+                "Problem resolution in software links to the wider QMS. A software problem found through a complaint is also a complaint record, and a pattern of similar problems may need a corrective and preventive action (CAPA). That is why the standard asks you to analyse problem reports for trends, not just close them one by one. Ten small reports about the same screen can point to one design flaw."
+              ]
+            },
+            {
+              "h": "Configuration management in practice",
+              "p": [
+                "Configuration management means you can always say exactly what is in a given release and rebuild it. Treat these as configuration items, each with an identifier and version:",
+                "Changes to any configuration item go through the same control: a change request, analysis, approval, and a record of what changed and why. In practice most of this lives in Git, the issue tracker and the build pipeline. The discipline is that nothing reaches a release build except through that route, and that release tags, SBOMs and test results are kept together so the history can be read back years later."
+              ],
+              "list": [
+                "Source code, build scripts and the build toolchain versions.",
+                "Every SOUP item, pinned, and the generated SBOM.",
+                "Configuration files and parameters that change behaviour, such as alarm limits.",
+                "Trained models, their weights and the data versions used to train and test them.",
+                "Requirements, design, test and risk records for that release.",
+                "A record of which version is installed where, so you know who is affected by a problem."
+              ]
+            },
+            {
+              "h": "Cybersecurity before market",
+              "p": [
+                "Security is part of device safety: an attacker who can change a dose or stop an alarm creates a hazard. FDA's guidance on cybersecurity in medical devices sets out quality management system considerations and the content of premarket submissions. It expects a secure product development framework, threat modeling, a cybersecurity risk assessment, an SBOM, security architecture views, security testing such as penetration testing, labeling that tells users how to operate the device securely, and a plan for managing vulnerabilities after release.",
+                "Since 2023, section 524B of the FD&C Act has required manufacturers of cyber devices, which include software and can connect to the internet, to submit a plan to monitor and address postmarket vulnerabilities, to have processes that give reasonable assurance the device is cybersecure, and to provide an SBOM. In the EU, the MDR's general safety and performance requirements cover IT security, and MDCG 2019-16 gives guidance on cybersecurity for medical devices. IEC 81001-5-1 is the standard that adds security activities to the health software lifecycle.",
+                "Threat modeling is the step engineers can start on today. Draw the system with its data flows and trust boundaries, such as the device, the phone app, the cloud and the hospital network, then ask at each boundary how data could be read, changed, faked or blocked. Each credible threat goes into the security risk assessment, and the controls become requirements that are tested like any other."
+              ]
+            },
+            {
+              "h": "Patching SOUP and handling vulnerabilities",
+              "p": [
+                "When a vulnerability is published in a component you ship, you triage it. Is the vulnerable version in any product, according to the SBOM? Is the vulnerable function reachable in your use? What could an attacker do, and could that lead to patient harm? FDA's postmarket cybersecurity guidance frames the outcome as controlled or uncontrolled risk of patient harm, and expects faster action and communication when the risk is uncontrolled.",
+                "The patch itself is a change. It goes through change analysis, the development process and regression testing, because a new SOUP version can change behaviour your requirements depend on. Then you tell users and hospitals what changed and what they must do, through a coordinated vulnerability disclosure process. Production and QMS software gets patched too, but under the QMS change control and validation rules, not the device release process."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "Vulnerability handling loop",
+            "caption": "Start at monitoring. Each pass ends with users informed, then monitoring continues for the next advisory.",
+            "steps": [
+              {
+                "label": "Monitor advisories and feedback",
+                "note": "Vendor notices, NVD, researchers, complaints"
+              },
+              {
+                "label": "Match against SBOM",
+                "note": "Which products and versions ship it"
+              },
+              {
+                "label": "Assess exploit and harm",
+                "note": "Reachable? Controlled or uncontrolled risk"
+              },
+              {
+                "label": "Plan the change",
+                "note": "Change analysis and regulatory impact"
+              },
+              {
+                "label": "Fix, test, release",
+                "note": "Development process plus regression"
+              },
+              {
+                "label": "Inform users",
+                "note": "Coordinated disclosure and instructions"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a vulnerability in a connected device gateway (example scenario)",
+            "p": [
+              "A hospital gateway sends readings from bedside devices to a cloud dashboard. A security advisory is published for the version of an open source web server library used in the gateway. Here is how the team works through it.",
+              "The team spent most of the effort on analysis and evidence, not on the code change itself. That is normal for released device software."
+            ],
+            "list": [
+              "The SBOM shows the vulnerable version in gateway releases 3.1 and 3.2, installed at sites listed in the configuration records.",
+              "The team checks reachability: the vulnerable feature is used by the gateway's admin page, which is reachable on the hospital network.",
+              "Impact: an attacker could stop the gateway, so readings would stop reaching the dashboard. The bedside devices keep alarming locally, so the team, with the risk manager, rates the patient harm risk as controlled, while still planning a fix.",
+              "Change analysis: upgrading the library is a SOUP change in a class B item. Regulatory reviews it against the 510(k) software change guidance and records why no new submission is needed.",
+              "The upgrade is built, the SOUP record and SBOM are updated, and the regression suite plus targeted security tests run on release 3.3.",
+              "A customer notice explains the issue, the fix, and a temporary step of restricting admin page access until sites update."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Triage a real vulnerability",
+              "time": "50 min",
+              "goal": "Practise the reasoning behind a vulnerability triage record for device software.",
+              "steps": [
+                "Search osv.dev or the NIST NVD for a published vulnerability in a widely used open source library, such as a JSON parser or web framework.",
+                "Read the advisory and write down the affected versions, the vulnerable function and what an attacker could do.",
+                "Imagine the library is SOUP in a class B infusion pump companion app that shows pump status to nurses. Write whether the function is likely reachable, and why.",
+                "Write a one-paragraph harm assessment and whether you would call the risk of patient harm controlled or uncontrolled, with your reason.",
+                "List the records you would update: problem report, SOUP entry, SBOM, risk file, release notes, customer notice."
+              ],
+              "done_when": "You have a one-page triage record with affected versions, reachability, harm assessment, a controlled or uncontrolled call with reasons, and the list of records to update."
+            }
+          ],
+          "pitfalls": [
+            "Pushing a hotfix straight to the field without change analysis, so a new hazard or a missed regulatory submission slips through.",
+            "Closing problem reports one at a time without trending them, and missing a design flaw that shows up as many small complaints.",
+            "Treating cybersecurity as an IT topic separate from safety, when an attack that changes device behaviour is a hazard in the risk file.",
+            "Upgrading a SOUP version to fix a vulnerability without regression testing, even though the new version can change behaviour.",
+            "Not knowing which software version is installed at which site, so you cannot tell who is affected by a problem."
+          ],
+          "check": [
+            "What questions does change analysis answer before a fix is made?",
+            "Why should problem reports be analysed for trends?",
+            "Name four kinds of configuration items besides source code.",
+            "What does section 524B of the FD&C Act require from manufacturers of cyber devices?",
+            "Why is a SOUP security patch handled as a change with regression testing?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Cybersecurity in Medical Devices: Quality Management System Considerations and Content of Premarket Submissions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cybersecurity-medical-devices-quality-management-system-considerations-and-content-premarket",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Postmarket Management of Cybersecurity in Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/postmarket-management-cybersecurity-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Deciding When to Submit a 510(k) for a Software Change to an Existing Device",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/deciding-when-submit-510k-software-change-existing-device",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "MDCG 2019-16 Guidance on Cybersecurity for medical devices",
+              "source": "European Commission, Medical Device Coordination Group",
+              "url": "https://health.ec.europa.eu/document/download/b23b362f-8a56-434c-922a-5b3ca4d0a7a1_en?filename=md_cybersecurity_en.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "SP 800-218, Secure Software Development Framework (SSDF) Version 1.1",
+              "source": "NIST",
+              "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Cybersecurity (medical devices)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/digital-health-center-excellence/cybersecurity",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Intro to Medical Device Cybersecurity (Premarket and Postmarket, FDA and EU)",
+              "source": "WhitehallTraining",
+              "url": "https://www.youtube.com/watch?v=6FNVW9gGO40",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "maintenance-and-security-q01",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "A field bug needs a quick fix. What must happen before the code is changed?",
+          "options": [
+            "Change analysis",
+            "A press release about the fix",
+            "A new clinical study",
+            "Nothing, bugs can be fixed directly"
+          ],
+          "answer": 0,
+          "why": "Each change is analysed for safety and regulatory impact before work starts, then made through the development process."
+        },
+        {
+          "id": "maintenance-and-security-q02",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "Twelve separate complaints describe the same screen freezing. What practice catches the underlying flaw?",
+          "options": [
+            "Closing each report as fast as possible",
+            "Asking users to restart the app each time",
+            "Trending problem reports",
+            "Deleting duplicate reports from the system"
+          ],
+          "answer": 2,
+          "why": "Analysing problem reports for trends reveals a common cause, which may need a CAPA in the QMS."
+        },
+        {
+          "id": "maintenance-and-security-q03",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "Which of these is a configuration item for an AI-enabled device release?",
+          "options": [
+            "The team's lunch schedule",
+            "The trained model version",
+            "The office Wi-Fi password policy",
+            "The sales forecast for next year"
+          ],
+          "answer": 1,
+          "why": "Models, their weights and data versions change behaviour, so they are controlled like code."
+        },
+        {
+          "id": "maintenance-and-security-q04",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "Under section 524B, which item must a cyber device maker provide?",
+          "options": [
+            "A list of all its staff members",
+            "A marketing plan for each region",
+            "Source code for every SOUP item",
+            "An SBOM"
+          ],
+          "answer": 3,
+          "why": "Section 524B requires an SBOM, a postmarket vulnerability plan and processes for reasonable assurance of cybersecurity."
+        },
+        {
+          "id": "maintenance-and-security-q05",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "A new advisory names a library. What is the fastest way to know which products ship it?",
+          "options": [
+            "Ask each developer to remember",
+            "Wait for customers to report problems",
+            "Search the SBOMs",
+            "Read the user manuals for each product"
+          ],
+          "answer": 2,
+          "why": "An accurate SBOM per release shows which products and versions contain the affected component."
+        },
+        {
+          "id": "maintenance-and-security-q06",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "A SOUP upgrade fixes a vulnerability. Why still run regression tests?",
+          "options": [
+            "The new version may change behaviour",
+            "Regression tests are only for marketing",
+            "Auditors like seeing many test runs",
+            "Security fixes never need testing"
+          ],
+          "answer": 0,
+          "why": "A new SOUP version can change behaviour your requirements depend on, so the patch is treated as a change."
+        },
+        {
+          "id": "maintenance-and-security-q07",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "An attacker could change a dose limit over the network. How should the team treat this?",
+          "options": [
+            "As an IT issue outside device safety",
+            "As a hazard in the risk file",
+            "As a matter for the hospital alone",
+            "As a usability issue only"
+          ],
+          "answer": 1,
+          "why": "Security weaknesses that can change device behaviour create hazardous situations and belong in risk management."
+        },
+        {
+          "id": "maintenance-and-security-q08",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "The factory's MES needs a security patch. Which process applies?",
+          "options": [
+            "A new 510(k) for the device",
+            "A device release under IEC 62304",
+            "No process, internal systems are exempt",
+            "QMS change control"
+          ],
+          "answer": 3,
+          "why": "Production and QMS software is patched under QMS change control and validation, not the device release process."
+        },
+        {
+          "id": "maintenance-and-security-q09",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "In FDA's postmarket cybersecurity guidance, what drives how fast a manufacturer must act and communicate?",
+          "options": [
+            "The number of developers available",
+            "Whether the vulnerability has a name",
+            "Controlled or uncontrolled risk of harm",
+            "The age of the device on the market"
+          ],
+          "answer": 2,
+          "why": "The guidance frames vulnerabilities by whether the risk of patient harm is controlled or uncontrolled."
+        },
+        {
+          "id": "maintenance-and-security-q10",
+          "lesson": "medtech-software-device-maintenance-and-security",
+          "q": "A problem affects version 2.4 only. What record lets you contact the right sites?",
+          "options": [
+            "Install records by site",
+            "The marketing contact list",
+            "The original design review minutes",
+            "The developer's local Git history"
+          ],
+          "answer": 0,
+          "why": "Configuration management includes knowing which version is installed where, so affected users can be reached."
+        }
+      ]
+    },
+    {
+      "id": "ai-in-samd",
+      "title": "AI-enabled device software in depth",
+      "summary": "How to build, test, submit and monitor device software that contains machine learning or generative AI, and how EU AI rules sit next to device law.",
+      "outline": [
+        "Good machine learning practice principles",
+        "Data management: sourcing, labelling, independence of test data",
+        "Performance evaluation and subgroup analysis",
+        "Transparency and the user interface",
+        "Predetermined change control plans and monitoring",
+        "Generative AI, third-party models and the EU AI Act"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-ai-in-samd",
+          "title": "Building and evidencing AI-enabled device software",
+          "summary": "You will be able to plan the data, evaluation, transparency and change control work an AI-enabled device function needs, and explain where generative AI and the EU AI Act add to it.",
+          "why": "FDEs are often asked to add a model to a clinical workflow because the prototype looked impressive. In a device, a good demo is not evidence. Regulators want to know where the data came from, whether the test was fair, who the model fails for, how the user sees its limits, and how you will control it when it changes. Building that in from the start is much cheaper than retrofitting it before a submission.",
+          "sections": [
+            {
+              "h": "Good machine learning practice",
+              "p": [
+                "The FDA, Health Canada and the UK MHRA published ten guiding principles for good machine learning practice (GMLP). They are short and worth reading in full. In summary they ask for: people with clinical, data and engineering expertise across the whole lifecycle; good software engineering and security practice; data that represents the intended patients; training data kept independent of test data; reference standards chosen with the best available methods; a model design suited to the data and the intended use; a focus on how the human and the model perform together; testing in clinically relevant conditions; clear, essential information for users; and monitoring of deployed models with managed retraining.",
+                "None of this replaces IEC 62304 or ISO 14971. The code around the model still follows the software lifecycle, and the model's failure modes go into the risk file."
+              ]
+            },
+            {
+              "h": "Data management",
+              "p": [
+                "Most AI device problems start in the data. Plan and record each of these before training:"
+              ],
+              "list": [
+                "Sourcing: which sites, devices, time periods and patient groups the data comes from, and whether that matches the intended use.",
+                "Reference standard: how the 'truth' label was set, by whom, with what instructions, and how disagreements were resolved.",
+                "Independence: the test set must not share patients, and ideally not sites, with the training set. Splitting by image instead of by patient leaks information and inflates results.",
+                "Lineage: dataset versions, inclusion and exclusion rules, and any cleaning steps, kept as configuration items.",
+                "Privacy and permissions: the legal basis for using the data, handled with the data owner."
+              ]
+            },
+            {
+              "h": "Performance evaluation and subgroups",
+              "p": [
+                "Define acceptance criteria before you test, tied to clinical need: for example a minimum sensitivity so few real cases are missed, and a minimum specificity so clinicians are not flooded with false alarms. Report confidence intervals, not just point values, because a small test set gives an uncertain answer.",
+                "Then break results down by subgroups that matter for the intended use, such as age, sex, ethnicity or skin type, device model and site. A model can look strong overall and fail a group that was small in the data. Where the user decides with the model's help, test the user and model together in realistic conditions, because that is the performance patients actually get."
+              ]
+            },
+            {
+              "h": "Transparency and the user interface",
+              "p": [
+                "FDA, Health Canada and the MHRA also published guiding principles on transparency for machine learning-enabled devices. The user should know what the device is for, what inputs it expects, how well it performed and for whom, its known limits, and how its output should be used in their decision. Put this where it is used: in the interface and labeling, not only in a technical file.",
+                "Design the screen so the output cannot be misread. Show when an input is outside what the model was tested on, and make it clear the output supports a decision rather than making it, if that is the intended use. Human factors testing should include cases where the model is wrong."
+              ]
+            },
+            {
+              "h": "Planned change and monitoring",
+              "p": [
+                "Models drift when real data moves away from training data: a new scanner, a new patient mix, a new clinical practice. Plan monitoring before release: which signals you watch, how you get ground truth in the field, and what triggers investigation.",
+                "In the US, a predetermined change control plan (PCCP) is reviewed as part of the marketing submission. It has three parts: a description of the planned modifications, a modification protocol for how each will be developed, validated and implemented, and an impact assessment. Changes made within an authorised PCCP do not need a new submission each time; changes outside it follow the normal rules. FDA also has draft guidance, issued January 2025, on lifecycle management and marketing submissions for AI-enabled device software functions."
+              ]
+            },
+            {
+              "h": "Generative AI and the EU AI Act",
+              "p": [
+                "Generative models bring extra problems: the same input can give different outputs, the model can state false things fluently, and a hosted model can change when the vendor updates it. Treat a third-party model like SOUP: pin the model version where the vendor allows it, treat prompts and retrieval settings as configuration items, build a fixed evaluation set for your intended use, and re-run it on every change. If the vendor cannot pin versions, that is a risk to raise early.",
+                "In the EU, the AI Act, Regulation (EU) 2024/1689, treats an AI system as high-risk when it is a medical device, or a safety component of one, that needs notified body conformity assessment under the MDR or IVDR. High-risk systems carry AI Act duties on risk management, data governance, technical documentation, logging, transparency, human oversight, accuracy, robustness and cybersecurity. MDCG 2025-6 explains how these fit alongside the MDR. Check the official text for the dates that apply to device makers."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "AI-enabled device software lifecycle",
+            "caption": "Read clockwise. Monitoring feeds planned updates, which return to data and testing under the authorised change plan.",
+            "steps": [
+              {
+                "label": "Intended use and data plan",
+                "note": "Who, where, which decision"
+              },
+              {
+                "label": "Collect and label data",
+                "note": "Representative, documented reference standard"
+              },
+              {
+                "label": "Train and tune",
+                "note": "On training data only"
+              },
+              {
+                "label": "Test on independent data",
+                "note": "Subgroups, intervals, human with model"
+              },
+              {
+                "label": "Submit with PCCP",
+                "note": "Planned changes, protocol, impact"
+              },
+              {
+                "label": "Deploy and monitor",
+                "note": "Drift signals and field ground truth"
+              },
+              {
+                "label": "Update within the plan",
+                "note": "Outside the plan follows normal rules"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: subgroup results for a skin lesion triage model (example scenario)",
+            "p": [
+              "A team builds a model that flags skin lesion photos for urgent dermatology review. Overall sensitivity looks acceptable. Before accepting it, they break the test results down by skin type. The counts below are illustrative, not from a real study.",
+              "The code prints sensitivity 0.88, 0.80 and 0.70. The darkest skin type group has the lowest sensitivity and also the fewest cases, so its estimate is the least certain. The team does not average this away. They record it as a finding, collect more data from that group, set a subgroup acceptance criterion, and plan to state the limit in labeling if it remains."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "# Illustrative counts per subgroup: tp, fn, tn, fp\ngroups = {\n    \"Skin type I-II\": {\"tp\": 88, \"fn\": 12, \"tn\": 270, \"fp\": 30},\n    \"Skin type III-IV\": {\"tp\": 80, \"fn\": 20, \"tn\": 250, \"fp\": 50},\n    \"Skin type V-VI\": {\"tp\": 21, \"fn\": 9, \"tn\": 60, \"fp\": 10},\n}\nfor name, c in groups.items():\n    sens = c[\"tp\"] / (c[\"tp\"] + c[\"fn\"])\n    spec = c[\"tn\"] / (c[\"tn\"] + c[\"fp\"])\n    n = sum(c.values())\n    print(f\"{name}: n={n} sensitivity={sens:.2f} specificity={spec:.2f}\")"
+            }
+          },
+          "practice": [
+            {
+              "title": "Draft an evaluation plan for an AI device function",
+              "time": "60 min",
+              "goal": "Turn GMLP principles into a concrete, checkable evaluation plan.",
+              "steps": [
+                "Read FDA's GMLP guiding principles page and the transparency guiding principles page, both linked below.",
+                "Pick an AI function, such as flagging possible fractures on wrist X-rays for a radiologist.",
+                "Write the intended use, users and decision in three sentences.",
+                "List data sources, how labels are set, how you will split by patient and site, and three subgroups you will report.",
+                "Set acceptance criteria for sensitivity and specificity with your reasoning, then run the example code above with your own made-up counts to see how subgroup results can differ.",
+                "Write three planned changes you might want later and, for each, one test it must pass before release."
+              ],
+              "done_when": "Your plan names data sources, a patient-level split, three subgroups, acceptance criteria with reasons, and three planned changes each with a release test."
+            }
+          ],
+          "pitfalls": [
+            "Splitting data by image or record instead of by patient, so the same patient appears in training and test data and results look better than they are.",
+            "Reporting one overall metric and hiding a subgroup where the model performs poorly.",
+            "Testing the model alone when the real use is a clinician deciding with its help, so the evaluated performance is not the one patients get.",
+            "Calling a hosted language model through an alias that the vendor can repoint to a new model, with no version pinning and no re-run of the evaluation set.",
+            "Assuming a PCCP allows any future change. Only changes described in the authorised plan, made by its protocol, avoid a new submission."
+          ],
+          "check": [
+            "Name four of the ten GMLP guiding principles.",
+            "Why must test data be split by patient rather than by image?",
+            "What three parts make up a predetermined change control plan?",
+            "What should a user of an AI device be told about its performance and limits?",
+            "When is a medical device AI system high-risk under the EU AI Act?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Good Machine Learning Practice for Medical Device Development: Guiding Principles",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Transparency for Machine Learning-Enabled Medical Devices: Guiding Principles",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/transparency-machine-learning-enabled-medical-devices-guiding-principles",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Artificial Intelligence-Enabled Device Software Functions: Lifecycle Management and Marketing Submission Recommendations (draft)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/artificial-intelligence-enabled-device-software-functions-lifecycle-management-and-marketing",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Marketing Submission Recommendations for a Predetermined Change Control Plan for Artificial Intelligence-Enabled Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulation (EU) 2024/1689 (Artificial Intelligence Act)",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "MDCG 2025-6 / AIB 2025-1: Interplay between the MDR and IVDR and the Artificial Intelligence Act",
+              "source": "European Commission, Medical Device Coordination Group",
+              "url": "https://health.ec.europa.eu/document/download/b78a17d7-e3cd-4943-851d-e02a2f22bbb4_en?filename=mdcg_2025-6_en.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "List of Artificial Intelligence-Enabled Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/list-artificial-intelligence-enabled-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA Predetermined Change Control Plan (PCCP) Guidance for Artificial Intelligence (AI)",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=rzi2eF01qkg",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "ai-in-samd-q01",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "A team splits 10,000 X-ray images randomly into training and test sets. Many patients have several images. What is the problem?",
+          "options": [
+            "The test set is too large to be useful",
+            "The same patients leak into both sets",
+            "Random splits are banned by FDA",
+            "X-rays cannot be used for AI"
+          ],
+          "answer": 1,
+          "why": "Test data must be independent; splitting by image lets one patient's images appear in both sets and inflates results."
+        },
+        {
+          "id": "ai-in-samd-q02",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Overall sensitivity is 0.85, but 0.70 for one small subgroup. What should the team do?",
+          "options": [
+            "Report only the overall number",
+            "Remove that subgroup from the test set",
+            "Record it and act on it",
+            "Round the subgroup figure up"
+          ],
+          "answer": 2,
+          "why": "Subgroup gaps are findings: collect more data, set subgroup criteria and state limits in labeling if they remain."
+        },
+        {
+          "id": "ai-in-samd-q03",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Which is one of the three parts of a PCCP?",
+          "options": [
+            "A modification protocol",
+            "A list of all future customers",
+            "A marketing launch timeline",
+            "The source code of the model"
+          ],
+          "answer": 0,
+          "why": "A PCCP has a description of planned modifications, a modification protocol and an impact assessment."
+        },
+        {
+          "id": "ai-in-samd-q04",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "A maker with an authorised PCCP wants to change the model to accept a new type of input not in the plan. What applies?",
+          "options": [
+            "The PCCP covers any change",
+            "No review, it is only a model",
+            "Users must approve the change",
+            "Normal change rules apply"
+          ],
+          "answer": 3,
+          "why": "Only changes described in the authorised plan and made by its protocol avoid a new submission."
+        },
+        {
+          "id": "ai-in-samd-q05",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Clinicians will decide with the model's help. What should performance testing include?",
+          "options": [
+            "The model alone on clean data",
+            "The clinician and model together",
+            "Only a speed benchmark of the model",
+            "Only the vendor's published score"
+          ],
+          "answer": 1,
+          "why": "GMLP focuses on the performance of the human and model together in clinically relevant conditions."
+        },
+        {
+          "id": "ai-in-samd-q06",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Your device calls a hosted LLM through an alias the vendor can repoint. What is the best first control?",
+          "options": [
+            "Trust the vendor's release notes",
+            "Pin a specific model version",
+            "Turn off all logging",
+            "Shorten the prompts"
+          ],
+          "answer": 1,
+          "why": "A third-party model is like SOUP: pin its version, control prompts as configuration and re-run your evaluation on change."
+        },
+        {
+          "id": "ai-in-samd-q07",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "After launch, a hospital installs a new scanner model. What risk does this raise for an imaging AI device?",
+          "options": [
+            "No risk, models are stable",
+            "Only a billing risk for the hospital",
+            "Data drift",
+            "A change of safety class to A"
+          ],
+          "answer": 2,
+          "why": "New equipment can shift input data away from training data, so monitoring should catch performance drift."
+        },
+        {
+          "id": "ai-in-samd-q08",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Under the EU AI Act, when is a device's AI system high-risk?",
+          "options": [
+            "When it needs notified body review",
+            "Only when it uses a large language model",
+            "Only when it is sold outside Europe",
+            "Never, devices are exempt from the AI Act"
+          ],
+          "answer": 0,
+          "why": "AI that is a device, or a safety component of one, needing third-party conformity assessment under MDR or IVDR is high-risk."
+        },
+        {
+          "id": "ai-in-samd-q09",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "Where should users learn about an AI device's known limits?",
+          "options": [
+            "Only in the technical file",
+            "Only in a sales meeting",
+            "Only in the source code comments",
+            "In the interface and labeling"
+          ],
+          "answer": 3,
+          "why": "Transparency principles ask for essential information where it is used: the interface and labeling."
+        },
+        {
+          "id": "ai-in-samd-q10",
+          "lesson": "medtech-software-device-ai-in-samd",
+          "q": "When should acceptance criteria for sensitivity and specificity be set?",
+          "options": [
+            "After seeing the test results",
+            "Before testing",
+            "Only if the regulator asks",
+            "After the first year on the market"
+          ],
+          "answer": 1,
+          "why": "Criteria set in advance, tied to clinical need, prevent fitting the target to the result."
+        }
+      ]
+    },
+    {
+      "id": "software-submissions",
+      "title": "Software documentation for submissions",
+      "summary": "What software documentation regulators expect in a marketing submission, how the FDA documentation level is chosen, what the EU technical documentation needs, and how to keep it release-ready.",
+      "outline": [
+        "FDA content of premarket submissions for device software functions",
+        "Documentation level and what drives it",
+        "EU technical documentation for software",
+        "Keeping documentation in step with releases",
+        "A release-readiness pack with traceability and unresolved anomalies"
+      ],
+      "lessons": [
+        {
+          "id": "medtech-software-device-software-submissions",
+          "title": "Software documentation for submissions and release readiness",
+          "summary": "You will be able to choose the FDA documentation level with a rationale, list the software documents a submission needs in the US and the EU, and assemble a release-readiness pack that stays current.",
+          "why": "A submission is where all the engineering evidence is judged at once. Missing or inconsistent software documents are a common reason for review questions and delays. FDEs rarely write the whole submission, but they are often asked to produce the software parts: architecture, test summaries, version history and the list of unresolved anomalies. If those are generated from the real project records, the submission becomes an export, not a rewrite.",
+          "sections": [
+            {
+              "h": "What FDA asks for",
+              "p": [
+                "FDA's guidance 'Content of Premarket Submissions for Device Software Functions' sets out the software documentation for 510(k), De Novo and PMA submissions. It applies to product software: software functions that meet the device definition. Production and QMS software is not part of the submission; it is validated and kept under the QMS, where an inspector may review it.",
+                "The guidance lists these documentation elements:"
+              ],
+              "list": [
+                "Documentation level evaluation: the level and the rationale for it.",
+                "Software description: features, functions, inputs, outputs and hardware platforms.",
+                "Risk management file: plan, assessment showing risks are mitigated, and report.",
+                "Software requirements specification (SRS), with enough detail to follow traceability.",
+                "System and software architecture design: modules, layers, interfaces and data flows, including how users and external systems connect.",
+                "Software design specification (SDS), submitted for the Enhanced level.",
+                "Software development, configuration management and maintenance practices, as summaries or a declaration of conformity to the FDA-recognised version of IEC 62304.",
+                "Software testing as part of verification and validation.",
+                "Software version history: tested versions, dates and what changed.",
+                "Unresolved software anomalies, each with an evaluation of its impact on safety and effectiveness."
+              ]
+            },
+            {
+              "h": "Choosing the documentation level",
+              "p": [
+                "There are two levels, Basic and Enhanced. Enhanced applies when a failure or flaw of any device software function could present a hazardous situation with a probable risk of death or serious injury to a patient, user or others. The guidance says to assess this before risk control measures are applied, and to include risks from foreseeable misuse and from weak cybersecurity. Everything else is Basic.",
+                "Note the contrast with IEC 62304 safety classes, which consider risk controls outside the software. Because the FDA level is judged before risk controls, a device can be IEC 62304 class B and still need Enhanced documentation. The level covers the device as a whole, not each function. Write the rationale with references to the risk file, so the reviewer can follow it.",
+                "The documentation level is about how much evidence FDA wants to see, not about how much engineering you do. A Basic device still needs a full design history file and proper testing; the difference is mainly what goes into the submission and what stays available on request. Deciding the level early lets the team plan which test protocols and design records must be review-ready."
+              ]
+            },
+            {
+              "h": "EU technical documentation",
+              "p": [
+                "In the EU, MDR Annexes II and III describe the technical documentation and post-market surveillance documentation. There is no separate software dossier: software evidence sits inside the device's technical documentation. For software this usually means the device description and intended purpose, the design and manufacturing information including architecture, the general safety and performance requirements checklist with the software and IT security requirements in Annex I, the risk management file, software verification and validation, and the clinical evaluation. MDCG 2020-1 gives guidance on clinical evaluation of medical device software.",
+                "For class IIa and above, a notified body reviews this documentation. Many teams keep one core set of software records and map it to both the FDA elements and the EU structure, rather than writing two versions."
+              ]
+            },
+            {
+              "h": "What reviewers look for",
+              "p": [
+                "Reviewers read the software documents together, so consistency matters as much as completeness. The software description, architecture, requirements and tests should use the same names for the same items, and the version tested should be the version described. A requirement that appears in the SRS but has no test, or a risk control in the risk file with no requirement, is an easy question for a reviewer to ask.",
+                "Make the evidence easy to follow. Keep the traceability from hazard to risk control to requirement to test visible, explain how regression testing was scoped for a modified device, and highlight the software changes that affect safety and effectiveness since the last cleared version. For each unresolved anomaly, say what the user would see, why it is acceptable, and any workaround. Clear, short documents with good cross-references get fewer questions than long ones that hide the key facts."
+              ]
+            },
+            {
+              "h": "Keeping documentation in step with releases",
+              "p": [
+                "Documents go stale when they are written by hand at the end. The sustainable approach is to keep requirements, risk controls, tests and anomalies in tools, link them, and generate the submission documents and reports from those links for each release. Treat the generated documents as part of the release baseline, versioned with the software.",
+                "A release-readiness pack is a useful habit even when no submission is due. It answers, for one version: what changed, what was tested, what passed, what is still open and why that is acceptable. When a submission or audit comes, most of the work is already done."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "FDA software documentation levels",
+            "caption": "Both levels share the core elements; Enhanced adds design and test detail. The level is judged before risk controls.",
+            "columns": [
+              {
+                "title": "Basic",
+                "items": [
+                  "Description, SRS, architecture",
+                  "Risk management file",
+                  "SDS kept in the design file",
+                  "Summary of unit and integration tests",
+                  "System test protocol and report",
+                  "Version history, open anomalies"
+                ]
+              },
+              {
+                "title": "Enhanced (adds)",
+                "items": [
+                  "SDS in the submission",
+                  "Unit and integration test protocols",
+                  "Unit and integration test reports",
+                  "Full config and maintenance plans",
+                  "Or 62304 conformity incl. planning"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a release-readiness pack for version 2.3 (example scenario)",
+            "p": [
+              "A class B remote monitoring app is preparing version 2.3, which adds a new alert type. Regulatory says the change needs a new 510(k). The team builds the pack from its tools, and the documentation level rationale concludes Basic, because no software failure could present a probable risk of death or serious injury even before risk controls. Regulatory reviews and signs that rationale.",
+              "Because each item came from linked records, the team could answer the reviewer's later question about one anomaly within the hour, by following its links to the risk file and the test that showed the workaround is effective."
+            ],
+            "list": [
+              "Version history: 2.3 build number, date, and a short list of changes since the last cleared version, with the new alert highlighted.",
+              "Traceability report: each new or changed requirement linked to its risk control, architecture item and passing system test.",
+              "Test summary: unit and integration testing described, system test protocol and report attached, regression scope explained.",
+              "SOUP list and SBOM generated from the 2.3 build, with known anomaly review dates.",
+              "Unresolved anomalies: four items, each with its symptom, root cause if known, workaround and an evaluation of impact on safety and effectiveness.",
+              "Cybersecurity documents updated for the new alert's data flow."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Assemble a mini release-readiness pack",
+              "time": "75 min",
+              "goal": "Practise building submission-style software evidence from linked records.",
+              "steps": [
+                "Use the requirements and traceability matrix from the IEC 62304 process lesson, or write five requirements for a simple device app.",
+                "Write a documentation level rationale of one paragraph, judging risks before risk controls, and decide Basic or Enhanced.",
+                "Write a version history table with two versions and their changes.",
+                "List three unresolved anomalies with symptom, workaround and an impact evaluation for safety and effectiveness.",
+                "Map each item in your pack to the FDA documentation elements in the guidance linked below and mark any element you have not covered.",
+                "Ask Claude to review your unresolved anomaly evaluations and point out any that a reviewer would question."
+              ],
+              "done_when": "Your pack has a level rationale, version history, traceability, three evaluated anomalies and a mapping to the FDA elements with gaps marked."
+            }
+          ],
+          "pitfalls": [
+            "Choosing the documentation level after counting risk controls, which can lead to Basic documentation when Enhanced is needed.",
+            "Listing unresolved anomalies without an evaluation of each one's impact on safety and effectiveness.",
+            "Writing submission documents by hand from memory, so the architecture or test summary no longer matches the version being submitted.",
+            "Preparing separate, inconsistent software documents for the FDA and the EU instead of mapping one core set of records to both.",
+            "Adding production or QMS software validation records to the device submission, where they do not belong, while missing the product software elements."
+          ],
+          "check": [
+            "When does FDA recommend Enhanced documentation for device software?",
+            "Why can a device be IEC 62304 class B but need Enhanced documentation?",
+            "Name six software documentation elements in an FDA premarket submission.",
+            "Where does software evidence sit in the EU technical documentation?",
+            "What should a release-readiness pack answer for a given version?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Content of Premarket Submissions for Device Software Functions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Premarket Notification 510(k)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/premarket-submissions-selecting-and-preparing-correct-submission/premarket-notification-510k",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Regulation (EU) 2017/745 on medical devices (Annexes I, II and III)",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Guidance - MDCG endorsed documents and other guidance",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Software Validation Documentation for Medical Devices - FDA eSTAR",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=PV2N73oIAas",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Free IEC 62304 Course: Documenting Software as a Medical Device (SaMD)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=1zT00eXy-6o",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "software-submissions-q01",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "A software flaw could cause a probable risk of serious injury, but a risk control reduces it. Which FDA documentation level applies?",
+          "options": [
+            "Basic, since the control works",
+            "Enhanced",
+            "None, controls remove the need",
+            "Basic for now, Enhanced later"
+          ],
+          "answer": 1,
+          "why": "The level is judged before risk control measures; a probable risk of death or serious injury means Enhanced."
+        },
+        {
+          "id": "software-submissions-q02",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "Which element must list open bugs with an evaluation of each?",
+          "options": [
+            "Software description and overview",
+            "Software version history table",
+            "System and software architecture",
+            "Unresolved software anomalies"
+          ],
+          "answer": 3,
+          "why": "The unresolved anomalies element lists each remaining anomaly with its impact on safety and effectiveness."
+        },
+        {
+          "id": "software-submissions-q03",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "At the Basic level, where does the software design specification sit?",
+          "options": [
+            "In the design file",
+            "On the public website",
+            "In the user manual",
+            "It is not needed at all"
+          ],
+          "answer": 0,
+          "why": "For Basic, FDA does not ask for the SDS in the submission, but it should be documented in the design history file."
+        },
+        {
+          "id": "software-submissions-q04",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "How can a team show its development, configuration and maintenance practices with little extra writing?",
+          "options": [
+            "Attach every Git commit",
+            "Skip it for small apps",
+            "Conformity to IEC 62304",
+            "Send the developers' CVs"
+          ],
+          "answer": 2,
+          "why": "The guidance accepts a declaration of conformity to the FDA-recognised IEC 62304 as one option for this element."
+        },
+        {
+          "id": "software-submissions-q05",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "Should validation records for the factory's MES be in the device's 510(k)?",
+          "options": [
+            "Yes, always, with the full validation file",
+            "Yes, attached as the SDS",
+            "Yes, as part of the risk file",
+            "No, they stay in the QMS"
+          ],
+          "answer": 3,
+          "why": "Production and QMS software is validated and kept under the QMS, not submitted with the device."
+        },
+        {
+          "id": "software-submissions-q06",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "In the EU, where does software evidence for a device go?",
+          "options": [
+            "A separate software dossier",
+            "In the technical documentation",
+            "Only in the user manual",
+            "Only on the notified body's portal"
+          ],
+          "answer": 1,
+          "why": "Software evidence sits inside the device technical documentation described in MDR Annexes II and III."
+        },
+        {
+          "id": "software-submissions-q07",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "Why can an IEC 62304 class B device still need Enhanced FDA documentation?",
+          "options": [
+            "FDA judges before risk controls",
+            "FDA ignores IEC 62304",
+            "Class B is always Enhanced",
+            "Enhanced is chosen by the team"
+          ],
+          "answer": 0,
+          "why": "IEC 62304 class considers external risk controls; the FDA level is assessed before risk controls."
+        },
+        {
+          "id": "software-submissions-q08",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "A team rewrites its architecture document by hand for each submission. What is the main risk?",
+          "options": [
+            "It will be too short",
+            "It may not match the code",
+            "FDA rejects all hand-written files",
+            "It costs too little time"
+          ],
+          "answer": 1,
+          "why": "Documents written from memory drift from the real version; generating them from linked records keeps them accurate."
+        },
+        {
+          "id": "software-submissions-q09",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "What should the version history in a submission show?",
+          "options": [
+            "Only the current version number",
+            "Developer names and hours worked",
+            "Tested versions, dates, changes",
+            "The marketing release plan for the year"
+          ],
+          "answer": 2,
+          "why": "It lists tested versions with date, version number and a short description of changes since the previous one."
+        },
+        {
+          "id": "software-submissions-q10",
+          "lesson": "medtech-software-device-software-submissions",
+          "q": "A team sells in the US and the EU. What is a sound documentation approach?",
+          "options": [
+            "Two separate sets written by two teams",
+            "Only US documents, translated later",
+            "Only EU documents, as they are stricter",
+            "One core set mapped to both"
+          ],
+          "answer": 3,
+          "why": "Keeping one set of linked records and mapping it to both structures avoids inconsistencies."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,892 @@
+{
+  "module": 4,
+  "title": "Domain, business and market analysis",
+  "intro": "A client says 'our quotes take a week and we keep losing deals', and before you can help you need to know how their business makes money and what a fix is worth. This module gives you a way to read the industry, describe the business on one page, check what the market already sells, put a number on value, and decide whether to build, buy or configure.",
+  "lessons": [
+    {
+      "id": "value-chains",
+      "title": "Industry value chains and systems of record",
+      "summary": "You will be able to trace how a company turns work into cash and name the system that holds the official record at each step.",
+      "why": "A client will say 'our quotes take a week' or 'invoices keep getting stuck'. They never ask for AI, they ask for the problem to go away. This lesson helps you see where that problem sits in how the company makes money, which system holds the data, and who owns it, so you know where your fix has to plug in.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A value chain is the sequence of activities a company performs to deliver something a customer pays for. Michael Porter described it in 1985 as primary activities (bring in materials, make the product, ship it, sell it, service it) supported by activities such as procurement, technology, HR and company infrastructure.",
+            "A system of record is the one system the company treats as the official source of truth for a type of data. If the CRM says a customer's credit limit is one number and a spreadsheet says another, the system of record wins. For an FDE this matters because any automation that writes data must write to the system of record, or it creates a second truth that someone will have to reconcile by hand."
+          ]
+        },
+        {
+          "h": "How a company makes money",
+          "p": [
+            "Start with the simplest question: what does the customer pay for, and how often? A manufacturer sells units. A software company sells subscriptions. A logistics firm sells moves. A bank earns interest and fees. Then ask what the company must spend to deliver that: materials, people, equipment, rent, software.",
+            "Margin is what is left from revenue after the direct cost of delivering. Work that does not move revenue or margin is overhead. Overhead is not bad, since finance, HR and compliance keep the company legal and running, but it is where much manual, repetitive work hides, and so where many AI proofs of concept land."
+          ]
+        },
+        {
+          "h": "Where the common systems sit",
+          "p": [
+            "Most mid to large companies run some version of these systems. Learn what each one is the record for."
+          ],
+          "list": [
+            "ERP (enterprise resource planning, for example SAP or Oracle): orders, inventory, purchasing, invoices, payments, the general ledger. The financial heart of the company.",
+            "CRM (customer relationship management, for example Salesforce): leads, accounts, contacts, opportunities, quotes. The record of who the customers are and what is in the sales pipeline.",
+            "PLM (product lifecycle management): product designs, bills of materials, engineering changes and specifications.",
+            "QMS (quality management system): deviations, complaints, corrective and preventive actions (CAPA), audits and controlled documents. Critical in regulated industries such as pharma and medical devices.",
+            "HRIS (human resources information system, for example Workday): employees, roles, pay, leave and org structure.",
+            "Ticketing or ITSM (IT service management, for example Jira Service Management or ServiceNow): requests, incidents and support cases, with who handled them and when.",
+            "Around these sit email, shared drives, spreadsheets and chat. They are not systems of record, but a lot of real work happens there."
+          ]
+        },
+        {
+          "h": "Where cost and delay hide",
+          "p": [
+            "Cost and delay collect at handoffs: the moment work moves from one team or one system to another. A sales order created in the CRM has to be re-keyed into the ERP. A supplier invoice arrives as a PDF in a shared mailbox and someone types it in. A quality complaint lands in the ticketing tool and has to be copied into the QMS.",
+            "Look for four signs: re-keying of the same data into two systems, work waiting in a queue or inbox, rework when something was entered wrong, and exceptions that fall outside the standard flow and go to a person. Exceptions are often a small share of volume but a large share of effort, which makes them good candidates for an AI assistant that reads documents and drafts a decision for a human to approve."
+          ]
+        },
+        {
+          "h": "How to learn a new industry fast",
+          "p": [
+            "Read the client's annual report or investor presentation if it is public. The sections on revenue, segments and risks tell you what leadership cares about. Read three or four job postings from the client: they often name the systems (for example 'experience with SAP S/4HANA and Coupa'). Ask for an org chart and a systems landscape diagram in the first week. Then draw the value chain yourself and ask a domain person to correct it. Being corrected early is cheap; being wrong in week six is not."
+          ]
+        },
+        {
+          "h": "Questions to ask in week one",
+          "p": [
+            "These questions help you place the problem on the chain and find the right owners. Ask them of the sponsor, a process owner and someone in IT, and compare the answers."
+          ],
+          "list": [
+            "Which step in this process touches revenue, cost or customer experience most directly?",
+            "Which system does finance or audit treat as the official record for this data?",
+            "Where is the same data typed into more than one place?",
+            "Where does work wait, and for whom?",
+            "What happens to the cases that do not fit the standard flow, and who handles them?",
+            "Which reports does leadership look at for this area, and where do the numbers come from?"
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Order to cash and the systems it touches",
+        "caption": "Read left to right; the note under each step names the usual system of record.",
+        "steps": [
+          {
+            "label": "Lead captured",
+            "note": "CRM"
+          },
+          {
+            "label": "Quote and order",
+            "note": "CRM, then re-keyed or synced into ERP"
+          },
+          {
+            "label": "Make or buy the goods",
+            "note": "ERP for purchasing, PLM for the bill of materials"
+          },
+          {
+            "label": "Ship",
+            "note": "ERP or warehouse system"
+          },
+          {
+            "label": "Invoice the customer",
+            "note": "ERP"
+          },
+          {
+            "label": "Collect cash",
+            "note": "ERP plus bank statements"
+          },
+          {
+            "label": "Support and complaints",
+            "note": "Ticketing, with quality issues copied to QMS"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a parts distributor (fictional)",
+        "p": [
+          "Imagine a regional distributor of industrial parts. It buys from about 400 suppliers and sells to factories. It makes money on the difference between purchase price and sale price, plus fees for fast delivery. Its margin is thin, so every hour of overhead matters.",
+          "You map its chain. Sales quotes live in the CRM. Orders and purchasing live in the ERP. Supplier invoices arrive by email as PDFs. Accounts payable (AP) staff type them into the ERP, which matches each invoice against the purchase order and the goods receipt. When the three do not agree, the invoice becomes an exception and sits in a queue."
+        ],
+        "list": [
+          "System of record for invoices and payments: ERP.",
+          "Where the work actually happens for exceptions: a shared mailbox and a spreadsheet tracker.",
+          "Handoffs: supplier to AP, AP to buyer, buyer back to supplier.",
+          "Candidate for a proof of concept: reading the exception, the purchase order and the supplier email, then drafting the likely cause and next action for the AP clerk."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Map a real company's value chain from public sources",
+          "time": "45 min",
+          "goal": "Practise placing activities and systems on a chain using only what is public.",
+          "steps": [
+            "Pick a public company in an industry you do not know well and open its latest annual report or investor presentation.",
+            "Write down what customers pay for and the main cost lines.",
+            "Draw its primary activities left to right on paper or in a spreadsheet.",
+            "Search the company's careers page for three job postings in finance, operations or IT and note every system named.",
+            "Place each system under the activity it supports and mark which one you think is the system of record.",
+            "Ask Claude to critique your map and list three questions you would ask a domain expert to confirm it."
+          ],
+          "done_when": "You have a one-page chain with at least five activities, each with a named system, and a list of open questions."
+        }
+      ],
+      "pitfalls": [
+        "Treating a spreadsheet or mailbox as the system of record because that is where people work. Always ask which system finance or audit trusts.",
+        "Building a proof of concept that writes results somewhere new, creating a second truth. Plan from day one how results get back to the real system.",
+        "Learning the industry only from the IT team. Ask operations and finance how money is made; IT sees the systems, not always the business.",
+        "Ignoring exceptions because they are a small share of volume. They are often where most of the effort and cost sit."
+      ],
+      "check": [
+        "What is a system of record and why must an automation write to it?",
+        "Name the usual system of record for customer quotes, supplier invoices and employee data.",
+        "Give two signs that cost or delay is hiding at a handoff.",
+        "How would you learn the main systems of a new client before your first meeting?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Understanding the Value Chain: Definition, Model, and Analysis",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/v/valuechain.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is ERP? The Essential Guide",
+          "source": "SAP",
+          "url": "https://www.sap.com/resources/what-is-erp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What Is ERP?",
+          "source": "Oracle",
+          "url": "https://www.oracle.com/erp/what-is-erp/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What Is CRM (Customer Relationship Management)?",
+          "source": "Salesforce",
+          "url": "https://www.salesforce.com/crm/what-is-crm/?bc=OTH",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Service Request Management: Definition & Process",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/itsm/service-request-management",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Michael Porter's Value Chain Model Explained",
+          "source": "Procurement Tactics",
+          "url": "https://www.youtube.com/watch?v=gAnFKrKauOA",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "canvases",
+      "title": "Business model and value proposition canvases",
+      "summary": "You will be able to describe a business, or one client team, on one page and see where your solution adds value.",
+      "why": "In week one the sponsor says 'just fix our customer onboarding', and everyone in the room means something different by it. This lesson gives you two one-page canvases to agree what the business does, who the users are and what actually hurts them. That stops you building something clever that nobody needs.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Both canvases come from Alexander Osterwalder and the company Strategyzer, which publishes free templates. The Business Model Canvas (BMC) has nine blocks that describe how an organisation creates, delivers and captures value. The Value Proposition Canvas (VPC) has two halves: a customer profile and a value map. A good fit means the value map answers what the customer profile says matters.",
+            "You do not need to be a strategist to use them. Treat them as structured note-taking: each box is a question you ask and a place to write the answer."
+          ]
+        },
+        {
+          "h": "The nine blocks of the Business Model Canvas",
+          "p": [
+            "Fill the right side (customers) first, then the left side (how the company delivers), then the bottom (money)."
+          ],
+          "list": [
+            "Customer segments: the groups of people or companies the business serves. Be specific: 'mid-size factories in the region' beats 'manufacturers'.",
+            "Value propositions: what each segment gets that makes them choose this company, such as price, speed, reliability or expertise.",
+            "Channels: how the company reaches and delivers to customers, such as sales reps, a web shop, or partners.",
+            "Customer relationships: the kind of relationship each segment expects, such as self-service, a dedicated account manager, or a community.",
+            "Revenue streams: how money comes in: one-off sales, subscriptions, fees, licences.",
+            "Key resources: the assets the model depends on: people, warehouses, data, brand, patents.",
+            "Key activities: the things the company must do well, such as purchasing, logistics or engineering.",
+            "Key partnerships: suppliers and partners the model relies on.",
+            "Cost structure: the main costs and which ones grow with volume."
+          ]
+        },
+        {
+          "h": "The nine blocks filled for the distributor (fictional)",
+          "p": [
+            "Here is the Business Model Canvas for the fictional parts distributor used across this module, one line per block, so you can see what a useful level of detail looks like."
+          ],
+          "list": [
+            "Customer segments: mid-size factories within a day's drive that need spare parts quickly to avoid downtime.",
+            "Value propositions: next-day delivery on common parts, one supplier for many brands, and technical advice from experienced counter staff.",
+            "Channels: field sales reps, a phone counter and a basic web shop for repeat orders.",
+            "Customer relationships: a named account manager for large customers, self-service for small ones.",
+            "Revenue streams: margin on parts sold, plus a fee for same-day or emergency delivery.",
+            "Key resources: two warehouses, a stocked inventory, supplier agreements and staff product knowledge.",
+            "Key activities: purchasing, stock control, picking and delivery, and paying suppliers accurately.",
+            "Key partnerships: about 400 suppliers and a regional courier.",
+            "Cost structure: inventory, warehouse rent, delivery vehicles and staff. Finance staff time grows with supplier and invoice volume."
+          ]
+        },
+        {
+          "h": "The Value Proposition Canvas",
+          "p": [
+            "The customer profile has three parts. Jobs are what the person is trying to get done, including functional jobs (pay suppliers on time) and social or emotional ones (not look careless to the CFO). Pains are what makes the job hard, risky or slow. Gains are outcomes they want or would be pleased by.",
+            "The value map mirrors it. Products and services are what you offer. Pain relievers say how the offer removes specific pains. Gain creators say how it produces specific gains. Fit is when your pain relievers and gain creators line up with the pains and gains that matter most to the person, not the ones you find interesting."
+          ]
+        },
+        {
+          "h": "How an FDE uses them",
+          "p": [
+            "Use the BMC for the client company as a whole, so you understand which segment, activity or cost your work touches. Use the VPC for the specific user group of your proof of concept, such as AP clerks or field technicians. Draft both from your discovery notes, then review them with the sponsor and with two or three users. Every pain you write should be traceable to something someone said or something you saw.",
+            "Rank pains by how often they happen and how much they hurt. Your first build should target the top one or two, and your business case should be able to put a number on them."
+          ]
+        },
+        {
+          "h": "Running a canvas session with the client",
+          "p": [
+            "Print the canvas large or share it on a whiteboard tool. Bring your draft, but present every box as a question: 'Is this right? What is missing?' Let the client correct you out loud, since corrections are the most valuable output of the session. Keep it to 45 minutes, photograph or save the result, and send a clean copy the same day with the open questions listed underneath."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Value Proposition Canvas, two halves",
+        "caption": "The right column describes the user; the left column must answer it point by point.",
+        "columns": [
+          {
+            "title": "Value map (your offer)",
+            "items": [
+              "Products and services",
+              "Pain relievers",
+              "Gain creators",
+              "Each one tied to a named pain or gain"
+            ]
+          },
+          {
+            "title": "Customer profile (the user)",
+            "items": [
+              "Jobs to be done",
+              "Pains: slow, risky, annoying",
+              "Gains: outcomes they want",
+              "Ranked by frequency and severity"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: AP clerks at the parts distributor (fictional)",
+        "p": [
+          "At the company level, the BMC shows the distributor's key activities are purchasing and logistics, and its cost structure is dominated by inventory and staff. Your work touches one key activity (paying suppliers accurately) and one cost line (finance staff time).",
+          "For the AP clerks, the VPC looks like this, built from interviews and a day of shadowing."
+        ],
+        "list": [
+          "Job: resolve invoice exceptions so suppliers are paid on time and correctly.",
+          "Pains: hunting through email threads for the buyer's approval; not knowing which contract price applies; month-end backlog.",
+          "Gains: a clear reason for each exception up front; fewer supplier chasing calls; leaving on time at month end.",
+          "Pain reliever: an assistant that reads the invoice, purchase order and recent emails and states the likely cause with links to the evidence.",
+          "Gain creator: a drafted message to the buyer or supplier that the clerk can edit and send.",
+          "Not addressed on purpose: the payment run itself, which works well today."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Fill both canvases for a business you know",
+          "time": "40 min",
+          "goal": "Practise turning loose knowledge into the nine blocks and a ranked pain list.",
+          "steps": [
+            "Download the free templates from the Strategyzer pages in the links, or draw them on paper.",
+            "Pick a business you know well, such as a former employer or a local shop, and fill all nine BMC blocks in under 15 minutes.",
+            "Choose one user group inside that business and fill the customer profile with at least three jobs, three pains and three gains.",
+            "Rank the pains by how often they happen and how much they hurt.",
+            "Write one pain reliever for the top pain and say what evidence would prove it works.",
+            "Paste your canvases into Claude and ask which entries are vague or untestable, then rewrite them."
+          ],
+          "done_when": "You have both canvases filled, a ranked pain list, and no entry vaguer than a specific person could confirm or deny."
+        }
+      ],
+      "pitfalls": [
+        "Filling the canvas from your own assumptions. Each entry should come from an interview, a document or an observation.",
+        "Writing generic pains like 'inefficient process'. Write what actually happens: 'waits two days for buyer approval by email'.",
+        "Listing features as pain relievers without tying each to a named pain.",
+        "Drawing the canvas once and never updating it. Revise it as discovery changes your picture."
+      ],
+      "check": [
+        "Name the nine blocks of the Business Model Canvas.",
+        "What is the difference between a pain and a gain in the customer profile?",
+        "When would you use the BMC and when the VPC on an engagement?",
+        "What makes a value proposition 'fit' a customer profile?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Business Model Canvas - Download the Official Template",
+          "source": "Strategyzer",
+          "url": "https://www.strategyzer.com/library/the-business-model-canvas",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Value Proposition Canvas - Download the Official Template",
+          "source": "Strategyzer",
+          "url": "https://www.strategyzer.com/library/the-value-proposition-canvas",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Business Model Canvas Explained",
+          "source": "Strategyzer",
+          "url": "https://www.youtube.com/watch?v=QoAOzMTLP5s",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "An introduction to the Value Proposition Canvas",
+          "source": "Optima Training (UK) Limited",
+          "url": "https://www.youtube.com/watch?v=gfx8vGL29sU",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to Get and Evaluate Startup Ideas | Startup School",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=Th8JoIan4dg",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Become a Product Manager | Learn the Skills, Get the Job",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/become-a-product-manager-learn-the-skills-get-the-job/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "market-scan",
+      "title": "Market and competitor scan",
+      "summary": "You will be able to list who else solves the client's problem, compare the options the way a buyer would, and write it down in a simple template.",
+      "why": "Sooner or later someone in finance or IT asks 'why don't we just buy a tool for this?'. If you have not looked, you lose credibility on the spot. This lesson helps you do a short scan so you can answer that, avoid building what a vendor already sells, and show where custom work really adds something.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A market scan is a short, structured look at every realistic way the client could solve the problem, including not solving it. It is not a market sizing exercise and it is not a sales pitch. Its job is to help the client make an informed choice, and to help you position your work honestly.",
+            "Done well, it takes a few hours, fits on one page, and is revisited when new options appear."
+          ]
+        },
+        {
+          "h": "Who else solves the problem",
+          "p": [
+            "List options in five groups. Most clients only think of the first."
+          ],
+          "list": [
+            "Dedicated products: vendors who sell a tool for exactly this job, such as invoice capture or contract review software.",
+            "Features in systems they already own: ERP, CRM and ticketing vendors keep adding automation and AI features. Check the client's current licences and roadmaps first.",
+            "People-based options: hire more staff, use a contractor, or outsource to a business process outsourcing (BPO) provider.",
+            "General tools: spreadsheets, low-code workflow tools, or a general AI assistant used by staff directly.",
+            "Do nothing: live with the problem. Always include it, because it is the real baseline your option must beat."
+          ]
+        },
+        {
+          "h": "How a client compares options",
+          "p": [
+            "Buyers rarely compare on features alone. They ask: does it fit how we work and our data? What will it cost in total over three years, including licences, integration, support and staff time (total cost of ownership, or TCO)? How long until it delivers value? What is the risk: security, data leaving the company, regulatory approval, vendor going away? Who else like us uses it, and can we speak to them? Can our IT team support it?",
+            "Learn the client's procurement rules early. Some companies require three quotes, a security questionnaire, or an approved vendor list. These rules can decide the outcome more than any feature comparison."
+          ]
+        },
+        {
+          "h": "Reading vendor claims carefully",
+          "p": [
+            "Vendor pages describe the best case. Separate what you can check from what is claimed. A public documentation page, a pricing page or a free trial you ran yourself counts as evidence. A case study on the vendor's own site is a claim. Accuracy figures without a test set you can see are claims. When you write the scan, put claims in a separate column, or mark them 'vendor says', so the client knows how much weight to give them.",
+            "Also check fit to the client's environment: does the product run in the client's cloud or region, does it connect to their version of the ERP, and does it pass their security questionnaire? A good product that fails the security review is not a real option this year."
+          ]
+        },
+        {
+          "h": "How to run the scan",
+          "p": [
+            "Write the problem in one sentence in the user's words. Search for products using the words a buyer would use, not technical terms. Read vendor sites, documentation and public pricing where it exists, and note what you could not verify. Ask the client's IT and procurement teams what they already own or have evaluated before, because many problems were looked at once and dropped for a reason worth knowing. Finally, ask two users how they would solve it if you were not there.",
+            "Score each option against the client's criteria, not yours. Keep scores rough (1 to 5) and write one line of evidence for each, so anyone can challenge them."
+          ],
+          "code": {
+            "lang": "text",
+            "text": "Problem: AP clerks spend too long resolving invoice exceptions\n\nOption        | Fit | 3yr cost | Time to value | Risk | Evidence\n--------------|-----|----------|---------------|------|---------------------------\nDo nothing    |  1  |  low     | n/a           |  2   | backlog grows at month end\nERP add-on    |  3  |  medium  | 3 months      |  2   | demo seen; no email reading\nCapture tool  |  3  |  medium  | 2 months      |  3   | handles PDFs, not reasons\nBPO provider  |  2  |  high    | 4 months      |  3   | moves work, not insight\nCustom LLM PoC|  4  |  medium  | 6 weeks       |  3   | needs IT support plan"
+          }
+        },
+        {
+          "h": "Presenting the scan",
+          "p": [
+            "Lead with the problem and the baseline, then the table, then a short recommendation with what would change it. Keep it to one page. If you recommend your own proof of concept, say plainly which part no other option covers, and what you will test to prove it. Clients trust an FDE who recommends a product when it fits better, and that trust pays back on the next decision."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "The options a client really has",
+        "caption": "Each column is a realistic path; compare them on the same criteria.",
+        "columns": [
+          {
+            "title": "Do nothing",
+            "items": [
+              "Zero new spend",
+              "Problem stays or grows",
+              "The baseline to beat"
+            ]
+          },
+          {
+            "title": "People",
+            "items": [
+              "Hire, contract or outsource",
+              "Fast to start",
+              "Cost grows with volume"
+            ]
+          },
+          {
+            "title": "Buy or turn on",
+            "items": [
+              "Dedicated product",
+              "Feature in ERP or CRM",
+              "Check licences already owned"
+            ]
+          },
+          {
+            "title": "Build",
+            "items": [
+              "Custom fit to the process",
+              "Needs an owner to maintain",
+              "Best when the need is specific"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: scanning invoice exception tools (fictional scores)",
+        "p": [
+          "For the distributor, you spend half a day on the scan shown in the template above. IT tells you the ERP vendor offers an automation add-on and that the company evaluated an invoice capture product two years ago but dropped it because it could not read the supplier emails where most of the context lives.",
+          "Your conclusion to the sponsor is honest: capture tools solve data entry, which is not the main pain. The ERP add-on is worth a demo. A custom proof of concept is justified only for the reasoning step: reading the purchase order, the contract price list and the email thread to explain why an invoice failed. You recommend testing the ERP add-on in parallel so the decision stays open."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Run a one-hour scan",
+          "time": "60 min",
+          "goal": "Produce a one-page comparison a sponsor could read.",
+          "steps": [
+            "Pick a problem such as 'summarise customer support tickets' or 'extract data from purchase orders'.",
+            "Write the problem in one sentence from the user's point of view.",
+            "Use a web search to find two dedicated products and one feature inside a large platform such as an ERP, CRM or ticketing tool.",
+            "Add a people-based option and 'do nothing'.",
+            "Fill the template from this lesson in a spreadsheet, with one line of evidence per row and a note of anything you could not verify.",
+            "Write three sentences of recommendation and ask Claude to point out any claim in your table that lacks evidence."
+          ],
+          "done_when": "You have a five-row table with evidence for each row and a short, honest recommendation."
+        }
+      ],
+      "pitfalls": [
+        "Leaving out 'do nothing' and features of systems the client already owns. These are often the real competition.",
+        "Copying vendor marketing claims as facts. Note what you saw yourself and what the vendor says.",
+        "Scoring on your criteria (technical elegance) instead of the client's (risk, cost, time to value).",
+        "Treating the scan as a way to justify a decision already made. If a product fits better, say so."
+      ],
+      "check": [
+        "What five groups of options should a scan cover?",
+        "What is total cost of ownership and why does it matter more than licence price?",
+        "Why ask IT and procurement what was evaluated before?",
+        "How would you keep scores in a scan honest and challengeable?"
+      ],
+      "links": [
+        {
+          "type": "course",
+          "title": "Market Research and Consumer Behavior",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/market-research",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Total Cost of Ownership: How It's Calculated With Example",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/t/totalcostofownership.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Competitive Usability Evaluations: Definition",
+          "source": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/competitive-usability-evaluations/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to Use Frameworks for Competitor Analysis (SWOT, PESTLE, Porter's Forces)",
+          "source": "Mehdi Boufous",
+          "url": "https://www.youtube.com/watch?v=tO_-lYqbtik",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How To Do Competitor Analysis For a Product (Live Examples)",
+          "source": "ONHOW Studio",
+          "url": "https://www.youtube.com/watch?v=IabtOw96A0s",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Product Manager",
+          "source": "roadmap.sh",
+          "url": "https://roadmap.sh/product-manager",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "business-case",
+      "title": "Building a business case",
+      "summary": "You will be able to estimate what a solution is worth from volume, time saved and cost, and work out payback honestly.",
+      "why": "The sponsor likes the idea but says 'I need a number before I can get budget'. A made-up number gets picked apart, one built from the client's own volumes and times gets approved. This lesson shows you how to build that number, and the same inputs become what you measure in the proof of concept.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Most operational business cases start with one line: volume times time saved per case times loaded cost per hour. Volume is how many cases happen per month. Time saved is the difference between how long a case takes now and how long it would take with the solution. Loaded cost is what an hour of staff time really costs the company: salary plus benefits, taxes, office and equipment, usually agreed with finance.",
+            "Then you add effects that are not time: fewer errors, lower risk, faster cycle time. You subtract what the solution costs to build and run. Payback is how many months until the cumulative benefit covers the upfront cost."
+          ]
+        },
+        {
+          "h": "Getting inputs you can defend",
+          "p": [
+            "Take volume from system data where possible: the ERP or ticketing tool can usually tell you how many cases happened last month. Take current time from timing real cases during shadowing, not from a guess in a meeting. Take time with the solution from your proof of concept results, and until you have them, use a cautious estimate and say so. Take loaded cost from finance, never from your own assumption.",
+            "Write each input with its source next to it. When a number is challenged, you can point to where it came from, and the conversation becomes about the input rather than your credibility.",
+            "Watch for seasonality. Many processes peak at month end, quarter end or in a busy season, so one month of volume can mislead. Pull twelve months if you can and use the average, and note the peak separately because peaks are often where the pain is felt most."
+          ]
+        },
+        {
+          "h": "Quality and risk effects",
+          "p": [
+            "Some value is not about hours. Fewer errors mean less rework and fewer customer complaints. In finance, catching a duplicate invoice before payment avoids paying twice. Paying on time can avoid late fees or capture early payment discounts. In regulated work, a consistent check can lower the risk of a failed audit.",
+            "Put a number on these only when you have a basis, such as last year's duplicate payments recovered, or late fees in the ledger. Otherwise list them as unquantified benefits. A short list of honest unquantified benefits is more persuasive than an inflated total."
+          ]
+        },
+        {
+          "h": "Capacity hours versus cash savings",
+          "p": [
+            "This is the distinction finance will test you on. Saving 200 hours a month across a team of ten does not save cash unless something changes: a vacancy is not filled, a contractor is released, overtime stops, or growth is absorbed without hiring. Otherwise the hours become freed capacity that people spend on other work.",
+            "Freed capacity is real value, but say clearly which it is. Ask the sponsor what they would do with the hours. If the answer is 'clear the backlog' or 'handle next year's growth without hiring', write that down as the benefit. Never imply headcount cuts the sponsor has not discussed; it damages trust with the users you need for adoption."
+          ]
+        },
+        {
+          "h": "Ramp-up, run costs and ranges",
+          "p": [
+            "Benefits do not start at full strength. Users adopt gradually, so assume a ramp, such as half the benefit in the first three months. Include run costs: LLM API usage, hosting, monitoring, and the staff time to maintain prompts and handle issues. Present a low, base and high case, and show which input moves the answer most. That input is what your proof of concept should measure first.",
+            "A simple way to find the key input is to change one input at a time by a fair amount, for example minutes saved from 7 to 4, and see how far the payback month moves. If payback barely moves when you halve run cost but jumps when you halve minutes saved, then minutes saved is what the sponsor is really betting on. Say that out loud in the meeting, and make timing real cases with the proof of concept the first thing you measure."
+          ]
+        },
+        {
+          "h": "Presenting the case",
+          "p": [
+            "Put the result on one page: the problem, the inputs with sources, the formula, the low, base and high results, payback, unquantified benefits and the key assumption to test. Review the inputs with finance before the sponsor sees the result, so the numbers are already agreed when the meeting starts. After the proof of concept, update the case with measured values and show both versions side by side. A case that changes with evidence is far more credible than one that never moves."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From cases to payback",
+        "caption": "Each step multiplies or subtracts; every input needs a named source.",
+        "steps": [
+          {
+            "label": "Monthly volume",
+            "note": "From ERP or ticketing data"
+          },
+          {
+            "label": "Minutes saved per case",
+            "note": "Timed now versus timed in the PoC"
+          },
+          {
+            "label": "Hours saved per month",
+            "note": "Volume x minutes / 60"
+          },
+          {
+            "label": "x Loaded cost per hour",
+            "note": "Agreed with finance"
+          },
+          {
+            "label": "Minus run cost",
+            "note": "API, hosting, support time"
+          },
+          {
+            "label": "Payback month",
+            "note": "When cumulative net covers build cost"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: invoice exceptions (all numbers are an example)",
+        "p": [
+          "These figures are invented for teaching. The distributor has 2,000 invoice exceptions a month (example). Timing 30 cases shows each takes about 12 minutes today. The proof of concept brings that to 5 minutes, a saving of 7 minutes per case. Finance gives a loaded cost of 45 dollars per hour.",
+          "Hours saved: 2,000 x 7 / 60 = about 233 hours a month. Gross value: 233.3 x 45 = 10,500 dollars a month. Run cost is 2,500 dollars a month, so net benefit at full adoption is 8,000 dollars a month. Build cost is 60,000 dollars. Without a ramp, payback would be 60,000 / 8,000 = 7.5 months. With half the benefit in months one to three, payback arrives in month 10, as the script shows.",
+          "On capacity versus cash: 233 hours is roughly 1.5 full-time people at 160 hours a month. The sponsor says the team expects 20 percent more volume next year (example) and would otherwise hire. So the benefit is stated as 'absorb next year's growth without a new hire', not as a cut."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "volume = 2000          # exceptions per month (example)\nminutes_saved = 12 - 5 # per case (example)\nloaded_cost = 45       # dollars per hour (example)\nrun_cost = 2500        # dollars per month (example)\nbuild_cost = 60000     # one-time (example)\n\nfull_gross = volume * minutes_saved / 60 * loaded_cost\nprint(f\"Hours saved per month: {volume * minutes_saved / 60:.1f}\")\nprint(f\"Gross value per month: {full_gross:,.0f}\")\n\ncumulative = 0.0\nfor month in range(1, 37):\n    adoption = 0.5 if month <= 3 else 1.0\n    cumulative += full_gross * adoption - run_cost\n    if cumulative >= build_cost:\n        print(f\"Payback in month {month}\")\n        break\nelse:\n    print(\"No payback within 36 months\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Build a three-case business case in a spreadsheet",
+          "time": "45 min",
+          "goal": "Turn the formula into a model a sponsor can change and challenge.",
+          "steps": [
+            "Pick a repetitive task you know, such as approving expense claims or answering a common support question.",
+            "In a spreadsheet, create input cells for volume, current minutes, new minutes, loaded cost, run cost, build cost and adoption ramp, each with a 'source' column.",
+            "Build low, base and high columns with different values for minutes saved and adoption.",
+            "Add a row that computes cumulative net benefit by month and find the payback month for each case.",
+            "Write two sentences that say whether the benefit is capacity or cash, and why.",
+            "Run the Python script from this lesson with your base inputs and confirm it matches your spreadsheet."
+          ],
+          "done_when": "Your spreadsheet shows a payback month for each case, every input has a source, and the Python result matches the base case."
+        }
+      ],
+      "pitfalls": [
+        "Using your own guess for loaded cost. Always get it from finance.",
+        "Claiming full benefit from month one. Include an adoption ramp.",
+        "Presenting freed hours as cash savings. Say which it is and what will change.",
+        "Forgetting run costs such as API usage, hosting and maintenance staff time.",
+        "Adding large risk benefits with no basis. List them as unquantified unless you have data."
+      ],
+      "check": [
+        "Write the core formula for operational value and say where each input should come from.",
+        "What is the difference between capacity hours and cash savings?",
+        "Why does an adoption ramp move the payback month?",
+        "Which input would you measure first in a proof of concept, and why?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Payback Period: Definition, Formula, and Calculation",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/p/paybackperiod.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What Is Return on Investment (ROI) and How to Calculate It",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/r/returnoninvestment.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Cost-Benefit Analysis Explained: Usage, Advantages, and Drawbacks",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/c/cost-benefitanalysis.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Payback Period - Learn How to Use & Calculate the Payback Period",
+          "source": "Corporate Finance Institute",
+          "url": "https://corporatefinanceinstitute.com/resources/financial-modeling/payback-period/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Building a business case and ROI - Martec International",
+          "source": "Martec International Ltd",
+          "url": "https://www.youtube.com/watch?v=hItQhRPAHMA",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Business Case Example (How to Write a Business Case)",
+          "source": "The Business Analysis Doctor - IIBA Certification",
+          "url": "https://www.youtube.com/watch?v=6di1FDCEfhM",
+          "cost": "free"
+        },
+        {
+          "type": "cert",
+          "title": "Google Data Analytics Professional Certificate",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/professional-certificates/google-data-analytics",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "build-buy-configure",
+      "title": "Build, buy or configure",
+      "summary": "You will be able to recommend whether to build, buy or configure for a given need, with reasons the client can follow.",
+      "why": "A client asks for a custom tool to route support tickets, when the helpdesk they already pay for may do most of it with some setup. Building everything is expensive and leaves code nobody maintains, never building adds little. This lesson helps you pick the lightest option that solves the real problem and explain it so IT and finance agree.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Configure means using settings, rules, workflows or built-in AI features of a system the client already owns, such as routing rules in the ticketing tool or an approval workflow in the ERP. Buy means licensing a product made for the job. Build means writing custom software, which for an FDE often means a thin layer of code around an LLM, connected to the client's systems.",
+            "Real solutions are usually a mix: configure what you can, buy the commodity parts, and build only the part that is specific to how this client works."
+          ]
+        },
+        {
+          "h": "The decision criteria",
+          "list": [
+            "Fit: how much of the need does each option cover? A product that covers most of it with small process changes often beats a custom build that covers all of it.",
+            "Differentiation: is this how the company wins, or is it standard back-office work? Standard work rarely justifies a build.",
+            "Data and integration: where does the data live, and can each option read it and write back to the system of record?",
+            "Security and compliance: can data leave the company? Does the vendor meet the client's security review? Is the use regulated?",
+            "Time to value: how soon can users get benefit?",
+            "Total cost of ownership: licences, build, run, support and upgrades over about three years.",
+            "Ownership: who will maintain it after you leave? If no one can, a build is a liability.",
+            "Lock-in and exit: how hard is it to switch later?"
+          ],
+          "p": [
+            "Agree the criteria and their weights with the sponsor and IT before you score options. That way the result is their decision, not your preference."
+          ]
+        },
+        {
+          "h": "Order of questions",
+          "p": [
+            "Ask first whether a system the client already owns can do it well enough with configuration. This is often the cheapest and safest path, because licences, security approval and support are already in place. If not, ask whether a mature product does it. If the need is specific to the client's process, data or rules, and someone can own the result, a build is justified.",
+            "When the answer is unclear, run a short, time-boxed test of the top two options on the same real cases and compare results. Evidence ends debates faster than opinions."
+          ]
+        },
+        {
+          "h": "Hidden costs of each path",
+          "p": [
+            "Each option has costs that do not appear on the first quote. Configure looks free, but heavy configuration can make upgrades of the platform slow and risky, and it often needs a specialist administrator. Buy brings licence increases at renewal, integration work, a security review that can take weeks, and the risk that the vendor changes direction. Build needs ongoing maintenance: prompt and model updates when the LLM provider releases new versions, monitoring for quality drift, access management and a person who answers when it breaks.",
+            "For an AI build specifically, plan for an evaluation set of real cases that you rerun whenever a prompt or model changes. Without it, nobody can safely change the solution after you leave, and the client is locked into the version you shipped."
+          ]
+        },
+        {
+          "h": "Making the recommendation",
+          "p": [
+            "Write a one-page note: the need, the options considered, the criteria and weights, the scores with one line of evidence each, the recommendation, and what would change your mind. Include the handover plan for any build: who owns it, how it is monitored, and how prompts and code are updated. Present it to the sponsor and IT together.",
+            "Expect pushback from two directions. IT may prefer configure or buy because it fits their support model, and business users may prefer build because it promises an exact fit. Both views are reasonable. Go back to the agreed criteria and the evidence, and if the scores are close, choose the option that is easier to reverse. A small build can be replaced by a product later; a three-year licence is harder to undo."
+          ]
+        },
+        {
+          "h": "Mixing options in one solution",
+          "p": [
+            "The best answer is often layered. Configure the platform to collect and route the work, buy a product for a commodity step such as document capture, and build a thin custom layer only for the reasoning step that is specific to the client. This keeps the custom code small, which makes it easier to hand over, test and replace. When you draw the solution, colour or label each part by path so the client sees exactly what they are taking ownership of."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "branch",
+        "title": "Choosing the lightest option",
+        "caption": "Start with what the client owns; build only when nothing else fits and someone can own it.",
+        "start": "Need is confirmed and valued",
+        "question": "What already covers this need well enough?",
+        "branches": [
+          {
+            "answer": "A system they own",
+            "result": "Configure rules, workflows or built-in features"
+          },
+          {
+            "answer": "A mature product",
+            "result": "Buy, after security review and a trial"
+          },
+          {
+            "answer": "Nothing; need is client-specific",
+            "result": "Build, with a named owner"
+          },
+          {
+            "answer": "Not sure yet",
+            "result": "Time-boxed test of top two options"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: three needs at the distributor (fictional)",
+        "p": [
+          "The AP exception work breaks into three needs. Each gets a different answer."
+        ],
+        "list": [
+          "Route exceptions to the right buyer: configure. The ticketing tool the company owns already supports rules by supplier and category.",
+          "Read invoice PDFs into structured data: buy or configure. The ERP vendor's capture feature handles standard layouts, and the company already licenses it.",
+          "Explain why an invoice failed by reading the purchase order, contract price list and supplier emails, then draft the next action: build. No product reads the client's own contract terms and email threads together, and the AP team lead agrees to own the prompts with IT support.",
+          "Weighted score for the third need (example, 1 to 5, weights agreed with IT): fit 0.3 x 4, data access 0.2 x 4, security 0.2 x 3, cost 0.15 x 4, ownership 0.15 x 3, total 3.65, against 2.35 for the ERP add-on."
+        ],
+        "code": {
+          "lang": "python",
+          "text": "weights = {\"fit\": 0.3, \"data\": 0.2, \"security\": 0.2, \"cost\": 0.15, \"owner\": 0.15}\noptions = {\n    \"build_llm_layer\": {\"fit\": 4, \"data\": 4, \"security\": 3, \"cost\": 4, \"owner\": 3},\n    \"erp_add_on\":      {\"fit\": 2, \"data\": 2, \"security\": 3, \"cost\": 3, \"owner\": 2},\n}\nfor name, s in options.items():\n    total = sum(weights[k] * s[k] for k in weights)\n    print(f\"{name}: {total:.2f}\")"
+        }
+      },
+      "practice": [
+        {
+          "title": "Score a real need three ways",
+          "time": "45 min",
+          "goal": "Practise a recommendation that IT and finance could accept.",
+          "steps": [
+            "Pick a need, such as 'answer staff questions about HR policy' or 'classify incoming support emails'.",
+            "List one configure option (a feature in a common tool such as an email client, ticketing tool or CRM), one buy option and one build option.",
+            "Write the eight criteria from this lesson in a spreadsheet and give them weights that add up to 1.",
+            "Score each option 1 to 5 with one line of evidence each, then compute weighted totals, by hand or with the Python snippet.",
+            "Write a half-page recommendation including who would own the result and what would change your mind."
+          ],
+          "done_when": "You have a scored table, a recommendation, and a named owner for whatever you recommend."
+        }
+      ],
+      "pitfalls": [
+        "Defaulting to build because it is the fun part. Check configure and buy first.",
+        "Ignoring who maintains the solution after you leave.",
+        "Scoring options before agreeing the criteria and weights with the client.",
+        "Treating it as one decision for the whole problem. Split the problem into needs and decide each one."
+      ],
+      "check": [
+        "Explain the difference between configure, buy and build with an example of each.",
+        "Why should you check systems the client already owns first?",
+        "What makes a build a liability rather than an asset?",
+        "What would you do if two options score almost the same?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Total Cost of Ownership: How It's Calculated With Example",
+          "source": "Investopedia",
+          "url": "https://www.investopedia.com/terms/t/totalcostofownership.asp",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Business Analysis Global Standards of Practice",
+          "source": "IIBA",
+          "url": "https://www.iiba.org/career-resources/a-business-analysis-professionals-foundation-for-success/babok/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How to Make The Engineering Decision to Build or Buy Software",
+          "source": "Stephen Blum",
+          "url": "https://www.youtube.com/watch?v=Oh0FO-4KBNI",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Buy Software or Build It? The 4-Step Framework That Prevents Costly Mistakes",
+          "source": "The Career Accelerators",
+          "url": "https://www.youtube.com/watch?v=iRBfsV9INkY",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Business Analysis Fundamentals - IIBA endorsed",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/business-analysis-ba/",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "Business Analysis Certification, ECBA",
+          "source": "IIBA",
+          "url": "https://www.iiba.org/business-analysis-certifications/ecba/",
+          "cost": "paid"
+        }
+      ]
+    }
+  ]
+}

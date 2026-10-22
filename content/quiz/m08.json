@@ -1,0 +1,265 @@
+{
+  "module": 8,
+  "questions": [
+    {
+      "id": "m08-q01",
+      "lesson": "where-ai-belongs",
+      "q": "In an invoice process, one step checks that the invoice total matches the purchase order. Who or what should do it?",
+      "options": [
+        "Plain code, because it is arithmetic and a lookup",
+        "A model, because invoices vary",
+        "A person, because it involves money",
+        "A model, with a person checking every result"
+      ],
+      "answer": 0,
+      "why": "Arithmetic and lookups are fixed rules and should be exact, so they belong in code."
+    },
+    {
+      "id": "m08-q02",
+      "lesson": "where-ai-belongs",
+      "q": "Documents arrive from over 40 suppliers as PDFs, screenshots and spreadsheets. One step decides if each is an invoice, credit note, statement or other. Who or what should do it?",
+      "options": [
+        "Plain code using the file extension",
+        "A person for every document, forever",
+        "A model, because the formats vary too much for rules, with a path for unknown cases",
+        "Plain code matching the sender's email domain"
+      ],
+      "answer": 2,
+      "why": "Reading messy, varied input is model work, and every classification step needs a path for unknown cases."
+    },
+    {
+      "id": "m08-q03",
+      "lesson": "where-ai-belongs",
+      "q": "A clerk tells you supplier X always rounds totals, and orders from one region need an extra check. Nothing is written down. What do you do?",
+      "options": [
+        "Put them in the system prompt so the model handles them",
+        "Capture them as explicit rules in a small table the client can edit, and keep only the leftovers for the model",
+        "Ignore them, the model will learn them from examples",
+        "Ask the clerk to approve every document from those suppliers"
+      ],
+      "answer": 1,
+      "why": "A rule in a table is visible, testable and cheap; a rule hidden in a prompt can silently stop working."
+    },
+    {
+      "id": "m08-q04",
+      "lesson": "where-ai-belongs",
+      "q": "A teammate wants human approval on every one of ten steps 'to be safe'. What is the problem?",
+      "options": [
+        "None, more approvals always means more safety",
+        "Approvals are illegal for AI systems",
+        "Human steps should only come at the very start",
+        "Gates everywhere lead people to approve without reading, so place them only where risk is real"
+      ],
+      "answer": 3,
+      "why": "The lesson warns that too many gates make reviewers approve without reading."
+    },
+    {
+      "id": "m08-q05",
+      "lesson": "unhappy-paths",
+      "q": "Which failures should you retry with exponential backoff and jitter?",
+      "options": [
+        "Temporary errors such as timeouts and rate limits, stopping after a fixed number of tries",
+        "Every failure, until it succeeds",
+        "Validation errors, since the model may answer differently",
+        "Downstream rejections from the ERP, as fast as possible"
+      ],
+      "answer": 0,
+      "why": "Only errors that may succeed next time are worth retrying; the same bad input usually fails the same way."
+    },
+    {
+      "id": "m08-q06",
+      "lesson": "unhappy-paths",
+      "q": "The model returns valid JSON with all fields, but the total does not match the sum of the line items. Which kind of failure is this, and how is it caught?",
+      "options": [
+        "Invalid output, caught by schema validation",
+        "Valid but wrong, caught by business rules and cross-checks against the source data",
+        "A transient error, caught by retrying",
+        "Bad input, caught before calling the model"
+      ],
+      "answer": 1,
+      "why": "A schema checks shape; meaning checks like totals catch output that looks correct but is not."
+    },
+    {
+      "id": "m08-q07",
+      "lesson": "unhappy-paths",
+      "q": "An invoice post to the ERP succeeds, but your code gets a timeout and retries. The invoice is now posted twice. What prevents this?",
+      "options": [
+        "A shorter timeout",
+        "Retrying faster so the first write has not finished",
+        "Asking the model whether the invoice was already posted",
+        "A stable idempotency key, such as message id plus attachment name, checked before writing"
+      ],
+      "answer": 3,
+      "why": "Idempotency means doing the write twice has the same effect as once, so a retry cannot duplicate it."
+    },
+    {
+      "id": "m08-q08",
+      "lesson": "unhappy-paths",
+      "q": "A case is routed to a person for review. What should they receive?",
+      "options": [
+        "Only the case id, so they can look it up themselves",
+        "The model output alone, to avoid information overload",
+        "The original input, the model output and the exact list of problems found, in a queue they already use",
+        "An email saying something went wrong"
+      ],
+      "answer": 2,
+      "why": "Without the reason and context, reviewers have to redo the whole task."
+    },
+    {
+      "id": "m08-q09",
+      "lesson": "agentic-system-design",
+      "q": "An operations head says 'we want to use AI in our plant, where do we start?'. What is your first move?",
+      "options": [
+        "Propose a model and a vector database",
+        "Ask questions: who the user is, what happens today, where time or money goes, and what must never go wrong",
+        "Sketch a fully autonomous agent for the whole plant",
+        "Ask for a budget and timeline before anything else"
+      ],
+      "answer": 1,
+      "why": "Clarifying first finds the real bottleneck; starting with architecture skips the problem."
+    },
+    {
+      "id": "m08-q10",
+      "lesson": "agentic-system-design",
+      "q": "A hospital asks for help with 'waiting time'. Questions show patients mostly wait for a bed because discharge paperwork is slow. Which MVP fits?",
+      "options": [
+        "A chatbot in the waiting room",
+        "An agent that discharges patients on its own",
+        "A new hospital-wide patient system",
+        "A tool on one ward that drafts discharge summaries from existing notes, which a doctor edits and signs"
+      ],
+      "answer": 3,
+      "why": "The MVP targets the real bottleneck on real data with a person in control and a small scope."
+    },
+    {
+      "id": "m08-q11",
+      "lesson": "agentic-system-design",
+      "q": "In your production design, what should the system do when the model is down, slow or returns something unsafe?",
+      "options": [
+        "Fall back to the manual process, never to an unsafe action",
+        "Keep retrying until the model answers",
+        "Use the last answer it gave for a similar case",
+        "Let the agent act without the model's output"
+      ],
+      "answer": 0,
+      "why": "A safe degraded path keeps work going without risky actions."
+    },
+    {
+      "id": "m08-q12",
+      "lesson": "integrate-and-roll-out",
+      "q": "During rollout the AI runs on live cases next to the people doing the work, but writes nothing, and you compare its output with what people decided. What is this rung called?",
+      "options": [
+        "Shadow mode",
+        "Assisted mode",
+        "Increasing autonomy",
+        "Test environment"
+      ],
+      "answer": 0,
+      "why": "Shadow mode, also called a dark launch, measures agreement on real traffic with no effect on it."
+    },
+    {
+      "id": "m08-q13",
+      "lesson": "integrate-and-roll-out",
+      "q": "After an incident the client asks what the agent did and why. What do you need to answer this?",
+      "options": [
+        "Only the model's final output",
+        "The monthly cost report",
+        "An audit trail of business decisions plus a trace of each model and tool call in that run",
+        "The evaluation set pass rate"
+      ],
+      "answer": 2,
+      "why": "The audit trail records who decided what, and the trace records the technical path of the run."
+    },
+    {
+      "id": "m08-q14",
+      "lesson": "integrate-and-roll-out",
+      "q": "The finance director asked whether the invoice assistant is worth it. Your report talks only about model accuracy. What should you change?",
+      "options": [
+        "Add more accuracy metrics",
+        "Show the prompt and the architecture diagram",
+        "Report how many tokens were used",
+        "Report against a baseline in cost saved, risk reduced and revenue gained"
+      ],
+      "answer": 3,
+      "why": "Sponsors fund outcomes, so results go in the three business buckets."
+    },
+    {
+      "id": "m08-q15",
+      "lesson": "portfolio-projects",
+      "q": "A candidate plans a general chatbot over clean sample data for their portfolio. What would make it show FDE skills?",
+      "options": [
+        "Add more features to the chatbot",
+        "Pick one real bottleneck and user, keep messy data, add validation and a review path, and measure it with an eval harness",
+        "Use a bigger model",
+        "Polish the user interface before anything else"
+      ],
+      "answer": 1,
+      "why": "FDE skill shows in handling messy real problems end to end and proving results with a pass rate."
+    },
+    {
+      "id": "m08-q16",
+      "lesson": "portfolio-projects",
+      "q": "Why mix public data with synthetic data in a portfolio project?",
+      "options": [
+        "Synthetic data makes results look better",
+        "Public data cannot be used in projects",
+        "Public data gives real mess, and synthetic data fills in private data and lets you plant known edge cases for the golden set",
+        "Mixing them avoids the need for an eval set"
+      ],
+      "answer": 2,
+      "why": "Planted edge cases give you cases with known answers to test against."
+    },
+    {
+      "id": "m08-q17",
+      "lesson": "portfolio-projects",
+      "q": "Your write-up has a section called 'running it for ten customers'. What should it cover?",
+      "options": [
+        "What you would make configurable, what you would monitor and what onboarding a new customer would take",
+        "A list of every feature in the app",
+        "Ten screenshots from ten test users",
+        "The price you would charge each customer"
+      ],
+      "answer": 0,
+      "why": "That section shows product thinking beyond a single build."
+    },
+    {
+      "id": "m08-q18",
+      "lesson": "fde-interviews",
+      "q": "A live coding round uses a plain text editor with no autocomplete and no way to run code. How do you prepare?",
+      "options": [
+        "Practise only algorithm puzzles",
+        "Plan to write pseudocode and explain it later",
+        "Rely on describing the idea instead of writing code",
+        "Know your imports exactly, write real code instead of pseudocode, and trace it by hand with a small input"
+      ],
+      "answer": 3,
+      "why": "The round checks that you can write correct code from memory and verify it yourself."
+    },
+    {
+      "id": "m08-q19",
+      "lesson": "fde-interviews",
+      "q": "In a case study round you get a vague client problem. What should you do first?",
+      "options": [
+        "Name the model you would use",
+        "Ask questions to find the bottleneck before proposing a solution",
+        "Draw the full production architecture",
+        "Estimate the monthly cost"
+      ],
+      "answer": 1,
+      "why": "Jumping to a solution without asking questions is a listed pitfall."
+    },
+    {
+      "id": "m08-q20",
+      "lesson": "fde-interviews",
+      "q": "You are asked to design a small ticket queue class. Beyond correct syntax, what are interviewers looking for?",
+      "options": [
+        "As many design patterns as possible",
+        "The shortest possible code on one line",
+        "Clear names, small methods, state that cannot become invalid, sensible errors and a short demo",
+        "Use of third-party libraries instead of the standard library"
+      ],
+      "answer": 2,
+      "why": "Class design questions test clean, safe state handling and clear communication."
+    }
+  ]
+}

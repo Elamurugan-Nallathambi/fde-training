@@ -1,0 +1,1977 @@
+{
+  "id": "pharma-techops-digital",
+  "title": "Technical Operations and Digital",
+  "category": "Pharma",
+  "track": "Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How product and process knowledge is built, transferred and kept under control in manufacturing, laboratories and the digital systems that support them.",
+  "audience": "Process, analytical and manufacturing engineers new to technical operations, digital and ERP staff joining a regulated site, and FDEs building tools on manufacturing or lab data.",
+  "sections": [
+    {
+      "id": "product-and-process-development",
+      "title": "Product and process development",
+      "summary": "How quality by design links what the patient needs to the material attributes and process parameters a plant controls.",
+      "outline": [
+        "QTPP, CQA and CPP assessment and alignment",
+        "Design of experiments (DoE) and characterisation strategies",
+        "Manufacturing route and formulation assessment",
+        "Impurity profiling and control strategies",
+        "Process scale-up planning",
+        "Technical development reports"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-process-development",
+          "title": "From patient need to control strategy: quality by design",
+          "summary": "You will be able to explain QTPP, CQA, CPP, design space and control strategy, and follow how development data turns into the controls a plant runs every day.",
+          "why": "Every later step in the product life, from tech transfer to batch release to process trending, depends on the knowledge built in development. If you work on manufacturing data, process monitoring or a tool that suggests process settings, you need to know which parameters are critical and why, or you will treat noise as signal and miss what matters for the patient.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Quality by design (QbD) is the approach described in ICH Q8(R2) for drug products and ICH Q11 for drug substances. Instead of testing quality into a product at the end, you design the product and process so that quality is built in, based on science and risk.",
+                "The chain is simple to say. Start with what the product must do for the patient. Decide which product properties matter for that. Find which materials and process settings affect those properties. Then set controls so they stay in range. That last set of controls is the control strategy."
+              ]
+            },
+            {
+              "h": "The key terms, in plain words",
+              "list": [
+                "QTPP (quality target product profile): a summary of the quality the product should have, such as dosage form, strength, route, release profile, purity and shelf life, chosen with safety and efficacy in mind.",
+                "CQA (critical quality attribute): a physical, chemical, biological or microbiological property that must stay within a limit, range or distribution to give the desired quality. Examples: assay, impurities, dissolution, content uniformity.",
+                "CMA (critical material attribute): a property of an input material, such as particle size of the API, that affects a CQA.",
+                "CPP (critical process parameter): a process setting whose variability affects a CQA, so it must be monitored or controlled. Example: granulation water amount or drying temperature.",
+                "Design space: the combination of inputs and parameters shown to give acceptable quality. In ICH Q8(R2), working within an approved design space is not considered a change.",
+                "Control strategy: the planned set of controls, from material specifications and in-process controls to final testing, that assures the process performs and the product meets its quality."
+              ],
+              "p": [
+                "These six terms appear in every development report and regulatory filing. Learn them as a chain: each one is defined by its link to the one before, so the chain is easier to remember than the separate definitions."
+              ]
+            },
+            {
+              "h": "How the work is done, step by step",
+              "p": [
+                "Development teams link these terms through risk assessment and experiments. ICH Q9(R1) tools such as a risk ranking matrix or FMEA (failure mode and effects analysis) help decide which parameters to study first. Design of experiments (DoE) then changes several factors at once in a planned way, so you can see both their effects and how they interact, with fewer runs than changing one factor at a time.",
+                "Development work also covers the manufacturing route and formulation choice, impurity profiling, and scale-up planning. Scale-up matters because a parameter that had little effect in a small lab mixer can behave differently in commercial equipment, so teams use engineering principles and small-scale models to predict what will change, then confirm it with data at larger scale. The results are written up in technical development reports, which become a key part of the knowledge package for technology transfer."
+              ],
+              "list": [
+                "Write the QTPP with clinical and regulatory input.",
+                "List candidate CQAs and rank them by impact on safety and efficacy.",
+                "Map materials and process steps that could affect each CQA.",
+                "Risk-rank parameters and pick the ones to study.",
+                "Run DoE and characterisation studies; analyse effects.",
+                "Set ranges, the design space if one is proposed, and the control strategy.",
+                "Record the reasoning in development reports so the knowledge can be transferred."
+              ]
+            },
+            {
+              "h": "Where the rules show up",
+              "p": [
+                "Development knowledge feeds the regulatory submission and later the commercial process. 21 CFR 211.100 requires written production and process control procedures designed to assure the drug has the identity, strength, quality and purity it claims, and 21 CFR 211.110 asks for in-process controls. The control strategy is how those rules are met in practice. ICH Q10 treats knowledge management as an enabler of the quality system, which is why development reports matter long after the product is approved.",
+                "Data that supports a submission or a GMP decision must be trustworthy. Data integrity principles (ALCOA+) apply, and once data sits in GMP computerised systems, 21 CFR Part 11 and EU GMP Annex 11 apply too."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI and statistics tools can help design experiments, fit models to DoE results, search earlier development reports, and draft sections of a technical report. They can suggest which parameters look important. They must not decide on their own which attributes are critical, what the approved ranges are, or what goes into a regulatory filing. Those are scientific and regulatory judgements made and signed by qualified people, and a model used to support them must be understood well enough to explain its output."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "Quality by design, start to finish",
+            "caption": "Read left to right; each step narrows what must be controlled.",
+            "steps": [
+              {
+                "label": "QTPP",
+                "note": "What the patient needs from the product"
+              },
+              {
+                "label": "CQAs",
+                "note": "Properties that must stay in limits"
+              },
+              {
+                "label": "Risk assessment",
+                "note": "ICH Q9(R1): which inputs could affect CQAs"
+              },
+              {
+                "label": "DoE and studies",
+                "note": "Measure effects and interactions"
+              },
+              {
+                "label": "Ranges or design space",
+                "note": "Where quality is shown to be acceptable"
+              },
+              {
+                "label": "Control strategy",
+                "note": "Specs, in-process controls, final tests"
+              },
+              {
+                "label": "Development report",
+                "note": "Knowledge carried into tech transfer"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: an immediate-release tablet (fictional)",
+            "p": [
+              "Imagine a team developing an immediate-release tablet. The QTPP says the tablet must release the drug quickly in the stomach and stay stable for the planned shelf life. Dissolution is chosen as a CQA, along with assay, impurities and content uniformity.",
+              "The risk assessment flags three wet granulation and compression parameters as likely to affect dissolution: granulation water amount, drying temperature and compression force. The team runs a two-level full factorial DoE on those three factors, which is eight runs, plus centre points. The ranges below are an illustration only."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "from itertools import product\n\nfactors = {\n    \"water_pct\": (28, 34),\n    \"dry_temp_c\": (55, 65),\n    \"comp_force_kn\": (12, 18),\n}\nruns = list(product(*factors.values()))\nfor i, run in enumerate(runs, 1):\n    print(i, dict(zip(factors, run)))\ncentre = {k: sum(v) / 2 for k, v in factors.items()}\nprint(\"centre point:\", centre)"
+            },
+            "list": [
+              "Result in this example: compression force has the largest effect on dissolution, and water amount interacts with it.",
+              "Compression force is set as a CPP with a proven range and an in-process hardness check.",
+              "Drying temperature shows little effect in the range studied and stays a controlled but non-critical parameter.",
+              "The reasoning goes into the development report used later for tech transfer."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a small QbD map",
+              "time": "45 min",
+              "goal": "Practise linking a QTPP to CQAs and candidate CPPs with a risk ranking.",
+              "steps": [
+                "Pick a simple product you know, such as a paracetamol tablet, and write a five-line QTPP.",
+                "List four CQAs and write one line on why each matters to the patient.",
+                "In a spreadsheet, list six process parameters across blending, granulation, drying and compression.",
+                "Score each parameter's likely impact on each CQA as high, medium or low.",
+                "Run the Python snippet above with your own top three parameters to list the DoE runs.",
+                "Ask Claude to challenge your scores, then write down which changes you accept and why."
+              ],
+              "done_when": "You have a QTPP, four CQAs, a scored parameter matrix and a printed list of DoE runs."
+            }
+          ],
+          "pitfalls": [
+            "Calling every parameter critical. If everything is critical, nothing is prioritised.",
+            "Changing one factor at a time and missing interactions between factors.",
+            "Scaling up without checking whether a parameter's effect changes with equipment size.",
+            "Leaving the reasoning in people's heads. Undocumented knowledge is lost at tech transfer.",
+            "Letting a model's suggested ranges go into a filing without scientific review and sign-off."
+          ],
+          "check": [
+            "What is the difference between a QTPP and a CQA?",
+            "What makes a process parameter critical?",
+            "Why does DoE often need fewer runs than changing one factor at a time?",
+            "What does ICH Q8(R2) say about working within an approved design space?",
+            "Name one development task where AI helps and one decision a person must make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Q8(R2) Pharmaceutical Development",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q8r2-pharmaceutical-development",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Q8 (R2) Pharmaceutical development - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q8-r2-pharmaceutical-development",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q11 Development and Manufacture of Drug Substances",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q11-development-and-manufacture-drug-substances",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Quality Guidelines",
+              "source": "ICH",
+              "url": "https://www.ich.org/page/quality-guidelines",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Control Strategy Concepts - QTPP, CQA, CPP, and CMA",
+              "source": "Scilife",
+              "url": "https://www.youtube.com/watch?v=fSh0AGTPeJ8",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality by Design (QbD) Explained | QTPP, CQA, CPP, Risk Assessment & Pharmaceutical Development",
+              "source": "PHARMEX SOLUTIONS",
+              "url": "https://www.youtube.com/watch?v=4Hlf4lPEick",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "ptd-q01",
+          "lesson": "pharma-process-development",
+          "q": "A team writes 'immediate release, 500 mg tablet, 24 month shelf life'. What is this a part of?",
+          "options": [
+            "The control strategy",
+            "The QTPP",
+            "The design space",
+            "A CPP list"
+          ],
+          "answer": 1,
+          "why": "The QTPP summarises the quality the product should have, such as dosage form, strength and shelf life."
+        },
+        {
+          "id": "ptd-q02",
+          "lesson": "pharma-process-development",
+          "q": "Dissolution must stay within limits for the tablet to work as intended. What is dissolution here?",
+          "options": [
+            "A CQA",
+            "A CPP",
+            "A CMA",
+            "A QTPP"
+          ],
+          "answer": 0,
+          "why": "A CQA is a product property that must stay within limits to give the desired quality."
+        },
+        {
+          "id": "ptd-q03",
+          "lesson": "pharma-process-development",
+          "q": "Changing granulation water amount changes dissolution. What does that make water amount?",
+          "options": [
+            "A critical quality attribute",
+            "A non-critical parameter",
+            "An element of the QTPP",
+            "A CPP"
+          ],
+          "answer": 3,
+          "why": "A CPP is a process setting whose variability affects a CQA."
+        },
+        {
+          "id": "ptd-q04",
+          "lesson": "pharma-process-development",
+          "q": "Why use DoE instead of changing one factor at a time?",
+          "options": [
+            "It removes the need for any risk assessment",
+            "Regulators forbid one-factor-at-a-time studies",
+            "It shows interactions, often with fewer runs",
+            "It always gives the final commercial ranges directly"
+          ],
+          "answer": 2,
+          "why": "DoE changes several factors in a planned way, revealing effects and interactions efficiently."
+        },
+        {
+          "id": "ptd-q05",
+          "lesson": "pharma-process-development",
+          "q": "A plant adjusts a parameter within an approved design space. Under ICH Q8(R2), how is that treated?",
+          "options": [
+            "As a major change needing approval",
+            "It is not considered a change",
+            "As a deviation",
+            "As a new QTPP"
+          ],
+          "answer": 1,
+          "why": "ICH Q8(R2) says working within an approved design space is not considered a change."
+        },
+        {
+          "id": "ptd-q06",
+          "lesson": "pharma-process-development",
+          "q": "Which ICH guideline covers development and manufacture of drug substances (APIs)?",
+          "options": [
+            "ICH Q10",
+            "ICH Q8(R2)",
+            "ICH Q11",
+            "ICH Q9(R1)"
+          ],
+          "answer": 2,
+          "why": "ICH Q11 covers drug substance development; Q8(R2) covers the drug product."
+        },
+        {
+          "id": "ptd-q07",
+          "lesson": "pharma-process-development",
+          "q": "A team scores every one of 20 parameters as critical. What is the problem?",
+          "options": [
+            "Nothing is prioritised, so effort is wasted",
+            "There is no problem, since more control is always safer",
+            "Regulators require at least 20 CPPs for each product",
+            "Critical parameters cannot be studied with a DoE"
+          ],
+          "answer": 0,
+          "why": "Risk assessment exists to focus effort; calling everything critical defeats it."
+        },
+        {
+          "id": "ptd-q08",
+          "lesson": "pharma-process-development",
+          "q": "A model suggests new compression force ranges. Who decides what goes into the filing?",
+          "options": [
+            "The model itself, if its accuracy is high enough",
+            "The IT team that runs and maintains the model",
+            "The vendor that sold the modelling software",
+            "Qualified scientists and regulatory staff"
+          ],
+          "answer": 3,
+          "why": "Ranges in a filing are scientific and regulatory judgements made by qualified people."
+        },
+        {
+          "id": "ptd-q09",
+          "lesson": "pharma-process-development",
+          "q": "Which set of items best describes a control strategy?",
+          "options": [
+            "Only the final release tests run on each batch",
+            "Material specs, in-process controls and final tests",
+            "The full list of DoE runs from the development study",
+            "The QTPP together with the full list of CQAs"
+          ],
+          "answer": 1,
+          "why": "A control strategy is the planned set of controls across materials, process and product."
+        },
+        {
+          "id": "ptd-q10",
+          "lesson": "pharma-process-development",
+          "q": "Why does ICH Q10 make development reports important after approval?",
+          "options": [
+            "They replace the batch records for each lot made",
+            "They are needed by quality for every single batch release",
+            "Knowledge management is a Q10 quality system enabler",
+            "They are the system of record for all stability results"
+          ],
+          "answer": 2,
+          "why": "ICH Q10 names knowledge management as an enabler; development knowledge supports transfer and later changes."
+        }
+      ]
+    },
+    {
+      "id": "technology-transfer",
+      "title": "Technology transfer and site introduction",
+      "summary": "How product and process knowledge, methods and controls move to a receiving site in a controlled way, and how readiness for process performance qualification is judged.",
+      "outline": [
+        "Technology transfer as a lifecycle stage (ICH Q10)",
+        "Site capability and gap assessment",
+        "Transfer planning, roles and the knowledge package",
+        "Analytical method transfer",
+        "Engineering and exhibit batches",
+        "PPQ readiness assessment and readiness dashboards",
+        "Where AI can help: comparing sending and receiving site documents; who approves readiness"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-techops-digital-technology-transfer",
+          "title": "Moving a process to a new site without losing control",
+          "summary": "You will be able to explain what a technology transfer contains, how a receiving site is assessed, and what evidence shows a site is ready for process performance qualification.",
+          "why": "Transfers are where knowledge gets lost. A process that ran well at the development site can fail at the receiving site because of a different mixer, a different water system or a method that behaves differently in another lab. FDEs are often asked to build transfer trackers, compare document sets or report readiness. You need to know what really has to move, who owns each decision, and why a green dashboard is not the same as a ready site.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Technology transfer is the controlled movement of product and process knowledge from a sending unit to a receiving unit. The sending unit may be a development lab, a pilot plant or another commercial site. The receiving unit is the site that will make or test the product from now on.",
+                "ICH Q10 names technology transfer as one of four stages of a product lifecycle, between pharmaceutical development and commercial manufacturing. Its goal is to transfer product and process knowledge so the receiving site can make the product reliably, and to use the transfer to build knowledge, not just copy instructions. A transfer is finished when the receiving site can show, with data, that it makes product of the required quality under its own controls."
+              ]
+            },
+            {
+              "h": "What actually moves",
+              "p": [
+                "People often think a transfer is a batch record and a few methods. In practice the knowledge package is much wider, and gaps in it are the usual cause of trouble later. A useful package answers: what does the product need, how is it made, how is it tested, and what have we learned the hard way."
+              ],
+              "list": [
+                "Product knowledge: QTPP, CQAs, specifications and the reasoning behind them.",
+                "Process knowledge: process description, CPPs and their proven ranges, scale-up history, known failure modes and the control strategy.",
+                "Analytical knowledge: test methods, validation reports, reference standards and known method quirks.",
+                "Materials: approved suppliers, material specifications and any material attributes that affect quality.",
+                "Equipment and facility needs: equipment type, operating principle, capacity and environmental class.",
+                "History: deviations, investigations and changes from earlier batches, so the receiving site does not repeat old mistakes."
+              ]
+            },
+            {
+              "h": "The transfer step by step",
+              "p": [
+                "Most companies run a transfer as a project under a written plan, with a cross-functional team from both sites and quality oversight. The order below is typical; details differ by company and product type."
+              ],
+              "list": [
+                "Site capability and gap assessment: compare what the process needs with what the receiving site has, including equipment, utilities, containment, people skills and quality systems. Each gap gets an owner and a closure action.",
+                "Transfer plan or protocol: scope, roles, deliverables, acceptance criteria and the change control record that governs the transfer.",
+                "Analytical method transfer: the receiving lab shows it can run each method and get results comparable to the sending lab. Common approaches are comparative testing, co-validation, partial revalidation or a justified waiver.",
+                "Engineering batches: trial runs to confirm equipment settings and process fit at the new site. They are usually not intended for sale and are run to learn.",
+                "Exhibit or registration batches where the filing needs them: batches made to support a regulatory submission, so their records must be complete and GMP compliant.",
+                "PPQ readiness review: confirm everything Stage 2 of process validation depends on is in place before the PPQ batches start.",
+                "Transfer report: what was transferred, what changed, open risks and the knowledge kept for the future."
+              ]
+            },
+            {
+              "h": "PPQ readiness and what a dashboard should show",
+              "p": [
+                "FDA's process validation guidance describes three stages: process design, process qualification and continued process verification. Process performance qualification (PPQ) sits in Stage 2 and confirms the commercial process performs as expected. Starting PPQ before the site is ready wastes batches and can produce a failed validation that must be investigated.",
+                "A readiness check usually confirms that facility, utilities and equipment are qualified, methods are transferred or validated, master batch records and SOPs are approved, people are trained, materials are released, open deviations and changes tied to the process are closed or assessed, and the PPQ protocol with its acceptance criteria is approved by quality. A transfer readiness dashboard is a view of this list. It is only as good as the evidence linked to each line. A status of complete should point to an approved record, not to someone's belief that the work is done."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI tools are useful for comparing large document sets, for example matching the sending site process description against the receiving site draft batch record, finding parameters that changed, and listing methods without a transfer report. They can draft gap descriptions and keep a tracker current. They must not decide that a gap is acceptable, that a method transfer passed, or that the site is ready for PPQ. Those are decisions for the transfer team and the quality unit, recorded under change control and signed by the people accountable for them. Every AI-found difference should be checked against the source document before it goes in a report."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From sending site to validated process",
+            "caption": "Read left to right; each step produces evidence the next step relies on.",
+            "steps": [
+              {
+                "label": "Knowledge package",
+                "note": "Product, process, methods and history"
+              },
+              {
+                "label": "Gap assessment",
+                "note": "Needs compared with receiving site"
+              },
+              {
+                "label": "Transfer plan",
+                "note": "Scope, roles, criteria, change control"
+              },
+              {
+                "label": "Method transfer",
+                "note": "Receiving lab shows comparable results"
+              },
+              {
+                "label": "Engineering batches",
+                "note": "Learn settings at the new scale"
+              },
+              {
+                "label": "PPQ readiness review",
+                "note": "Evidence for every prerequisite"
+              },
+              {
+                "label": "PPQ and transfer report",
+                "note": "Stage 2 confirms the process"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a gap that a checklist would miss",
+            "p": [
+              "This is an illustrative example. A tablet process moves from a development site to a commercial site. The development site used a high-shear granulator with a certain impeller design; the receiving site has a granulator from another supplier with a different bowl geometry.",
+              "The gap assessment line says equipment available: yes. A closer look at the development report shows granulation end point was linked to dissolution, a CQA. Because the equipment works differently, the proven range for water addition and mixing time may not carry over.",
+              "The team records the difference as a gap, plans engineering batches to find the end point at the new site, and adds a dissolution check to the readiness criteria. The gap is closed only when engineering batch data and an approved updated batch record exist."
+            ],
+            "list": [
+              "Gap: granulator design differs from development equipment.",
+              "Risk: dissolution may shift because granulation end point changes.",
+              "Action: engineering batches with planned settings and dissolution testing.",
+              "Evidence to close: engineering batch report and approved master batch record.",
+              "Owner of closure decision: transfer lead with quality approval."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a transfer readiness tracker",
+              "time": "45 min",
+              "goal": "Turn the PPQ readiness idea into a tracker where every line points to evidence.",
+              "steps": [
+                "Open a spreadsheet and create columns: item, category, owner, status, evidence record ID, approved by, date, open risk.",
+                "Add at least 12 readiness items from the lesson, covering equipment, utilities, methods, batch records, SOPs, training, materials, deviations, changes and the PPQ protocol.",
+                "Invent a synthetic status for each item and mark three items as complete with no evidence ID.",
+                "Add a rule column that shows NOT READY when status is complete but the evidence ID or approver is blank.",
+                "Write three sentences on who would sign the final readiness decision and what they would need to see."
+              ],
+              "done_when": "Your tracker flags every complete item without evidence, and your three sentences name the decision owner."
+            }
+          ],
+          "pitfalls": [
+            "Treating the transfer as copying documents, so the reasons behind ranges and controls never reach the receiving site.",
+            "Marking equipment as equivalent because it has the same name, without checking operating principle, scale and geometry.",
+            "Starting PPQ while method transfers, training or open deviations are still incomplete, and then investigating avoidable failures.",
+            "Building a readiness dashboard where status is typed in by hand and not linked to approved records.",
+            "Leaving the deviation and investigation history behind, so the receiving site repeats problems already solved."
+          ],
+          "check": [
+            "Where does ICH Q10 place technology transfer in the product lifecycle?",
+            "Name four things that belong in a transfer knowledge package besides the batch record.",
+            "What is the difference between an engineering batch and an exhibit batch?",
+            "Which stage of process validation contains PPQ, and what must be in place before it starts?",
+            "Name one transfer task AI can help with and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Q10 Pharmaceutical quality system - Scientific guideline",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Process Validation: General Principles and Practices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 15: Qualification and Validation (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/2015-10_annex15_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "Good Practice Guide: Technology Transfer 3rd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/good-practice-guide-technology-transfer-3rd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "ISPE Good Practice Guide: Technology Transfer 3rd Edition",
+              "source": "ISPE",
+              "url": "https://www.youtube.com/watch?v=bnIhKuAPeGo",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Understanding the Three Stages of Process Validation",
+              "source": "IVT Network",
+              "url": "https://www.youtube.com/watch?v=orhNIqvAg3E",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "technology-transfer-q01",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "In ICH Q10, which lifecycle stage comes between pharmaceutical development and commercial manufacturing?",
+          "options": [
+            "Technology transfer",
+            "Product discontinuation",
+            "Process design",
+            "Annual product review"
+          ],
+          "answer": 0,
+          "why": "ICH Q10 lists four stages: development, technology transfer, commercial manufacturing and discontinuation."
+        },
+        {
+          "id": "technology-transfer-q02",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "A receiving site gets the batch record but not the development report explaining why the drying range was chosen. What is the main risk?",
+          "options": [
+            "The batch record will need a new document number at the new site",
+            "The site loses the reasoning and may change the range unsafely",
+            "The site cannot order raw materials until the report arrives",
+            "Nothing, because the batch record alone carries all knowledge"
+          ],
+          "answer": 1,
+          "why": "The knowledge package carries the reasons behind ranges, so later decisions do not undo them by accident."
+        },
+        {
+          "id": "technology-transfer-q03",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "The gap assessment says 'granulator available: yes', but it is a different design. What should happen?",
+          "options": [
+            "Accept it, because the equipment name and type are the same",
+            "Ask the equipment supplier to rename it to match development",
+            "Skip engineering batches so the PPQ date is protected",
+            "Record a gap and plan work to confirm settings"
+          ],
+          "answer": 3,
+          "why": "Different design can change how a CPP affects a CQA, so it is a gap to close with data."
+        },
+        {
+          "id": "technology-transfer-q04",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "What is the main purpose of an engineering batch at the receiving site?",
+          "options": [
+            "To supply the first commercial order to the market quickly",
+            "To replace PPQ so validation can be skipped at the new site",
+            "To learn equipment settings and process fit",
+            "To be filed as primary stability data in the submission"
+          ],
+          "answer": 2,
+          "why": "Engineering batches are trial runs to learn how the process behaves at the new site."
+        },
+        {
+          "id": "technology-transfer-q05",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "A batch made to support a regulatory submission is usually called what?",
+          "options": [
+            "An engineering batch run only for learning",
+            "An exhibit or registration batch",
+            "A media fill used for aseptic qualification",
+            "A placebo batch with no active ingredient at all"
+          ],
+          "answer": 1,
+          "why": "Exhibit or registration batches support the filing, so their records must be complete and GMP compliant."
+        },
+        {
+          "id": "technology-transfer-q06",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "The receiving lab runs the assay on the same samples as the sending lab and compares results against set criteria. What is this?",
+          "options": [
+            "Stability testing under long-term storage conditions",
+            "Process validation of the manufacturing process",
+            "Cleaning validation of shared lab glassware",
+            "Comparative testing for method transfer"
+          ],
+          "answer": 3,
+          "why": "Comparative testing is a common way to show a receiving lab gets comparable results."
+        },
+        {
+          "id": "technology-transfer-q07",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "In FDA's process validation guidance, PPQ belongs to which stage?",
+          "options": [
+            "Stage 2, process qualification",
+            "Stage 1, process design",
+            "Stage 3, continued verification",
+            "No stage, it is optional"
+          ],
+          "answer": 0,
+          "why": "PPQ is part of Stage 2 and confirms the commercial process performs as expected."
+        },
+        {
+          "id": "technology-transfer-q08",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "A readiness dashboard shows 'training: complete' but no record is linked. What is the right view?",
+          "options": [
+            "Ready, because the owner typed complete in the tracker",
+            "Ready, because training is always a low risk item",
+            "Not proven until an approved record is linked",
+            "Ready, as long as the area manager agrees verbally"
+          ],
+          "answer": 2,
+          "why": "A dashboard line is only as good as the approved evidence behind it."
+        },
+        {
+          "id": "technology-transfer-q09",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "An AI tool lists 14 parameter differences between the sending and receiving documents. What should happen next?",
+          "options": [
+            "Send the full list straight to the regulator as a finding",
+            "Approve the PPQ start automatically if under 20 differences",
+            "Delete any difference smaller than 5 percent",
+            "Check each difference against the source and assess it"
+          ],
+          "answer": 3,
+          "why": "AI output is a starting point; people verify it and the transfer team assesses each difference."
+        },
+        {
+          "id": "technology-transfer-q10",
+          "lesson": "pharma-techops-digital-technology-transfer",
+          "q": "Who should approve that a site is ready to start PPQ?",
+          "options": [
+            "The AI tool that built and maintains the readiness tracker",
+            "The transfer team with quality unit approval",
+            "Any trained operator who is on shift that day",
+            "The equipment supplier who installed the granulator"
+          ],
+          "answer": 1,
+          "why": "Readiness is a recorded decision by accountable people, with quality approval, under change control."
+        }
+      ]
+    },
+    {
+      "id": "manufacturing-science",
+      "title": "Manufacturing science and performance",
+      "summary": "How commercial processes are monitored with continued process verification, investigated when they drift, and improved under change control without losing the validated state.",
+      "outline": [
+        "Continued process verification (CPV) and statistical trending",
+        "Process troubleshooting and technical support for deviations",
+        "Yield, cycle time, campaign and changeover improvement",
+        "Lifecycle change assessment under change control (ICH Q12 view)",
+        "Annual product review as a summary of process performance",
+        "Where AI can help: spotting trends early; who decides on a process change"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-techops-digital-manufacturing-science",
+          "title": "Keeping a commercial process in control and making it better",
+          "summary": "You will be able to explain how CPV works, read a simple control chart, tell a special cause from normal variation, and describe how an improvement moves through change control.",
+          "why": "Manufacturing data is one of the first things FDEs are asked to work with: dashboards, alerts, yield reports and models. If you do not know what the process is supposed to show, which signals matter and who can act on them, you will build alarms that cry wolf or, worse, suggest process changes that nobody is allowed to make without assessment.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Validation does not end with process performance qualification. FDA's process validation guidance describes Stage 3, continued process verification (CPV), as ongoing assurance during routine production that the process stays in a state of control. In plain words: keep collecting data, keep looking at it with sound statistics, and act when the process starts to move.",
+                "Manufacturing science and technology (MS&T) teams, sometimes called technical services, own most of this work. They trend data, support investigations, and propose improvements to yield, cycle time and robustness. Every improvement goes through change control, because a validated process can only change in a controlled and documented way."
+              ]
+            },
+            {
+              "h": "How CPV works in practice",
+              "p": [
+                "A CPV plan lists which parameters and attributes are trended, how often, with which statistical tools, and what happens when a signal appears. It usually covers the CPPs and CQAs from the control strategy plus in-process results such as tablet weight or blend uniformity.",
+                "The main tool is the control chart. Control limits come from the process's own data, typically set around three standard deviations from the mean. They are not the same as specification limits, which come from the filing and define acceptable product. A batch can be inside specification but outside control limits. That is not a failed batch, but it is a signal that something in the process has changed and should be understood.",
+                "Process capability indices such as Cpk compare the spread of the process with the width of the specification. A low Cpk tells you the process runs close to a limit even if no batch has failed yet."
+              ],
+              "list": [
+                "Common cause variation: the normal noise of a stable process. Reacting to it batch by batch makes the process worse.",
+                "Special cause variation: a change with an assignable reason, such as a new raw material lot, a worn part or a new operator practice. It needs investigation.",
+                "Run rules, such as several points in a row on one side of the mean, help detect a shift before a point falls outside the limits."
+              ]
+            },
+            {
+              "h": "Troubleshooting and deviation support",
+              "p": [
+                "When a batch deviates, the quality system opens a deviation and, where needed, an investigation. 21 CFR 211.192 requires that any unexplained discrepancy or failure of a batch to meet its specifications is thoroughly investigated, and that the investigation extends to other batches that may be affected. MS&T brings the process knowledge: which parameters could cause the effect, what the trend data showed before the event, and whether other batches share the same root cause.",
+                "Good technical support separates facts from hypotheses. It lists what the data shows, what could explain it, and what test or record would confirm each explanation.",
+                "Troubleshooting also needs context from outside the batch record: maintenance logs, raw material certificates, environmental data, equipment alarms and shift notes. Data from these sources often sits in different systems with different clocks, so lining up timestamps correctly is a real part of the work and a common place for errors."
+              ]
+            },
+            {
+              "h": "Improving yield, cycle time and changeovers",
+              "p": [
+                "Improvement work looks for losses: material lost in transfers, long hold or drying times, slow cleaning between products, or campaign plans that force too many changeovers. Lean and Six Sigma tools are common here. The rule that makes pharma different is that any change to an approved process, equipment, material or specification must be assessed for its effect on product quality and on the regulatory filing before it is made.",
+                "ICH Q12 describes tools for managing post-approval changes in a predictable way, such as established conditions and post-approval change management protocols. 21 CFR 211.180(e) requires at least annual review of product quality data to decide whether specifications, manufacturing or control procedures need changes. That annual product review is a natural place to summarise CPV findings and improvement proposals.",
+                "Campaign and changeover planning is a good example of an improvement that touches quality. Running more batches of one product in a row saves cleaning time, but longer campaigns may need cleaning validation data that supports the longer run and the longer dirty hold time. The saving is real only if the evidence exists."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI and statistics tools can watch many signals at once, spot slow drifts earlier than a monthly chart review, cluster deviations with similar patterns and suggest which parameters correlate with a yield drop. Correlation in historical data is not proof of cause, and a model trained on a stable period may raise false alarms when a planned change happens. A model can flag; MS&T and quality staff investigate. Decisions to change a process setting, a limit or a procedure are taken by qualified people under change control, never by the tool."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "The continued process verification loop",
+            "caption": "Each turn of the loop either confirms control or starts an investigation or a controlled change.",
+            "steps": [
+              {
+                "label": "Collect batch data",
+                "note": "CPPs, CQAs and in-process results"
+              },
+              {
+                "label": "Trend on control charts",
+                "note": "Limits from the process's own data"
+              },
+              {
+                "label": "Detect signals",
+                "note": "Points outside limits or run rules"
+              },
+              {
+                "label": "Investigate cause",
+                "note": "Facts, hypotheses, confirming evidence"
+              },
+              {
+                "label": "Decide action",
+                "note": "No action, CAPA or change control"
+              },
+              {
+                "label": "Review and report",
+                "note": "Feeds the annual product review"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: inside specification, outside control",
+            "p": [
+              "This is an illustrative example with made-up numbers. Tablet assay has a specification of 95.0 to 105.0 percent. Over 30 batches the mean is 100.2 percent with a standard deviation of 0.8, so the control limits are about 97.8 to 102.6 percent.",
+              "Batch 31 shows 97.5 percent. It passes specification, so it can still be released if everything else is in order. But it is below the lower control limit, so it is a special cause signal. Trend review shows the last six batches were all below the mean, which also breaks a common run rule.",
+              "MS&T compares records and finds the six batches used a new lot of active ingredient with a different particle size, within its own specification. The team opens an investigation, tests the hypothesis with existing data, and proposes a controlled change to the material specification. Quality decides whether a CAPA and a change request are needed."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "from statistics import mean, stdev\nassay = [100.4, 99.6, 101.1, 100.0, 99.2, 100.9, 101.3, 99.8, 100.5, 100.1]\nm, s = mean(assay), stdev(assay)\nucl, lcl = m + 3 * s, m - 3 * s\nprint(f\"mean {m:.2f} LCL {lcl:.2f} UCL {ucl:.2f}\")\nfor batch, value in [(31, 97.5), (32, 100.3)]:\n    status = \"signal\" if value < lcl or value > ucl else \"in control\"\n    print(batch, value, status)"
+            }
+          },
+          "practice": [
+            {
+              "title": "Build a control chart and find the signal",
+              "time": "40 min",
+              "goal": "See the difference between control limits and specification limits with your own numbers.",
+              "steps": [
+                "In a spreadsheet, type 25 synthetic assay values between 99 and 101 percent, then add five more values between 98.0 and 98.6.",
+                "Calculate the mean and standard deviation of the first 25 values only, then the upper and lower control limits as mean plus and minus three standard deviations.",
+                "Add specification limits of 95 and 105 and chart all 30 values with the four limit lines.",
+                "Mark every point outside the control limits and any run of six or more points below the mean.",
+                "Write a short note: is any batch out of specification, what signals do you see, and who should decide what happens next."
+              ],
+              "done_when": "Your chart shows both pairs of limits, the signals are marked, and your note names the decision owner."
+            }
+          ],
+          "pitfalls": [
+            "Confusing control limits with specification limits, and then ignoring a real shift because every batch still passes.",
+            "Reacting to every small movement of a stable process, which adds variation instead of removing it.",
+            "Recalculating control limits after every batch so that a slow drift quietly becomes the new normal.",
+            "Making a quick yield improvement on the floor without change control and regulatory impact assessment.",
+            "Treating a correlation found by a model as the root cause without confirming evidence."
+          ],
+          "check": [
+            "What is the purpose of Stage 3 of process validation?",
+            "Why can a batch be inside specification but outside control limits, and what should happen then?",
+            "What is the difference between common cause and special cause variation?",
+            "What does 21 CFR 211.180(e) require, and how does it relate to CPV?",
+            "Name one way AI helps with trending and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Process Validation: General Principles and Practices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q12 Technical and Regulatory Considerations for Pharmaceutical Product Lifecycle Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q12-technical-and-regulatory-considerations-pharmaceutical-product-lifecycle-management-guidance",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.180 General requirements (records and reports)",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.180",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "NIST/SEMATECH e-Handbook: Univariate and Multivariate Control Charts",
+              "source": "NIST",
+              "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc3.htm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Control Chart - Statistical Process Control Charts",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/control-chart",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Continued Process Verification in Pharma and Biopharma Industries",
+              "source": "Share Knowledge to Learn More",
+              "url": "https://www.youtube.com/watch?v=yvrvtl434pA",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is Continued process verification (CPV) ?",
+              "source": "Hema Sharma",
+              "url": "https://www.youtube.com/watch?v=zw36W3coDA4",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "manufacturing-science-q01",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "PPQ passed last year. What gives ongoing assurance that the process is still in control today?",
+          "options": [
+            "Repeating the original PPQ batches every single month",
+            "Continued process verification",
+            "The equipment supplier's warranty certificate",
+            "Testing only the first batch of each calendar year"
+          ],
+          "answer": 1,
+          "why": "CPV is Stage 3 of process validation and gives ongoing assurance during routine production."
+        },
+        {
+          "id": "manufacturing-science-q02",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "Where do control limits on a CPV chart normally come from?",
+          "options": [
+            "The process's own historical data",
+            "The specification approved in the regulatory filing",
+            "The target values written in the marketing plan",
+            "Whatever limits the operator feels are reasonable"
+          ],
+          "answer": 0,
+          "why": "Control limits describe how the process actually behaves; specifications define acceptable product."
+        },
+        {
+          "id": "manufacturing-science-q03",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "A batch passes its specification but falls below the lower control limit. What is the best response?",
+          "options": [
+            "Reject the batch because it is out of specification",
+            "Ignore it, because the batch passed specification",
+            "Widen the control limits so the point fits inside",
+            "Treat it as a signal and look for the cause"
+          ],
+          "answer": 3,
+          "why": "Outside control limits means the process may have changed, even though the batch itself passed."
+        },
+        {
+          "id": "manufacturing-science-q04",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "An operator adjusts a setting after every batch to chase small random changes in weight. What is likely?",
+          "options": [
+            "The process will become perfectly stable within days",
+            "Variation is likely to increase",
+            "The specification will be tightened automatically",
+            "Cpk will rise because of the frequent attention"
+          ],
+          "answer": 1,
+          "why": "Reacting to common cause variation adds variation instead of removing it."
+        },
+        {
+          "id": "manufacturing-science-q05",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "Six batches in a row sit below the mean but inside limits, all using one new material lot. What kind of variation is this probably?",
+          "options": [
+            "Common cause noise that needs no attention at all",
+            "Measurement error that should be deleted from the data",
+            "Special cause variation with a possible assignable reason",
+            "A seasonal effect that always disappears in winter"
+          ],
+          "answer": 2,
+          "why": "A run on one side of the mean with a shared factor suggests an assignable special cause."
+        },
+        {
+          "id": "manufacturing-science-q06",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "Which regulation requires that an unexplained batch failure is thoroughly investigated, including other affected batches?",
+          "options": [
+            "21 CFR 211.192",
+            "21 CFR Part 11 on electronic records",
+            "ICH Q1A(R2) on stability testing",
+            "21 CFR Part 820 for medical devices"
+          ],
+          "answer": 0,
+          "why": "21 CFR 211.192 covers production record review and investigation of discrepancies."
+        },
+        {
+          "id": "manufacturing-science-q07",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "MS&T finds a shorter drying time that saves two hours per batch. What must happen before it is used?",
+          "options": [
+            "Nothing, because it improves efficiency for everyone",
+            "Only a verbal approval from the production supervisor",
+            "A change to the batch record by the operator on shift",
+            "Assessment and approval through change control"
+          ],
+          "answer": 3,
+          "why": "Any change to a validated process must be assessed for quality and regulatory impact under change control."
+        },
+        {
+          "id": "manufacturing-science-q08",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "A low Cpk value tells you what?",
+          "options": [
+            "The process has already produced failed batches",
+            "The process runs close to a specification limit",
+            "The control chart was drawn with the wrong scale",
+            "The specification limits are wider than needed"
+          ],
+          "answer": 1,
+          "why": "Capability compares process spread with specification width; low Cpk means little margin."
+        },
+        {
+          "id": "manufacturing-science-q09",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "Under 21 CFR 211.180(e), product quality data must be reviewed at least how often?",
+          "options": [
+            "Every single batch by the regulator",
+            "Once every five years at re-registration",
+            "At least annually",
+            "Only when a customer complaint is received"
+          ],
+          "answer": 2,
+          "why": "211.180(e) requires at least annual evaluation of product quality data."
+        },
+        {
+          "id": "manufacturing-science-q10",
+          "lesson": "pharma-techops-digital-manufacturing-science",
+          "q": "A model finds that yield drops when humidity is high and suggests raising the dryer temperature. Who decides?",
+          "options": [
+            "The model, because its accuracy score is high",
+            "The data engineer who deployed the model last week",
+            "Whoever reads the alert first on the night shift",
+            "Qualified MS&T and quality staff under change control"
+          ],
+          "answer": 3,
+          "why": "Correlation is not proof of cause; process changes are decided by qualified people under change control."
+        }
+      ]
+    },
+    {
+      "id": "analytical-and-lab-lifecycle",
+      "title": "Analytical and laboratory lifecycle",
+      "summary": "How test methods, specifications and stability programs are developed, validated and kept reliable, and how a laboratory handles an out-of-specification result. Introductory coverage; method validation and OOS investigation practice are specialist skills.",
+      "outline": [
+        "The analytical procedure lifecycle (ICH Q14 and Q2(R2))",
+        "Method validation characteristics and method transfer",
+        "Specifications and how they are set (ICH Q6A view)",
+        "Stability programs (ICH Q1A(R2))",
+        "OOS and OOT investigations (FDA OOS guidance)",
+        "Laboratory data integrity and remediation",
+        "Where AI can help: chromatogram review support; who signs results"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-techops-digital-analytical-lifecycle",
+          "title": "Methods, specifications, stability and OOS: the lab's lifecycle",
+          "summary": "You will be able to explain how an analytical method is developed and validated, how specifications and stability programs fit together, and the basic phases of an OOS investigation.",
+          "why": "Every release decision rests on a lab result. FDEs build tools on LIMS data, chromatography data systems and stability databases, and are often asked to speed up result review. If you do not know why a method is trusted, what makes a result reportable and why an OOS result cannot simply be retested away, your tool can damage data integrity instead of helping.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "An analytical procedure is a written way to measure something, such as how much active ingredient a tablet contains. Like a process, it has a lifecycle. ICH Q14 covers analytical procedure development, and ICH Q2(R2) covers validation, which is the evidence that the procedure is fit for its intended purpose.",
+                "The results feed specifications, which are the tests and acceptance criteria a product must meet, and stability programs, which show how the product changes over time. When a result fails a specification, the lab must investigate it under written procedures before anyone decides what the result means.",
+                "This lesson is an introduction. Designing a validation study, judging a method transfer or leading an OOS investigation needs specialist analytical training and supervised experience. Treat what follows as the map, not the skill."
+              ]
+            },
+            {
+              "h": "Develop, validate, transfer, monitor",
+              "p": [
+                "Development starts from what the method must measure and how well: the analytical target profile in ICH Q14 terms. Scientists then choose a technique, such as HPLC, and study which method parameters affect the result.",
+                "Validation tests the performance characteristics that matter for the method's purpose. A method that measures impurities needs to detect low levels; an assay method needs accuracy and precision around the target. Typical characteristics named in ICH Q2(R2) include:",
+                "After validation the method is transferred to the labs that will use it, often by comparative testing between the sending and receiving labs. In routine use, system suitability tests run with each analysis confirm the equipment and method work on that day. Trending of system suitability and control sample results shows when a method starts to drift. Any change to a validated method, such as a new column type or instrument, is assessed under change control and may need partial revalidation. This is the 'monitor' part of the lifecycle and where many lab problems are first seen."
+              ],
+              "list": [
+                "Specificity or selectivity: the method measures the target and is not fooled by other components.",
+                "Accuracy: results are close to the true value.",
+                "Precision: results agree when repeated, including repeatability and intermediate precision across days, analysts or equipment.",
+                "Range: the interval over which the method works with suitable accuracy, precision and response, including the lower range limit for impurity methods.",
+                "Robustness, studied during development: small deliberate changes in method parameters do not break the method."
+              ]
+            },
+            {
+              "h": "Specifications and stability",
+              "p": [
+                "A specification is a list of tests, references to methods and acceptance criteria. ICH Q6A gives the approach for new chemical drug substances and products. Criteria are justified using development data, batch data, stability data and the method's capability, and they become part of the regulatory filing.",
+                "Stability studies show how quality changes over time under defined storage conditions. ICH Q1A(R2) describes long-term, intermediate and accelerated conditions, and the data supports the shelf life and storage statement. 21 CFR 211.166 requires a written stability testing program. Stability results are trended so that a slow change is seen before it becomes a failure; a result that is unusual compared with earlier time points but still within specification is often called out of trend (OOT)."
+              ]
+            },
+            {
+              "h": "When a result fails: OOS investigations",
+              "p": [
+                "An out-of-specification (OOS) result is a test result outside the specification or acceptance criteria. FDA's guidance on investigating OOS results describes a phased approach. Phase I is a laboratory investigation: the analyst and supervisor check for an obvious, documented laboratory error, such as a wrong dilution or an instrument failure, before anything is discarded. If no assignable lab cause is found, Phase II extends to a full-scale investigation that includes production, under the firm's quality system.",
+                "Two practices are not acceptable: testing into compliance, where samples are retested until a passing result appears, and averaging a failing result with passing ones to hide it. Retesting, when allowed, follows a predefined procedure, and the original result stays in the record. 21 CFR 211.192 requires the investigation and its conclusions to be documented."
+              ]
+            },
+            {
+              "h": "Data integrity and where AI fits",
+              "p": [
+                "Laboratory remediation work often starts with data integrity findings: shared logins, disabled audit trails, unreviewed injections, or trial runs that were never reported. ALCOA+ principles and 21 CFR Part 11 controls apply to chromatography data systems and LIMS.",
+                "AI can help review chromatograms for unusual peak shapes, compare integration events with the audit trail, and flag results that look out of trend. It must not change integration, invalidate a result, or approve data. The analyst who ran the test and the reviewer who checked it sign the result, and only qualified quality staff can conclude an OOS investigation."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "First decision after an OOS result",
+            "caption": "The original result stays in the record whichever branch is taken.",
+            "start": "Result outside specification",
+            "question": "Clear, documented lab error?",
+            "branches": [
+              {
+                "answer": "Yes, assignable lab cause",
+                "result": "Invalidate per SOP and document it"
+              },
+              {
+                "answer": "No assignable lab cause",
+                "result": "Phase II investigation with production"
+              },
+              {
+                "answer": "Unclear or incomplete data",
+                "result": "Keep result; escalate to quality"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a failing dissolution result",
+            "p": [
+              "This is an illustrative example. A stability sample at 12 months gives a dissolution result below the acceptance criterion. The analyst informs the supervisor straight away, and the solutions and equipment are kept as they are.",
+              "The Phase I check reviews the method steps, the medium preparation record, the apparatus check and the audit trail. Everything is in order and no laboratory error is found. The result is not invalidated.",
+              "The investigation moves to Phase II. Earlier stability time points show dissolution falling slowly, which nobody had flagged as out of trend. The team reviews whether other batches show the same pattern, and quality decides on the impact on the shelf life and on any marketed batches. The lesson learned is that trending earlier time points could have shown the problem months before."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Trend a stability study and spot the OOT",
+              "time": "35 min",
+              "goal": "Practise seeing a stability trend before it becomes an OOS result.",
+              "steps": [
+                "In a spreadsheet, enter synthetic assay results for three batches at 0, 3, 6, 9, 12 and 18 months, with a specification of 95.0 to 105.0 percent.",
+                "Make two batches stable around 100 percent and one batch falling by about 0.6 percent per time point.",
+                "Chart all three batches and add a linear trend line for each.",
+                "Estimate the month where the falling batch would cross 95.0 percent.",
+                "Write three lines: which result you would call out of trend, who you would tell, and what you would not do with the data."
+              ],
+              "done_when": "Your chart shows the falling batch, you have an estimated crossing month, and your note says the original data stays unchanged."
+            }
+          ],
+          "pitfalls": [
+            "Retesting a sample until it passes, which is testing into compliance and hides the real result.",
+            "Invalidating an OOS result without a clear, documented laboratory error.",
+            "Looking only at pass or fail on stability and missing a slow trend that will fail before expiry.",
+            "Treating a method as validated forever, even after changes in equipment, site or the product it tests.",
+            "Assuming an introductory course qualifies someone to design a validation study or lead an OOS investigation."
+          ],
+          "check": [
+            "What is the difference between what ICH Q14 and ICH Q2(R2) cover?",
+            "Name four validation characteristics and say what each one shows.",
+            "What is the difference between an OOS and an OOT result?",
+            "What happens in Phase I and Phase II of an OOS investigation?",
+            "Name one way AI can support lab review and one action it must never take."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Q2(R2) Validation of Analytical Procedures",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q2r2-validation-analytical-procedures",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q14 Analytical Procedure Development",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q14-analytical-procedure-development",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Investigating Out-of-Specification (OOS) Test Results for Pharmaceutical Production",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/investigating-out-specification-oos-test-results-pharmaceutical-production-level-2-revision",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q1A(R2) Stability Testing of New Drug Substances and Products",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q1ar2-stability-testing-new-drug-substances-and-products",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ICH Q6A specifications: test procedures and acceptance criteria for new drug substances and new drug products: chemical substances",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/ich-q6a-specifications-test-procedures-acceptance-criteria-new-drug-substances-new-drug-products-chemical-substances",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "ICH Q2(R2) Explained: What Analytical Method Validation Really Requires",
+              "source": "Let's Combinate: Pharma + Medical Devices",
+              "url": "https://www.youtube.com/watch?v=Ql062LKE8os",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "FDA Guidance: Investigating Pharmaceutical Out-of-Specification Test Results",
+              "source": "The Regulatory Mix",
+              "url": "https://www.youtube.com/watch?v=M1_Kvns_ZlA",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "analytical-and-lab-lifecycle-q01",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "Which ICH guideline mainly covers how an analytical procedure is developed?",
+          "options": [
+            "ICH Q1A(R2) on stability testing",
+            "ICH Q14",
+            "ICH Q3D on elemental impurities",
+            "ICH E6 on good clinical practice"
+          ],
+          "answer": 1,
+          "why": "ICH Q14 covers analytical procedure development; Q2(R2) covers validation."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q02",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "An impurity method gives the same peak whether or not a degradation product is present. Which characteristic is weak?",
+          "options": [
+            "Specificity",
+            "Range across the working interval",
+            "Intermediate precision between analysts",
+            "Robustness to small changes in flow rate"
+          ],
+          "answer": 0,
+          "why": "Specificity means the method is not fooled by other components."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q03",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "Two analysts on different days get noticeably different results on the same sample. Which characteristic is in question?",
+          "options": [
+            "Specificity against known degradation products",
+            "Accuracy against a certified reference value",
+            "The approved shelf life of the product",
+            "Intermediate precision"
+          ],
+          "answer": 3,
+          "why": "Intermediate precision covers agreement across days, analysts or equipment."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q04",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "A 9-month stability result is within specification but clearly lower than the earlier trend. What is it usually called?",
+          "options": [
+            "An OOS result that must be rejected",
+            "A validation failure of the method",
+            "An out-of-trend (OOT) result",
+            "A transcription error to be corrected"
+          ],
+          "answer": 2,
+          "why": "OOT means unusual against the trend while still within specification."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q05",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "An assay result fails. The analyst wants to retest three times and report the average if it passes. What is wrong?",
+          "options": [
+            "Nothing, because averaging more results always improves the accuracy of the final value",
+            "It risks testing into compliance and hiding the result",
+            "Only that five retests would be more convincing",
+            "Only that the supervisor must do the retests"
+          ],
+          "answer": 1,
+          "why": "Retesting until passing or averaging away a failure hides the real result; the original stays in the record."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q06",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "In FDA's OOS guidance, what is Phase I?",
+          "options": [
+            "A laboratory investigation for assignable lab error",
+            "A recall decision made by the regulator",
+            "A full investigation of all production and batch records",
+            "A new method validation from the beginning"
+          ],
+          "answer": 0,
+          "why": "Phase I looks for obvious, documented laboratory error before going further."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q07",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "Phase I finds no lab error for an OOS result. What comes next?",
+          "options": [
+            "Invalidate the result because no error was found",
+            "Retest until the result passes specification",
+            "Release the batch with a note added to the file for the next annual review",
+            "A Phase II full-scale investigation including production"
+          ],
+          "answer": 3,
+          "why": "Without an assignable lab cause, the investigation extends to production under the quality system."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q08",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "Which US regulation requires a written stability testing program for drug products?",
+          "options": [
+            "21 CFR Part 11 on electronic signatures",
+            "21 CFR 312 on investigational new drugs",
+            "21 CFR 211.166",
+            "21 CFR 820 for device quality systems"
+          ],
+          "answer": 2,
+          "why": "21 CFR 211.166 requires a written stability testing program."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q09",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "An AI tool flags a chromatogram with an unusual manual integration. What is its proper role?",
+          "options": [
+            "Re-integrate the peak itself and update the reported result in the LIMS",
+            "Invalidate the injection and hide it from review",
+            "Approve the result if the change is small",
+            "Flag it for the reviewer to check against the audit trail"
+          ],
+          "answer": 3,
+          "why": "AI can flag; the analyst and reviewer verify and sign results."
+        },
+        {
+          "id": "analytical-and-lab-lifecycle-q10",
+          "lesson": "pharma-techops-digital-analytical-lifecycle",
+          "q": "A colleague finished this introductory lesson. Can they lead an OOS investigation alone?",
+          "options": [
+            "Yes, the lesson covers everything needed",
+            "No, it needs specialist training and supervised experience",
+            "Yes, as long as an AI tool checks all of their work afterwards",
+            "Yes, but only for stability samples"
+          ],
+          "answer": 1,
+          "why": "This lesson is introductory; OOS investigation practice is a specialist skill."
+        }
+      ]
+    },
+    {
+      "id": "digital-quality-and-manufacturing",
+      "title": "Digital quality and manufacturing",
+      "summary": "How GxP digital platforms such as eQMS, MES with electronic batch records and LIMS fit together, and how they are configured, integrated, migrated, validated and governed, including AI features.",
+      "outline": [
+        "The GxP system landscape: eQMS and document management, MES and EBR, LIMS",
+        "Automation and data integration between systems",
+        "Data migration with integrity checks",
+        "Validation under GAMP 5, EU GMP Annex 11 and 21 CFR Part 11",
+        "AI risk assessment and governance: intended use, human approval points, monitoring"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-techops-digital-digital-quality",
+          "title": "GxP digital platforms: what they do and how they stay trustworthy",
+          "summary": "You will be able to describe the main GxP platforms on a pharma site, explain how they exchange data, and say what validation, Part 11, Annex 11 and data migration checks mean in practice.",
+          "why": "Most FDE work on a pharma site touches one of these systems: reading from LIMS, writing to an eQMS, pulling MES events into a dashboard, or adding an AI feature. Each system holds GxP records, so a careless integration or migration can corrupt the evidence a batch release depends on. Knowing the landscape and the rules lets you design work that a quality unit can approve.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A pharma site runs on a handful of regulated systems. Each owns one kind of record, and together they hold the evidence that a batch was made and tested correctly. Systems that create or hold GxP records must be fit for intended use, controlled and validated, and electronic records and signatures must meet 21 CFR Part 11 in the US and EU GMP Annex 11 in Europe.",
+                "Configuration, integration, data migration and AI features all change what a system does. So each of them goes through the same discipline: define the intended use, assess the risk, test what matters, approve, and keep it under change control."
+              ]
+            },
+            {
+              "h": "The system landscape",
+              "list": [
+                "eQMS and document management (products such as MasterControl or TrackWise are common examples): SOPs, training records, deviations, CAPA, change control, complaints and audits.",
+                "MES (manufacturing execution system) with electronic batch records (EBR): guides operators step by step, records weights, parameters and signatures, and enforces sequence and limits.",
+                "LIMS (laboratory information management system): samples, tests, specifications, results and certificates. A chromatography data system usually holds the raw instrument data behind LIMS results.",
+                "Automation layer: PLC and SCADA systems that run equipment, and a historian that stores time-series process data.",
+                "ERP (such as SAP): materials, inventory, batch status and orders, covered in the next section of this course."
+              ],
+              "p": [
+                "Integration links these systems. A typical flow: ERP releases a process order, MES runs the batch and sends consumption and yield back, LIMS receives samples and returns results, the eQMS holds any deviation, and quality disposition updates batch status in ERP. Each interface is a place where data can be lost, duplicated or changed, so interfaces are specified and tested like any other GxP function.",
+                "Automation data needs extra care. Equipment clocks drift, historians compress data, and tags get renamed when equipment is replaced. Before you join process data to batch records, confirm which clock is the reference, how compression affects the values you need, and which tag names were valid for which dates. Write these assumptions down, because a reviewer will ask."
+              ]
+            },
+            {
+              "h": "Validation in plain words",
+              "p": [
+                "ISPE's GAMP 5 guide, now in its second edition, is the most widely used industry framework for computerised system validation. It is risk-based: effort is scaled to the system's impact on patient safety, product quality and data integrity, and to how much the software is configured or custom built. Supplier documentation and testing can be used where it is good enough, instead of repeating everything.",
+                "21 CFR Part 11 sets controls for electronic records and signatures, such as validation, secure computer-generated audit trails, access limited to authorised people, and signatures linked to their records. EU GMP Annex 11 covers similar ground for computerised systems, including risk management, supplier assessment, data checks for interfaces, audit trails, change management and periodic review. FDA has also issued guidance on computer software assurance, written for medical device production and quality system software, whose risk-based testing ideas are widely discussed in pharma too.",
+                "Validation is not a one-time event. Annex 11 expects periodic review to confirm a system is still in a validated state, and every later change, patch or new configuration is assessed under change control. For an FDE this means a quick fix in production is never quick: it needs an impact assessment, testing in a controlled environment and approval before release."
+              ]
+            },
+            {
+              "h": "Data migration with integrity checks",
+              "p": [
+                "Moving records from an old system to a new one is one of the riskiest digital activities, because the evidence for past batches must survive intact. A controlled migration has a plan with scope, mapping and acceptance criteria, a trial migration on a copy, verification, and a report approved by quality."
+              ],
+              "list": [
+                "Map every field from source to target, including units, code lists and date formats.",
+                "Reconcile counts: records in, records out, records rejected with reasons.",
+                "Verify content: check a risk-based sample field by field, and all records for critical fields such as results and signatures.",
+                "Keep meaning: audit trail history and signature context must remain readable, or the source must be archived in a way that keeps them.",
+                "Document every exception and how it was resolved."
+              ]
+            },
+            {
+              "h": "AI features: governance before go-live",
+              "p": [
+                "Adding AI to a GxP process starts with a clear intended use: what the AI does, for which records, and which decision it supports. Then assess the risk if the output is wrong, define the human approval point, decide how performance is measured before release and monitored afterwards, and put the model and its prompts or configuration under change control. The NIST AI Risk Management Framework gives a general structure for this thinking. The quality unit approves the use; the tool never approves GxP records on its own."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "One batch across the GxP systems",
+            "caption": "Read top to bottom; every hand-off between lanes is an interface to specify and test.",
+            "lanes": [
+              "ERP",
+              "MES / EBR",
+              "LIMS",
+              "eQMS"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Process order released"
+              },
+              {
+                "lane": 1,
+                "label": "Operators execute EBR steps"
+              },
+              {
+                "lane": 1,
+                "label": "Sample request sent"
+              },
+              {
+                "lane": 2,
+                "label": "Tests run, results reviewed"
+              },
+              {
+                "lane": 3,
+                "label": "Deviation recorded if any"
+              },
+              {
+                "lane": 1,
+                "label": "Batch record reviewed"
+              },
+              {
+                "lane": 3,
+                "label": "QA disposition decided"
+              },
+              {
+                "lane": 0,
+                "label": "Batch status set to released"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: reconciling a LIMS migration",
+            "p": [
+              "This is an illustrative example with made-up numbers. A site moves 48,000 historical results from an old LIMS to a new one. The plan sets acceptance criteria: counts must reconcile, every result value and unit must match for released batches, and every rejected record must have a documented reason.",
+              "The trial run loads 47,950 results. The 50 missing records all use an old unit code that was not in the mapping table. The team adds the mapping, reruns the trial and reconciles to zero differences. A field-by-field check of critical fields finds three results where trailing zeros were dropped, changing 0.50 to 0.5. The team confirms the stored precision with the business owner and fixes the mapping. Quality approves the migration report only after all exceptions are closed."
+            ],
+            "code": {
+              "lang": "python",
+              "text": "source = {\"R1\": (\"0.50\", \"mg\"), \"R2\": (\"98.7\", \"%\"), \"R3\": (\"12\", \"ppm\")}\ntarget = {\"R1\": (\"0.5\", \"mg\"), \"R2\": (\"98.7\", \"%\")}\nprint(\"missing in target:\", sorted(set(source) - set(target)))\nfor rid in sorted(set(source) & set(target)):\n    if source[rid] != target[rid]:\n        print(\"mismatch\", rid, source[rid], \"->\", target[rid])"
+            }
+          },
+          "practice": [
+            {
+              "title": "Write a migration reconciliation check",
+              "time": "45 min",
+              "goal": "Practise the checks that prove a migration kept the data intact.",
+              "steps": [
+                "Create two CSV files with the same 20 synthetic lab results: id, batch, test, value, unit, analyst, reviewed_by.",
+                "In the second file, delete two rows, change one unit and drop a trailing zero in one value.",
+                "Write a short Python script that reports missing ids, extra ids and every field that differs, comparing values as text.",
+                "Run it and confirm it finds all four planted problems.",
+                "Write a one-paragraph migration summary saying what failed and who must approve the final report."
+              ],
+              "done_when": "Your script reports all four planted problems, and your summary names the quality approver."
+            }
+          ],
+          "pitfalls": [
+            "Treating an interface as plumbing and not testing it, so a dropped or duplicated record goes unnoticed.",
+            "Comparing migrated numbers as floating point values, which hides lost precision such as 0.50 becoming 0.5.",
+            "Migrating results but not their audit trail and signature context, which breaks the evidence chain.",
+            "Validating everything to the same depth instead of scaling effort to risk, which wastes time on low-risk functions.",
+            "Adding an AI feature to a GxP workflow without a written intended use, a human approval point and change control."
+          ],
+          "check": [
+            "Which records does each of eQMS, MES with EBR and LIMS usually hold?",
+            "What does it mean that GAMP 5 is risk-based?",
+            "Name three controls that 21 CFR Part 11 expects for electronic records.",
+            "What checks prove a data migration kept the data intact?",
+            "What must be defined before an AI feature is used in a GxP process?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11: Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 11: Computerised Systems (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "GAMP 5 Guide 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "docs",
+              "title": "Computer Software Assurance for Production and Quality Management System Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "AI Risk Management Framework",
+              "source": "NIST",
+              "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "GMP Conversations Podcast Ep 16: GAMP 5 Risk-Based Approach to Computerised Systems Validation",
+              "source": "Help Me GxP",
+              "url": "https://www.youtube.com/watch?v=q0crpk4TgYw",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "digital-quality-and-manufacturing-q01",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Where would you expect to find CAPA records and SOP training records on a typical site?",
+          "options": [
+            "In the eQMS",
+            "In the MES electronic batch record",
+            "In the process historian database",
+            "In the chromatography data system"
+          ],
+          "answer": 0,
+          "why": "The eQMS holds quality records such as SOPs, training, deviations and CAPA."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q02",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Which system guides operators step by step and records weights and signatures during a batch?",
+          "options": [
+            "LIMS, which manages lab samples and results",
+            "ERP, which handles orders and inventory",
+            "MES with electronic batch records",
+            "The eQMS document management module"
+          ],
+          "answer": 2,
+          "why": "MES with EBR enforces steps and records execution data."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q03",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Results flow from LIMS to ERP through a new interface. Why must the interface be tested?",
+          "options": [
+            "Interfaces are excluded from GxP scope by default in every company",
+            "Testing is only needed for the user screens",
+            "Data can be lost, duplicated or changed in transit",
+            "Only the vendor is allowed to test interfaces"
+          ],
+          "answer": 2,
+          "why": "Interfaces carry GxP data and are specified and tested like other GxP functions."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q04",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "What does it mean that GAMP 5 is risk-based?",
+          "options": [
+            "Every single function is tested to exactly the same depth and detail",
+            "Effort is scaled to impact on patient, product and data",
+            "Only custom code needs any validation at all",
+            "Supplier documents can never be used as evidence"
+          ],
+          "answer": 1,
+          "why": "GAMP 5 scales validation effort to risk and system type, and allows use of good supplier evidence."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q05",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Which of these is a Part 11 expectation for electronic records?",
+          "options": [
+            "Shared logins so that shifts can hand over quickly",
+            "Audit trails that users can switch off when busy",
+            "Paper printouts replacing all electronic records",
+            "Secure, computer-generated audit trails"
+          ],
+          "answer": 3,
+          "why": "Part 11 expects secure, computer-generated, time-stamped audit trails among other controls."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q06",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "A migration loads 47,950 of 48,000 results. What is the right next step?",
+          "options": [
+            "Accept it, because 99.9 percent is close enough",
+            "Find the cause of the 50 and reconcile to zero",
+            "Delete the 50 records from the source system",
+            "Ask users to type the missing 50 records manually"
+          ],
+          "answer": 1,
+          "why": "Counts must reconcile, and every rejected record needs a documented reason or a fix."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q07",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "A check compares migrated values as numbers and finds no differences, but 0.50 became 0.5. What went wrong?",
+          "options": [
+            "The check should compare values as text to catch lost precision",
+            "Nothing is wrong, because 0.50 and 0.5 are always the same value in any record",
+            "The source system was wrong to store a trailing zero",
+            "The check should only compare the record counts"
+          ],
+          "answer": 0,
+          "why": "Comparing as numbers hides lost precision; text comparison shows it."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q08",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Results were migrated but their audit trail history was not. Why is that a problem?",
+          "options": [
+            "It makes the new database slightly larger",
+            "Audit trails are only needed for paper records",
+            "The evidence of who did what and when is lost",
+            "It has no effect once the data is migrated"
+          ],
+          "answer": 2,
+          "why": "Audit trail and signature context are part of the record's integrity."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q09",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "A team wants AI to draft deviation summaries in the eQMS. What comes first?",
+          "options": [
+            "Turn it on for all users straight away and measure the effect later",
+            "Let the AI also approve the deviation to save time",
+            "Ask the vendor whether the model is accurate",
+            "Define intended use, risk and the human approval point"
+          ],
+          "answer": 3,
+          "why": "AI governance starts with intended use, risk, the approval point and monitoring under change control."
+        },
+        {
+          "id": "digital-quality-and-manufacturing-q10",
+          "lesson": "pharma-techops-digital-digital-quality",
+          "q": "Who approves a GxP data migration report?",
+          "options": [
+            "Quality, after all exceptions are closed",
+            "The migration script, once it reports zero errors",
+            "The developer who wrote the mapping table",
+            "The new system vendor's support desk"
+          ],
+          "answer": 0,
+          "why": "Quality approves the migration report once exceptions are resolved."
+        }
+      ]
+    },
+    {
+      "id": "sap-and-erp",
+      "title": "SAP and ERP implementation",
+      "summary": "How an ERP system is implemented in a regulated pharma company, from requirements to a controlled go-live, and which ERP functions are GxP relevant. Foundation level; SAP configuration is a vendor-specific specialist skill.",
+      "outline": [
+        "What ERP does in pharma and which functions are GxP relevant",
+        "Requirements, fit-to-standard and gap analysis",
+        "Business process and solution design; configuration versus customisation",
+        "Integration with MES, LIMS and QMS",
+        "Data migration and master data",
+        "Testing, validation of GxP-relevant functions, training and deployment",
+        "Where AI can help: mapping data and drafting test cases; who approves go-live"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-techops-digital-sap-erp",
+          "title": "ERP in a regulated company: from requirements to controlled go-live",
+          "summary": "You will be able to explain what ERP does on a pharma site, why some of its functions are GxP relevant, and the main phases and evidence of a controlled implementation.",
+          "why": "ERP is the backbone that tells a site what to make, which materials are usable and which batches can ship. FDEs often work beside ERP teams: mapping data, building interfaces or adding reports. If you do not know which ERP functions carry GxP weight, such as batch status or material release, you can break a control that protects patients while fixing what looked like a simple business problem.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Enterprise resource planning (ERP) software, with SAP as the most common example in large pharma companies, runs planning, purchasing, inventory, production orders, sales and finance in one system. In a regulated company, part of that system also carries quality decisions: whether a material lot is released for use, which batch is on hold, and which expiry date applies.",
+                "Those parts are GxP relevant and must be validated and controlled like any other GxP system, while purely financial functions usually are not. Deciding which is which, function by function, is one of the first jobs of an ERP project in pharma.",
+                "This lesson gives the foundation. Configuring SAP modules is a vendor-specific specialist skill learned through vendor training and practice in an approved sandbox system, not from an introduction like this."
+              ]
+            },
+            {
+              "h": "Which ERP functions are GxP relevant",
+              "p": [
+                "A simple test is to ask: if this function gave a wrong answer, could a patient get a product of the wrong quality, or could a GxP record be lost or wrong? If yes, it is GxP relevant. Common examples are below; your company's own assessment decides the final list."
+              ],
+              "list": [
+                "Batch management and batch status: unrestricted, quality inspection, blocked or restricted.",
+                "Material release and usage decisions linked to quality inspection results.",
+                "Shelf life, expiry and retest dates, and first-expired-first-out picking.",
+                "Approved supplier lists and vendor status for GMP materials.",
+                "Bills of materials and recipes, where they are the source for production instructions.",
+                "Traceability: which material lots went into which finished batch, and where each batch was shipped, which supports recalls."
+              ]
+            },
+            {
+              "h": "The implementation journey",
+              "p": [
+                "Vendors publish their own methods. SAP's is called SAP Activate, with phases named Discover, Prepare, Explore, Realize, Deploy and Run. Whatever the method, a regulated project adds validation deliverables that run alongside the vendor phases.",
+                "Integration deserves its own attention. ERP rarely works alone on a pharma site: it sends process orders to MES, receives quality inspection results or usage decisions from LIMS, and may create or close records linked to the eQMS. Each interface needs an agreed owner of each data item, so that two systems never both think they are the master of batch status. Interface tests should cover failures too, such as a message that arrives twice or not at all, and show what the receiving system does in each case."
+              ],
+              "list": [
+                "Requirements and gap analysis: write user requirements, compare them with the standard software (often called fit-to-standard), and record each gap with a decision.",
+                "Business process and solution design: agree to-be processes, roles and the GxP assessment for each function.",
+                "Configuration: set up the standard software through its settings. Prefer configuration over custom code, because custom code needs more design, testing and long-term maintenance.",
+                "Customisation and integration: build only what is justified, and specify interfaces to MES, LIMS, eQMS and warehouse systems.",
+                "Data migration: cleanse and load master data such as materials, suppliers and recipes, and open balances such as stock with batch status.",
+                "Testing and validation: unit, integration and user acceptance testing, with documented evidence for GxP functions and traceability back to requirements.",
+                "Training, cutover and go-live: train users before access is granted, run a rehearsed cutover plan, and hold a go-live decision meeting.",
+                "Hypercare and support: close watch after go-live, then normal support with change control."
+              ]
+            },
+            {
+              "h": "Master data is quality data",
+              "p": [
+                "Many ERP problems in pharma trace back to master data, not code. A wrong shelf life on a material record gives every new lot the wrong expiry date. A missing quality inspection setting can let a lot become usable without testing. For this reason, GxP-relevant master data fields usually have owners, approval workflows and periodic review, just like documents.",
+                "Data migration for ERP is checked the same way as any GxP migration: field mapping, reconciliation of counts and quantities, field-level checks of critical values such as batch status and expiry, and a report approved by quality.",
+                "Cutover is the short period when the old system stops and the new one starts. Stock, open orders and batch statuses are frozen, migrated and checked, often over a weekend. A cutover plan lists every step, owner and check in order, and is rehearsed at least once before the real event, so surprises are found while there is still time to fix them."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI tools can help map legacy fields to new ones, spot duplicate materials or suppliers, draft test cases from requirements and summarise test evidence. They must not set GxP master data values, decide whether a function is GxP relevant, or sign off test results. The go-live decision is made by named people, normally including the business process owners, the system owner and quality, based on evidence that open defects and deviations are assessed and acceptable."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "A regulated ERP implementation",
+            "caption": "Vendor phases on top, with validation evidence produced at every step.",
+            "steps": [
+              {
+                "label": "Requirements and gaps",
+                "note": "User needs and fit-to-standard decisions"
+              },
+              {
+                "label": "Design and GxP assessment",
+                "note": "Processes, roles, GxP relevance per function"
+              },
+              {
+                "label": "Configure and build",
+                "note": "Prefer settings over custom code"
+              },
+              {
+                "label": "Integrate and migrate",
+                "note": "Interfaces and master data, reconciled"
+              },
+              {
+                "label": "Test and validate",
+                "note": "Traceable evidence for GxP functions"
+              },
+              {
+                "label": "Train, cut over, go live",
+                "note": "Named people approve go-live"
+              },
+              {
+                "label": "Hypercare and support",
+                "note": "Change control from day one"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: the shelf life field",
+            "p": [
+              "This is an illustrative example. During data migration, a team maps the legacy field 'shelf life' to the new material master. In the old system the value was stored in months; the new field expects days. A mapping that copies the number as it is turns 24 months into 24 days.",
+              "Counts reconcile perfectly, so a count-only check would pass. A field-level check of a risk-based sample compares expiry dates calculated in both systems and finds the difference straight away. The team fixes the mapping, re-runs the trial load and adds a rule to the migration checks: every material's calculated expiry in the new system must match the old one.",
+              "The case shows why GxP-relevant fields get field-level checks, and why the person approving the migration needs to see those checks, not only record counts."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Classify ERP functions and draft test cases",
+              "time": "40 min",
+              "goal": "Practise deciding which ERP functions are GxP relevant and what evidence they need.",
+              "steps": [
+                "List 12 ERP functions in a spreadsheet, for example batch status change, invoice posting, expiry calculation, supplier approval, cost centre report and stock transfer.",
+                "For each one, answer the test question: could a wrong result affect product quality, patient safety or a GxP record?",
+                "Mark each function GxP relevant or not, with a one-line reason.",
+                "For three GxP-relevant functions, write one test case each with steps, expected result and the requirement it proves.",
+                "Ask a free AI chat to challenge your classification, then record which of its points you accept and why."
+              ],
+              "done_when": "You have 12 classified functions with reasons and three test cases traced to requirements."
+            }
+          ],
+          "pitfalls": [
+            "Treating the whole ERP as non-GxP because it is a business system, and leaving batch status and expiry uncontrolled.",
+            "Choosing custom code for every gap instead of adapting the process, which raises validation and upgrade cost for years.",
+            "Checking only record counts after migration and missing unit or format errors in critical fields.",
+            "Granting system access before users are trained on the GxP-relevant transactions they will perform.",
+            "Thinking an introduction to ERP qualifies someone to configure SAP modules in a validated system."
+          ],
+          "check": [
+            "Give three examples of GxP-relevant ERP functions and one that usually is not.",
+            "Why is configuration usually preferred over customisation in a regulated ERP project?",
+            "Why is master data treated as quality data?",
+            "What checks would catch a unit error in migrated shelf life values?",
+            "Who should approve go-live, and what should they see first?"
+          ],
+          "links": [
+            {
+              "type": "course",
+              "title": "Learn SAP skills",
+              "source": "SAP Learning",
+              "url": "https://learning.sap.com",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "SAP S/4HANA documentation",
+              "source": "SAP Help Portal",
+              "url": "https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "GAMP 5 Guide 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 11: Computerised Systems (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "SAP Activate Methodology Explained | Discover, Prepare, Explore, Realize, Deploy, Run (S/4HANA)",
+              "source": "Rana W Mehmood",
+              "url": "https://www.youtube.com/watch?v=D5arFz_AYzc",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "sap-and-erp-q01",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "Which ERP function is most clearly GxP relevant?",
+          "options": [
+            "Posting supplier invoices for payment",
+            "Changing a batch status from blocked to unrestricted",
+            "Producing a cost centre report for finance",
+            "Updating the sales forecast for next quarter"
+          ],
+          "answer": 1,
+          "why": "Batch status controls whether a batch can be used or shipped, so a wrong result can affect patients."
+        },
+        {
+          "id": "sap-and-erp-q02",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "A simple test for GxP relevance of an ERP function is to ask what?",
+          "options": [
+            "Could a wrong result affect product quality or a GxP record?",
+            "Is the function used by more than ten people every day?",
+            "Was the function delivered as part of the standard software?",
+            "Does the function appear on the main menu screen?"
+          ],
+          "answer": 0,
+          "why": "GxP relevance depends on impact on product quality, patient safety and GxP records."
+        },
+        {
+          "id": "sap-and-erp-q03",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "A gap could be closed by changing a business process or by writing custom code. Why is the process change often preferred?",
+          "options": [
+            "Custom code is not allowed in any regulated company",
+            "Process changes never need any approval at all",
+            "Custom code adds design, testing and upgrade cost",
+            "Vendors refuse to support systems with custom code"
+          ],
+          "answer": 2,
+          "why": "Configuration and standard processes reduce validation and long-term maintenance effort."
+        },
+        {
+          "id": "sap-and-erp-q04",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "SAP Activate names six phases. Which list is right?",
+          "options": [
+            "Plan, Build, Test, Release, Operate, Retire",
+            "Define, Measure, Analyse, Improve, Control, Close",
+            "Design, Install, Operate, Perform, Verify, Report",
+            "Discover, Prepare, Explore, Realize, Deploy, Run"
+          ],
+          "answer": 3,
+          "why": "SAP Activate phases are Discover, Prepare, Explore, Realize, Deploy and Run."
+        },
+        {
+          "id": "sap-and-erp-q05",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "A wrong shelf life on one material master record would cause what?",
+          "options": [
+            "Only a cosmetic issue on one printed label",
+            "Wrong expiry dates on every new lot of that material",
+            "An error that the system always corrects by itself",
+            "No effect, because expiry is set on each lot by hand"
+          ],
+          "answer": 1,
+          "why": "Master data drives every transaction that uses it, which is why it is treated as quality data."
+        },
+        {
+          "id": "sap-and-erp-q06",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "After migration, record counts match exactly. Is that enough for shelf life values?",
+          "options": [
+            "Yes, matching counts prove the content is correct",
+            "Yes, if the migration tool reported no errors at all",
+            "No, critical fields need field-level checks too",
+            "No, the migration must be repeated three times"
+          ],
+          "answer": 2,
+          "why": "Counts can match while values are wrong, for example months loaded as days."
+        },
+        {
+          "id": "sap-and-erp-q07",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "When should users get access to GxP-relevant ERP transactions?",
+          "options": [
+            "After training on those transactions",
+            "On the first day of the project kick-off",
+            "Whenever their manager sends an email request",
+            "Only after the first audit of the new system"
+          ],
+          "answer": 0,
+          "why": "Users are trained before access is granted to GxP-relevant functions."
+        },
+        {
+          "id": "sap-and-erp-q08",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "An AI tool proposes a mapping of 4,000 legacy fields. What is the right use?",
+          "options": [
+            "Load it straight into production to save time",
+            "Let the AI also set GxP master data values",
+            "Skip testing because the AI mapping is consistent",
+            "Use it as a draft that people review and test"
+          ],
+          "answer": 3,
+          "why": "AI can draft mappings; people review, test and approve GxP-relevant data."
+        },
+        {
+          "id": "sap-and-erp-q09",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "Who normally approves ERP go-live in a regulated company?",
+          "options": [
+            "The system integrator's project manager alone",
+            "The AI tool that summarised the test evidence",
+            "Process owners, system owner and quality",
+            "The first user who logs in on go-live day"
+          ],
+          "answer": 2,
+          "why": "Go-live is a recorded decision by named accountable people including quality."
+        },
+        {
+          "id": "sap-and-erp-q10",
+          "lesson": "pharma-techops-digital-sap-erp",
+          "q": "A colleague finished this lesson. Are they ready to configure SAP batch management in a validated system?",
+          "options": [
+            "Yes, the lesson covers all configuration steps",
+            "No, that needs vendor training and sandbox practice",
+            "Yes, if they follow a video carefully",
+            "Yes, but only on the weekend cutover"
+          ],
+          "answer": 1,
+          "why": "SAP configuration is a vendor-specific specialist skill beyond this foundation lesson."
+        }
+      ]
+    }
+  ]
+}

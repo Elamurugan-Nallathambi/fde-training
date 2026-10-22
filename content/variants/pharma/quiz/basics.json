@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "pharma-basics-q01",
+      "lesson": "regulated",
+      "q": "An operator notices a mixing step ran five minutes longer than the batch record says. What is this called?",
+      "options": [
+        "A CAPA",
+        "A deviation",
+        "A change control",
+        "An OOS result"
+      ],
+      "answer": 1,
+      "why": "A deviation is any departure from an approved procedure or instruction, recorded and investigated."
+    },
+    {
+      "id": "pharma-basics-q02",
+      "lesson": "regulated",
+      "q": "A lab result falls outside the approved specification limits. What is it called?",
+      "options": [
+        "A warning letter from the regulator",
+        "A Form 483 observation",
+        "Out of specification (OOS)",
+        "A change request in the eQMS"
+      ],
+      "answer": 2,
+      "why": "OOS means a test result outside approved limits, which must be investigated."
+    },
+    {
+      "id": "pharma-basics-q03",
+      "lesson": "regulated",
+      "q": "Which US rule covers electronic records and electronic signatures?",
+      "options": [
+        "21 CFR Part 11",
+        "ICH Q7 for APIs",
+        "ICH E6 for clinical trials",
+        "GAMP 5 from ISPE"
+      ],
+      "answer": 0,
+      "why": "21 CFR Part 11 sets the rules for electronic records and signatures in FDA-regulated work."
+    },
+    {
+      "id": "pharma-basics-q04",
+      "lesson": "regulated",
+      "q": "At the end of an inspection, an FDA investigator hands over a list of observations. What is that document?",
+      "options": [
+        "A quality agreement",
+        "A warning letter",
+        "A validation report",
+        "A Form 483"
+      ],
+      "answer": 3,
+      "why": "A Form 483 lists observations at the end of an inspection. A warning letter is a later, formal and public notice."
+    },
+    {
+      "id": "pharma-basics-q05",
+      "lesson": "regulated",
+      "q": "Which phase of qualification checks that equipment works across its operating range?",
+      "options": [
+        "IQ",
+        "PQ",
+        "OQ",
+        "CPV"
+      ],
+      "answer": 2,
+      "why": "OQ is operational qualification. IQ checks installation and PQ checks performance in real use."
+    },
+    {
+      "id": "pharma-basics-q06",
+      "lesson": "regulated",
+      "q": "A record shows a value but not who entered it. Which ALCOA+ principle is broken?",
+      "options": [
+        "Legible",
+        "Attributable",
+        "Enduring over time",
+        "Available on request"
+      ],
+      "answer": 1,
+      "why": "Attributable means every entry can be traced to the person or system that made it."
+    }
+  ]
+}

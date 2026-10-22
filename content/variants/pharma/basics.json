@@ -1,0 +1,120 @@
+{
+  "groups": [
+    {
+      "id": "regulated",
+      "title": "Regulated industries: pharma words you will hear on day one",
+      "intro": "Pharma runs on rules that say every step affecting a medicine must be written down, controlled, checked and approved. The words below come up in every meeting with quality, validation, manufacturing and clinical teams. Learn what each one means and why it matters for any AI or digital tool you build.",
+      "points": [
+        "The validated system is the record. Anything an AI writes must land there, attributed and auditable.",
+        "A qualified person signs GMP decisions. AI drafts and checks; people approve.",
+        "Prompts, models and integrations are configuration under change control, like any other part of a validated system."
+      ],
+      "diagrams": [
+        {
+          "type": "layers",
+          "title": "How the rules stack up in a pharma company",
+          "caption": "Read top to bottom: laws and guidance shape the quality system, which shapes procedures, which shape the records every tool touches.",
+          "layers": [
+            {"label": "Laws and regulations", "note": "21 CFR 210/211, Part 11, EU GMP"},
+            {"label": "Guidance and standards", "note": "ICH Q7, Q9, Q10, GAMP 5, Annex 11"},
+            {"label": "Pharmaceutical quality system", "note": "QMS: deviations, CAPA, change control, audits"},
+            {"label": "SOPs and work instructions", "note": "How each task is done at this site"},
+            {"label": "Records in validated systems", "note": "eQMS, LIMS, MES and EBR, ERP"}
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "GMP and CGMP",
+          "one": "Good manufacturing practice: the rules for making medicines so they are consistently safe and of the right quality. In the US they are called current GMP (CGMP), mainly 21 CFR Parts 210 and 211 for finished drugs.",
+          "why": "Any tool used in manufacturing, testing or quality release falls under GMP, so it must be controlled and validated."
+        },
+        {
+          "term": "GxP",
+          "one": "Short for the family of good practice rules: GMP for manufacturing, GCP for clinical trials, GLP for non-clinical lab studies, and others.",
+          "why": "When a client says a tool is 'GxP', they mean it affects regulated records and needs validation and an audit trail."
+        },
+        {
+          "term": "QMS and eQMS",
+          "one": "The quality management system is how a company controls quality: deviations, CAPA, change control, SOPs, training, audits and management review. An eQMS is the software that runs it, such as MasterControl, TrackWise or Veeva QMS.",
+          "why": "The eQMS is the system of record for most quality events, so many AI ideas in quality read from it or write drafts into it."
+        },
+        {
+          "term": "Deviation",
+          "one": "Any departure from an approved procedure, specification or instruction, recorded and investigated.",
+          "like": "A recipe step done at the wrong temperature: you note it, find out why, and decide whether the cake is still fit to sell.",
+          "why": "Deviation investigation is one of the most document-heavy tasks in pharma and a common first AI use case."
+        },
+        {
+          "term": "CAPA",
+          "one": "Corrective and preventive action: the fix for a problem's root cause, plus actions that stop it happening again, with a later check that the fix worked.",
+          "why": "Weak CAPAs lead to repeat deviations and inspection findings. AI can help draft them, but people must own them."
+        },
+        {
+          "term": "Change control",
+          "one": "The formal process to propose, assess, approve and record any change to a process, document, equipment or system.",
+          "why": "Every change to your AI tool, including a prompt edit or model upgrade, will go through change control."
+        },
+        {
+          "term": "SOP",
+          "one": "Standard operating procedure: an approved, version-controlled document that says how a task is done.",
+          "why": "If your tool changes how people work, an SOP has to change too, and people must be trained on it."
+        },
+        {
+          "term": "Batch record, MES and EBR",
+          "one": "The batch record is the full record of how one batch was made. An MES (manufacturing execution system) guides operators and captures entries; EBR is the electronic batch record inside it.",
+          "why": "QA reviews batch records before release, so review time directly affects how fast medicine ships."
+        },
+        {
+          "term": "LIMS and OOS",
+          "one": "LIMS (laboratory information management system) holds samples, tests and results. OOS (out of specification) is a test result outside the approved limits, which must be investigated.",
+          "why": "Lab data feeds most investigations; getting it to the investigator faster is often an integration win."
+        },
+        {
+          "term": "Qualification and validation (IQ, OQ, PQ)",
+          "one": "Documented proof that equipment, facilities, processes and systems are fit for use. IQ checks installation, OQ checks operation across its range, PQ checks performance in real use.",
+          "why": "Validation is the evidence that lets a tool be used for GMP work; plan it from day one."
+        },
+        {
+          "term": "CSV, CSA and GAMP 5",
+          "one": "Computer system validation (CSV) proves software is fit for its intended use. Computer software assurance (CSA) is FDA's risk-based approach for production and quality software. GAMP 5, from ISPE, is the industry guide to risk-based validation of computerized systems.",
+          "why": "These decide how much testing your AI tool needs and what evidence QA will ask for."
+        },
+        {
+          "term": "21 CFR Part 11 and EU Annex 11",
+          "one": "The US rule for electronic records and electronic signatures, and the EU GMP annex for computerised systems. Both expect validation, access control and audit trails.",
+          "why": "Any AI that creates or changes GMP records must fit these controls, including showing who did what and when."
+        },
+        {
+          "term": "ALCOA+ (data integrity)",
+          "one": "Records must be attributable, legible, contemporaneous, original and accurate, plus complete, consistent, enduring and available.",
+          "why": "Regulators check data integrity closely. An AI tool must keep records attributable and must not create uncontrolled copies."
+        },
+        {
+          "term": "FDA Form 483 and warning letter",
+          "one": "A 483 lists observations an FDA investigator makes at the end of an inspection. A warning letter is a formal, public notice of significant violations.",
+          "why": "Clients often start projects to answer a 483 or warning letter, and these documents show you what inspectors care about."
+        },
+        {
+          "term": "CDMO and quality agreement",
+          "one": "A contract development and manufacturing organization makes products for other companies. A quality agreement sets out who is responsible for which quality activity.",
+          "why": "The product owner keeps responsibility for quality, so sponsors spend a lot of effort reviewing CDMO documents, a good fit for AI pre-reading."
+        },
+        {
+          "term": "GCP and IMP",
+          "one": "Good clinical practice is the standard for running clinical trials, set out in ICH E6. IMP (investigational medicinal product) is the medicine used in a trial.",
+          "why": "Clinical quality teams review trial and IMP release documents from many partners, a large reading workload."
+        }
+      ],
+      "links": [
+        {"type": "docs", "title": "Current Good Manufacturing Practice (CGMP) Regulations", "source": "FDA", "url": "https://www.fda.gov/drugs/pharmaceutical-quality-resources/current-good-manufacturing-practice-cgmp-regulations", "cost": "free"},
+        {"type": "docs", "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11", "cost": "free"},
+        {"type": "docs", "title": "Quality Guidelines", "source": "ICH", "url": "https://www.ich.org/page/quality-guidelines", "cost": "free"},
+        {"type": "docs", "title": "Good manufacturing practice", "source": "European Medicines Agency", "url": "https://www.ema.europa.eu/en/human-regulatory-overview/research-development/compliance-research-development/good-manufacturing-practice", "cost": "free"},
+        {"type": "video", "title": "FDA Form 483 and Warning Letter - The Basics & the Differences", "source": "PHARMA PORTAL", "url": "https://www.youtube.com/watch?v=YBcgQJ1ZbLc", "cost": "free"},
+        {"type": "video", "title": "Qualification Phases: IQ, OQ, and PQ Explained Simply", "source": "Scilife", "url": "https://www.youtube.com/watch?v=lez7VsNd9S0", "cost": "free"},
+        {"type": "course", "title": "Clinical Trials: Good Clinical Practice", "source": "Coursera", "url": "https://www.coursera.org/specializations/clinical-trials-good-clinical-practice", "cost": "paid"}
+      ]
+    }
+  ]
+}

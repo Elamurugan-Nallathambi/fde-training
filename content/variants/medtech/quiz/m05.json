@@ -1,0 +1,82 @@
+{
+  "questions": [
+    {
+      "id": "medtech-m05-q01",
+      "lesson": "medtech-six-step-complaints",
+      "q": "A sponsor wants to start the complaint project by connecting an LLM to the QMS this week. Under the six-step method, what comes first?",
+      "options": [
+        "Interviewing the people who handle complaints",
+        "Choosing the model and running it on last month's complaints to show quick value",
+        "Writing the prompt",
+        "Removing the QMS"
+      ],
+      "answer": 0,
+      "why": "The method starts by interviewing every role; the LLM only comes at step six."
+    },
+    {
+      "id": "medtech-m05-q02",
+      "lesson": "medtech-six-step-complaints",
+      "q": "Mapping shows the same complaint typed into the service tool, the CRM and the QMS, and nobody reads the CRM copy. What should happen?",
+      "options": [
+        "Keep all three copies, since more copies mean less risk",
+        "Agree with the owner and QA to drop the CRM step via a procedure change",
+        "Delete the CRM copy quietly",
+        "Automate all three entries with AI so nobody has to re-type anything again"
+      ],
+      "answer": 1,
+      "why": "Remove redundant steps first, but through a controlled procedure change agreed with QA."
+    },
+    {
+      "id": "medtech-m05-q03",
+      "lesson": "medtech-six-step-complaints",
+      "q": "When validating the complaint data, which check matters most for later evidence gathering?",
+      "options": [
+        "The font used in emails",
+        "How long each complaint text is",
+        "Whether lot numbers are filled and exist in MES",
+        "Whether complaint texts are long enough for the LLM to summarise them well"
+      ],
+      "answer": 2,
+      "why": "Missing or unknown lot numbers break the link to production records and weaken every draft."
+    },
+    {
+      "id": "medtech-m05-q04",
+      "lesson": "medtech-six-step-complaints",
+      "q": "Validating the system finds that investigators can edit closed complaint records. What should you do?",
+      "options": [
+        "Ignore it, the LLM will compensate",
+        "Build the LLM first and fix it later",
+        "Note it as a known limitation and connect the LLM anyway, since drafts are reviewed",
+        "Have QA fix the role permissions before connecting the LLM"
+      ],
+      "answer": 3,
+      "why": "System gaps must be fixed first; an LLM cannot make up for weak controls."
+    },
+    {
+      "id": "medtech-m05-q05",
+      "lesson": "medtech-six-step-complaints",
+      "q": "Which complaint step is the best fit for an LLM?",
+      "options": [
+        "Signing the reportability decision",
+        "Submitting the report to the FDA",
+        "Drafting the QMS entry from a service email for a person to check",
+        "Closing low risk complaints automatically when the draft says no investigation is needed"
+      ],
+      "answer": 2,
+      "why": "Drafting from unstructured text fits; decisions, submissions and closure stay with qualified people."
+    },
+    {
+      "id": "medtech-m05-q06",
+      "lesson": "medtech-six-step-complaints",
+      "q": "Why does the order of the six steps matter?",
+      "options": [
+        "An LLM applied to duplicate steps and bad data automates the waste",
+        "Regulators require exactly six steps",
+        "Regulators require exactly six steps for any software change in a quality system",
+        "The LLM needs the steps for training"
+      ],
+      "answer": 0,
+      "why": "Cleaning the process and data first means the LLM lands where it adds value."
+    }
+  ]
+}

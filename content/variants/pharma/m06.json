@@ -1,0 +1,125 @@
+{
+  "module": 6,
+  "overlay": true,
+  "add": [
+    {
+      "id": "pharma-gxp-design",
+      "title": "Designing AI solutions for GxP work",
+      "summary": "You will be able to design an AI solution for pharma that is ready for validation from day one, with clear human approval points, a Part 11 audit trail, sound data integrity and controls for the AI component itself.",
+      "why": "In pharma, a solution that works but cannot be validated never reaches production. Designing for GxP (the family of good practice rules: GMP, GCP, GLP and others) from the start costs little; retrofitting it after a demo often means a rebuild. The quality unit will judge your design on whether they can trust and explain it, so design for that review.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Five design rules cover most of what a GMP reviewer will ask. Start from a written intended use. Put a qualified person at every decision that affects product quality or patient safety. Keep a secure, time-stamped audit trail of who did what, including what the AI did. Protect data integrity so records stay attributable, original and complete. And treat the AI component, its model version and its prompts as configuration that is controlled and tested like any other part of a validated system.",
+            "None of this is unique to AI. These are the same expectations that apply to any GMP computerized system under 21 CFR Part 11, 21 CFR 211.68, EU GMP Annex 11 and GAMP 5. What AI adds is output that can vary and can be wrong in convincing ways, so the controls around it matter more."
+          ]
+        },
+        {
+          "h": "Validation-ready by design",
+          "list": [
+            "Intended use: one paragraph saying what the tool does, for whom, in which process, and what it does not do. For example: 'drafts a summary and candidate root causes for deviation investigations; does not approve, close or change any record'.",
+            "Requirements: a short URS (user requirements specification) that you can test. Each requirement should be checkable, such as 'every AI draft is stored with the model version and time'.",
+            "Risk assessment: use ICH Q9 thinking with QA. What could go wrong, how bad would it be for the patient or product, and how would it be caught? Higher risk means more testing and more human control.",
+            "Traceability: link each requirement to a test and its result. Keep this in a simple matrix from the first sprint.",
+            "Supplier assessment: if the model or platform comes from a vendor, plan for the client's supplier qualification and what documentation the vendor can provide."
+          ]
+        },
+        {
+          "h": "Human approval points",
+          "p": [
+            "Under 21 CFR 211.22 the quality control unit has the responsibility and authority to approve or reject components, procedures and batches. An AI tool cannot hold that responsibility. Design so that every GMP decision (accepting a root cause, approving a CAPA, releasing a batch, approving a document) is made and signed by a qualified person in the validated system of record.",
+            "A practical pattern is three levels. Assistive: AI searches or suggests, the person decides and acts. Semi-automated: AI drafts and checks, a qualified person reviews and approves. Automated: AI acts within strict limits and people review exceptions. For GMP records, semi-automated is the usual default, and automated is kept for low-risk steps such as routing or data extraction that a later human check will catch."
+          ]
+        },
+        {
+          "h": "Audit trail, e-records and e-signatures",
+          "p": [
+            "21 CFR Part 11 sets the rules for electronic records and signatures. Section 11.10 lists controls for closed systems, including validation, accurate and complete copies of records, limited access, and secure, computer-generated, time-stamped audit trails that record entries and actions that create, modify or delete records, where changes do not hide earlier values. Section 11.50 requires a signed record to show the signer's printed name, the date and time, and the meaning of the signature, such as review or approval.",
+            "For AI this means three things. Record the AI as an actor with its own service identity, never under a person's login. Keep the AI draft as its own entry, so the edited and signed version is clearly the person's work. And store enough context (model version, time, inputs referenced) to show later what the tool did. The example below shows the shape of such entries."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import hashlib\nimport json\nfrom datetime import datetime, timezone\n\n\ndef audit_entry(record_id, user, action, meaning, text, model=None):\n    return {\n        \"record_id\": record_id,\n        \"user\": user,\n        \"action\": action,\n        \"meaning\": meaning,\n        \"utc_time\": datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),\n        \"model\": model,\n        \"text_sha256\": hashlib.sha256(text.encode()).hexdigest()[:16],\n    }\n\n\ntrail = []\ndraft = \"Probable cause: worn punch on press 3. Check the tooling log.\"\ntrail.append(audit_entry(\"DEV-104\", \"svc-ai-assistant\", \"ai_draft\", \"draft only\", draft, model=\"pinned-model-version\"))\nfinal = draft + \" Confirmed by tooling inspection record TI-77.\"\ntrail.append(audit_entry(\"DEV-104\", \"investigator-01\", \"edit\", \"authored\", final))\ntrail.append(audit_entry(\"DEV-104\", \"qa-reviewer-02\", \"sign\", \"approved\", final))\n\nfor e in trail:\n    print(json.dumps(e))\nprint(\"AI text changed before signing:\", trail[0][\"text_sha256\"] != trail[2][\"text_sha256\"])"
+          }
+        },
+        {
+          "h": "Data integrity and what changes for AI",
+          "p": [
+            "ALCOA+ applies to everything the tool touches. Attributable: every entry has a user or a service account. Contemporaneous: entries are time-stamped when made. Original: the tool reads from the system of record and does not keep its own uncontrolled copies. Accurate and complete: drafts that leave out facts are caught by review and by evaluation. Enduring and available: AI drafts kept for the retention period of the record they support.",
+            "Some things are new with AI. Output can change between runs, so pin the model version and keep settings fixed. Prompts and retrieval sources are configuration, so they go under change control. Models can be retired by the vendor, so plan for revalidation. Inputs may include confidential batch or patient data, so keep data inside approved boundaries. ISPE has published a GAMP guide on artificial intelligence, and FDA has published draft guidance on a risk-based credibility approach for AI used to support regulatory decisions on drugs; read both with your QA partner."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "AI drafts, a qualified person decides",
+        "caption": "Each row is an actor; every step lands in the audit trail with who did it and when.",
+        "lanes": ["Investigator", "AI assistant", "eQMS record", "QA reviewer"],
+        "steps": [
+          {"lane": 0, "label": "Opens deviation"},
+          {"lane": 1, "label": "Reads linked MES and LIMS data"},
+          {"lane": 1, "label": "Drafts summary and causes"},
+          {"lane": 2, "label": "Stores draft, model, time"},
+          {"lane": 0, "label": "Edits and writes final text"},
+          {"lane": 2, "label": "Logs change, keeps draft"},
+          {"lane": 3, "label": "Reviews and signs approval"},
+          {"lane": 2, "label": "Records signature meaning"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: design review for a CAPA drafting assistant (fictional)",
+        "p": [
+          "An API manufacturer wants an assistant that drafts CAPA plans from closed investigations. You prepare a one-page design for the QA design review. It answers the reviewer's questions in order."
+        ],
+        "list": [
+          "Intended use: drafts CAPA actions and effectiveness checks for the investigator; does not create, approve or close CAPA records.",
+          "Approval: the CAPA owner edits and submits; QA approves in the eQMS with a Part 11 signature showing name, time and meaning.",
+          "Audit trail: AI draft stored as a separate field with service ID, model version and time; edits logged by the eQMS.",
+          "Data: reads investigations from the eQMS API; no local copies; data stays in the client's approved cloud region.",
+          "Change control: prompts, retrieval sources and model version are configuration items; any change triggers impact assessment and rerun of the evaluation set.",
+          "Risk: medium. A weak draft could lead to a weak CAPA, so evaluation checks that every draft addresses the stated root cause, and QA review stays mandatory."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write a one-page GxP design note",
+          "time": "50 min",
+          "goal": "Practise designing an AI step that a QA reviewer could accept.",
+          "steps": [
+            "Pick one use: deviation summary drafting, batch record comment review, SOP question answering or CoA data extraction.",
+            "Write a one-paragraph intended use, including what the tool does not do.",
+            "Choose the automation level and name the person who approves the output.",
+            "Open 21 CFR 11.10 and 11.50 on eCFR and list the controls your design must meet.",
+            "Run the Python example from this lesson and add a field you think an inspector would want.",
+            "Ask Claude to act as a QA reviewer and list three objections; answer each in one sentence."
+          ],
+          "done_when": "You have a one-page note with intended use, approval point, audit trail fields, data boundary and change control, and answers to three QA objections."
+        }
+      ],
+      "pitfalls": [
+        "Running the AI under a person's login. The audit trail then says a person wrote what the AI wrote.",
+        "Letting the AI write straight into the approved field. Keep the draft separate and let the person author the final text.",
+        "Treating prompts as code comments. Prompts change behaviour, so they belong under change control.",
+        "Using the latest model alias. Pin a version so the validated behaviour does not change underneath you.",
+        "Leaving validation to the end. Write intended use and risk with QA in the first weeks."
+      ],
+      "check": [
+        "What must a signed electronic record show under 21 CFR 11.50?",
+        "Why should an AI step have its own service identity in the audit trail?",
+        "Which automation level is the usual default for GMP records, and why?",
+        "Name three things that are new for an AI component compared with ordinary software."
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR 11.10 - Controls for closed systems", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11/subpart-B/section-11.10", "cost": "free"},
+        {"type": "docs", "title": "21 CFR 11.50 - Signature manifestations", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11/subpart-B/section-11.50", "cost": "free"},
+        {"type": "docs", "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application", "cost": "free"},
+        {"type": "docs", "title": "EU GMP Annex 11: Computerised Systems", "source": "European Commission", "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf", "cost": "free"},
+        {"type": "docs", "title": "ISPE GAMP Guide: Artificial Intelligence", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-guide-artificial-intelligence", "cost": "paid"},
+        {"type": "docs", "title": "Considerations for the Use of Artificial Intelligence To Support Regulatory Decision-Making for Drug and Biological Products", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-use-artificial-intelligence-support-regulatory-decision-making-drug-and-biological", "cost": "free"},
+        {"type": "video", "title": "Decoding 21 CFR Part 11", "source": "PERFICIENT", "url": "https://www.youtube.com/watch?v=A3MgXq82Wqg", "cost": "free"},
+        {"type": "video", "title": "ALCOA+ Principles Explained in GMP | Data Integrity Training for Pharma Professionals", "source": "Pharma Manufacturing Academy", "url": "https://www.youtube.com/watch?v=_4ZjdMD0YOY", "cost": "free"}
+      ]
+    }
+  ]
+}

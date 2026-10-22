@@ -1,0 +1,125 @@
+{
+  "module": 1,
+  "overlay": true,
+  "add_first": [
+    {
+      "id": "pharma-why-ai-stalls",
+      "title": "Why AI stalls in pharma, and what an FDE does about it",
+      "summary": "You will understand the four gaps that stop AI pilots from reaching regulated pharma work, and the concrete things an FDE does to close each one.",
+      "why": "In pharma the model is rarely the problem. A demo that drafts a deviation report looks great in a meeting, then waits months because the data is messy, nobody knows how to validate it, and the quality unit will not sign off on a tool it cannot audit. An FDE who understands why pilots stall can plan for these blockers from the first week instead of discovering them at go-live.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Pharma companies make medicines under rules called GMP (good manufacturing practice). In the US the core rules for finished drugs are 21 CFR Parts 210 and 211. For active pharmaceutical ingredients (APIs) the main guide is ICH Q7. These rules say that every step that can affect product quality must be written down, controlled, checked and approved by a quality unit that is independent of production.",
+            "That makes pharma a good place for AI and a hard place to deploy it. Good, because quality, validation and manufacturing teams spend a large part of their week reading and writing documents: deviation reports, investigations, batch records, validation protocols, change requests. Hard, because anything that touches those records is itself regulated. A tool that drafts a deviation investigation is part of the quality system, so it must be controlled like the rest of it."
+          ]
+        },
+        {
+          "h": "The four gaps",
+          "p": [
+            "A common way to describe why enterprise AI stalls is four gaps. They apply strongly to pharma."
+          ],
+          "list": [
+            "Pilots stall before production. A proof of concept works on ten hand-picked examples, but nobody planned how it would run inside the eQMS (electronic quality management system), MES (manufacturing execution system) or LIMS (laboratory information management system), who would approve its output, or how it would be validated.",
+            "Data is not AI-ready. Deviation records use free text written by many people over many years. Root cause categories are used inconsistently. Batch records may be scanned paper. The data exists, but it is not clean, linked or labelled.",
+            "Validation slows every release. Computerized systems used for GMP work must be validated for their intended use (EU GMP Annex 11, GAMP 5) and electronic records must meet 21 CFR Part 11. Teams that never planned for this find out late that each change to a prompt or model needs evidence and approval.",
+            "Few engineers can deploy AI in this setting. The people who know LLMs rarely know GMP, and the people who know GMP rarely build software. An FDE sits in that gap."
+          ]
+        },
+        {
+          "h": "The regulated product model",
+          "p": [
+            "In pharma, the product is not only the tablet or vial. It is the medicine plus the evidence that it was made under control: the approved process, the batch record, the test results, the investigations and the release decision. Regulators inspect that evidence. FDA investigators who see problems list them on a Form 483 at the end of an inspection, and serious or unresolved issues can lead to a public warning letter.",
+            "So when you add AI to a pharma process, you are changing how evidence is produced. The question the quality unit asks is not 'is the model clever?' It is 'can we show an inspector what the tool did, who checked it, and why we trust it?' If you design for that question from day one, the project moves. If you do not, it stalls."
+          ]
+        },
+        {
+          "h": "What an FDE does about each gap",
+          "p": [
+            "Each gap has a practical answer that an FDE can start on in the first weeks of an engagement."
+          ],
+          "list": [
+            "Pilot to production: pick one process with a clear owner, such as deviation investigation or batch record review. Plan from day one which system holds the record, where the AI output lands, and which qualified person approves it.",
+            "Data: profile the real data early. Count records, missing fields, duplicate categories and scanned documents. Fix or label a small, clean set before building anything clever.",
+            "Validation: write down the intended use in one paragraph, assess the risk with the quality team (ICH Q9 gives the method), and build the evaluation set so it can double as test evidence.",
+            "People: pair with a quality or validation subject matter expert (SME). Let them own the GMP decisions while you own the build. Teach them enough about the tool that they can explain it to an inspector."
+          ]
+        },
+        {
+          "h": "Where AI fits, and where it should not",
+          "p": [
+            "A safe default in GMP work is 'AI drafts and checks, a qualified person approves'. The AI can read a deviation, find similar past events, propose a root cause category and draft the report. A trained investigator reviews, edits and signs. The signature stays with a person, and the quality unit keeps its legal responsibility under 21 CFR 211.22.",
+            "Fully automated decisions on product quality, such as releasing a batch, are not where to start. Lower-risk tasks such as searching SOPs, routing records or extracting data from certificates of analysis are better first steps, and they build trust with QA (quality assurance) for the harder ones."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Why pharma AI pilots stall, and the fix",
+        "caption": "Each column is one gap: what you see on site, then what the FDE does about it.",
+        "columns": [
+          {"title": "Pilot to production", "items": ["Demo on hand-picked cases", "No owner for the output", "Plan the target system", "Name the approver early"]},
+          {"title": "Data not AI-ready", "items": ["Free-text deviations", "Inconsistent root causes", "Profile data in week one", "Clean a small labelled set"]},
+          {"title": "Validation", "items": ["Late surprise from QA", "Every prompt change stalls", "Write intended use first", "Eval set doubles as evidence"]},
+          {"title": "People", "items": ["AI skills without GMP", "GMP skills without code", "Pair with a quality SME", "SME owns GMP decisions"]}
+        ]
+      },
+      "example": {
+        "title": "Worked example: a stalled deviation assistant (fictional)",
+        "p": [
+          "Imagine a mid-size tablet manufacturer. Its IT team built a chatbot that drafts deviation investigations. In a demo it produced a tidy report in seconds. Six months later it is still not used.",
+          "You visit and ask four questions, one per gap. Where does the draft go? Nobody decided; investigators copy and paste it into the eQMS, so there is no record of what the AI wrote. Is the data ready? The bot was tested on 15 clean examples, but real deviations have half-empty fields. How will it be validated? QA was never asked. Who owns it? The IT developer who built it has moved to another project."
+        ],
+        "list": [
+          "Fix one: agree with QA that the AI draft is stored as a separate, attributed field in the eQMS record, and the investigator's edited version is what gets signed.",
+          "Fix two: pull 200 closed deviations, profile them, and build a labelled evaluation set with an investigator.",
+          "Fix three: write the intended use and a risk assessment with QA, then plan testing in proportion to that risk.",
+          "Fix four: name a business owner in quality and a technical owner, and write a short SOP for using the tool."
+        ]
+      },
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "A typical pattern: the first meeting is with an innovation or IT lead, but the decision to use the tool sits with the head of quality. Ask for time with QA in week one. If QA only hears about the project at validation time, expect a restart."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Diagnose a pharma AI idea against the four gaps",
+          "time": "40 min",
+          "goal": "Practise spotting why a pharma AI idea would stall before anyone builds it.",
+          "steps": [
+            "Pick one idea: an assistant that drafts deviation investigations, one that reviews batch records, or one that answers questions from SOPs.",
+            "On paper, write the four gaps as four headings.",
+            "Under each heading, write the specific risk for your idea, for example which system the output lands in and who signs it.",
+            "Open the eCFR page for 21 CFR 211.22 and note one duty of the quality control unit that your idea touches.",
+            "Ask Claude to play a head of quality and challenge your plan. Write down the two hardest questions it asks.",
+            "Add one concrete first step under each gap."
+          ],
+          "done_when": "You have one page with four gaps, a specific risk and a first step under each, and two QA questions you can answer."
+        }
+      ],
+      "pitfalls": [
+        "Treating QA as a final approval step. Bring the quality unit in during the first week, because they decide whether the tool is ever used.",
+        "Demoing on clean, hand-picked examples. Real GMP records are messy; test on a sample pulled at random.",
+        "Letting the AI output live outside the system of record. If the eQMS does not show what the AI wrote, you cannot show an inspector.",
+        "Starting with a fully automated quality decision. Start with drafting, searching or extraction where a person approves."
+      ],
+      "check": [
+        "Name the four gaps and give one pharma example of each.",
+        "Why does adding AI to a deviation process change the evidence an inspector will look at?",
+        "What is a safe default level of automation for GMP work, and why?",
+        "What does the quality control unit own under 21 CFR 211.22, in plain words?"
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR Part 211 - Current Good Manufacturing Practice for Finished Pharmaceuticals", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211", "cost": "free"},
+        {"type": "docs", "title": "21 CFR 211.22 - Responsibilities of quality control unit", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-B/section-211.22", "cost": "free"},
+        {"type": "docs", "title": "Current Good Manufacturing Practice (CGMP) Regulations", "source": "FDA", "url": "https://www.fda.gov/drugs/pharmaceutical-quality-resources/current-good-manufacturing-practice-cgmp-regulations", "cost": "free"},
+        {"type": "docs", "title": "Artificial Intelligence for Drug Development", "source": "FDA", "url": "https://www.fda.gov/about-fda/center-drug-evaluation-and-research-cder/artificial-intelligence-drug-development", "cost": "free"},
+        {"type": "video", "title": "AI in GxP Regulated Environments", "source": "WhitehallTraining", "url": "https://www.youtube.com/watch?v=D0Qla0bmfPk", "cost": "free"},
+        {"type": "course", "title": "Introduction to the Pharmaceutical Industry", "source": "Coursera", "url": "https://www.coursera.org/learn/introduction-to-the-pharmaceutical-industry", "cost": "paid"}
+      ]
+    }
+  ]
+}

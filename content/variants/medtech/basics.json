@@ -1,0 +1,118 @@
+{
+  "groups": [
+    {
+      "id": "regulated",
+      "title": "Regulated industries: MedTech words",
+      "intro": "Words you will hear in the first week at a medical device maker. Quality, regulatory and engineering people use them all day, often as short forms. You do not need to be an expert, but you should know what each one is, which system holds it and why it matters to an AI solution.",
+      "points": [
+        "Every step from design to the field leaves a regulated record, and inspectors can ask to see it.",
+        "AI can draft and gather evidence; a qualified person still decides and signs regulated records.",
+        "Only state a rule or date you are sure of, and check it on the official page."
+      ],
+      "diagrams": [
+        {
+          "type": "layers",
+          "title": "Where the rules sit",
+          "caption": "Read top to bottom: from the product down to the systems and records that prove it is safe.",
+          "layers": [
+            {"label": "The device", "note": "Cleared or approved: 510(k), De Novo, PMA, EU MDR"},
+            {"label": "Quality system", "note": "QMSR and ISO 13485: design, CAPA, complaints"},
+            {"label": "Risk and software", "note": "ISO 14971 risk, IEC 62304 software"},
+            {"label": "Electronic records", "note": "Part 11 audit trail and e-signatures"},
+            {"label": "Systems of record", "note": "PLM, QMS, ERP, MES"}
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Medical device",
+          "one": "A product used to diagnose, prevent, monitor or treat a condition that works mainly by physical or software means rather than as a drug. Examples: infusion pumps, catheters, imaging systems, diagnostic software.",
+          "why": "Your client's products are regulated, so the records about them are too."
+        },
+        {
+          "term": "Device class",
+          "one": "A risk class for each device type. In the US, Class I is lowest risk and Class III highest. The EU MDR uses Classes I, IIa, IIb and III.",
+          "why": "The class decides how much evidence the regulator needs and how strict the processes around the product are."
+        },
+        {
+          "term": "510(k), De Novo and PMA",
+          "one": "The main US routes to market. A 510(k) shows a device is substantially equivalent to one already legally marketed. De Novo is for new low to moderate risk devices. PMA (premarket approval) is for most high risk devices.",
+          "why": "Submissions pull from design and risk records, so messy records slow them down."
+        },
+        {
+          "term": "EU MDR and notified body",
+          "one": "The EU Medical Device Regulation, Regulation (EU) 2017/745. For most device classes an independent notified body reviews the technical documentation before the CE mark.",
+          "why": "EU clients need technical documentation, clinical evaluation and postmarket data kept current, which is document-heavy work."
+        },
+        {
+          "term": "QMS",
+          "one": "Quality management system: the documented way a company designs, makes, checks and improves its products. Also the name for the software that holds quality records.",
+          "why": "Most MedTech AI use cases touch the QMS, and QA owns the decision to let a tool near it."
+        },
+        {
+          "term": "QMSR and ISO 13485",
+          "one": "21 CFR Part 820, the FDA Quality Management System Regulation, which since 2 February 2026 incorporates ISO 13485:2016, the international QMS standard for medical devices.",
+          "why": "Software used in production or in the quality system must be shown to work for its intended use under these rules."
+        },
+        {
+          "term": "Design controls and DHF",
+          "one": "The required, documented way of designing a device: inputs, outputs, verification, validation, reviews and transfer. The design history file (DHF) holds the evidence.",
+          "why": "Design records usually live in PLM and shared folders, and gathering them is a common AI use case."
+        },
+        {
+          "term": "Device history record (DHR)",
+          "one": "The production record for each device or batch: what was built, with which parts, how it was tested and who released it. Often held in an MES.",
+          "why": "Investigators pull it for every serious complaint, usually by hand."
+        },
+        {
+          "term": "Complaint and medical device reporting",
+          "one": "A complaint alleges a problem with a released device. 21 CFR Part 803 requires manufacturers to report certain deaths, serious injuries and malfunctions to the FDA within set deadlines.",
+          "why": "High volume, free text and strict deadlines make complaints a top AI candidate, but a qualified person decides reportability."
+        },
+        {
+          "term": "Nonconformance (NC)",
+          "one": "A record that a product, part or process did not meet a requirement, for example a part out of tolerance found on the line.",
+          "why": "NCs feed CAPAs and trends, and their free-text descriptions are often inconsistent."
+        },
+        {
+          "term": "CAPA",
+          "one": "Corrective and preventive action: finding the root cause of a problem, fixing it, preventing it happening again elsewhere, and checking the fix worked.",
+          "why": "Open and ageing CAPAs are a measure quality leaders watch closely, and evidence gathering takes much of the effort."
+        },
+        {
+          "term": "ISO 14971",
+          "one": "The international standard for risk management of medical devices: identify hazards, estimate and evaluate risk, control it, and review production and field information.",
+          "why": "Complaints and CAPAs link back to the risk file, so your solution will often read it."
+        },
+        {
+          "term": "IEC 62304",
+          "one": "The standard for the software lifecycle of medical device software, with safety classes A, B and C that set how much process is required.",
+          "why": "If AI ends up inside the product, this applies. Most FDE tools for quality teams are not device software, but confirm with regulatory affairs."
+        },
+        {
+          "term": "21 CFR Part 11",
+          "one": "The FDA rule for electronic records and electronic signatures: secure, time-stamped audit trails and signatures linked to a person and a meaning.",
+          "why": "Every AI draft, human edit and approval in a regulated process must be recorded and attributable."
+        },
+        {
+          "term": "CSA and validation",
+          "one": "Validation is objective evidence that a system meets its intended use. FDA Computer Software Assurance (CSA) guidance describes a risk-based way to do it for production and quality system software.",
+          "why": "Your evaluation set, written as a protocol with agreed criteria, becomes the core validation evidence."
+        },
+        {
+          "term": "ALCOA+",
+          "one": "Data integrity principles: Attributable, Legible, Contemporaneous, Original, Accurate, plus Complete, Consistent, Enduring and Available.",
+          "why": "The record must show who wrote what, so AI drafts and human edits must be kept apart."
+        }
+      ],
+      "links": [
+        {"type": "docs", "title": "Overview of Device Regulation", "source": "FDA", "url": "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance/overview-device-regulation", "cost": "free"},
+        {"type": "docs", "title": "Classify Your Medical Device", "source": "FDA", "url": "https://www.fda.gov/medical-devices/overview-device-regulation/classify-your-medical-device", "cost": "free"},
+        {"type": "docs", "title": "Medical devices sector overview", "source": "European Commission", "url": "https://health.ec.europa.eu/medical-devices-sector/overview_en", "cost": "free"},
+        {"type": "course", "title": "CDRH Learn", "source": "FDA", "url": "https://www.fda.gov/training-and-continuing-education/cdrh-learn", "cost": "free"},
+        {"type": "video", "title": "Short course on the Medical Device Regulation (EU) 2017/745", "source": "Medical Device HQ", "url": "https://www.youtube.com/watch?v=O9nV7rJMicQ", "cost": "free"},
+        {"type": "video", "title": "What is a CAPA?", "source": "Medical Device Academy", "url": "https://www.youtube.com/watch?v=9d83hkz3xMI", "cost": "free"}
+      ]
+    }
+  ]
+}

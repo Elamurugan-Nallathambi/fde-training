@@ -1,0 +1,746 @@
+{
+  "module": 1,
+  "title": "The FDE role and the AI landscape",
+  "intro": "A client says 'we ran an AI pilot last year, it looked great in the demo and nobody uses it now'. This module shows what a forward deployed engineer does about that, how the role differs from nearby jobs, why pilots stall, and how to learn fast in pairs and with an LLM as a tutor.",
+  "lessons": [
+    {
+      "id": "fde-loop",
+      "title": "What a forward deployed engineer does",
+      "summary": "You will be able to describe the FDE loop, from sitting with a client to handing over a working system, and what a normal day looks like.",
+      "why": "A client will ask 'so what exactly will you do here, and what do we get at the end?'. They are not after slides or advice, they want a working result their own people can run. This lesson walks you through the full loop so you can answer that clearly and see where every later module fits.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A forward deployed engineer (FDE) is an engineer who works with one client, close to the people who do the work, and builds a solution for their real problem. 'Forward deployed' is a military term: you work at the front line, not at headquarters. In software it means you sit with the client team instead of building a product from a distance and hoping it fits.",
+            "Today the role is common at AI companies. Large language models (LLMs) such as Claude are powerful, but a general model does not know a client's data, rules, systems or habits. The FDE closes that gap. You find out how the work really happens, decide where AI can help, build a proof of concept (a small working version that proves the idea), measure whether it is good enough, and help the client run it after you leave."
+          ]
+        },
+        {
+          "h": "The FDE loop, step by step",
+          "p": [
+            "The loop has seven stages. On a real engagement you go round it more than once, each time with a sharper problem and a better build."
+          ],
+          "list": [
+            "Embed: join the client team. Get access to systems, meet the people who do the work, and learn their words for things.",
+            "Discover: watch the work as it really happens, not as the process document says. Collect real examples: emails, forms, spreadsheets, tickets.",
+            "Frame: turn what you saw into one clear problem with a measurable goal, for example 'cut the time to answer a supplier query from two days to two hours'.",
+            "Design: choose the simplest approach that could work. Decide what data goes in, what comes out, who checks it and which systems it touches.",
+            "Build: make a working proof of concept with real (or realistic) data. Small and working beats big and planned.",
+            "Evaluate: test it on a set of real cases with known good answers. Count how often it is right, and look closely at the failures.",
+            "Demo and hand over: show it to the people who will use it, fix what they find, then write it down and train an owner on the client side."
+          ]
+        },
+        {
+          "h": "Where the role came from",
+          "p": [
+            "Palantir is widely credited with creating the role. Its engineers worked on site with government and commercial clients and adapted the software to each client's data and questions. The company split engineering into two kinds of work: product engineers who build one capability for many customers, and forward deployed engineers who bring many capabilities to one customer.",
+            "AI companies adopted the same model because the problem is similar. A model that works well in a demo often fails on a client's messy documents, strict rules and old systems. Someone has to live in that gap. Bob McGrew, who worked at Palantir and later led research at OpenAI, describes this approach in the Y Combinator FDE playbook linked below. It is worth watching early in the program."
+          ]
+        },
+        {
+          "h": "A day in the life",
+          "p": [
+            "There is no fixed day, but a typical one in the build phase looks like this. In the morning you sit with two people from the client's operations team while they process real cases, and you note every place where they copy data, look something up or make a judgment call. Late morning you write a short note: what you saw, what you think the problem is, and one question you still cannot answer.",
+            "After lunch you build. You change the prompt, add a lookup to the client's product table, and run your test set of fifty real cases again. Three new failures appear. You read each one and find that two are caused by a field the client fills in differently in one region. At the end of the day you message the team lead with the result and ask who can explain that regional rule tomorrow.",
+            "Notice the mix: listening, writing, building, testing and asking. Software people often underrate the listening. Domain people often underrate the testing. An FDE needs both, which is why this program pairs people from both backgrounds."
+          ]
+        },
+        {
+          "h": "What the client gets at the end",
+          "p": [
+            "A good engagement ends with four things: a working system that solves a named problem, evidence that it works (your evaluation results), a person on the client side who owns it, and documents that let that person run and change it. If any one of these is missing, the work usually fades away within months. Lesson 3 in this module looks at that failure in detail."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "The FDE loop",
+        "caption": "Follow the steps clockwise. After hand over, feedback from real use starts the next round of discovery.",
+        "steps": [
+          {
+            "label": "Embed",
+            "note": "Join the team, get access, learn their words"
+          },
+          {
+            "label": "Discover",
+            "note": "Watch real work and collect real examples"
+          },
+          {
+            "label": "Frame",
+            "note": "One clear problem with a measurable goal"
+          },
+          {
+            "label": "Design",
+            "note": "Simplest approach that could work"
+          },
+          {
+            "label": "Build",
+            "note": "Small working proof of concept"
+          },
+          {
+            "label": "Evaluate",
+            "note": "Test on real cases with known answers"
+          },
+          {
+            "label": "Demo and hand over",
+            "note": "Users try it, an owner takes it on"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: invoice exceptions at a distributor",
+        "p": [
+          "A distributor's finance team says 'we need AI for invoices'. That is not yet a problem. During discovery you sit with two clerks and see that most invoices match purchase orders automatically. The pain is the exceptions: invoices where price or quantity does not match. Each one takes a clerk about twenty minutes (an example figure you would measure yourself on site) because they search email for the reason.",
+          "You frame the problem as: 'For each exception, draft the likely reason and the evidence, so the clerk can approve or reject in under five minutes.' You design a flow where the model reads the invoice, the purchase order and related emails, then writes a short explanation with references. You build it on 30 past exceptions, evaluate it against what the clerks actually decided, and demo it to the clerks first, not to the finance director. The clerks find two cases where it is confidently wrong, which you fix before hand over."
+        ],
+        "list": [
+          "Vague request: 'AI for invoices'.",
+          "Framed problem: explain each exception with evidence.",
+          "Measurable goal: clerk decision time per exception.",
+          "Evaluation: compare against past clerk decisions.",
+          "Owner: the finance team lead, trained before you leave."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Map the loop onto a job you know",
+          "time": "30 min",
+          "goal": "Practise turning a vague request into a framed problem using the FDE loop.",
+          "steps": [
+            "Pick a process you know well from work or daily life, such as expense claims, booking a repair, or answering customer emails.",
+            "On paper, write the seven loop stages as headings.",
+            "Under Discover, list five things you would want to watch or collect if you were the FDE.",
+            "Under Frame, write one problem statement with a number in it that you could measure.",
+            "Under Evaluate, write how you would know the solution is good enough, and who would decide.",
+            "Show it to your pair partner and ask them to find one stage that is weak."
+          ],
+          "done_when": "You have one page with all seven stages filled in and a problem statement that includes a measurable goal."
+        },
+        {
+          "title": "Watch the FDE playbook with a question list",
+          "time": "45 min",
+          "goal": "Hear how practitioners describe the role and compare it with this lesson.",
+          "steps": [
+            "Before watching, write three questions you want answered about the FDE role.",
+            "Watch the Y Combinator FDE playbook video linked below.",
+            "Write down two ideas that match this lesson and one idea that is new to you.",
+            "Write one sentence on what you think the hardest part of the role will be for you."
+          ],
+          "done_when": "You have answers or partial answers to your three questions and can explain one new idea to your pair partner in two minutes."
+        }
+      ],
+      "pitfalls": [
+        "Starting to build before you have watched the real work. You end up solving the problem in the request, not the problem in the job. Spend real time in Discover.",
+        "Demoing to senior sponsors before the daily users have tried it. Users find the failures that matter; show them first.",
+        "Treating the proof of concept as the finish line. Without evaluation results, an owner and documents, it will not survive after you leave.",
+        "Hiding uncertainty. Saying 'I do not know yet, I will find out by Thursday' builds more trust than a confident guess."
+      ],
+      "check": [
+        "Name the seven stages of the FDE loop and say in one sentence what each produces.",
+        "Why did AI companies adopt a role that started at Palantir?",
+        "What four things should the client have at the end of a good engagement?",
+        "In the invoice example, why was 'AI for invoices' not a usable problem statement?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "The FDE Playbook for AI Startups with Bob McGrew",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=Zyw-YA0k3xo",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "The FDE Playbook for AI Startups with Bob McGrew : YC Startup Library",
+          "source": "Y Combinator",
+          "url": "https://www.ycombinator.com/library/Mt-the-fde-playbook-for-ai-startups-with-bob-mcgrew",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Forward Deployed Engineers",
+          "source": "Silicon Valley Product Group",
+          "url": "https://www.svpg.com/forward-deployed-engineers/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Forward deployed engineer",
+          "source": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Forward_deployed_engineer",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Palantir Careers | Life at Palantir",
+          "source": "Palantir",
+          "url": "https://www.palantir.com/careers/life-at-palantir/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "AI Fluency: Framework & Foundations",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "fde-vs-other-roles",
+      "title": "FDE compared with consultant, solutions engineer and product engineer",
+      "summary": "You will be able to explain how an FDE differs from a consultant, a solutions engineer and a product engineer, and act the right way at each point of an engagement.",
+      "why": "A client manager will say 'so you are like the consultants we had last year?', and then expect slides. Others will treat you as sales and hide the real problems, or as product and send feature requests. This lesson helps you set the right expectation on day one and borrow the best habits from each role.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Four roles often meet the same client. A management consultant studies the business and recommends what to do. A solutions engineer (also called a sales engineer or pre-sales engineer) shows how a product fits the client's needs so the client will buy it. A product engineer builds a product that many customers use. A forward deployed engineer builds a working solution for one client's real problem and stays until it works in their hands.",
+            "The simplest way to tell them apart is to ask two questions. What does this person deliver? And who do they serve? The consultant delivers advice to one client. The solutions engineer delivers a convincing fit, mostly before the sale. The product engineer delivers a product to many clients. The FDE delivers a working system to one client, and feeds what they learn back to the product team."
+          ]
+        },
+        {
+          "h": "Step by step: four dimensions",
+          "p": [
+            "Compare the roles on four dimensions. These are general patterns. Real job titles vary between companies, so always read what a specific job actually asks for."
+          ],
+          "list": [
+            "Output: consultant gives recommendations and plans; solutions engineer gives demos and technical answers; product engineer gives product features; FDE gives a working, evaluated system.",
+            "Time with client: consultant is often on site for weeks or months; solutions engineer meets the client for short sessions during a sale; product engineer may rarely meet clients; FDE is embedded for the length of the engagement.",
+            "Success measure: consultant succeeds when the advice is accepted; solutions engineer when the deal closes; product engineer when many customers adopt the feature; FDE when the client uses the system and an owner runs it.",
+            "Code: consultant usually writes little; solutions engineer writes demos and integrations; product engineer writes long-lived product code; FDE writes working code against the client's real systems and data."
+          ]
+        },
+        {
+          "h": "What to borrow from each role",
+          "p": [
+            "An FDE is not better than these roles. It is a mix of them. From consultants, borrow structured discovery: interviews, process maps and clear written recommendations. From solutions engineers, borrow the ability to show value fast and to explain technical ideas to non-technical people. From product engineers, borrow code quality, testing and the habit of thinking about what can be reused across clients.",
+            "Each role also has a trap the FDE must avoid. The consultant trap is stopping at the recommendation. The solutions engineer trap is showing the happy path and hiding the hard cases. The product engineer trap is building a general feature before you understand this one client."
+          ]
+        },
+        {
+          "h": "Going deeper: the feedback loop to product",
+          "p": [
+            "One part of the FDE role is easy to miss. Because you see real client problems up close, you learn things the product team cannot learn from a distance. Good FDE teams write these down: which parts they had to build by hand, which requests repeat across clients, which failures keep happening. Over time this turns custom work into product features. That is why some product leaders describe FDEs as a discovery engine, not just a delivery cost.",
+            "In practice this means keeping a short running log during every engagement with three headings: 'built custom', 'asked for again', and 'broke more than once'. Share it with the product team at the end."
+          ]
+        },
+        {
+          "h": "Setting expectations on day one",
+          "p": [
+            "In your first meeting, say plainly what you are there to do. A useful sentence is: 'I am here to build a working version of this with your team, test it on your real cases, and make sure someone here can run it when I leave.' This tells the client you are not there only to advise, not there to sell, and not there to take feature requests for a product roadmap.",
+            "Expect to switch modes during one engagement, and say which mode you are in. In week one you behave much like a consultant: you interview, observe and write. In the middle you behave like a product engineer: you write, test and review code. Near the end you behave a little like a solutions engineer: you demo, explain and answer hard questions from people who were not involved. Naming the mode helps the client. 'Today I am only listening' stops people from expecting a demo. 'This is a rough build, please try to break it' stops them from judging it as finished."
+          ],
+          "list": [
+            "If someone asks you for a strategy deck, offer a one-page written recommendation plus a working build instead.",
+            "If someone asks you to promise a feature for all customers, log it for the product team and solve their case first.",
+            "If someone asks for a polished demo, agree to show real cases, including at least one failure, and explain what you will do about it."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Four roles side by side",
+        "caption": "Read each column top to bottom: what the role delivers, who it serves, how success is measured and how much code it involves.",
+        "columns": [
+          {
+            "title": "Consultant",
+            "items": [
+              "Delivers advice and plans",
+              "Serves one client",
+              "Success: advice accepted",
+              "Writes little code"
+            ]
+          },
+          {
+            "title": "Solutions engineer",
+            "items": [
+              "Delivers demos and fit",
+              "Serves prospects before sale",
+              "Success: deal closes",
+              "Writes demo code"
+            ]
+          },
+          {
+            "title": "Product engineer",
+            "items": [
+              "Delivers product features",
+              "Serves many customers",
+              "Success: wide adoption",
+              "Writes long-lived code"
+            ]
+          },
+          {
+            "title": "Forward deployed engineer",
+            "items": [
+              "Delivers a working system",
+              "Serves one client deeply",
+              "Success: client uses and owns it",
+              "Writes code on real data"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: one request, four responses",
+        "p": [
+          "A hospital's billing team says: 'Claims get rejected by insurers and we do not know why.' Here is how each role might respond.",
+          "The consultant interviews staff, analyses a sample of rejections and recommends a new review step plus staff training. The solutions engineer shows a demo of a claims product that flags common errors. The product engineer adds a 'rejection reason' field to the product so all customers can track it. The FDE pulls three months of rejected claims, groups them by insurer reason codes with the billing team, builds a checker that flags the top causes before a claim is sent, tests it on last month's claims, and trains the billing lead to update the rules.",
+          "None of the first three is wrong. But only the FDE response leaves the hospital with a working tool that a named person runs, plus evidence of how many rejections it would have caught."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Read four job descriptions",
+          "time": "40 min",
+          "goal": "See the real differences between the roles in today's job market.",
+          "steps": [
+            "Search a job site for one posting each: forward deployed engineer, solutions engineer, management consultant, software engineer (product).",
+            "Copy the responsibilities section of each into one document.",
+            "Highlight in one colour the words about delivering code, and in another the words about talking to clients.",
+            "Fill in the four dimensions from this lesson (output, time with client, success measure, code) for each posting.",
+            "Note one way a posting differs from the general pattern in this lesson."
+          ],
+          "done_when": "You have a filled four-by-four table based on real postings and one written note on where reality differs from the pattern."
+        },
+        {
+          "title": "Write your day-one sentence",
+          "time": "15 min",
+          "goal": "Practise setting expectations clearly with a client.",
+          "steps": [
+            "Write a two-sentence introduction you would give at a client kickoff.",
+            "Read it to your pair partner, who plays a client manager.",
+            "Ask them which role they think you are. If they guess wrong, rewrite it."
+          ],
+          "done_when": "Your partner correctly identifies you as an FDE from your introduction alone."
+        }
+      ],
+      "pitfalls": [
+        "Letting the client treat you as free consulting. Agree early that the output is a working system, not a report.",
+        "Acting like a salesperson and showing only the happy path. Show failure cases too; it builds trust.",
+        "Building a general product feature too early. Solve this client's problem first, then look for what repeats.",
+        "Assuming job titles mean the same thing everywhere. Always read the actual responsibilities."
+      ],
+      "check": [
+        "What two questions help you tell the four roles apart?",
+        "Name one habit an FDE should borrow from a consultant and one trap to avoid.",
+        "What is the 'feedback loop to product' and what three headings help you capture it?",
+        "In the hospital example, what did the FDE response produce that the others did not?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "The FDE Playbook for AI Startups with Bob McGrew",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=Zyw-YA0k3xo",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Forward Deployed Engineers",
+          "source": "Silicon Valley Product Group",
+          "url": "https://www.svpg.com/forward-deployed-engineers/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Forward deployed engineer",
+          "source": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Forward_deployed_engineer",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Sales engineering",
+          "source": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sales_engineering",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Management consulting",
+          "source": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Management_consulting",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Palantir Careers | Life at Palantir",
+          "source": "Palantir",
+          "url": "https://www.palantir.com/careers/life-at-palantir/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "why-ai-projects-stall",
+      "title": "Why AI projects stall between pilot and production",
+      "summary": "You will be able to name the five common gaps that stop AI pilots from reaching daily use, and what an FDE does about each one.",
+      "why": "A client will say 'our chatbot pilot worked in the demo, then the support team stopped using it'. Most clients you meet have a story like that. This lesson helps you name why it happened, so you can avoid repeating it and tell the client in plain words what will be different this time.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A pilot is a small trial, usually with a few users and a limited set of data. Production means the system is used for real work every day, with real data, by the people it was built for, and someone is responsible when it breaks. Many AI projects get stuck between the two. People sometimes call this 'pilot purgatory'.",
+            "The model is rarely the main problem. Projects stall because of five gaps around the model: data, integration, validation, ownership and adoption. An FDE's job is to close these gaps on purpose, from the start, instead of discovering them at the end."
+          ]
+        },
+        {
+          "h": "The five gaps, step by step",
+          "p": [
+            "Read each gap as a question the pilot never answered."
+          ],
+          "list": [
+            "Data: can the system get the real data, in the real format, with the right permissions? Pilots often use a clean sample or a copy someone exported by hand.",
+            "Integration: does the system fit into the tools people already use, such as email, the ERP, a ticket system or a spreadsheet? A separate website that nobody opens is a dead end.",
+            "Validation: is there evidence that the output is good enough, measured on real cases, with an agreed bar? Without it, one bad answer in front of a manager can end the project.",
+            "Ownership: who on the client side runs it, pays for it, fixes it and decides on changes? If the answer is 'the vendor' or 'nobody', it fades when the vendor leaves.",
+            "Adoption: do the users trust it, understand it and actually change how they work? People keep their old method if the new one feels risky or slower."
+          ]
+        },
+        {
+          "h": "How an FDE closes each gap",
+          "p": [
+            "Data: ask for access to the real source on day one, and build against it even if it is messy. Write down every data problem you find; that list is valuable to the client by itself.",
+            "Integration: put the output where people already work. A draft reply in the existing ticket tool beats a beautiful new app. Ask 'where does this person look all day?'",
+            "Validation: build a test set early. Collect real cases with known correct answers, agree with the business what 'good enough' means, and report results as numbers plus examples of failures.",
+            "Ownership: name the owner before you build, not after. Involve them in design decisions and give them the evaluation results and runbook (a short guide to running and fixing the system).",
+            "Adoption: design with the users, demo to them first, keep a human review step where errors are costly, and make it easy to say 'this is wrong' so feedback flows back."
+          ]
+        },
+        {
+          "h": "Going deeper: why demos mislead",
+          "p": [
+            "LLM demos are easy to make impressive. You choose the input, you know what a good answer looks like, and you run it until it looks right. Real use is different. Inputs are messy, edge cases are common, and nobody is there to retry. This is why evaluation on real cases is the single most important habit in this program. Engineers have long warned that the model is only a small part of a real machine learning system; most of the work is the data pipelines, monitoring and integration around it. The paper on hidden technical debt in machine learning, linked below, is a classic source for this idea."
+          ]
+        },
+        {
+          "h": "Spotting the gaps in week one",
+          "p": [
+            "You do not need to wait for a project to fail to find these gaps. In the first week, ask one plain question per gap and write down the answer, or the fact that nobody could answer it. A missing answer is not bad news; it is the work plan. Share the list with the client sponsor so they see the risks early and can help remove them, for example by approving data access or naming an owner.",
+            "Also ask what happened to earlier pilots. People are usually happy to explain why the last attempt did not work, and their answers often map directly onto one of the five gaps. That tells you where to be most careful this time."
+          ],
+          "list": [
+            "Data: 'Can I see the real source system today, and who approves access?'",
+            "Integration: 'Where would people see this output during their normal day?'",
+            "Validation: 'Who decides whether an answer is correct, and can they give me twenty past examples?'",
+            "Ownership: 'Who will run this after I leave, and do they know yet?'",
+            "Adoption: 'What would make the people doing this work trust a new tool, or refuse it?'"
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Five gaps between pilot and production",
+        "caption": "Read left to right. A pilot must pass each gap to become a system people use every day.",
+        "steps": [
+          {
+            "label": "Pilot works in a demo",
+            "note": "Clean sample data, chosen inputs"
+          },
+          {
+            "label": "Data gap",
+            "note": "Real source, real format, real permissions"
+          },
+          {
+            "label": "Integration gap",
+            "note": "Fits the tools people already use"
+          },
+          {
+            "label": "Validation gap",
+            "note": "Measured on real cases against a bar"
+          },
+          {
+            "label": "Ownership gap",
+            "note": "A named client owner runs it"
+          },
+          {
+            "label": "Adoption gap",
+            "note": "Users trust it and change how they work"
+          },
+          {
+            "label": "In production",
+            "note": "Used daily, monitored, improved"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: a support chatbot that stalled",
+        "p": [
+          "A retailer built a pilot chatbot that answered customer questions from the help pages. The demo went well. Six months later, nobody used it. Here is the diagnosis an FDE might write, gap by gap.",
+          "Data: the pilot used a copy of the help pages from launch day; prices and return rules had changed since. Integration: it lived on a separate page instead of inside the existing chat widget. Validation: nobody had measured how often it answered correctly; the team only remembered the times it was wrong. Ownership: the innovation team built it, then moved on; the support team never agreed to run it. Adoption: support agents were not asked for input and did not trust it.",
+          "The restart plan fixes each gap: connect to the live help content, put answers inside the existing widget as drafts for agents first, build a 100-question test set from real chat logs, make the support team lead the owner, and let agents mark bad drafts with one click."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Diagnose a stalled project",
+          "time": "40 min",
+          "goal": "Practise using the five gaps to explain a real or realistic failure.",
+          "steps": [
+            "Think of a technology project you have seen stall at work or read about. If you have none, use the chatbot example and invent a different industry.",
+            "Draw five boxes on paper, one per gap.",
+            "In each box, write what went wrong or what was never answered.",
+            "Under each box, write one concrete action an FDE would take in the first two weeks to close that gap.",
+            "Ask Claude or another LLM to critique your diagnosis, then decide yourself which of its points are actually right."
+          ],
+          "done_when": "You have five filled boxes with one specific first-two-weeks action under each, and you can explain which LLM suggestions you rejected and why."
+        }
+      ],
+      "pitfalls": [
+        "Blaming the model first. Check the five gaps before you assume a better model will fix it.",
+        "Building the test set at the end. Start it in the first week, from real cases.",
+        "Leaving ownership vague. 'The business' is not an owner; a named person is.",
+        "Building a new tool when the users live in an existing one. Integrate first."
+      ],
+      "check": [
+        "What is the difference between a pilot and production?",
+        "Name the five gaps and give one question that tests each.",
+        "Why are LLM demos especially misleading?",
+        "In the chatbot example, which gap would you fix first, and why?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Hidden Technical Debt in Machine Learning Systems",
+          "source": "NeurIPS Proceedings",
+          "url": "https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Rules of Machine Learning",
+          "source": "Google for Developers",
+          "url": "https://developers.google.com/machine-learning/guides/rules-of-ml",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Define success criteria and build evaluations",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "PAIR Guidebook",
+          "source": "Google PAIR",
+          "url": "https://pair.withgoogle.com/guidebook/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Building the AI-Powered Organization",
+          "source": "Harvard Business Review",
+          "url": "https://hbr.org/2019/07/building-the-ai-powered-organization",
+          "cost": "paid"
+        },
+        {
+          "type": "course",
+          "title": "AI For Everyone",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/ai-for-everyone",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "The FDE Playbook for AI Startups with Bob McGrew",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=Zyw-YA0k3xo",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "learning-with-ai",
+      "title": "Working in pairs and learning with AI as a tutor",
+      "summary": "You will be able to use an LLM to learn faster without fooling yourself, and work well as a pair of a software person and a domain person.",
+      "why": "A client will say 'our process runs on terms and systems you have never seen, can you get up to speed this week?'. That happens on almost every engagement. This lesson shows how to use an LLM as a patient tutor without mistaking its answers for your own understanding, and how pairing with a domain person doubles what the two of you know.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Learning with AI means using a model such as Claude to explain, quiz and correct you. Used well, it gives you a tutor that is available at any hour and never gets tired of questions. Used badly, it gives you finished answers that you copy without understanding, and confident mistakes you cannot spot.",
+            "The rule for this program is simple: the AI may explain and check, but you must produce. You write the answer, the code or the summary first, then ask the AI to find the gaps. If you cannot explain something without the chat window open, you have not learned it yet."
+          ]
+        },
+        {
+          "h": "Step by step: a tutor session",
+          "p": [
+            "Use this pattern when you meet a new topic, for example a client's ERP system or a term like 'embedding'."
+          ],
+          "list": [
+            "Tell the model who you are and what you want: 'I am a finance analyst learning SQL. Explain JOINs with a sales example. Do not give me full solutions.'",
+            "Ask for the idea in plain words, then for one small example.",
+            "Close the chat window and write the idea in your own words on paper.",
+            "Go back and ask the model to quiz you with three questions, one at a time, and to wait for your answer each time.",
+            "Ask it to point out what you got wrong and why, not to rewrite your answer.",
+            "Check one key fact against an official source such as the vendor's documentation. Models can be wrong.",
+            "Teach the idea to your pair partner in five minutes."
+          ]
+        },
+        {
+          "h": "How not to fool yourself",
+          "p": [
+            "Fluent text feels true. That is the main risk. A model can produce a clear, well-written explanation that contains an error, and the clarity makes you trust it. Protect yourself with three habits. First, produce before you consume: try the problem before asking for help. Second, verify anything you will act on, such as a command, a number, a rule or an API parameter, against an official source. Third, test yourself without the tool; if you cannot rebuild the idea from memory, go back.",
+            "Some tools have modes that are designed for learning, where the model asks guiding questions instead of giving answers. Anthropic's AI Fluency course, linked below, also gives a useful framework for working with AI carefully, including how to judge its output. Take it early in the program."
+          ]
+        },
+        {
+          "h": "Pair work between software and domain people",
+          "p": [
+            "This program pairs people from different backgrounds on purpose. A software person knows how to build and test. A domain person knows how the work really happens, what the terms mean and which mistakes are costly. On a real engagement, an FDE has to be both. Pairing lets each of you learn the other half quickly.",
+            "A simple way to pair is driver and navigator, borrowed from pair programming. The driver types or builds. The navigator watches, asks questions and thinks one step ahead. Swap roles every 25 to 30 minutes. When the domain person drives on a technical task, the software person must explain rather than take over the keyboard. When the software person drives through a business process, the domain person must explain the why behind each step."
+          ]
+        },
+        {
+          "h": "Going deeper: rules for a good pair",
+          "p": [
+            "Agree on a goal for each session and write it down. Say 'I do not understand' out loud; it is the fastest way to learn. Keep a shared list of terms and their meanings, which becomes your project glossary. At the end of each session, each person writes one thing they learned from the other. If one person is always driving, the pair is not working."
+          ]
+        },
+        {
+          "h": "Weak and strong learning prompts",
+          "p": [
+            "The way you ask decides whether you learn or just collect answers. A weak learning prompt asks for the finished product. A strong one asks the model to work with what you already tried, and to leave the thinking to you. Compare these pairs.",
+            "When a model gives an explanation, ask a follow-up that tests it: 'What is a case where this rule does not apply?' or 'What would a beginner most often get wrong here?' Good explanations survive these questions. If the model changes its answer every time you push, treat the topic as unverified and go to an official source."
+          ],
+          "list": [
+            "Weak: 'Write a SQL query that finds late orders.' Strong: 'Here is my query for late orders and the error I get. Give me a hint about what is wrong, not the fixed query.'",
+            "Weak: 'Explain gross margin.' Strong: 'I think gross margin is revenue minus all costs. Am I right? If not, explain the difference with one small number example.'",
+            "Weak: 'Summarise this chapter.' Strong: 'Here is my summary of this chapter. Tell me which important idea I missed.'"
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "Learning loop with an AI tutor",
+        "caption": "Go round the loop for each new idea. The verify step stops you from learning a confident mistake.",
+        "steps": [
+          {
+            "label": "Try it yourself first",
+            "note": "Write your own answer or attempt"
+          },
+          {
+            "label": "Ask the AI to explain gaps",
+            "note": "Ask for hints, not full solutions"
+          },
+          {
+            "label": "Rewrite in your own words",
+            "note": "Chat window closed"
+          },
+          {
+            "label": "Get quizzed",
+            "note": "One question at a time"
+          },
+          {
+            "label": "Verify key facts",
+            "note": "Check against official docs"
+          },
+          {
+            "label": "Teach your pair partner",
+            "note": "Five minutes, no notes"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: learning 'three-way match' in one hour",
+        "p": [
+          "A software-background learner is paired with an accounts payable specialist. The client project involves invoice matching, and the learner has never heard of a 'three-way match'.",
+          "The learner first writes a guess: 'checking an invoice against something twice'. Then they ask Claude to explain the term for a software developer, with a small example and no jargon. Claude explains that the invoice is compared with the purchase order and the goods received note. The learner closes the chat and writes it in their own words. Then they ask Claude to quiz them, and they miss one question about what happens when quantities differ.",
+          "Next, the learner checks with the pair partner, who explains how their own company handles small differences with a tolerance rule. This is something the model could not know, because each company sets its own. The learner adds 'tolerance rule' to the shared glossary with the partner's explanation."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "I am a software developer new to accounts payable.\nExplain 'three-way match' in plain words with one small example.\nThen quiz me with three questions, one at a time.\nWait for my answer each time and tell me what I got wrong and why.\nDo not give me the answers before I try."
+        }
+      },
+      "practice": [
+        {
+          "title": "Run one tutor session",
+          "time": "40 min",
+          "goal": "Use an LLM to learn a new term properly, with verification.",
+          "steps": [
+            "Pick a term from your partner's field that you do not know (for example 'EBITDA', 'SKU', 'root cause analysis', 'API', 'foreign key').",
+            "Write your current guess at its meaning in one sentence.",
+            "Use the prompt in the worked example in a free LLM chat such as Claude, adapted to your term.",
+            "Close the chat and write the meaning in your own words.",
+            "Find one official or well-known source that confirms or corrects the model's explanation.",
+            "Explain it to your pair partner and ask them to rate your explanation from 1 to 5."
+          ],
+          "done_when": "You have your guess, your own-words definition, one verifying source, and a rating of 4 or more from your partner."
+        },
+        {
+          "title": "First pair session",
+          "time": "60 min",
+          "goal": "Set up how you and your partner will work together for the program.",
+          "steps": [
+            "Each of you spends 10 minutes explaining one work process you know well while the other takes notes.",
+            "Swap and repeat.",
+            "Start a shared glossary document with at least ten terms from both explanations.",
+            "Agree on when you will meet each week, how long a driving turn lasts, and how you will tell each other when something is unclear."
+          ],
+          "done_when": "You have a shared glossary with at least ten terms and a written agreement on how you will pair."
+        }
+      ],
+      "pitfalls": [
+        "Copying the model's answer into your notes. Write it yourself or you will not remember it.",
+        "Trusting a fluent explanation without checking. Verify anything you will act on.",
+        "Asking the model for company-specific rules it cannot know. Ask the people instead.",
+        "One partner always driving. Swap on a timer.",
+        "Pasting client data into a public chat tool to learn faster. Check the client's policy first; module 2 covers this."
+      ],
+      "check": [
+        "What does 'the AI may explain and check, but you must produce' mean in practice?",
+        "Name three habits that stop you from fooling yourself when learning with AI.",
+        "How does driver and navigator pairing work, and why swap roles?",
+        "In the three-way match example, what did the pair partner provide that the model could not?"
+      ],
+      "links": [
+        {
+          "type": "course",
+          "title": "AI Fluency: Framework & Foundations",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/ai-fluency-framework-foundations",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "AI Fluency for students",
+          "source": "Anthropic Academy",
+          "url": "https://anthropic.skilljar.com/ai-fluency-for-students",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How I use LLMs",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=EWvNQjAaOHw",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "On Pair Programming",
+          "source": "martinfowler.com",
+          "url": "https://martinfowler.com/articles/on-pair-programming.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Anthropic Education Report: How University Students Use Claude",
+          "source": "Anthropic",
+          "url": "https://www.anthropic.com/news/anthropic-education-report-how-university-students-use-claude",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Learning How to Learn: Powerful mental tools to help you master tough subjects",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/learning-how-to-learn",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

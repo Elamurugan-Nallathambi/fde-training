@@ -1,0 +1,126 @@
+{
+  "module": 6,
+  "overlay": true,
+  "add": [
+    {
+      "id": "medtech-gxp-design",
+      "title": "Designing for GxP: validation-ready AI in a device company",
+      "summary": "You will be able to design an AI solution for a regulated MedTech process so that intended use, human approval, audit trail, e-signatures and data integrity are built in from the first sketch.",
+      "why": "At a device maker, the first question from quality assurance is not 'does it work' but 'can we prove it works, who approved each output, and can we show an inspector exactly what happened'. If your design cannot answer that, the solution will not go live, however good the model is. Designing for it from day one costs little; adding it after the pilot costs months.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "GxP is shorthand for the good practice rules in regulated life sciences work, such as good manufacturing practice. For device makers in the US the core rules here are the QMSR (21 CFR Part 820, which incorporates ISO 13485) and 21 CFR Part 11 for electronic records and signatures. Validation-ready by design means the solution is built so the evidence that it works for its intended use comes out naturally as you build it, instead of being written afterwards.",
+            "Five design decisions do most of the work: a written intended use and risk level, clear human approval points, a complete audit trail, proper electronic records and signatures, and data integrity across every step the AI touches."
+          ]
+        },
+        {
+          "h": "Intended use and risk first",
+          "p": [
+            "Write one paragraph that says what the tool does, for whom, in which process, and what it does not do. For example: 'Drafts a complaint entry and a reportability assessment for review by a complaint coordinator and a regulatory specialist. It does not decide reportability and does not submit reports.' Every later decision, from testing depth to who signs, follows from this paragraph.",
+            "Then rate the risk. FDA Computer Software Assurance guidance asks you to think about what happens if a feature fails: could it affect product quality or patient safety? A drafting feature reviewed by a qualified person carries less risk than one that writes directly to a release decision. If the AI is part of the device itself, a different set of rules applies: IEC 62304 for the software lifecycle and ISO 14971 for risk management of the device. Most FDE work at device makers is quality system software, but confirm it with the regulatory team in writing."
+          ]
+        },
+        {
+          "h": "Human approval points and signatures",
+          "p": [
+            "Mark every point where a regulated decision or record is made: entering a complaint, deciding reportability, approving a CAPA plan, releasing a document, approving an engineering change. At each one, a qualified person reviews the AI's draft, can edit it, and signs. The design should make the review real: show the evidence next to the draft, highlight what the AI was unsure about, and never pre-tick the approval.",
+            "Part 11 expects electronic signatures to be linked to their records, unique to one person, and to show the signer's printed name, the date and time, and the meaning of the signature, such as review, approval or authorship. Use the signature function of the validated QMS or PLM rather than building your own."
+          ]
+        },
+        {
+          "h": "Audit trail and data integrity (ALCOA+)",
+          "p": [
+            "Part 11 asks for secure, computer-generated, time-stamped audit trails that record when operators create, change or delete electronic records, without hiding earlier values. For an AI component that means logging more than usual: what the AI was given, what it produced, which model and prompt version produced it, and what the person changed before signing.",
+            "Data integrity is usually summed up as ALCOA+. Records must be Attributable (who did it), Legible, Contemporaneous (recorded at the time), Original and Accurate, plus Complete, Consistent, Enduring and Available. Regulators such as the FDA and the UK MHRA publish guidance on it. For AI, the risky letters are Attributable and Original: the record must show which parts the AI drafted and which the person wrote, and the original source records must stay unchanged."
+          ],
+          "code": {
+            "lang": "json",
+            "text": "{\n  \"record_id\": \"CMP-2026-0412\",\n  \"step\": \"reportability_draft\",\n  \"ai\": {\n    \"model\": \"example-model-2026-05-01\",\n    \"prompt_version\": \"reportability-v7\",\n    \"inputs\": [\"service-note-8812\", \"mes-lot-L2301\", \"risk-file-HZ-14\"],\n    \"output_hash\": \"sha256:EXAMPLE\",\n    \"created_utc\": \"2026-10-01T09:14:03Z\"\n  },\n  \"human\": {\n    \"user\": \"j.doe\",\n    \"edited\": true,\n    \"signature_meaning\": \"approval\",\n    \"signed_utc\": \"2026-10-01T09:31:47Z\"\n  }\n}"
+          }
+        },
+        {
+          "h": "What changes for an AI component",
+          "list": [
+            "Pin versions. Use a fixed model version and a versioned prompt, and treat changing either as a controlled change.",
+            "Keep the AI out of the record of truth. The AI writes drafts into a clearly marked field; only the signed record counts.",
+            "Read-only by default. Give the AI read access to MES, ERP and PLM, and let the validated QMS or PLM do any write after a person approves.",
+            "Least privilege. The AI service account sees only the records its intended use needs.",
+            "Inside the boundary. Process data where the client's security and data residency rules allow, and do not let a provider train on client data.",
+            "Plan for failure. If the AI is down or unsure, the process falls back to the manual procedure, which must still work."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "A GxP-ready AI drafting step",
+        "caption": "Read top to bottom in time order; the signed record lives only in the validated QMS.",
+        "lanes": ["Coordinator", "AI service", "QMS (validated)", "Regulatory specialist"],
+        "steps": [
+          {"lane": 2, "label": "New complaint record created"},
+          {"lane": 1, "label": "Reads complaint, MES and risk file"},
+          {"lane": 1, "label": "Writes draft with versions logged"},
+          {"lane": 0, "label": "Reviews draft against evidence"},
+          {"lane": 0, "label": "Edits and signs complaint entry"},
+          {"lane": 3, "label": "Reviews reportability draft"},
+          {"lane": 3, "label": "Decides and signs with meaning"},
+          {"lane": 2, "label": "Audit trail stores every change"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: engineering change impact assistant (fictional)",
+        "p": [
+          "A maker of surgical instruments wants help assessing the impact of engineering changes. Today an engineer opens an ECO in PLM and spends hours finding every affected drawing, BOM, work instruction, label and regulatory document.",
+          "The FDE writes the intended use: 'Lists documents and records likely affected by a proposed ECO, with the reason for each, for review by the change owner. It does not approve, release or edit any document.' Risk is rated low to medium, since a missed item could lead to an uncontrolled document, but a qualified person reviews every list and the existing change board still meets.",
+          "The design keeps the ECO, approvals and signatures in the validated PLM. The AI service reads PLM, ERP and the document system, writes its suggested list into a marked field on the ECO, and logs model version, prompt version and inputs. The change owner ticks or removes each item and signs. If the service is down, the engineer uses the old manual checklist. The validation plan follows from this: test the suggestion quality on 80 past ECOs with known impacts, and test that the audit trail, signature and fallback work."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write the GxP design sheet for one use case",
+          "time": "60 min",
+          "goal": "Turn a MedTech AI idea into a design that QA could review.",
+          "steps": [
+            "Pick one use case: complaint intake, CAPA evidence gathering or label comparison.",
+            "Write the intended use in three sentences, including what the tool does not do.",
+            "Rate the risk of each feature as low, medium or high, with one line of reasoning each.",
+            "List every human approval point, who signs, and the meaning of each signature.",
+            "Write the fields your audit record will store for every AI draft, using the JSON above as a start.",
+            "Check your design against each ALCOA+ letter and note how it is met.",
+            "Ask Claude to play a QA reviewer and list its three hardest questions, then answer them."
+          ],
+          "done_when": "You have a one-page design sheet with intended use, risk ratings, approval points, audit fields and an ALCOA+ check, plus answers to three QA questions."
+        }
+      ],
+      "pitfalls": [
+        "Starting with the model and writing the intended use later. The intended use decides testing depth and approval points.",
+        "Building your own signature screen instead of using the validated QMS or PLM signature.",
+        "Logging the final record but not the AI draft, the model version and the human edits.",
+        "Letting the model version float. An unannounced model change is an uncontrolled change to a validated process.",
+        "Assuming the tool is or is not a medical device without asking the regulatory team."
+      ],
+      "check": [
+        "What goes into an intended use statement, and why write it first?",
+        "What three things must an electronic signature show under Part 11?",
+        "Name the ALCOA+ principles and the two that are most at risk with AI drafting.",
+        "Why should the AI write drafts into a marked field rather than the signed record?"
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11", "cost": "free"},
+        {"type": "docs", "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application", "cost": "free"},
+        {"type": "docs", "title": "Guidance on GxP data integrity", "source": "MHRA (GOV.UK)", "url": "https://www.gov.uk/government/publications/guidance-on-gxp-data-integrity", "cost": "free"},
+        {"type": "docs", "title": "IEC 62304:2006 Medical device software - Software life cycle processes", "source": "IEC", "url": "https://webstore.iec.ch/en/publication/6792", "cost": "paid"},
+        {"type": "video", "title": "Electronic records and electronic signatures according to 21 CFR Part 11", "source": "Scilife", "url": "https://www.youtube.com/watch?v=s6M6-PQsY8s", "cost": "free"},
+        {"type": "video", "title": "ALCOA+ - An easy abbreviation for data integrity", "source": "CRAMbridge", "url": "https://www.youtube.com/watch?v=F3ImjUkgxyQ", "cost": "free"},
+        {"type": "video", "title": "Risk management for medical devices and ISO 14971 - Online introductory course", "source": "Medical Device HQ", "url": "https://www.youtube.com/watch?v=y_mD3i8EWnE", "cost": "free"}
+      ],
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "Example scenario: a QA reviewer asks 'if the inspector picks complaint 412, can you show me what the AI suggested and what the coordinator changed?' If you can open the record and show the draft, the model and prompt version, the edits and the signature in under a minute, the conversation about going live gets much shorter."
+        ]
+      }
+    }
+  ]
+}

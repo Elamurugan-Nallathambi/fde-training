@@ -1,0 +1,120 @@
+{
+  "module": 9,
+  "overlay": true,
+  "add": [
+    {
+      "id": "pharma-eval-validation",
+      "title": "Evaluation as validation: test protocols, acceptance criteria and change control for AI",
+      "summary": "You will be able to turn an AI evaluation set into validation evidence a pharma QA team can approve, and keep it valid after go-live through monitoring and change control.",
+      "why": "In most companies an evaluation set is an engineering tool. In pharma it can be much more: the core of the test evidence that lets QA release the tool into GMP use. If you design the evaluation like a validation protocol from the start, with agreed acceptance criteria, traceable results and signed approval, you save weeks and avoid writing the same tests twice.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Validation means showing, with documented evidence, that a system does what it is intended to do, reliably, in its real setting. For computerized systems in GMP use, EU GMP Annex 11 and GAMP 5 expect this to be risk-based: more effort where the risk to patients, product and data is higher.",
+            "For an AI component, the evaluation set is the natural test. You run the tool on real past cases with known right answers, compare its output with what a qualified person decided, and measure against criteria agreed in advance. Written up with a plan, a protocol and a report, that is validation evidence."
+          ]
+        },
+        {
+          "h": "Risk-based assurance: CSA and GAMP 5",
+          "p": [
+            "GAMP 5 Second Edition, published by ISPE, describes a risk-based lifecycle for computerized systems and encourages critical thinking over producing paper for its own sake. FDA's guidance on computer software assurance (CSA) describes a similar risk-based approach for production and quality system software. That guidance is written for medical device manufacturers, but its main idea, to focus testing where failure would harm patients or product quality and to use lighter, unscripted testing for low-risk features, is widely discussed in pharma too. Agree with the client's QA team which approach their procedures follow.",
+            "In practice: rate each function of the tool by risk. For a high-risk function, such as drafting a root cause that QA will rely on, use scripted tests with a full evaluation set and documented results. For a low-risk function, such as formatting a summary, lighter exploratory testing can be enough if the client's procedures allow it."
+          ]
+        },
+        {
+          "h": "The evaluation set as a protocol",
+          "list": [
+            "Validation plan: intended use, scope, risk rating, roles, and the approach to testing. Approved by QA before testing starts.",
+            "Test cases: real, closed records chosen to cover the range: common cases, rare categories, messy records, and known hard cases. Each case has the expected outcome set by a qualified person, not by the developer.",
+            "Acceptance criteria: written before the run. For example, the share of drafts where the candidate root cause matches the investigator's final cause, and zero tolerance for leaving out a critical fact. Criteria can be stricter for higher-risk cases.",
+            "Execution: run the pinned model version and prompt set. Record inputs, outputs, the version of everything, who ran it and when.",
+            "Report: results against criteria, every failure explained, deviations from the plan recorded, and a conclusion signed by QA."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import csv\nimport io\n\n# Example results from one protocol run: one row per test case\ndata = \"\"\"case_id,risk,expected_cause,ai_cause,critical_fact_missed\nD01,high,equipment,equipment,0\nD02,high,material,material,0\nD03,high,method,equipment,0\nD04,medium,equipment,equipment,0\nD05,medium,environment,environment,0\nD06,medium,method,method,1\nD07,low,material,material,0\nD08,low,equipment,equipment,0\n\"\"\"\nrows = list(csv.DictReader(io.StringIO(data)))\n\n# Acceptance criteria agreed with QA before the run\nmin_match = {\"high\": 0.90, \"medium\": 0.80, \"low\": 0.70}\nmax_missed_facts = 0\n\nfor risk, target in min_match.items():\n    group = [r for r in rows if r[\"risk\"] == risk]\n    match = sum(r[\"expected_cause\"] == r[\"ai_cause\"] for r in group) / len(group)\n    print(f\"{risk}: {match:.0%} match, target {target:.0%}, {'PASS' if match >= target else 'FAIL'}\")\n\nmissed = sum(int(r[\"critical_fact_missed\"]) for r in rows)\nprint(f\"critical facts missed: {missed}, {'PASS' if missed <= max_missed_facts else 'FAIL'}\")"
+          }
+        },
+        {
+          "h": "After go-live: monitoring and periodic review",
+          "p": [
+            "A validated state has to be kept, not just reached. Annex 11 expects computerized systems to be periodically evaluated to confirm they remain valid. For AI, plan three kinds of monitoring. First, review signals: how often reviewers change the AI draft heavily or reject it. Second, sampled re-checks: each month a qualified person scores a small random sample of live drafts with the same rubric used in validation. Third, input drift: new products, new equipment or new deviation types that the evaluation set never covered.",
+            "Agree thresholds in advance. If the rejection rate or the sampled score crosses a threshold, open a deviation or an investigation, just as you would for any other GMP system."
+          ]
+        },
+        {
+          "h": "Change control for prompts and models",
+          "p": [
+            "Every part that shapes the output is configuration: the model version, the prompt text, retrieval sources and their index, and settings such as temperature. A change to any of them goes through the client's change control. The change request says what changes and why, assesses impact and risk, and states which tests will be rerun.",
+            "Keep the evaluation set and its runner ready to rerun in one command. Then a prompt fix or a model upgrade becomes a routine change: rerun the protocol, compare with the last approved results, and attach the report to the change record. Vendors retire models over time, so plan for at least one forced model change during the tool's life."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "Validated AI lifecycle",
+        "caption": "Read clockwise; every change returns to testing before it reaches GMP use again.",
+        "steps": [
+          {"label": "Intended use and risk", "note": "Agreed with QA, drives test depth"},
+          {"label": "Plan and acceptance criteria", "note": "Written and approved before testing"},
+          {"label": "Run protocol on eval set", "note": "Pinned model and prompts, all logged"},
+          {"label": "Report and QA approval", "note": "Failures explained, release decision"},
+          {"label": "Monitor in use", "note": "Rejection rate, sampled scores, drift"},
+          {"label": "Change control", "note": "Prompt or model change, rerun protocol"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: a protocol run that fails, and what happens next (example figures)",
+        "p": [
+          "You validate a deviation drafting assistant at a fictional site. The plan, approved by QA, sets targets per risk tier and zero tolerance for missed critical facts. The code above shows a small slice of the run. The high-risk tier fails, and one draft in the medium tier left out a critical fact.",
+          "This is a normal and useful result. You do not quietly tune until it passes. You record the failures, investigate each one, and decide with QA what to do."
+        ],
+        "list": [
+          "Failure D03: the AI chose 'equipment' when the cause was a method problem. The draft did not have access to the analytical method record. Fix: add the method record to retrieval.",
+          "Failure D06: the draft left out a second sample result. Fix: change the prompt to list all linked results, and add a check that counts them.",
+          "Both fixes go through change control, and the full protocol is rerun, not only the failed cases.",
+          "The second run passes; the report records both runs and is signed by QA. Go-live follows with monthly sampled review."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write and run a mini validation protocol",
+          "time": "60 min",
+          "goal": "Practise turning an evaluation set into validation evidence with agreed acceptance criteria.",
+          "steps": [
+            "Pick one AI task: deviation root cause suggestion, CoA data extraction or SOP question answering.",
+            "Write a half-page plan: intended use, risk rating, acceptance criteria and who approves.",
+            "Build eight synthetic test cases in a spreadsheet with expected outcomes and a risk tier for each.",
+            "Run each case through Claude with a fixed prompt and record the outputs in the sheet.",
+            "Adapt the Python example from this lesson to score your sheet exported as CSV.",
+            "Write a short report: results against criteria, each failure explained, and your release recommendation."
+          ],
+          "done_when": "You have a plan, eight scored cases, a pass or fail per criterion and a one-page report with a clear recommendation."
+        }
+      ],
+      "pitfalls": [
+        "Setting acceptance criteria after seeing the results. Agree them with QA before the run.",
+        "Letting developers set the expected answers. Expected outcomes come from qualified people or closed, approved records.",
+        "Rerunning only the failed cases after a fix. Rerun the full protocol, since a fix can break other cases.",
+        "Treating go-live as the end. Plan monitoring and periodic review, or the validated state will quietly drift.",
+        "Using synthetic or hand-picked cases only. Validation evidence should come from real, representative records."
+      ],
+      "check": [
+        "What are the parts of a validation package for an AI step, from plan to report?",
+        "How does a risk-based approach change how much you test a high-risk and a low-risk function?",
+        "Name three signals to monitor after go-live.",
+        "What must happen before a new model version is used in GMP work?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "docs", "title": "GAMP 5 Guide 2nd Edition", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition", "cost": "paid"},
+        {"type": "docs", "title": "EU GMP Annex 11: Computerised Systems", "source": "European Commission", "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf", "cost": "free"},
+        {"type": "docs", "title": "Define success criteria and build evaluations", "source": "Claude Platform Docs", "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests", "cost": "free"},
+        {"type": "video", "title": "Computer System Validation (CSV) Testing Explained | GAMP 5 (2nd Ed), FDA CSA & EU Annex 11", "source": "Pharmalytics", "url": "https://www.youtube.com/watch?v=qkKdbO9C9Yk", "cost": "free"},
+        {"type": "video", "title": "Webinar \"How to Validate AI/ML in Life Sciences, the Future of Computer System Validation\"", "source": "FIVE Validation", "url": "https://www.youtube.com/watch?v=lKWapFeZkDU", "cost": "free"},
+        {"type": "course", "title": "Evaluating AI Agents", "source": "DeepLearning.AI", "url": "https://www.deeplearning.ai/courses/evaluating-ai-agents", "cost": "free"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2342 @@
+{
+  "id": "iso-standards",
+  "title": "ISO standards for regulated engineering",
+  "category": "Process",
+  "track": "MedTech and Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "A practical tour of ISO 9001, ISO 13485, ISO 14971 and ISO/IEC 27001, and how audits and certification really work.",
+  "audience": "Engineers, project leads and FDEs who are asked to work 'to ISO' on a regulated project and want to know what that means in day-to-day work.",
+  "sections": [
+    {
+      "id": "how-iso-standards-work",
+      "title": "How ISO standards work and the four you will meet",
+      "summary": "What a standard is, how requirements are written, how certification works, and where ISO 9001, ISO 13485, ISO 14971 and ISO/IEC 27001 fit.",
+      "outline": [
+        "What a standard is and who writes it (ISO, IEC and joint ISO/IEC work)",
+        "Reading requirement language: shall, should, may",
+        "Management system standards and the shared clause structure",
+        "ISO 9001, ISO 13485, ISO 14971 and ISO/IEC 27001 in one picture",
+        "Certification, accreditation and why ISO itself does not certify",
+        "What working 'to ISO' means for an engineer"
+      ],
+      "lessons": [
+        {
+          "id": "iso-how-standards-work",
+          "title": "How ISO standards work and the four you will meet",
+          "summary": "You will be able to explain what an ISO standard asks for, tell the four common ones apart, and describe how a company gets and keeps a certificate.",
+          "why": "Clients in medical devices and pharma will say 'we are ISO 13485 certified' or 'this has to meet ISO 14971' in the first meeting. Suppliers will ask whether your team holds ISO/IEC 27001. If you do not know what each standard covers and how it is checked, you will either over-promise or miss work that an auditor will later ask for. This lesson gives you the map.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "A standard is an agreed document that describes a good way to do something. ISO (the International Organization for Standardization) publishes thousands of them, written by committees of experts from national standards bodies. The IEC (International Electrotechnical Commission) does the same for electrical and electronic topics, and some standards are written jointly, which is why you see names like ISO/IEC 27001.",
+                "A standard on its own is voluntary. It becomes binding when a law points to it, when a regulator recognises it, or when a customer writes it into a contract. In medical devices, regulators rely heavily on standards, so in practice they are close to mandatory."
+              ]
+            },
+            {
+              "h": "Reading requirement language",
+              "p": [
+                "Standards use a few words with exact meanings. 'Shall' is a requirement: if the standard says the organisation shall do something, an auditor will check that you do it. 'Should' is a recommendation: you may choose another way if you can justify it. 'May' gives permission, and 'can' describes a possibility.",
+                "Most requirements describe what must be achieved, not how. ISO 13485 says documents shall be reviewed and approved before issue; it does not say which software to use. That freedom is useful, but it means each company writes its own procedures, and you must read the client's procedures, not only the standard."
+              ]
+            },
+            {
+              "h": "The four standards you will meet",
+              "p": [
+                "Three of these are management system standards: they describe how an organisation runs a set of processes, and a company can be certified against them. ISO 14971 is different: it describes a process for one product's risk, and is checked through audits and regulatory reviews of the product rather than certified on its own."
+              ],
+              "list": [
+                "ISO 9001: quality management for any industry. It focuses on meeting customer requirements, risk-based thinking and continual improvement.",
+                "ISO 13485: quality management for medical devices. It is built on the same ideas but puts more weight on meeting regulatory requirements, documented procedures and keeping products safe and effective. The FDA QMSR incorporates ISO 13485:2016 by reference.",
+                "ISO 14971: risk management for medical devices. It sets out how to find hazards, estimate and evaluate risk, control it, judge what risk remains, and keep watching once the product is on the market.",
+                "ISO/IEC 27001: information security management. It asks the organisation to assess risks to its information, choose controls to treat them, and run the system so it keeps working."
+              ]
+            },
+            {
+              "h": "Shared structure",
+              "p": [
+                "ISO now writes its management system standards on a common skeleton, so ISO 9001 and ISO/IEC 27001 share the same main clause headings: context of the organisation, leadership, planning, support, operation, performance evaluation and improvement. That makes it easier to run several standards as one integrated system.",
+                "ISO 13485:2016 was written on the older ISO 9001 layout and does not follow this common skeleton, so clause numbers do not line up one to one with ISO 9001. When a client maps requirements between standards, expect a cross-reference table rather than an exact match."
+              ]
+            },
+            {
+              "h": "Certification and accreditation",
+              "p": [
+                "ISO writes standards but does not certify anyone. Certification is done by independent certification bodies. A certification body is itself checked by a national accreditation body, and accreditation bodies that sign the International Accreditation Forum (IAF) multilateral recognition arrangement accept each other's work. A certificate from an accredited body therefore carries more weight than one from an unaccredited one.",
+                "The usual cycle is a stage 1 audit that checks the system is documented and ready, then a stage 2 audit that checks it is working in practice. If findings are closed, a certificate is issued, typically for three years, with surveillance audits in between and a recertification audit at the end."
+              ]
+            },
+            {
+              "h": "What working 'to ISO' means for an engineer",
+              "p": [
+                "When a client says the work must be done 'to ISO', ask which standard, which edition and which of their procedures implement it. The standard rarely tells you what to do on Tuesday; the client's procedures do. Your job is to follow those procedures and leave records that show you did.",
+                "In practice that means a few habits. Use only approved, current versions of documents. Record who did what and when, for example who reviewed a test and who approved a change. Raise problems through the client's nonconformity or change process instead of fixing them quietly. Keep your own work in the controlled system the client names, not on a personal drive.",
+                "Finally, remember that a standard is one layer among several. A device maker also has to meet the law in each market it sells in, follow regulator guidance or justify not doing so, and keep the promises in its contracts. The next lessons show how to sort these layers and trace each requirement to evidence."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Four standards side by side",
+            "caption": "Each column is one standard: what it covers, who uses it, and how conformity is usually shown.",
+            "columns": [
+              {
+                "title": "ISO 9001",
+                "items": [
+                  "Quality management",
+                  "Any industry",
+                  "Customer focus and improvement",
+                  "Certified by a certification body"
+                ]
+              },
+              {
+                "title": "ISO 13485",
+                "items": [
+                  "Device quality management",
+                  "Device makers and suppliers",
+                  "Regulatory focus, safety",
+                  "Certified; basis of FDA QMSR"
+                ]
+              },
+              {
+                "title": "ISO 14971",
+                "items": [
+                  "Device risk management",
+                  "Applied per product",
+                  "Hazards to residual risk",
+                  "Checked in audits and reviews"
+                ]
+              },
+              {
+                "title": "ISO/IEC 27001",
+                "items": [
+                  "Information security",
+                  "Any organisation",
+                  "Risk-based security controls",
+                  "Certified by a certification body"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: which standards apply to one project (example scenario)",
+            "p": [
+              "A device maker hires an engineering team to build a mobile app that reads values from a connected glucose meter and shows trends to the patient. The device maker is ISO 13485 certified. Before writing code, the team lead works out which standards touch the work.",
+              "The result is a short list the team can plan around, instead of a vague promise to 'follow ISO'."
+            ],
+            "list": [
+              "ISO 13485: the app is part of a medical device, so its design and development must follow the device maker's design control procedures, which are written to meet ISO 13485.",
+              "ISO 14971: the app could show a wrong trend that leads to a wrong dose decision, so it needs hazards and risk controls in the product risk file.",
+              "ISO/IEC 27001: the app handles health data, and the device maker's contract asks suppliers to hold or align with ISO/IEC 27001 for information security.",
+              "ISO 9001: the engineering team's own company is ISO 9001 certified, which the device maker accepts as evidence for supplier quality, alongside its own supplier audit.",
+              "Not on the list but worth asking: software lifecycle requirements, usually met through IEC 62304, a separate IEC standard."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build your own standards map",
+              "time": "45 min",
+              "goal": "Practise telling the four standards apart and linking them to real work.",
+              "steps": [
+                "Read the ASQ pages on ISO 9001 and on auditing linked below, and the FDA QMSR page.",
+                "Draw a table with the four standards as rows and these columns: what it covers, who uses it, certified or not, one example of a 'shall' it could contain.",
+                "Pick a regulated product you know, such as an insulin pen or a hospital scheduling app, and mark which standards would apply and why.",
+                "Ask Claude to challenge your table with three tricky cases and correct any row you got wrong."
+              ],
+              "done_when": "You have a one-page table you could use to explain the four standards to a colleague in five minutes."
+            }
+          ],
+          "pitfalls": [
+            "Saying a product is 'ISO 14971 certified'. ISO 14971 is applied to a product and checked in audits and reviews; the management system is what gets certified.",
+            "Reading only the standard. Each company writes its own procedures to meet it, and auditors check you against those procedures.",
+            "Trusting any certificate. Check that the certification body is accredited and that the certificate scope covers the work you care about.",
+            "Assuming clause numbers match between ISO 9001 and ISO 13485. Use a cross-reference table."
+          ],
+          "check": [
+            "What is the difference between 'shall' and 'should' in a standard?",
+            "Which of the four standards is not usually certified on its own, and why?",
+            "Who issues an ISO certificate, and who checks that issuer?",
+            "Describe the stage 1, stage 2 and surveillance audit cycle in two sentences.",
+            "Why is ISO 13485 more relevant than ISO 9001 to a medical device maker?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is ISO 9001? (ISO 9001 overview)",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/iso-9001",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is an Audit? Types of Audits and Auditing Certification",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/auditing",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "About the IAF MLA",
+              "source": "International Accreditation Forum",
+              "url": "https://iaf.nu/en/about-iaf-mla/",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "ISO 13485:2016 Medical devices - Quality management systems",
+              "source": "ISO",
+              "url": "https://www.iso.org/standard/59752.html",
+              "cost": "paid"
+            },
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is ISO 9001? Explained in 5 Minutes (Simple & Easy!)",
+              "source": "The Knowledge Academy",
+              "url": "https://www.youtube.com/watch?v=kRvaXGWz4iY",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "Certified Quality Auditor (CQA)",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/quality-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "iso-q01",
+          "lesson": "iso-how-standards-work",
+          "q": "A standard says the organisation 'should' review supplier performance yearly. Your client reviews every two years with a written reason. Is that acceptable?",
+          "options": [
+            "No, because 'should' is a strict requirement in every standard",
+            "Yes, 'should' is a recommendation, if justified",
+            "No, because only the word 'may' ever allows a choice",
+            "Yes, because auditors never check recommendation wording"
+          ],
+          "answer": 1,
+          "why": "'Should' is a recommendation; 'shall' is the requirement an auditor will hold you to."
+        },
+        {
+          "id": "iso-q02",
+          "lesson": "iso-how-standards-work",
+          "q": "A supplier's sales deck says 'ISO certified by ISO'. What is wrong with that claim?",
+          "options": [
+            "ISO does not certify; certification bodies do",
+            "ISO only certifies companies based in Europe",
+            "Device certificates are always issued by the FDA",
+            "Nothing is wrong, ISO issues most certificates itself"
+          ],
+          "answer": 0,
+          "why": "ISO writes standards. Accredited certification bodies audit and issue certificates."
+        },
+        {
+          "id": "iso-q03",
+          "lesson": "iso-how-standards-work",
+          "q": "A product manager asks you to add 'ISO 14971 certified' to a product sheet. What do you tell them?",
+          "options": [
+            "Fine, as long as the product risk file is complete and signed",
+            "Fine, if the company also holds a current ISO 9001 certificate",
+            "Only after a stage 2 certification audit of the product itself",
+            "It is applied per product, not certified alone"
+          ],
+          "answer": 3,
+          "why": "ISO 14971 is a risk management process for a product; the management system is what is certified."
+        },
+        {
+          "id": "iso-q04",
+          "lesson": "iso-how-standards-work",
+          "q": "Which standard sets requirements for a quality management system specific to medical devices?",
+          "options": [
+            "ISO/IEC 27001",
+            "ISO 9001",
+            "ISO 13485",
+            "ISO 14971"
+          ],
+          "answer": 2,
+          "why": "ISO 13485 is the device QMS standard and is incorporated by reference in the FDA QMSR."
+        },
+        {
+          "id": "iso-q05",
+          "lesson": "iso-how-standards-work",
+          "q": "Your team will store patient data for a client, who asks how you manage information security risk. Which standard is the usual reference?",
+          "options": [
+            "ISO 13485 device quality",
+            "ISO/IEC 27001",
+            "ISO 14971 product risk",
+            "ISO 9001 general quality"
+          ],
+          "answer": 1,
+          "why": "ISO/IEC 27001 covers an information security management system built on risk assessment and controls."
+        },
+        {
+          "id": "iso-q06",
+          "lesson": "iso-how-standards-work",
+          "q": "A first certification audit checks that the system is documented and ready. What usually comes next?",
+          "options": [
+            "The certificate is issued at once with no further checks",
+            "A product test carried out by the national regulator",
+            "A full recertification audit one month later",
+            "A stage 2 audit of the system in practice"
+          ],
+          "answer": 3,
+          "why": "Stage 1 checks readiness; stage 2 checks the system is implemented and effective."
+        },
+        {
+          "id": "iso-q07",
+          "lesson": "iso-how-standards-work",
+          "q": "A colleague maps ISO 9001 clause 8 straight onto ISO 13485 clause 8 and assumes they match. What is the risk?",
+          "options": [
+            "None at all, since both standards share exactly one layout",
+            "ISO 13485:2016 uses an older layout, so clauses differ",
+            "ISO 9001 has no clause 8, so the mapping is meaningless",
+            "ISO 13485 has only four clauses, so nothing can be mapped"
+          ],
+          "answer": 1,
+          "why": "ISO 13485:2016 does not follow the common structure used by ISO 9001 and ISO/IEC 27001, so use a cross-reference."
+        },
+        {
+          "id": "iso-q08",
+          "lesson": "iso-how-standards-work",
+          "q": "You are checking a new supplier's ISO 9001 certificate. What is the most useful thing to confirm?",
+          "options": [
+            "The body is accredited and the scope fits",
+            "The certificate carries an official ISO logo on it",
+            "The certificate was printed on paper and stamped",
+            "The supplier has held the certificate for over ten years"
+          ],
+          "answer": 0,
+          "why": "Accreditation shows the certifier was checked, and the scope shows which sites and activities are covered."
+        },
+        {
+          "id": "iso-q09",
+          "lesson": "iso-how-standards-work",
+          "q": "Why does a team building device software need to read the client's procedures and not only ISO 13485?",
+          "options": [
+            "ISO 13485 is a secret document that engineers cannot read",
+            "The procedures replace the standard entirely once written",
+            "The standard says what; the procedures say how",
+            "Auditors never look at the standard during an audit"
+          ],
+          "answer": 2,
+          "why": "Standards mostly state outcomes; the company's procedures define how it meets them, and auditors check both."
+        },
+        {
+          "id": "iso-q10",
+          "lesson": "iso-how-standards-work",
+          "q": "A certificate is typically valid for three years. What happens in between?",
+          "options": [
+            "Nothing happens until the certificate finally expires",
+            "Surveillance audits by the certifier",
+            "A full stage 1 audit is repeated every single month",
+            "The company audits its certification body instead"
+          ],
+          "answer": 1,
+          "why": "Certification bodies run surveillance audits during the cycle, then a recertification audit at the end."
+        }
+      ]
+    },
+    {
+      "id": "iso-9001",
+      "title": "ISO 9001 in practice",
+      "summary": "How a general quality management system is set up and run under ISO 9001, and how to read one clause through to the record that proves it.",
+      "outline": [
+        "Regulation, standard, guidance and customer procedure: four kinds of document",
+        "Context, interested parties and scope",
+        "Process approach and the plan, do, check, act cycle",
+        "Risk-based thinking and quality objectives",
+        "Documented information and how much is enough",
+        "Reading a clause through to procedure and record"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-iso-9001",
+          "title": "ISO 9001 in practice",
+          "summary": "You will be able to tell a regulation, a standard, a guidance document and a customer procedure apart, and trace an ISO 9001 requirement to the procedure and record that show it is met.",
+          "why": "On a client project you will be handed a pile of documents: a law, two or three standards, some regulator guidance and a stack of the client's own procedures. They do not carry the same weight. If you treat guidance as law you over-build; if you treat a client procedure as optional you fail their audit. ISO 9001 is the simplest quality standard to learn this skill on, and many suppliers to MedTech and Pharma companies are certified to it.",
+          "sections": [
+            {
+              "h": "Four kinds of document, four kinds of weight",
+              "p": [
+                "Before you read any standard, sort every document you are given into one of four groups. The group tells you whether something is mandatory, for whom, and who decides if it was met.",
+                "When two documents seem to disagree, the law comes first, then the customer contract and procedures, then the standard as written into them, then guidance. In practice a good client procedure already meets all the layers above it, so the procedure is usually the document you work from day to day."
+              ],
+              "list": [
+                "Regulation: law made by a government, for example 21 CFR Part 820 (the FDA Quality Management System Regulation) or the EU Medical Device Regulation (EU) 2017/745. Mandatory for anyone it applies to. Enforced by the regulator.",
+                "Standard: a voluntary consensus document such as ISO 9001 or ISO 13485. It becomes binding when a law refers to it, a regulator recognises it, a certificate depends on it, or a contract names it.",
+                "Guidance: the regulator's current thinking on how to meet the law, such as an FDA guidance document or an EU MDCG document. FDA guidance states that it does not create legally binding requirements, but inspectors expect you to follow it or to justify a different approach.",
+                "Customer procedure: the client's own SOPs, work instructions and quality agreements. Binding on you through the contract, and the client's auditors will check you against them."
+              ]
+            },
+            {
+              "h": "What ISO 9001 covers",
+              "p": [
+                "ISO 9001 sets requirements for a quality management system (QMS) in any industry: the way an organisation plans, runs, checks and improves its work so customers get what they asked for. Most certificates in use today name ISO 9001:2015, and this lesson uses that edition. In it, the requirements sit in clauses 4 to 10: context of the organisation, leadership, planning, support, operation, performance evaluation and improvement. A revised edition, ISO 9001:2026, was scheduled for publication in 2026 with a transition period for certified companies, so always check which edition a certificate or contract names before mapping clauses.",
+                "Context means the company decides which internal and external issues matter, who its interested parties are (customers, regulators, suppliers, staff) and what they need, and then writes down the scope of the QMS. Scope is important to you: if a site or a product line is outside the scope, the certificate says nothing about it."
+              ]
+            },
+            {
+              "h": "Process approach and plan, do, check, act",
+              "p": [
+                "ISO 9001 asks the organisation to manage its work as connected processes, each with inputs, outputs, owners, measures and risks. Order handling, design, purchasing, production and customer feedback are typical processes. The output of one is the input to the next, which is why a fault in purchasing shows up later as a production problem.",
+                "Each process, and the system as a whole, runs on the plan, do, check, act (PDCA) cycle. Plan sets objectives and the way of working. Do carries it out. Check measures results against the plan, through monitoring, internal audit and management review. Act fixes what went wrong and improves. Clauses 6, 8, 9 and 10 map roughly onto plan, do, check and act."
+              ]
+            },
+            {
+              "h": "Risk-based thinking and objectives",
+              "p": [
+                "ISO 9001 asks the organisation to think about what could stop it meeting its aims, and what opportunities exist, and to plan actions in proportion. It does not require a formal risk method. A simple table of risks per process, with an owner and an action, is often enough for a small company. This is different from ISO 14971, where product risk management follows a defined process.",
+                "Quality objectives must be measurable, monitored and communicated. 'Improve quality' is not an objective. 'Ship 98 percent of orders complete and on time, measured monthly' is one (an example figure, not a benchmark)."
+              ]
+            },
+            {
+              "h": "Documented information: how much is enough",
+              "p": [
+                "ISO 9001:2015 uses the phrase documented information for both documents (which say how to do something) and records (which prove it was done). It requires some specific records, such as evidence of competence, results of management review and records of nonconformities. Beyond that, the organisation decides what it needs to run its processes well.",
+                "So the right amount is the least that keeps work consistent and lets you prove what happened. An auditor will not fault a missing procedure if people work consistently and records exist. They will fault a beautiful procedure that nobody follows."
+              ]
+            },
+            {
+              "h": "Reading a clause through to the record",
+              "p": [
+                "This is the core skill of the whole course. Take one requirement and follow it all the way down to evidence. You need legitimate access to the text: standards are copyrighted and sold, so use your client's licensed copy or buy your own. Do not paste standard text into public tools or shared drives."
+              ],
+              "list": [
+                "Read the clause and underline every 'shall'. Each one is a separate requirement.",
+                "Write each requirement as an outcome in your own words, for example 'suppliers are evaluated and re-evaluated against criteria'.",
+                "Find the client procedure that implements it. Note its number and version.",
+                "Find the record that proves it happens, for example a supplier evaluation form for a named supplier.",
+                "Mark any gap: a 'shall' with no procedure, or a procedure with no records."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "PDCA and the ISO 9001 clauses",
+            "caption": "Read clockwise from Plan; Act feeds back into the next round of planning.",
+            "steps": [
+              {
+                "label": "Context and leadership",
+                "note": "Clauses 4 and 5: scope, interested parties, policy, roles"
+              },
+              {
+                "label": "Plan",
+                "note": "Clause 6: risks, opportunities, quality objectives"
+              },
+              {
+                "label": "Do",
+                "note": "Clauses 7 and 8: resources, then operation of processes"
+              },
+              {
+                "label": "Check",
+                "note": "Clause 9: monitoring, internal audit, management review"
+              },
+              {
+                "label": "Act",
+                "note": "Clause 10: nonconformity, corrective action, improvement"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a supplier evaluation requirement (fictional company)",
+            "p": [
+              "A contract manufacturer of plastic housings is certified to ISO 9001. A device maker wants to use it as a supplier, and you are asked to check whether its supplier controls are real. You work from ISO 9001 clause 8.4, control of externally provided processes, products and services, using the device maker's licensed copy.",
+              "You underline the 'shall' statements and rewrite them as outcomes. You find the manufacturer's purchasing procedure and ask for evidence for two named resin suppliers."
+            ],
+            "list": [
+              "Outcome: criteria exist for evaluating, selecting and re-evaluating suppliers. Procedure: purchasing procedure, section on approved suppliers. Record: scored evaluation forms for both resin suppliers. Status: met.",
+              "Outcome: results of evaluations are kept. Record: one resin supplier was last re-evaluated four years ago, while the procedure says every two years. Status: gap, the procedure is not followed.",
+              "Customer layer: the device maker's own supplier quality agreement asks for notice before any resin change. No such clause is in the manufacturer's procedure. Status: gap against the customer procedure, not against ISO 9001.",
+              "Output: a one-page map listing requirement, source type, procedure, record and status, with the two gaps flagged for the quality lead."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Sort a document pile and trace one requirement",
+              "time": "45 min",
+              "goal": "Practise telling document types apart and following a requirement down to evidence.",
+              "steps": [
+                "Open the ASQ ISO 9001 overview and the eCFR page for 21 CFR Part 820 linked below.",
+                "Make a spreadsheet with columns: document, type (regulation, standard, guidance, customer procedure), who enforces it, binding on whom.",
+                "Add six rows: 21 CFR 820, ISO 9001, ISO 13485, one FDA guidance from the FDA guidance search page, a made-up client SOP for supplier approval, and a made-up quality agreement.",
+                "Pick one requirement from the free ASQ summary of ISO 9001, such as supplier control, and write it as an outcome in your own words.",
+                "Write the name of the procedure and the record you would ask a supplier for to prove it.",
+                "Ask Claude to challenge your classification and find one row where the weight depends on a contract or reference."
+              ],
+              "done_when": "Your sheet has six correctly typed rows, each with an enforcer, and one requirement traced to a named procedure and a named record."
+            }
+          ],
+          "pitfalls": [
+            "Treating FDA or EU guidance as if it were law, and building far more than needed. Guidance shows one acceptable way; a different justified way is allowed.",
+            "Assuming an ISO 9001 certificate covers the site or product you care about. Always read the scope statement on the certificate.",
+            "Writing a procedure for every clause and then not following it. Auditors check what people do and what the records show.",
+            "Reading only the standard and ignoring the client's procedures and quality agreements, which are the documents you will actually be audited against.",
+            "Copying licensed standard text into public tools or shared folders. Use the client's licensed copy and quote only what the work needs."
+          ],
+          "check": [
+            "What is the difference between a regulation, a standard, a guidance document and a customer procedure, and who enforces each?",
+            "When does a voluntary standard become binding on a company?",
+            "How do the PDCA steps map onto ISO 9001 clauses 6 to 10?",
+            "What is documented information, and how do you decide how much is enough?",
+            "Describe the steps to trace one 'shall' to its procedure and record."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is a Quality Management System (QMS)?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/quality-management-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "PDCA Cycle - What is the Plan-Do-Check-Act Cycle?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/pdca-cycle",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is Supplier Quality Management?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/supplier-quality",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Search for FDA Guidance Documents",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is Risk-Based Thinking? [How To: ISO 9001]",
+              "source": "Core Business Solutions",
+              "url": "https://www.youtube.com/watch?v=ZxgKfUsJpkc",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "Certified Quality Auditor (CQA)",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/quality-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "iso-9001-q01",
+          "lesson": "iso-standards-iso-9001",
+          "q": "A client hands you 21 CFR Part 820. What kind of document is it?",
+          "options": [
+            "A voluntary consensus standard",
+            "A regulation with legal force",
+            "FDA guidance that is not binding",
+            "A customer procedure"
+          ],
+          "answer": 1,
+          "why": "21 CFR Part 820 is US federal regulation, so it is law for device makers it applies to."
+        },
+        {
+          "id": "iso-9001-q02",
+          "lesson": "iso-standards-iso-9001",
+          "q": "An FDA guidance document suggests one way of meeting a rule. Your client uses a different method with a written justification. What is the best view?",
+          "options": [
+            "It is a violation, because guidance is law",
+            "Guidance only applies to small companies",
+            "It can be acceptable, since guidance is not binding",
+            "The FDA must approve every alternative method in advance"
+          ],
+          "answer": 2,
+          "why": "FDA guidance describes current thinking and is not legally binding; a justified alternative can be acceptable."
+        },
+        {
+          "id": "iso-9001-q03",
+          "lesson": "iso-standards-iso-9001",
+          "q": "A supplier says they are ISO 9001 certified. You need parts from their second site. What should you check first?",
+          "options": [
+            "The scope on the certificate",
+            "The colour of the certificate logo",
+            "Whether ISO itself signed it",
+            "How many staff they employ at head office"
+          ],
+          "answer": 0,
+          "why": "The certificate only covers the sites and activities in its scope statement."
+        },
+        {
+          "id": "iso-9001-q04",
+          "lesson": "iso-standards-iso-9001",
+          "q": "Which statement is a usable ISO 9001 quality objective?",
+          "options": [
+            "Improve quality across the business",
+            "Be the best supplier in our market",
+            "Ship 98 percent of orders complete and on time, measured monthly",
+            "Make customers happier this year"
+          ],
+          "answer": 2,
+          "why": "Objectives must be measurable and monitored; the others cannot be measured."
+        },
+        {
+          "id": "iso-9001-q05",
+          "lesson": "iso-standards-iso-9001",
+          "q": "In the PDCA cycle, where do internal audit and management review belong?",
+          "options": [
+            "Plan",
+            "Do",
+            "Act, because they always fix problems",
+            "Check"
+          ],
+          "answer": 3,
+          "why": "Audit and review measure results against the plan, which is the Check step (clause 9)."
+        },
+        {
+          "id": "iso-9001-q06",
+          "lesson": "iso-standards-iso-9001",
+          "q": "A supplier's procedure says re-evaluate suppliers every two years. One supplier was last reviewed four years ago. What is this?",
+          "options": [
+            "Fine, since ISO 9001 sets no time limit",
+            "A gap: the procedure is not being followed",
+            "Only a gap if a customer complains",
+            "A gap in the regulation, not in the company or its procedure"
+          ],
+          "answer": 1,
+          "why": "Auditors check that the company follows its own procedure; a missed cycle is a nonconformity."
+        },
+        {
+          "id": "iso-9001-q07",
+          "lesson": "iso-standards-iso-9001",
+          "q": "A colleague wants to paste the full ISO 9001 text into a public AI tool to summarise it. What should you say?",
+          "options": [
+            "Fine, because published standards are in the public domain and free to copy",
+            "Fine if you delete the chat afterwards",
+            "Only paste it if the tool is fast",
+            "No, standards are copyrighted; use licensed access"
+          ],
+          "answer": 3,
+          "why": "ISO standards are sold under copyright; use the licensed copy and quote only what the work needs."
+        },
+        {
+          "id": "iso-9001-q08",
+          "lesson": "iso-standards-iso-9001",
+          "q": "Your client's quality agreement requires notice before a resin change, but ISO 9001 says nothing about resin. Is the supplier bound by it?",
+          "options": [
+            "Yes, through the contract",
+            "No, only ISO text can bind a supplier",
+            "No, because quality agreements are guidance",
+            "Only if the FDA approves the agreement"
+          ],
+          "answer": 0,
+          "why": "Customer procedures and quality agreements bind suppliers through the contract, on top of the standard."
+        },
+        {
+          "id": "iso-9001-q09",
+          "lesson": "iso-standards-iso-9001",
+          "q": "You read an ISO 9001 clause and find three 'shall' statements. How many requirements should your evidence map have for it?",
+          "options": [
+            "One, for the whole clause",
+            "Three, one per 'shall'",
+            "None, until an auditor asks",
+            "As many as the clause has paragraphs of any kind"
+          ],
+          "answer": 1,
+          "why": "Each 'shall' is a separate requirement and needs its own procedure and record."
+        },
+        {
+          "id": "iso-9001-q10",
+          "lesson": "iso-standards-iso-9001",
+          "q": "What does ISO 9001 mean by 'documented information'?",
+          "options": [
+            "Only the quality manual",
+            "Only records signed by management",
+            "Both documents that guide work and records that prove it",
+            "Any email or chat message sent by the quality team over the last year"
+          ],
+          "answer": 2,
+          "why": "The term covers documents (how to do it) and records (proof it was done)."
+        }
+      ]
+    },
+    {
+      "id": "iso-13485",
+      "title": "ISO 13485 for medical device quality",
+      "summary": "What ISO 13485 adds on top of general quality management, how it links to the FDA QMSR and the EU MDR, and how to map it to a client's procedures.",
+      "outline": [
+        "Regulatory focus and the medical device file",
+        "Design and development controls",
+        "Purchasing and supplier controls",
+        "Production, traceability, process and software validation",
+        "Feedback, complaints and reporting to regulators",
+        "ISO 13485, 21 CFR 820 QMSR and the EU MDR together"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-iso-13485",
+          "title": "ISO 13485 for medical device quality",
+          "summary": "You will be able to explain what ISO 13485 requires beyond ISO 9001, how it sits under device law in the US and EU, and which parts touch the software and data work an FDE does.",
+          "why": "Almost every medical device client runs its QMS on ISO 13485. If you build a tool that handles complaints, design records or production data, that tool becomes part of their QMS, and its requirements become yours. Knowing which part of your work is driven by the law, which by the standard and which by the client's own SOP lets you scope validation and records correctly instead of guessing.",
+          "sections": [
+            {
+              "h": "What ISO 13485 is for",
+              "p": [
+                "ISO 13485:2016 sets requirements for a quality management system for organisations involved in medical devices: manufacturers, and also suppliers, distributors and service providers. It shares many ideas with ISO 9001, but its aim is different. ISO 9001 aims at customer satisfaction and continual improvement. ISO 13485 aims at consistently making safe and effective devices and meeting regulatory requirements, and it asks the organisation to keep the system effective rather than to show constant improvement.",
+                "That regulatory focus runs through the text. Many clauses say the organisation shall do something 'in accordance with applicable regulatory requirements'. You cannot read ISO 13485 alone: you must also know which laws apply in each market the device is sold in."
+              ]
+            },
+            {
+              "h": "How it sits under device law",
+              "p": [
+                "In the US, the FDA Quality Management System Regulation (QMSR, 21 CFR Part 820) took effect in February 2026 and incorporates ISO 13485:2016 by reference. So in the US, the ISO 13485 requirements are now part of the regulation for device makers it covers, plus some extra FDA requirements written in Part 820 itself. The FDA does not require an ISO 13485 certificate, and a certificate does not replace an FDA inspection.",
+                "In the EU, the Medical Device Regulation (EU) 2017/745 requires a quality management system. The harmonised European version of ISO 13485 is the usual way to show this, because meeting a harmonised standard gives a presumption of conformity with the matching legal requirements. A notified body audits the QMS as part of conformity assessment.",
+                "The pattern is the same in both: the law is the requirement, the standard is the agreed way to meet it, guidance explains the regulator's view, and the client's SOPs say how this company does it."
+              ]
+            },
+            {
+              "h": "What it adds to ISO 9001",
+              "p": [
+                "The structure looks familiar, but ISO 13485 asks for more documented procedures and more records. The parts you will meet most often are these."
+              ],
+              "list": [
+                "Medical device file: for each device type or family, a file holding or pointing to its description, intended use, labelling, specifications and procedures for making, storing, installing and servicing it.",
+                "Design and development: planned stages with inputs, outputs, review, verification, validation, transfer to production and control of design changes, all recorded.",
+                "Purchasing: suppliers are evaluated and controlled in proportion to the risk of what they provide, and purchased product is verified.",
+                "Production: work is done under controlled conditions; processes whose output cannot be fully checked afterwards must be validated; products are identified and traced, with more traceability for implantable devices.",
+                "Software validation: computer software used in the QMS, and in production and service, must be validated for its intended use before first use and after changes, in proportion to risk.",
+                "Feedback and complaints: feedback is gathered as an early warning, complaints are handled to a documented procedure, and events that meet reporting criteria are reported to regulators."
+              ]
+            },
+            {
+              "h": "Where an FDE's work lands",
+              "p": [
+                "Software validation is the clause most likely to land on your desk. If your tool helps decide whether a complaint is reportable, stores design history, or controls a production step, it is QMS or production software. The client will want evidence that it was validated for its intended use, with effort scaled to the risk. The FDA guidance on computer software assurance describes a risk-based way to do this, and it is guidance, so the client may justify another approach.",
+                "Records matter as much as function. Under the QMSR, electronic records are also subject to 21 CFR Part 11 where it applies. Ask early which records your tool creates, who signs them and how long they are kept, and read the client's own procedure for computerised systems. That procedure is what their auditors will hold you to."
+              ]
+            },
+            {
+              "h": "Feedback, complaints and reporting",
+              "p": [
+                "Complaint handling is a closed loop. A complaint is received, recorded, evaluated for whether it must be reported to a regulator, investigated where needed, and linked to corrective action when a cause is found. In the US, Medical Device Reporting is set by 21 CFR Part 803, a regulation, with its own deadlines. The standard asks for the procedure; the law sets what and when to report; the client's SOP sets who decides.",
+                "Never let a tool decide reportability on its own. Automation can gather facts, draft a summary and flag a possible reportable event, but a trained person makes and records the decision.",
+                "Keep the loop traceable. Each complaint record should link to its investigation, any report made, and any corrective action, so an auditor can follow one complaint from receipt to closure without asking anyone to explain it."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "layers",
+            "title": "Layers behind a device QMS requirement",
+            "caption": "Read top to bottom; each layer must satisfy the ones above it, and records prove the lowest layer was followed.",
+            "layers": [
+              {
+                "label": "Law",
+                "note": "21 CFR 820 QMSR, 21 CFR 803, EU MDR 2017/745"
+              },
+              {
+                "label": "Standard",
+                "note": "ISO 13485:2016, by reference in QMSR, harmonised in the EU"
+              },
+              {
+                "label": "Guidance",
+                "note": "FDA guidance, EU MDCG documents: current thinking, not binding"
+              },
+              {
+                "label": "Client procedure",
+                "note": "SOPs, work instructions, quality agreements"
+              },
+              {
+                "label": "Record",
+                "note": "Forms, logs, signed approvals that prove the work happened"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: scoping a complaint intake assistant (fictional client)",
+            "p": [
+              "A device maker selling in the US and EU asks for an assistant that reads incoming complaint emails, fills the complaint form in the QMS system and drafts a summary for the complaint handler. Before building, you map what applies, using the client's licensed copy of ISO 13485 and their SOPs."
+            ],
+            "list": [
+              "Law: 21 CFR Part 820 (QMSR) for complaint handling through the incorporated standard; 21 CFR Part 803 for what must be reported to the FDA; the EU MDR for vigilance in the EU. Owner: regulatory affairs.",
+              "Standard: ISO 13485 requirements for complaint handling, reporting to regulators and validation of QMS software.",
+              "Guidance: FDA computer software assurance guidance for how much validation effort fits the risk.",
+              "Client procedure: complaint handling SOP and computerised system validation SOP. These set the form fields, the decision owner and the validation deliverables.",
+              "Design decision: the assistant drafts and flags; the complaint handler confirms every field and makes the reportability decision, and the QMS records who did so.",
+              "Evidence plan: validation records for the assistant, a sample of complaints showing human review, and the change record for adding the tool."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build a layer map for one device requirement",
+              "time": "40 min",
+              "goal": "See for yourself how law, standard, guidance and procedure stack for one topic.",
+              "steps": [
+                "Open the FDA QMSR page and the eCFR text of 21 CFR Part 820 linked below.",
+                "In Part 820, find the section that incorporates ISO 13485 by reference and note which edition it names.",
+                "Open 21 CFR Part 803 and note, in your own words, what kind of event a manufacturer must report.",
+                "In a spreadsheet, make five rows (law, standard, guidance, client procedure, record) for the topic 'complaint handling' and fill each with a named document or an example record.",
+                "Ask Claude which row a reviewer would challenge first and why, then correct your sheet."
+              ],
+              "done_when": "Your sheet names the ISO 13485 edition from Part 820, has a real law and standard in the top rows, and an example record in the last row."
+            }
+          ],
+          "pitfalls": [
+            "Assuming an ISO 13485 certificate means a company passes FDA inspection. The FDA inspects against the regulation and does not rely on the certificate.",
+            "Reading ISO 13485 without checking which markets the device is sold in, when many clauses depend on applicable regulatory requirements.",
+            "Treating a helper tool as outside the QMS. If it supports a quality decision or a production step, it needs validation for its intended use.",
+            "Letting automation decide whether a complaint is reportable. A trained person must make and record that decision.",
+            "Copying a validation package from another client. Validation must match this tool's intended use, risk and the client's own procedure."
+          ],
+          "check": [
+            "How does ISO 13485 differ in aim from ISO 9001?",
+            "How does the QMSR use ISO 13485, and what does that mean for a US device maker?",
+            "Why does meeting a harmonised standard matter under the EU MDR?",
+            "Which ISO 13485 requirement is most likely to apply to software an FDE builds, and why?",
+            "In complaint handling, which parts come from law, from the standard and from the client SOP?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Quality Management System Regulation (QMSR)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/postmarket-requirements-devices/quality-management-system-regulation-qmsr",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 820 - Quality Management System Regulation",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 803 - Medical Device Reporting",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-803",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Computer Software Assurance for Production and Quality Management System Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Medical Devices - New regulations",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medical-devices-new-regulations_en",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is ISO 13485?",
+              "source": "Qualio",
+              "url": "https://www.youtube.com/watch?v=y6ZTCyO6R38",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Free Course: Quality Management For Medical Devices (ISO 13485 QMS)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=Y2PnlXMzr7E",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "Certified Medical Device Auditor (CMDA)",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/biomedical-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "iso-13485-q01",
+          "lesson": "iso-standards-iso-13485",
+          "q": "A US device maker asks how ISO 13485 relates to the FDA QMSR. What is the right short answer?",
+          "options": [
+            "They are unrelated documents",
+            "The QMSR incorporates ISO 13485:2016 by reference",
+            "ISO 13485 replaced all FDA device rules",
+            "The QMSR only applies to companies without a certificate"
+          ],
+          "answer": 1,
+          "why": "The QMSR, 21 CFR Part 820, incorporates ISO 13485:2016 by reference and adds some FDA-specific requirements."
+        },
+        {
+          "id": "iso-13485-q02",
+          "lesson": "iso-standards-iso-13485",
+          "q": "A client says 'we hold an ISO 13485 certificate, so the FDA will not inspect us'. What is wrong with this?",
+          "options": [
+            "The FDA does not rely on the certificate in place of inspection",
+            "Nothing, a valid certificate always exempts a site from FDA inspection",
+            "Certificates only exist in the EU",
+            "ISO 13485 is not a quality standard"
+          ],
+          "answer": 0,
+          "why": "The FDA does not require the certificate and does not accept it as a replacement for its own inspection."
+        },
+        {
+          "id": "iso-13485-q03",
+          "lesson": "iso-standards-iso-13485",
+          "q": "You build a tool that drafts complaint summaries inside a device maker's QMS. Which ISO 13485 requirement most clearly applies to the tool itself?",
+          "options": [
+            "Management review frequency",
+            "Validation of QMS software for its intended use",
+            "Quality objectives for customer satisfaction",
+            "Infrastructure for clean rooms and sterile packaging lines"
+          ],
+          "answer": 1,
+          "why": "Software used in the QMS must be validated for its intended use, in proportion to risk."
+        },
+        {
+          "id": "iso-13485-q04",
+          "lesson": "iso-standards-iso-13485",
+          "q": "Under the EU MDR, why do device makers usually follow the harmonised version of ISO 13485?",
+          "options": [
+            "It is the only legal option",
+            "Notified bodies refuse to audit any QMS that is not built on another standard",
+            "It is cheaper than any other standard",
+            "It gives a presumption of conformity with matching legal requirements"
+          ],
+          "answer": 3,
+          "why": "Meeting a harmonised standard creates a presumption of conformity with the requirements it covers."
+        },
+        {
+          "id": "iso-13485-q05",
+          "lesson": "iso-standards-iso-13485",
+          "q": "Your assistant flags a complaint as possibly reportable to the FDA. What should happen next?",
+          "options": [
+            "The tool files the report automatically",
+            "Nothing, flags are informational only",
+            "A trained person reviews it and makes the decision",
+            "The developer decides, since they know how the model was trained"
+          ],
+          "answer": 2,
+          "why": "Reportability is a regulated decision that a trained person must make and record."
+        },
+        {
+          "id": "iso-13485-q06",
+          "lesson": "iso-standards-iso-13485",
+          "q": "Which document sets what device events must be reported to the FDA?",
+          "options": [
+            "ISO 13485",
+            "21 CFR Part 803",
+            "The client's training plan",
+            "ISO 9001 clause on customer satisfaction"
+          ],
+          "answer": 1,
+          "why": "Medical Device Reporting is set by the regulation 21 CFR Part 803; the standard only asks for a procedure."
+        },
+        {
+          "id": "iso-13485-q07",
+          "lesson": "iso-standards-iso-13485",
+          "q": "A production weld cannot be fully checked without destroying the part. What does ISO 13485 expect?",
+          "options": [
+            "Test every part destructively",
+            "Skip checks for that step",
+            "Validate the welding process",
+            "Ask the customer to inspect the parts on arrival"
+          ],
+          "answer": 2,
+          "why": "Processes whose output cannot be fully verified afterwards must be validated."
+        },
+        {
+          "id": "iso-13485-q08",
+          "lesson": "iso-standards-iso-13485",
+          "q": "What is a medical device file?",
+          "options": [
+            "A file per device type or family describing it and how it is made",
+            "The company quality manual",
+            "The list of all employees with their training records and job descriptions",
+            "A folder of marketing material"
+          ],
+          "answer": 0,
+          "why": "It holds or points to the description, intended use, labelling, specifications and procedures for one device type or family."
+        },
+        {
+          "id": "iso-13485-q09",
+          "lesson": "iso-standards-iso-13485",
+          "q": "A teammate wants to reuse a validation package from a previous client for your new tool. What is the main problem?",
+          "options": [
+            "Validation packages are copyrighted",
+            "Nothing, validation is generic",
+            "It saves too little time compared with writing a new package from scratch",
+            "Validation must fit this tool's intended use and risk"
+          ],
+          "answer": 3,
+          "why": "Validation proves fitness for this intended use under the client's own procedure."
+        },
+        {
+          "id": "iso-13485-q10",
+          "lesson": "iso-standards-iso-13485",
+          "q": "Which statement best compares the aims of ISO 9001 and ISO 13485?",
+          "options": [
+            "They have identical aims and text",
+            "ISO 13485 only covers software",
+            "ISO 9001 is mandatory by law everywhere, while ISO 13485 is always voluntary",
+            "ISO 13485 aims at safe devices and meeting regulations"
+          ],
+          "answer": 3,
+          "why": "ISO 9001 aims at customer satisfaction and improvement; ISO 13485 at safe, effective devices and regulatory compliance."
+        }
+      ]
+    },
+    {
+      "id": "iso-14971-overview",
+      "title": "ISO 14971 at a practical level",
+      "summary": "The device risk management process in outline, the words it uses exactly, and where engineers contribute to it.",
+      "outline": [
+        "Risk management plan and file",
+        "Hazards, hazardous situations and harm",
+        "Risk control options and their order of preference",
+        "Residual risk and benefit-risk",
+        "Production and post-production information",
+        "ISO 14971 next to ICH Q9 for pharma"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-iso-14971-overview",
+          "title": "ISO 14971 at a practical level",
+          "summary": "You will be able to follow the ISO 14971 risk process from plan to post-market, use its terms correctly, and see where your engineering work feeds the risk file.",
+          "why": "Any feature you add to a medical device, or to software that supports one, can create or reduce risk to patients. Device clients will ask you to 'update the risk file' or 'add a risk control'. If you mix up hazard and harm, or treat a warning label as equal to a design fix, your change will be sent back. This lesson gives you the working vocabulary. It is introductory: leading a device risk assessment needs product, clinical and usability specialists.",
+          "sections": [
+            {
+              "h": "What ISO 14971 is and where it applies",
+              "p": [
+                "ISO 14971:2019 describes a process for managing the risks of a medical device across its whole life, including software that is a device. It is a product process, not a management system: it is applied to each device, and its output is a risk management file for that device. It is not certified on its own. Auditors and regulators check it through the QMS audit, design reviews and premarket submissions.",
+                "A companion technical report, ISO/TR 24971, gives guidance on applying the standard. It is guidance, so it explains ways to meet the standard rather than adding requirements. The FDA lists recognised consensus standards in a public database, and you can search it to see how the FDA currently recognises ISO 14971.",
+                "Pharma uses a different document for the same idea. ICH Q9(R1) Quality Risk Management is an international guideline, published by the FDA as guidance, covering risk to product quality and so to patients in drug development and manufacturing. If your client makes drugs rather than devices, expect Q9, not ISO 14971."
+              ]
+            },
+            {
+              "h": "The words, used exactly",
+              "p": [
+                "ISO 14971 defines its terms carefully and reviewers expect you to use them the same way. Harm is injury or damage to the health of people, or damage to property or the environment. A hazard is a potential source of harm, such as electrical energy or wrong data. A hazardous situation is a circumstance in which people, property or the environment are exposed to a hazard. Risk is the combination of the probability that harm occurs and the severity of that harm.",
+                "These link in a chain: a hazard, through a sequence of events, leads to a hazardous situation, which may lead to harm. Writing the sequence of events is where engineers add the most value, because you know how the software or hardware can actually fail or be misused."
+              ]
+            },
+            {
+              "h": "The process step by step",
+              "list": [
+                "Plan: the risk management plan sets scope, responsibilities, the criteria for risk acceptability and the verification activities. Criteria come from the manufacturer's policy, not from the engineer on the day.",
+                "Analysis: state the intended use and reasonably foreseeable misuse, list characteristics related to safety, identify hazards and hazardous situations, and estimate risk.",
+                "Evaluation: compare each estimated risk with the acceptability criteria in the plan.",
+                "Control: choose and implement controls, then verify that each was implemented and that it works.",
+                "Residual risk: evaluate the risk left after control, then the overall residual risk of the device; where it is not acceptable under the criteria, a benefit-risk analysis decides whether benefits outweigh it.",
+                "Review: before release, confirm the plan was carried out and the overall residual risk is acceptable.",
+                "Production and post-production: collect and review information from use, such as complaints and service data, and update the file when it shows new hazards or changed risk."
+              ],
+              "p": [
+                "The process is a loop, not a one-off document. Every design change and every relevant complaint is a reason to open the file again."
+              ]
+            },
+            {
+              "h": "Order of preference for risk control",
+              "p": [
+                "ISO 14971 sets an order for choosing controls. First, inherently safe design and manufacture: remove the hazard or make the failure impossible. Second, protective measures in the device itself or in manufacturing, such as an alarm, an interlock or an automatic check. Third, information for safety, such as warnings in labelling and, where appropriate, training.",
+                "The order matters because a warning depends on someone reading it at the right moment. If you propose a warning when a design change was practicable, a reviewer will ask why. Each control must also be checked for new risks it introduces: an extra alarm can cause alarm fatigue."
+              ]
+            },
+            {
+              "h": "Where engineers contribute",
+              "p": [
+                "Engineers help identify failure modes, write the sequence of events, implement controls and produce verification evidence. Tools such as FMEA (failure mode and effects analysis) are often used inside the 14971 process, but an FMEA alone is not a risk management file because it starts from failures and can miss hazards that occur when everything works as designed, such as a correct but confusing display.",
+                "Your records should link both ways: from each risk control to the requirement and test that verify it, and from each requirement back to the risk it controls. That traceability is what lets the client show that the residual risk was judged on evidence.",
+                "Use errors deserve special care. Many hazardous situations start with a person misreading a screen or pressing the wrong button, not with a broken part. Usability engineering, described in IEC 62366-1 and in the FDA human factors guidance, feeds these use-related hazards into the risk file. If your feature changes what a user sees or does, ask the client whether it needs a usability review as well as a test."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From hazard to residual risk",
+            "caption": "Read left to right for one hazard; post-market information sends you back to the start.",
+            "steps": [
+              {
+                "label": "Hazard",
+                "note": "Potential source of harm, e.g. wrong patient data"
+              },
+              {
+                "label": "Sequence of events",
+                "note": "How the hazard reaches someone"
+              },
+              {
+                "label": "Hazardous situation",
+                "note": "Person exposed to the hazard"
+              },
+              {
+                "label": "Harm and risk estimate",
+                "note": "Severity and probability of harm"
+              },
+              {
+                "label": "Risk control",
+                "note": "Design first, then protection, then information"
+              },
+              {
+                "label": "Residual risk",
+                "note": "Judged against the plan's criteria, with evidence"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a dosage history screen (fictional device)",
+            "p": [
+              "A home insulin pump has a companion app. You are asked to add a screen that shows the last 24 hours of doses. The client's risk file uses an example severity scale of 1 to 5 and an example probability scale of 1 to 5, defined in their plan. You draft entries for review by the risk owner."
+            ],
+            "list": [
+              "Hazard: incorrect information shown to the user.",
+              "Sequence of events: the app shows cached data after the pump failed to sync; the user believes a dose was not given and gives a second dose.",
+              "Hazardous situation: user acts on stale dose history.",
+              "Harm: low blood sugar from a double dose. Severity and probability are scored by the clinical and risk owners under the plan, not by you.",
+              "Control 1, design: the screen will not show history older than the last successful sync without a clear 'not synced since' state. Verified by a test with the pump disconnected.",
+              "Control 2, information: a note in the instructions for use. Listed second because it relies on the user reading it.",
+              "Trace: each control links to a software requirement and a test case id, and the residual risk is left for the risk owner to evaluate."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write one hazard chain and rank the controls",
+              "time": "40 min",
+              "goal": "Practise the 14971 vocabulary and the order of preference on a device you know.",
+              "steps": [
+                "Pick a familiar device, such as a home blood pressure monitor or a glucose meter app.",
+                "Watch the Medical Device Academy video linked below, then write one hazard, a sequence of events, the hazardous situation and the harm in four rows of a spreadsheet.",
+                "Propose three controls: one design, one protective measure and one information for safety. Label each with its type.",
+                "For each control, write how you would verify it was implemented and that it works.",
+                "Ask Claude to check whether your hazard and harm are used as ISO 14971 defines them, and correct anything it flags after checking the definitions in this lesson."
+              ],
+              "done_when": "You have one complete chain from hazard to harm and three typed controls, each with a verification method, ranked in the correct order."
+            }
+          ],
+          "pitfalls": [
+            "Writing the harm in the hazard column, for example 'overdose' as a hazard. The hazard is the source, such as wrong dose data; overdose is the harm.",
+            "Choosing a warning label when a design change was practicable. Reviewers expect design first, then protective measures, then information.",
+            "Treating an FMEA as the whole risk file. It can miss hazards that arise when the device works exactly as designed.",
+            "Setting acceptability on the day of the analysis. Criteria belong in the risk management plan, set by policy beforehand.",
+            "Closing the file at launch. Complaints and service data must feed back into the file during production and post-production."
+          ],
+          "check": [
+            "Define hazard, hazardous situation, harm and risk, and show how they link.",
+            "What are the three types of risk control, in order of preference?",
+            "Why is ISO 14971 not certified on its own, and how is it checked instead?",
+            "When is a benefit-risk analysis needed?",
+            "Which document plays a similar role for pharma quality risk?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q9(R1) Quality Risk Management",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q9r1-quality-risk-management",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is FMEA? Failure Mode and Effects Analysis",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/fmea",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Applying Human Factors and Usability Engineering to Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is ISO 14971?",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=2i-ye3ATAr0",
+              "cost": "free"
+            },
+            {
+              "type": "course",
+              "title": "Free Medical Device Risk Management Course: Introduction & Simple Risk Table (ISO 14971)",
+              "source": "OpenRegulatory",
+              "url": "https://www.youtube.com/watch?v=XcdIRDh5Ek8",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "iso-14971-overview-q01",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "In a risk table, a teammate writes 'overdose' in the hazard column. What is wrong?",
+          "options": [
+            "Overdose is the harm, not the hazard",
+            "Nothing, overdose is a hazard",
+            "Overdose should be a risk control",
+            "Hazards must always be electrical sources inside the device"
+          ],
+          "answer": 0,
+          "why": "A hazard is a potential source of harm, such as wrong dose data; overdose is the harm itself."
+        },
+        {
+          "id": "iso-14971-overview-q02",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "Which risk control does ISO 14971 prefer first?",
+          "options": [
+            "A warning in the instructions for use",
+            "Training for all users",
+            "Inherently safe design",
+            "A protective alarm added after the device is already in the field"
+          ],
+          "answer": 2,
+          "why": "The order is inherently safe design, then protective measures, then information for safety."
+        },
+        {
+          "id": "iso-14971-overview-q03",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "A client asks for their ISO 14971 certificate to be renewed. What should you explain?",
+          "options": [
+            "Only the FDA can issue it",
+            "It is renewed every year by ISO",
+            "ISO 14971 is a product process, not certified on its own",
+            "It renews automatically with the 13485 certificate, at no extra cost"
+          ],
+          "answer": 2,
+          "why": "ISO 14971 is applied per device and checked through audits and reviews, not certified separately."
+        },
+        {
+          "id": "iso-14971-overview-q04",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "Where should the criteria for risk acceptability be set?",
+          "options": [
+            "In the risk management plan, by policy",
+            "By the engineer during analysis",
+            "By the customer after launch",
+            "In the marketing plan, so they match launch dates and sales targets"
+          ],
+          "answer": 0,
+          "why": "Acceptability criteria belong in the plan, based on the manufacturer's policy, before analysis."
+        },
+        {
+          "id": "iso-14971-overview-q05",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "A pharma client asks which risk document applies to drug manufacturing quality. What is the usual answer?",
+          "options": [
+            "ISO 14971",
+            "ISO/IEC 27001",
+            "ISO 9001 risk-based thinking alone",
+            "ICH Q9(R1) Quality Risk Management"
+          ],
+          "answer": 3,
+          "why": "ICH Q9(R1) is the quality risk management guideline used for drugs; ISO 14971 is for devices."
+        },
+        {
+          "id": "iso-14971-overview-q06",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "Your team's FMEA covers every component failure. A reviewer says the risk file is still incomplete. Why might that be?",
+          "options": [
+            "FMEAs are not allowed in device work",
+            "FMEA can miss hazards when the device works as designed",
+            "The FMEA has too many rows",
+            "Reviewers only accept risk tables written in a word processor"
+          ],
+          "answer": 1,
+          "why": "FMEA starts from failures, so hazards from correct but confusing behaviour can be missed."
+        },
+        {
+          "id": "iso-14971-overview-q07",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "After launch, complaints show users misread a screen. What does ISO 14971 expect?",
+          "options": [
+            "Nothing, the file closed at launch",
+            "Only a note in the complaint system",
+            "Wait for a regulator to ask first",
+            "Review the information and update the risk file"
+          ],
+          "answer": 3,
+          "why": "Production and post-production information must be reviewed and fed back into the risk file."
+        },
+        {
+          "id": "iso-14971-overview-q08",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "What is ISO/TR 24971?",
+          "options": [
+            "Guidance on applying ISO 14971",
+            "A regulation that replaces ISO 14971",
+            "A security standard",
+            "The FDA rule that sets device reporting deadlines"
+          ],
+          "answer": 0,
+          "why": "It is a technical report giving guidance on applying ISO 14971, not extra requirements."
+        },
+        {
+          "id": "iso-14971-overview-q09",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "Overall residual risk is not acceptable under the plan's criteria. What can the manufacturer do?",
+          "options": [
+            "Release anyway with a note",
+            "Change the criteria after the fact",
+            "Run a benefit-risk analysis",
+            "Remove the risk from the file so it no longer shows up in the summary"
+          ],
+          "answer": 2,
+          "why": "When residual risk is not acceptable, a benefit-risk analysis decides whether benefits outweigh it."
+        },
+        {
+          "id": "iso-14971-overview-q10",
+          "lesson": "iso-standards-iso-14971-overview",
+          "q": "You add a new alarm as a risk control. What else must you check?",
+          "options": [
+            "Nothing, alarms only reduce risk",
+            "Whether the alarm adds new risks, such as alarm fatigue",
+            "Whether marketing approves the sound",
+            "Only that the alarm compiles"
+          ],
+          "answer": 1,
+          "why": "Each control must be checked for new risks it introduces, as well as verified as implemented and effective."
+        }
+      ]
+    },
+    {
+      "id": "iso-27001",
+      "title": "ISO/IEC 27001 for engineering teams",
+      "summary": "How an information security management system works, what the statement of applicability is, and what it asks of engineers handling regulated data.",
+      "outline": [
+        "Information security risk assessment and treatment",
+        "Annex A controls and the statement of applicability",
+        "Access control, logging and supplier security",
+        "Secure development in practice",
+        "Telling ISMS security apart from device cybersecurity and data integrity"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-iso-27001",
+          "title": "ISO/IEC 27001 for engineering teams",
+          "summary": "You will be able to explain how an ISMS chooses its controls, read a statement of applicability, and show the evidence an engineering team produces for one.",
+          "why": "Clients will ask whether your team works inside their ISO/IEC 27001 scope, and their security team will send you a questionnaire before you touch any data. In MedTech and Pharma, the same data may also fall under device cybersecurity rules or GMP data integrity rules, which come from regulations and guidance rather than from ISO/IEC 27001. Knowing which driver applies stops you from answering a regulatory question with a certificate.",
+          "sections": [
+            {
+              "h": "What an ISMS is",
+              "p": [
+                "ISO/IEC 27001 sets requirements for an information security management system (ISMS): the policies, roles, processes and controls an organisation uses to protect the confidentiality, integrity and availability of its information. The current edition is ISO/IEC 27001:2022. It follows the same main clause structure as ISO 9001, so clauses 4 to 10 cover context, leadership, planning, support, operation, performance evaluation and improvement.",
+                "The core idea is that controls are chosen from risk, not from a checklist. The organisation decides its scope, assesses risks to its information, picks controls to treat them, and keeps checking that the controls work. Like ISO 9001, it is a management system standard, so a company can be certified against it by an accredited certification body."
+              ]
+            },
+            {
+              "h": "Risk assessment and treatment",
+              "p": [
+                "The organisation defines how it will assess risk, with criteria for acceptance, so that repeated assessments give comparable results. It then identifies risks to information in scope, names an owner for each, judges likelihood and consequence, and decides on treatment.",
+                "Treatment usually means one of four things: reduce the risk with controls, avoid it by not doing the activity, share it, for example with an insurer or a supplier contract, or accept it. Risk owners approve the treatment plan and accept the residual risk. As an engineer you will mostly implement the controls and provide evidence that they run."
+              ]
+            },
+            {
+              "h": "Annex A and the statement of applicability",
+              "p": [
+                "Annex A of ISO/IEC 27001:2022 lists 93 reference controls grouped into four themes: organisational, people, physical and technological. ISO/IEC 27002 is a separate guidance standard that explains each control in more depth. The organisation compares the controls it chose from risk against Annex A to make sure nothing necessary was missed.",
+                "The result is the statement of applicability (SoA). For each Annex A control it says whether the control is included, why, whether it is implemented, and why any control is excluded. The SoA is the best single document to read when you join a client: it tells you which controls they claim to run and therefore what evidence an auditor will expect from your work."
+              ]
+            },
+            {
+              "h": "What engineers are asked for",
+              "list": [
+                "Access control: least privilege, named accounts, approval before access, and periodic access reviews with a record of who reviewed what.",
+                "Logging and monitoring: security-relevant events are logged, logs are protected from change, and someone looks at them.",
+                "Secure development: a defined secure development life cycle, secure coding rules, security testing before release and control of changes.",
+                "Supplier security: cloud services, APIs and libraries are assessed and covered by agreements, and their use is monitored.",
+                "Configuration and secrets: hardened settings, no secrets in code, keys rotated and stored in an approved vault.",
+                "Incident handling: you know how to report a suspected incident in the client's process, and you do it quickly."
+              ],
+              "p": [
+                "Each of these should leave a record you could show an auditor: a ticket, a review sign-off, a pipeline log or a test report."
+              ]
+            },
+            {
+              "h": "Three different drivers for security work",
+              "p": [
+                "In regulated clients, three separate things are often all called 'security'. Keep them apart, because each comes from a different kind of document and has a different owner.",
+                "ISMS security protects the organisation's information and is driven by ISO/IEC 27001, a voluntary standard that becomes binding through certification or contracts. Medical device cybersecurity protects the device and its patients; in the US it is driven by law for cyber devices and explained in FDA premarket cybersecurity guidance. GMP data integrity protects the reliability of records used for drug quality decisions; it is driven by regulations such as 21 CFR Part 11 and the drug GMP rules, and explained in FDA data integrity guidance. One control, such as an audit trail, can serve all three, but the evidence and the reviewer differ."
+              ]
+            },
+            {
+              "h": "Your first week inside a client ISMS",
+              "p": [
+                "Start by asking for three things: the ISMS scope statement, the statement of applicability rows that touch your work, and the security procedures your team must follow, such as access requests, change management and incident reporting. These are customer procedures, and they bind you through the contract even where the standard itself is silent.",
+                "Then agree, in writing, which records your team will produce and where they will live. Auditors sample evidence from the period being audited, so a record created months later to fill a gap is weak and can look like falsification. Finally, find out who owns security risk for your system. When you find a new risk, such as a library with a known vulnerability, you raise it to that owner instead of deciding alone whether it is acceptable."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "compare",
+            "title": "Three drivers often called security",
+            "caption": "Each column is one driver: what it protects, what kind of document drives it, and who reviews it.",
+            "columns": [
+              {
+                "title": "ISMS (ISO/IEC 27001)",
+                "items": [
+                  "Protects company information",
+                  "Voluntary standard",
+                  "Binding via certificate or contract",
+                  "Checked by certification body"
+                ]
+              },
+              {
+                "title": "Device cybersecurity",
+                "items": [
+                  "Protects device and patients",
+                  "US law plus FDA guidance",
+                  "Part of premarket submission",
+                  "Reviewed by the regulator"
+                ]
+              },
+              {
+                "title": "GMP data integrity",
+                "items": [
+                  "Protects quality records",
+                  "21 CFR Part 11 and GMP rules",
+                  "Explained in FDA guidance",
+                  "Checked in GMP inspections"
+                ]
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a data pipeline inside a client ISMS (fictional client)",
+            "p": [
+              "A pharma client certified to ISO/IEC 27001 asks your team to build a pipeline that copies batch quality data into an analytics store. Their security lead sends you the relevant rows of their SoA and asks for an evidence plan before go-live."
+            ],
+            "list": [
+              "SoA row, access control: included. Your evidence: named service accounts, access request tickets, and a quarterly access review record.",
+              "SoA row, logging: included. Your evidence: pipeline and database logs sent to the client's log platform, with retention set by their procedure.",
+              "SoA row, secure development: included. Your evidence: code review records, dependency scan results and a change ticket per release.",
+              "SoA row, supplier security: included. Your evidence: confirmation that the analytics service is on the client's approved supplier list.",
+              "Separate driver: batch quality data are GMP records, so the client's data integrity and computerised system procedures also apply. That needs the quality unit's review, not only the security lead's.",
+              "Output: a table with control, source type, owner, evidence and status, shared with both security and quality."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Draft a mini statement of applicability",
+              "time": "45 min",
+              "goal": "Practise choosing controls from risk and recording why each one applies.",
+              "steps": [
+                "Pick a small system you know, such as a team wiki or a personal project that stores user data.",
+                "Write five risks to its information, each with an owner, likelihood and consequence on an example scale of 1 to 3.",
+                "Watch the ISO video on ISO/IEC 27001 linked below, then for each risk choose a treatment: reduce, avoid, share or accept.",
+                "For each risk you reduce, name a control in your own words and the record that would prove it runs.",
+                "In a spreadsheet, list eight controls with columns: included (yes or no), reason, implemented, evidence.",
+                "Ask Claude to find one control you included without a matching risk, and one risk with no control."
+              ],
+              "done_when": "Your sheet has five assessed risks, a treatment for each, and eight controls each with a reason and an evidence record."
+            }
+          ],
+          "pitfalls": [
+            "Answering a device cybersecurity or data integrity question with an ISO/IEC 27001 certificate. They are different drivers with different reviewers.",
+            "Treating Annex A as a checklist to implement in full. Controls are chosen from risk and justified in the statement of applicability.",
+            "Assuming your work is covered because the client is certified. Check that your team, systems and location are inside the ISMS scope.",
+            "Running a control without leaving evidence, such as doing access reviews in a meeting with no record.",
+            "Putting secrets in code or notebooks during a proof of concept and promising to fix it later. Use the client's approved vault from day one."
+          ],
+          "check": [
+            "How does an ISMS decide which controls to implement?",
+            "What does a statement of applicability contain, and why read it first?",
+            "Name the four Annex A control themes in ISO/IEC 27001:2022.",
+            "Give one example of evidence an engineering team produces for access control.",
+            "How do ISMS security, device cybersecurity and GMP data integrity differ in their driving documents?"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "title": "What is ISO/IEC 27001? Guide to Information Security Management Systems",
+              "source": "ISO",
+              "url": "https://www.youtube.com/watch?v=jPA6gbsT2IQ",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Simple Explanation of ISO 27001 Clauses",
+              "source": "Dejan Kosutic",
+              "url": "https://www.youtube.com/watch?v=TBp0ig0NT2Y",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "SP 800-218, Secure Software Development Framework (SSDF) Version 1.1",
+              "source": "NIST",
+              "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "SP 800-30 Rev. 1, Guide for Conducting Risk Assessments",
+              "source": "NIST",
+              "url": "https://csrc.nist.gov/pubs/sp/800/30/r1/final",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Cybersecurity in Medical Devices: Quality Management System Considerations and Content of Premarket Submissions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cybersecurity-medical-devices-quality-management-system-considerations-and-content-premarket",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "iso-27001-q01",
+          "lesson": "iso-standards-iso-27001",
+          "q": "A client wants every Annex A control implemented because 'that is what 27001 says'. What is the better view?",
+          "options": [
+            "Correct, all 93 are mandatory",
+            "Controls are chosen from risk and justified in the SoA",
+            "Annex A is optional reading with no role",
+            "Only technological controls ever apply to a software team"
+          ],
+          "answer": 1,
+          "why": "ISO/IEC 27001 selects controls from risk treatment and records inclusion and exclusion in the statement of applicability."
+        },
+        {
+          "id": "iso-27001-q02",
+          "lesson": "iso-standards-iso-27001",
+          "q": "You join a client's project and want to know which security controls they claim to run. Which document should you read first?",
+          "options": [
+            "The statement of applicability",
+            "The marketing website",
+            "ISO/IEC 27002",
+            "Last year's annual report and investor presentation"
+          ],
+          "answer": 0,
+          "why": "The SoA lists each control, whether it is included and implemented, and why."
+        },
+        {
+          "id": "iso-27001-q03",
+          "lesson": "iso-standards-iso-27001",
+          "q": "A device maker asks for cybersecurity content for an FDA premarket submission. A colleague offers your team's ISO/IEC 27001 certificate. What is the issue?",
+          "options": [
+            "No issue, the certificate covers it",
+            "Certificates expire too quickly",
+            "Device cybersecurity has a different driver and reviewer",
+            "The FDA requires a SOC 2 report from every supplier instead"
+          ],
+          "answer": 2,
+          "why": "Device cybersecurity is driven by law and FDA guidance for the product, not by the company ISMS."
+        },
+        {
+          "id": "iso-27001-q04",
+          "lesson": "iso-standards-iso-27001",
+          "q": "Your team reviews database access every quarter in a meeting but writes nothing down. What would an auditor say?",
+          "options": [
+            "Fine, the review happened",
+            "Fine if the manager remembers",
+            "Only a problem for physical controls",
+            "There is no evidence the control ran"
+          ],
+          "answer": 3,
+          "why": "A control without a record cannot be shown to have operated."
+        },
+        {
+          "id": "iso-27001-q05",
+          "lesson": "iso-standards-iso-27001",
+          "q": "Which is NOT one of the four risk treatment choices?",
+          "options": [
+            "Reduce with controls",
+            "Avoid the activity",
+            "Ignore it and record nothing",
+            "Share it, for example by contract"
+          ],
+          "answer": 2,
+          "why": "Treatment means reduce, avoid, share or accept; accepting is a recorded decision by the risk owner, not ignoring."
+        },
+        {
+          "id": "iso-27001-q06",
+          "lesson": "iso-standards-iso-27001",
+          "q": "What are the four Annex A control themes in ISO/IEC 27001:2022?",
+          "options": [
+            "Organisational, people, physical, technological",
+            "Plan, do, check, act",
+            "Confidentiality, integrity, availability, privacy",
+            "Network, application, endpoint, cloud and identity"
+          ],
+          "answer": 0,
+          "why": "The 2022 edition groups its 93 controls into organisational, people, physical and technological themes."
+        },
+        {
+          "id": "iso-27001-q07",
+          "lesson": "iso-standards-iso-27001",
+          "q": "Your pipeline copies GMP batch records into an analytics store at a certified client. Who else besides security should review it?",
+          "options": [
+            "Nobody, the ISMS covers it",
+            "The marketing team",
+            "The cloud vendor's account manager and sales engineer",
+            "The quality unit, for data integrity"
+          ],
+          "answer": 3,
+          "why": "GMP records bring data integrity and computerised system rules, which the quality unit owns."
+        },
+        {
+          "id": "iso-27001-q08",
+          "lesson": "iso-standards-iso-27001",
+          "q": "A client is ISO/IEC 27001 certified. Is your offshore development team automatically covered?",
+          "options": [
+            "Only if it is inside the ISMS scope",
+            "Yes, certification covers all partners",
+            "Yes, if the team uses the client's VPN",
+            "No, certification never covers people"
+          ],
+          "answer": 0,
+          "why": "Coverage depends on the scope of the ISMS, which may exclude suppliers, sites or teams."
+        },
+        {
+          "id": "iso-27001-q09",
+          "lesson": "iso-standards-iso-27001",
+          "q": "During a proof of concept, a developer stores an API key in a notebook. What is the right move?",
+          "options": [
+            "Leave it until production",
+            "Move it to the client's approved vault now",
+            "Share the notebook only by email",
+            "Rename the variable so it looks less like a key"
+          ],
+          "answer": 1,
+          "why": "Secrets belong in the approved vault from day one; proofs of concept often become production."
+        },
+        {
+          "id": "iso-27001-q10",
+          "lesson": "iso-standards-iso-27001",
+          "q": "What is ISO/IEC 27002?",
+          "options": [
+            "The certification scheme for auditors",
+            "A law on data privacy",
+            "Guidance explaining each control in more depth",
+            "The 2002 edition of ISO/IEC 27001"
+          ],
+          "answer": 2,
+          "why": "ISO/IEC 27002 is a guidance standard that explains the controls; it is not certified against."
+        }
+      ]
+    },
+    {
+      "id": "audits-and-certification",
+      "title": "Audits and certification",
+      "summary": "How internal, supplier and certification audits are planned, run and closed, how a finding is written against its source, and how to be a good auditee.",
+      "outline": [
+        "First, second and third party audits, and regulatory inspections",
+        "Audit planning, sampling and objective evidence",
+        "Writing and grading findings against the right source",
+        "Responding to findings with CAPA",
+        "Stage 1, stage 2, surveillance and recertification",
+        "Being a good auditee as an engineer"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-audits-and-certification",
+          "title": "Audits and certification",
+          "summary": "You will be able to tell audit types apart, read and write a finding that cites the correct requirement, and support an audit with clear evidence.",
+          "why": "Sooner or later an auditor will sit next to you and ask to see how a change to your tool was approved. Clients also audit their suppliers, which may include your team. If you know what an auditor is looking for and how findings are graded, you can prepare the right records in advance and answer calmly. If you cannot tell a standard requirement from a client procedure, you will argue with findings that are valid or accept ones that are not.",
+          "sections": [
+            {
+              "h": "Who audits whom",
+              "p": [
+                "An audit is a planned, independent check of whether work meets defined criteria, based on objective evidence. There are three kinds, named by who does it."
+              ],
+              "list": [
+                "First party: an internal audit, done by the organisation on itself, often by trained staff from another department.",
+                "Second party: a customer audits a supplier, usually against the contract, the quality agreement and the standards they name.",
+                "Third party: an independent certification body audits against a standard such as ISO 13485 or ISO/IEC 27001 and issues or keeps a certificate."
+              ]
+            },
+            {
+              "h": "Audits are not inspections",
+              "p": [
+                "A regulatory inspection is different. The FDA or another regulator inspects against the law, and its findings can lead to enforcement. At the end of an FDA inspection, an investigator may issue Form 483, which lists observations of conditions that may break the law. Responding to a 483 or a warning letter is specialist work for the client's quality and regulatory leads; this lesson does not prepare you to lead it.",
+                "The Medical Device Single Audit Program (MDSAP) sits in between. Recognised auditing organisations perform one audit of a device maker's QMS that several regulators, including the FDA, can use. It is still built on ISO 13485 plus each country's specific rules."
+              ]
+            },
+            {
+              "h": "How an audit runs",
+              "p": [
+                "The auditor agrees a scope, criteria and a plan with the auditee, then opens with a short meeting. Most of the time is spent sampling: the auditor picks a few records, such as three change requests from the last six months, and follows each through the process. They are looking for objective evidence, meaning records, observations and statements that can be checked, not opinions. ISO 19011 gives guidance on auditing management systems and is a good source for how auditors are trained to think.",
+                "At the closing meeting, the auditor presents findings. Each finding must name the requirement, the evidence and what was wrong. The requirement can come from a regulation, a standard or the organisation's own procedure, and a good finding says which.",
+                "Sampling cuts both ways. A clean sample does not prove every record is right, and one bad sample does not prove the whole process is broken. That is why auditors describe findings by how many samples failed, and why the response should check whether the problem is wider than the sample."
+              ]
+            },
+            {
+              "h": "Grading findings and closing them",
+              "p": [
+                "Certification bodies usually grade a nonconformity as major or minor. A major nonconformity puts in doubt the system's ability to achieve its intended results, for example a required process missing entirely, and usually blocks or suspends certification until it is corrected. A minor one is a lapse that does not, such as one record missing a signature. Auditors may also note opportunities for improvement, which do not need action. Exact definitions and deadlines come from the certification body's own rules.",
+                "The response follows CAPA (corrective and preventive action): fix the immediate problem (correction), find the root cause, act on the cause so it does not recur (corrective action), and check later that the action worked. Retraining one person is rarely an adequate root cause fix on its own."
+              ]
+            },
+            {
+              "h": "The certification cycle",
+              "p": [
+                "Certification starts with a stage 1 audit, which checks that the system is documented, scoped and ready. A stage 2 audit then checks that it works in practice. When findings are closed, the certificate is issued, typically for three years. Surveillance audits, usually yearly, sample parts of the system, and a recertification audit before expiry renews it. Certification bodies should themselves be accredited, which you can check through the International Accreditation Forum and its members.",
+                "Regulated clients often hold several certificates and face several regulators, so audits rarely stop. Ask the quality lead for the audit calendar early. Knowing that a surveillance audit is due next month tells you which records to tidy now, while there is still time to fix gaps honestly through the normal process."
+              ]
+            },
+            {
+              "h": "Being a good auditee",
+              "list": [
+                "Answer the question asked, with evidence. Show the record rather than describe it.",
+                "If you do not know, say so and offer to find out. Never guess or invent an answer.",
+                "Keep records in the controlled system so you can find them in under a minute.",
+                "Do not create or back-date records during the audit to fill a gap. Report the gap instead.",
+                "Disagree politely and with evidence if a finding cites the wrong requirement."
+              ],
+              "p": [
+                "Auditors judge the system, not you personally. A calm, honest auditee who shows clear records makes the audit shorter for everyone."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "swimlane",
+            "title": "One finding from question to closure",
+            "caption": "Read top to bottom in time order; each lane shows who acts at that step.",
+            "lanes": [
+              "Auditor",
+              "Engineer (auditee)",
+              "Quality lead"
+            ],
+            "steps": [
+              {
+                "lane": 0,
+                "label": "Samples three change records"
+              },
+              {
+                "lane": 1,
+                "label": "Shows each record in the system"
+              },
+              {
+                "lane": 0,
+                "label": "Finds one approval missing"
+              },
+              {
+                "lane": 0,
+                "label": "Writes finding: source and evidence"
+              },
+              {
+                "lane": 2,
+                "label": "Agrees grade at closing meeting"
+              },
+              {
+                "lane": 2,
+                "label": "Opens CAPA and assigns owner"
+              },
+              {
+                "lane": 1,
+                "label": "Helps find root cause and fix"
+              },
+              {
+                "lane": 0,
+                "label": "Verifies effectiveness later"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: writing a finding with the right source (fictional client)",
+            "p": [
+              "You are on an internal audit team at a device maker. The client's change control SOP says every software change to a QMS tool needs approval from quality before release. You sample five changes to the complaint tool from the last quarter. Four have quality approval. One was released on a Friday with only the developer's approval, and the change ticket says 'urgent fix'."
+            ],
+            "list": [
+              "Requirement: client change control SOP, approval before release (customer procedure), which implements the ISO 13485 requirement to control changes to QMS software (standard).",
+              "Objective evidence: change ticket for release 2.3.1, approval history shows developer only, deployment log shows release before any quality sign-off.",
+              "Statement: one of five sampled changes was released without the quality approval required by the SOP.",
+              "Grade: minor, because the process exists and works in four of five samples. A missing process would be major.",
+              "Expected response: correction (retrospective review of release 2.3.1), root cause (no documented emergency change path), corrective action (add one and block deployment without approval), effectiveness check (sample changes next quarter)."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Run a mini audit on your own records",
+              "time": "45 min",
+              "goal": "Practise sampling, objective evidence and writing a finding.",
+              "steps": [
+                "Pick a rule you or your team claims to follow, such as 'every pull request is reviewed before merge' in a GitHub repository you can see.",
+                "Write the rule down as the audit criterion and note its source type: law, standard, customer procedure or team habit.",
+                "Sample five recent merges and record, for each, who approved it and when, compared with the merge time.",
+                "Write any finding in three parts: requirement, objective evidence, statement. Grade it major or minor and explain why.",
+                "Draft a CAPA: correction, root cause, corrective action and how you would check it worked.",
+                "Ask Claude to critique whether your finding is based on evidence rather than opinion."
+              ],
+              "done_when": "You have a five-row sample table and either a written, graded finding with a CAPA draft, or a written conclusion that the rule was met with the evidence listed."
+            }
+          ],
+          "pitfalls": [
+            "Creating or back-dating records during an audit to cover a gap. That turns a small finding into a data integrity problem.",
+            "Writing findings as opinions, such as 'change control is weak'. A finding needs a requirement, objective evidence and a clear statement.",
+            "Citing the standard when the real requirement is the client's own procedure, or the reverse, which makes the finding easy to dispute.",
+            "Closing every finding with 'retrain the person'. Look for the process cause, such as a missing emergency path, and check effectiveness later.",
+            "Treating a certificate as proof of regulatory compliance. Regulators inspect against the law and do not rely on certificates."
+          ],
+          "check": [
+            "What is the difference between first, second and third party audits, and how is a regulatory inspection different?",
+            "What are the three parts of a well-written finding?",
+            "How do certification bodies usually separate a major from a minor nonconformity?",
+            "What happens in stage 1, stage 2 and surveillance audits?",
+            "What should you do as an auditee if you do not know the answer to a question?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "What is an Audit? Types of Audits and Auditing Certification",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/auditing",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "What is Root Cause Analysis (RCA)?",
+              "source": "ASQ",
+              "url": "https://asq.org/quality-resources/root-cause-analysis",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Medical Device Single Audit Program (MDSAP)",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/medical-devices/cdrh-international-affairs/medical-device-single-audit-program-mdsap",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "FDA Form 483 Frequently Asked Questions",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-references/fda-form-483-frequently-asked-questions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "About the IAF MLA",
+              "source": "International Accreditation Forum",
+              "url": "https://iaf.nu/en/about-iaf-mla/",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Differences Between Stage 1 and Stage 2 Audits | QMS Certification",
+              "source": "QMS Certification",
+              "url": "https://www.youtube.com/watch?v=SPqp8liCqUI",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "What is a CAPA?",
+              "source": "Medical Device Academy",
+              "url": "https://www.youtube.com/watch?v=9d83hkz3xMI",
+              "cost": "free"
+            },
+            {
+              "type": "cert",
+              "title": "Certified Quality Auditor (CQA)",
+              "source": "ASQ",
+              "url": "https://www.asq.org/cert/quality-auditor",
+              "cost": "paid"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "audits-and-certification-q01",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "A device maker sends its quality team to audit your team as a supplier. What kind of audit is this?",
+          "options": [
+            "First party",
+            "Second party",
+            "Third party",
+            "A regulatory inspection under federal law"
+          ],
+          "answer": 1,
+          "why": "A customer auditing its supplier is a second party audit."
+        },
+        {
+          "id": "audits-and-certification-q02",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "An auditor asks how a release was approved. You are not sure. What should you do?",
+          "options": [
+            "Give your best guess confidently",
+            "Say you will find out, then show the record",
+            "Change the subject to another release",
+            "Quickly add the missing approval to the ticket before they look"
+          ],
+          "answer": 1,
+          "why": "Never guess or create records during an audit; find and show the actual evidence."
+        },
+        {
+          "id": "audits-and-certification-q03",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "Which is a well-written finding?",
+          "options": [
+            "Change control is weak here",
+            "The team seems careless with approvals",
+            "Developers do not like quality reviews, so they often skip them when busy",
+            "One of five sampled changes lacked the SOP's required approval"
+          ],
+          "answer": 3,
+          "why": "A finding cites the requirement and objective evidence, not opinion."
+        },
+        {
+          "id": "audits-and-certification-q04",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "An entire required process, such as internal audit, does not exist. How would a certification body usually grade this?",
+          "options": [
+            "Major nonconformity",
+            "Minor nonconformity",
+            "Opportunity for improvement",
+            "No finding, since nobody complained about it"
+          ],
+          "answer": 0,
+          "why": "A missing required process puts the system's ability to achieve its results in doubt, which is usually major."
+        },
+        {
+          "id": "audits-and-certification-q05",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "What does a stage 1 certification audit mainly check?",
+          "options": [
+            "That the system is documented and ready",
+            "That every product is defect free",
+            "That the FDA has approved the system",
+            "That staff have read every standard in full"
+          ],
+          "answer": 0,
+          "why": "Stage 1 checks readiness and documentation; stage 2 checks the system works in practice."
+        },
+        {
+          "id": "audits-and-certification-q06",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "At the end of an FDA inspection, the investigator hands over Form 483. What is it?",
+          "options": [
+            "An ISO certificate",
+            "A list of inspectional observations",
+            "A minor nonconformity from a certification body",
+            "A request to renew the firm's ISO 13485 certificate early"
+          ],
+          "answer": 1,
+          "why": "Form 483 lists observations of conditions that may break the law; responding is specialist work."
+        },
+        {
+          "id": "audits-and-certification-q07",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "A finding's root cause is recorded as 'engineer forgot'. The action is 'retrain engineer'. What is the main weakness?",
+          "options": [
+            "Retraining is never allowed",
+            "The finding should be deleted",
+            "It misses the process cause and an effectiveness check",
+            "The engineer should be removed from the project"
+          ],
+          "answer": 2,
+          "why": "CAPA should address the process cause, such as no emergency path, and verify the fix later."
+        },
+        {
+          "id": "audits-and-certification-q08",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "What is the Medical Device Single Audit Program (MDSAP)?",
+          "options": [
+            "A paid online training course for engineers who join audits",
+            "A replacement for ISO 13485",
+            "An EU law on device audits",
+            "One QMS audit several regulators can use"
+          ],
+          "answer": 3,
+          "why": "MDSAP lets one recognised audit serve several participating regulators, built on ISO 13485 plus local rules."
+        },
+        {
+          "id": "audits-and-certification-q09",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "A finding cites ISO 13485, but the missed step is only in the client's own SOP. What is the best response?",
+          "options": [
+            "Ask that the source be corrected to the SOP",
+            "Reject the finding entirely",
+            "Accept it silently whatever the source",
+            "Ask the auditor to cite the FDA regulation instead"
+          ],
+          "answer": 0,
+          "why": "A finding should cite the right source; disagree politely with evidence while accepting a valid gap."
+        },
+        {
+          "id": "audits-and-certification-q10",
+          "lesson": "iso-standards-audits-and-certification",
+          "q": "How is a certificate usually kept valid between recertifications?",
+          "options": [
+            "No audits until the certificate expires",
+            "Surveillance audits, usually yearly",
+            "A self-declaration letter to ISO",
+            "Paying a renewal fee to the national standards body"
+          ],
+          "answer": 1,
+          "why": "Surveillance audits sample the system, usually yearly, before a recertification audit renews the certificate."
+        }
+      ]
+    },
+    {
+      "id": "integrated-systems",
+      "title": "Running several standards as one system",
+      "summary": "How companies combine quality, risk and security standards without duplicating work, and how to build an applicability and evidence map for one standard.",
+      "outline": [
+        "The common structure of management system standards",
+        "Deciding whether a standard applies, and which edition",
+        "Cross-reference tables and one document set",
+        "Combined audits and several certificates",
+        "Applicability and evidence maps, and keeping them current through change",
+        "Where AI can help map requirements, and where it cannot"
+      ],
+      "lessons": [
+        {
+          "id": "iso-standards-integrated-systems",
+          "title": "Running several standards as one system",
+          "summary": "You will be able to justify whether a standard applies to a piece of work, map its requirements to procedures and evidence, and keep that map current when things change.",
+          "why": "A typical MedTech or Pharma client lives under several laws, several standards, regulator guidance and hundreds of its own procedures at once. Nobody runs these as separate systems; they run one system that answers to all of them. As an FDE you will be asked which requirements apply to your tool and what evidence you will produce. A clear applicability and evidence map is the answer, and it is the main skill this course builds.",
+          "sections": [
+            {
+              "h": "Why standards fit together",
+              "p": [
+                "ISO writes its management system standards on a common high-level structure, set out in Annex SL of the ISO/IEC Directives and now called the harmonized structure. ISO 9001, ISO 14001 (environment), ISO 45001 (occupational health and safety) and ISO/IEC 27001 all use it. They share the same main clauses, many identical core definitions and much identical core text, such as the requirements for context, leadership, internal audit and management review.",
+                "So a company can run one document control process, one internal audit programme and one management review that serve every standard. ISO 13485:2016 is the exception you will meet most: it follows the older ISO 9001 layout, so its clauses need a cross-reference table rather than a direct match. Pharma companies add another layer: their pharmaceutical quality system is driven by GMP law and described by the ICH Q10 guideline, which is not an ISO standard at all."
+              ]
+            },
+            {
+              "h": "Deciding whether a standard applies",
+              "p": [
+                "Before mapping anything, justify why the standard applies to this work. Write the reason down, because a reviewer will ask. A standard applies when one or more of these is true."
+              ],
+              "list": [
+                "A law makes it part of the requirement, for example the QMSR incorporating ISO 13485 by reference.",
+                "A regulator recognises it as a way to show conformity, for example an FDA recognised consensus standard or an EU harmonised standard, and the client chose to use it.",
+                "The client is certified to it and your work falls inside the certificate scope.",
+                "A contract or quality agreement names it.",
+                "The client's own procedure adopts it as their method, for example ISO 14971 for product risk."
+              ]
+            },
+            {
+              "h": "Edition and status matter",
+              "p": [
+                "Always record the edition, such as ISO/IEC 27001:2022, not just the number. Regulators and certificates point to specific editions, and transition periods apply when a new one is published. Check the status in an official source: the FDA recognised standards database for US device work, the European Commission lists for EU harmonised standards, or the client's own register of standards. Do not rely on memory or on a summary written by someone else.",
+                "You also need legitimate access to the text. Standards are copyrighted. Use the client's licensed copy through their approved system, and keep quotations in your map short.",
+                "Guidance documents have status too. FDA guidance can be draft or final, and a newer version can replace an older one. EU MDCG documents are endorsed guidance, not law. Record the version and date you used in the map, so a reviewer can see which text your decisions were based on."
+              ]
+            },
+            {
+              "h": "Building the applicability and evidence map",
+              "p": [
+                "The map is a table with one row per requirement. It joins every layer you have learned in this course, so a reviewer can follow any requirement from source to proof."
+              ],
+              "list": [
+                "Requirement: the clause or section reference and a short outcome in your own words.",
+                "Source type: regulation, standard, guidance or customer procedure.",
+                "Applies: yes, no or partly, with the reason.",
+                "Implemented by: the client procedure or system feature, with version.",
+                "Evidence: the record that proves it, and where it is kept.",
+                "Owner and status: who is accountable, and met, gap or not yet due."
+              ]
+            },
+            {
+              "h": "Keeping the map current through change",
+              "p": [
+                "A map is only useful if it changes when the world does. Three kinds of change should trigger a review: a new edition of a standard or a new regulation or guidance; a change to the client's procedures; and a change to your own tool or process. For each, filter the map for affected rows, update the procedure and evidence columns, and record the review through the client's change control. This is also how combined audits stay efficient: one auditor can sample one set of records and test several standards at once, because the map shows which requirements each record supports.",
+                "Change also flows the other way. When your tool changes, the map tells you which records may need to be redone, for example a validation test that covered the old behaviour. That is the change impact view a quality reviewer will ask for before approving a release."
+              ]
+            },
+            {
+              "h": "Where AI helps and where it does not",
+              "p": [
+                "An approved AI tool can speed up the slow parts: suggesting likely matches between two standards, finding which client procedures mention a topic, or drafting the outcome wording for a clause. Use it only on text you are licensed to process, inside a tool the client has approved for that data.",
+                "It cannot decide applicability, and it can invent clause numbers or merge similar requirements that are actually different. Treat every suggested row as a draft. A person checks each reference against the source text, confirms the evidence exists, and signs off the map."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "Does this standard apply to our work?",
+            "caption": "Start at the question; any yes means it applies, and the reason goes in the map's Applies column.",
+            "start": "Name the standard and its edition",
+            "question": "Why would this standard bind us?",
+            "branches": [
+              {
+                "answer": "Law or regulator points to it",
+                "result": "Applies: cite the regulation or recognition"
+              },
+              {
+                "answer": "Certificate scope includes our work",
+                "result": "Applies: cite the certificate scope"
+              },
+              {
+                "answer": "Contract or client SOP names it",
+                "result": "Applies: cite the contract or SOP"
+              },
+              {
+                "answer": "None of these",
+                "result": "Optional: use as good practice, say so"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a CAPA drafting assistant (fictional client)",
+            "p": [
+              "A device maker certified to ISO 13485 and ISO/IEC 27001 asks your team to build an assistant that drafts CAPA investigation summaries from linked complaint and nonconformity records. A quality engineer reviews and approves each draft. You build the map before writing code."
+            ],
+            "list": [
+              "21 CFR Part 820 (regulation): applies, because the client sells in the US and CAPA is part of the QMS. Implemented by: client CAPA SOP. Evidence: approved CAPA records.",
+              "ISO 13485:2016 (standard): applies by reference in the QMSR and by certificate scope. Requirement: validate QMS software for its intended use. Implemented by: client computerised system validation SOP. Evidence: validation plan and report for the assistant.",
+              "FDA computer software assurance guidance (guidance): adopted by the client's validation SOP as the method for sizing effort. Evidence: risk assessment in the validation plan.",
+              "ISO/IEC 27001:2022 (standard): applies by certificate scope, since the assistant processes complaint data. Implemented by: access request and logging procedures. Evidence: access tickets and log configuration.",
+              "Client CAPA SOP (customer procedure): requires a named human approver for every investigation. Implemented by: approval step in the QMS. Evidence: approval history per CAPA.",
+              "ISO 9001: does not apply. Not referenced by law, not in scope, not in the contract. Recorded as not applicable with the reason."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build an applicability and evidence map for one source",
+              "time": "60 min",
+              "goal": "Produce the core output of this course on freely available text.",
+              "steps": [
+                "Open 21 CFR Part 11 on eCFR and read the controls for closed systems in subpart B.",
+                "Pick a system you know that holds records, such as a shared document tool or a ticketing system, and imagine it holds GMP records at a pharma client.",
+                "Write a one-paragraph applicability statement: why Part 11 would apply, citing the source type.",
+                "In a spreadsheet with the six map columns from this lesson, add five rows for five requirements in subpart B.",
+                "For each row, name the system feature or procedure that would meet it and the record that would prove it, and mark it met, gap or unknown.",
+                "Ask Claude to review your map, then check every reference it questions against the eCFR text yourself before changing anything."
+              ],
+              "done_when": "You have a written applicability statement and five complete map rows, each with a source reference you checked on eCFR and a named evidence record."
+            }
+          ],
+          "pitfalls": [
+            "Mapping a standard before writing down why it applies. Without the reason, nobody can tell whether the work is needed.",
+            "Recording a standard number without its edition. Regulators and certificates point to specific editions.",
+            "Copying an AI-suggested cross-reference into the map without checking each clause against the licensed text.",
+            "Running separate document sets for each standard, which creates conflicting procedures and doubles audit effort.",
+            "Treating the map as finished at go-live. New editions, procedure changes and tool changes should all trigger a review."
+          ],
+          "check": [
+            "What is the harmonized structure, and which common standard does not follow it?",
+            "Name four reasons a standard can apply to a piece of work.",
+            "What columns does an applicability and evidence map need?",
+            "Which three kinds of change should trigger a review of the map?",
+            "What can an AI tool safely do when mapping requirements, and what must a person still do?"
+          ],
+          "links": [
+            {
+              "type": "video",
+              "title": "What is the Annex SL / High-Level Structure & its Benefits for your Management System?",
+              "source": "EMSmastery",
+              "url": "https://www.youtube.com/watch?v=biQiKhDHba0",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Appropriate Use of Voluntary Consensus Standards in Premarket Submissions for Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/appropriate-use-voluntary-consensus-standards-premarket-submissions-medical-devices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Recognized Consensus Standards: Medical Devices",
+              "source": "U.S. FDA",
+              "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/search.cfm",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q10 Pharmaceutical Quality System",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q10-pharmaceutical-quality-system",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11 - Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Guidance - MDCG endorsed documents and other guidance",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "integrated-systems-q01",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "Which common standard does NOT follow the ISO harmonized structure?",
+          "options": [
+            "ISO 9001:2015",
+            "ISO 13485:2016",
+            "ISO/IEC 27001:2022",
+            "ISO 45001:2018"
+          ],
+          "answer": 1,
+          "why": "ISO 13485:2016 follows the older ISO 9001 layout, so it needs a cross-reference table."
+        },
+        {
+          "id": "integrated-systems-q02",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "Your map lists 'ISO 27001' with no year. Why is that a problem?",
+          "options": [
+            "Regulators and certificates point to specific editions",
+            "Years are only needed for laws",
+            "It makes the table too wide",
+            "Auditors only accept the oldest edition of every standard"
+          ],
+          "answer": 0,
+          "why": "Requirements and transition periods depend on the edition, so record it."
+        },
+        {
+          "id": "integrated-systems-q03",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "A client is not certified to ISO 9001, no law points to it, and no contract names it. Does it apply to your tool?",
+          "options": [
+            "Yes, ISO 9001 always applies",
+            "Yes, because it is the most widely used quality standard in the world",
+            "No; record it as not applicable with the reason",
+            "Only if the tool uses AI"
+          ],
+          "answer": 2,
+          "why": "Without a law, recognition, certificate scope, contract or SOP adopting it, it is optional good practice."
+        },
+        {
+          "id": "integrated-systems-q04",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "An approved AI tool suggests a cross-reference between ISO 13485 and ISO 9001 clauses. What should you do with it?",
+          "options": [
+            "Paste it into the map as final",
+            "Check each reference against the licensed text first",
+            "Discard it, AI is never allowed",
+            "Send it to the certification body and ask them to check it for you"
+          ],
+          "answer": 1,
+          "why": "AI can invent or merge clauses; a person must verify every row against the source."
+        },
+        {
+          "id": "integrated-systems-q05",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "The client updates its CAPA SOP. What should happen to your evidence map?",
+          "options": [
+            "Nothing until the next audit",
+            "Delete the map and start again",
+            "Only the developer needs to know, since the code did not change",
+            "Review the affected rows through change control"
+          ],
+          "answer": 3,
+          "why": "Procedure changes are one of three triggers to review affected rows and record the update."
+        },
+        {
+          "id": "integrated-systems-q06",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "Why can one auditor test ISO 9001 and ISO/IEC 27001 in one combined audit?",
+          "options": [
+            "They share a common structure and core text",
+            "They are the same standard under two names",
+            "Certification bodies ignore one of them",
+            "Combined audits skip all sampling of records"
+          ],
+          "answer": 0,
+          "why": "The harmonized structure lets one set of processes and records serve both."
+        },
+        {
+          "id": "integrated-systems-q07",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "A pharma client asks which document describes its pharmaceutical quality system model. Which is most likely?",
+          "options": [
+            "ISO 14971",
+            "ISO/IEC 27002",
+            "ICH Q10",
+            "ISO 45001 on occupational health and safety"
+          ],
+          "answer": 2,
+          "why": "ICH Q10 describes the pharmaceutical quality system model, alongside GMP law."
+        },
+        {
+          "id": "integrated-systems-q08",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "Which column in an applicability and evidence map shows the proof that a requirement is met?",
+          "options": [
+            "Source type",
+            "Applies",
+            "Owner",
+            "Evidence"
+          ],
+          "answer": 3,
+          "why": "The evidence column names the record that proves the requirement is met and where it is kept."
+        },
+        {
+          "id": "integrated-systems-q09",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "Where should you check whether the FDA currently recognises a device standard?",
+          "options": [
+            "A vendor blog post that summarises the latest recognition list",
+            "The FDA recognised standards database",
+            "A colleague's memory",
+            "The standard's own foreword"
+          ],
+          "answer": 1,
+          "why": "Use the official FDA database, not memory or secondary summaries."
+        },
+        {
+          "id": "integrated-systems-q10",
+          "lesson": "iso-standards-integrated-systems",
+          "q": "A company keeps a separate document control procedure for each of its three certificates. What is the main risk?",
+          "options": [
+            "Conflicting procedures and doubled audit effort",
+            "Certificates become invalid automatically",
+            "Nothing, because a separate procedure per certificate is required",
+            "ISO charges more per procedure"
+          ],
+          "answer": 0,
+          "why": "One integrated document set avoids contradictions and lets one audit sample serve several standards."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "module": 9,
+  "overlay": true,
+  "add": [
+    {
+      "id": "medtech-eval-validation",
+      "title": "Evaluation as validation: test protocol, acceptance criteria and change control",
+      "summary": "You will be able to turn an AI evaluation set into validation evidence a device maker's quality team can accept, and keep it valid through monitoring and change control.",
+      "why": "In most projects an evaluation set tells the team whether the AI is good enough. At a device maker the same work, done with a little more discipline, becomes the validation evidence that lets the tool be used in the quality system at all. If you plan it that way from the start, you do the work once instead of twice, and you have an answer ready when an inspector or auditor asks how you know the tool works.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Validation means showing, with objective evidence, that a system meets its intended use. For production and quality system software, FDA Computer Software Assurance (CSA) guidance asks for a risk-based approach: put more assurance effort where a failure could affect product quality or patient safety, and less where it could not. GAMP 5, from ISPE, takes the same risk-based view for computerised systems in GxP work.",
+            "For an AI component the core evidence is the evaluation you already know from module 9: a set of real cases with expected results, run against the system, scored against a bar. In a regulated setting you write it as a protocol before you run it, agree the bar in advance, record the results, and then keep it alive with monitoring and change control."
+          ]
+        },
+        {
+          "h": "The test set as a protocol",
+          "p": [
+            "A test protocol is a document approved before testing that says what will be tested, how and what counts as a pass. For an AI drafting tool it contains the following. Get it reviewed by the process owner and QA before the run, not after."
+          ],
+          "list": [
+            "Reference to the intended use and the risk rating of each feature.",
+            "The test cases: real past records with known correct outcomes, chosen to cover common cases, rare categories and known hard cases. Say where they came from and who confirmed the expected results.",
+            "The system under test: model version, prompt version, configuration and the data sources it reads.",
+            "The acceptance criteria, numbered, with the metric for each.",
+            "How failures and deviations are handled: recorded, assessed for impact, fixed and re-tested, never quietly removed.",
+            "Who executes, who reviews and who approves the report."
+          ]
+        },
+        {
+          "h": "Acceptance criteria that mean something",
+          "p": [
+            "Set criteria by risk. For a high consequence field, the criterion should focus on the misses that matter. For example, for a reportability draft: every case the expert panel marked as reportable must be flagged for specialist review by the draft. A false flag costs a few minutes; a missed one could mean a late report. For lower risk fields such as suggested category, an accuracy bar with a sample size is enough.",
+            "Write criteria as numbers agreed in advance, for example '100 percent of reportable cases flagged, at least 90 percent correct product code, at least 85 percent of drafts rated usable with minor edits by reviewers'. These are example figures; the right ones come from the client's risk assessment. Also test the controls around the AI, not just the AI: the audit trail records each draft, the signature works, the fallback to manual works, and users without the right role cannot approve."
+          ],
+          "code": {
+            "lang": "python",
+            "text": "import csv\n\n# results.csv: case_id,expected_reportable,flagged,expected_code,predicted_code,usable\nrows = list(csv.DictReader(open(\"results.csv\")))\n\nreportable = [r for r in rows if r[\"expected_reportable\"] == \"yes\"]\nmissed = [r[\"case_id\"] for r in reportable if r[\"flagged\"] != \"yes\"]\ncode_ok = sum(r[\"expected_code\"] == r[\"predicted_code\"] for r in rows) / len(rows)\nusable = sum(r[\"usable\"] == \"yes\" for r in rows) / len(rows)\n\nprint(\"AC1 reportable flagged:\", \"PASS\" if not missed else f\"FAIL {missed}\")\nprint(\"AC2 product code >= 0.90:\", round(code_ok, 3), \"PASS\" if code_ok >= 0.90 else \"FAIL\")\nprint(\"AC3 usable drafts >= 0.85:\", round(usable, 3), \"PASS\" if usable >= 0.85 else \"FAIL\")"
+          }
+        },
+        {
+          "h": "Ongoing monitoring",
+          "p": [
+            "Passing once is not enough, because inputs change: a new product line, a new complaint channel, a different writing style from a new distributor. Plan monitoring before go-live. Track how often reviewers edit or reject drafts, sample a fixed number of signed records each month for a second review, watch for new categories the test set never covered, and run the test set again on a schedule. Agree thresholds that trigger a review, such as a rise in rejection rate. Report all of this in the client's periodic review of the system."
+          ]
+        },
+        {
+          "h": "Change control for prompts and models",
+          "p": [
+            "In a validated system, any change goes through change control: describe the change, assess its impact, decide what testing is needed, test, approve, then release. For AI the changes that need this include a new prompt version, a new model version, a change to retrieval or data sources, and a change to acceptance thresholds.",
+            "Make it cheap by design. Keep the test set and the scoring script in version control, so a regression run takes minutes. Pin the model version and ask the provider how updates are announced. Keep a short record per change: what changed, why, test results against each criterion, who approved. When a provider retires a model, treat the move to the new one as a planned change, not an emergency."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "cycle",
+        "title": "Evaluation as validation, kept alive",
+        "caption": "Go round the loop; every change re-enters at impact assessment.",
+        "steps": [
+          {"label": "Intended use and risk", "note": "Sets testing depth per feature"},
+          {"label": "Approved test protocol", "note": "Cases, versions, numbered criteria"},
+          {"label": "Execute and report", "note": "Failures recorded, not removed"},
+          {"label": "Release with approval", "note": "QA signs the report"},
+          {"label": "Monitor in use", "note": "Edit rate, sampling, new categories"},
+          {"label": "Change control", "note": "Impact, regression run, approval"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: validating a CAPA evidence assistant (fictional)",
+        "p": [
+          "A maker of patient monitors built an assistant that gathers evidence for CAPA investigations from the QMS, MES and PLM and drafts a summary. The intended use says the investigator reviews and signs every summary. Risk is rated medium: a missing piece of evidence could weaken a root cause, but the investigator and the CAPA board still review.",
+          "The protocol uses 120 closed CAPAs from the last three years, chosen to cover each product family and each CAPA source (complaints, audits, nonconformances). Two senior investigators list the evidence each summary should contain. Criteria: at least 95 percent of listed evidence items found across the set, no fabricated record references, and at least 80 percent of summaries rated usable with minor edits. These are example numbers agreed with this client's QA.",
+          "The first run finds 93 percent of evidence items and two fabricated document numbers. Both are recorded as failures. The team adds a check that every cited record ID must exist in the source system, re-runs, and passes. QA signs the report. Three months later the provider announces a new model version; the team raises a change, re-runs the 120 cases, finds results within criteria, and QA approves the switch."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Write and run a mini validation protocol",
+          "time": "75 min",
+          "goal": "Practise turning an evaluation into protocol-style evidence.",
+          "steps": [
+            "Create a results.csv with 20 synthetic complaint cases and the columns used in the script above. Make three of them reportable.",
+            "Write a one-page protocol: intended use, risk, case source, system versions, three numbered acceptance criteria, failure handling and approvers.",
+            "Fill the flagged, predicted_code and usable columns by asking Claude to assess each synthetic case, then copy its answers in.",
+            "Run the script with Python and record PASS or FAIL per criterion.",
+            "For each failure, write a short deviation note: what failed, likely cause, fix and re-test plan.",
+            "Write a change control entry for a hypothetical prompt change and list which criteria you would re-run."
+          ],
+          "done_when": "You have a protocol, a scored results file, deviation notes for any failures and one change control entry."
+        }
+      ],
+      "pitfalls": [
+        "Choosing acceptance criteria after seeing the results. Agree them in the protocol first.",
+        "Removing hard cases from the test set to make it pass. Record failures and fix the system instead.",
+        "Testing the model but not the controls around it: audit trail, signatures, roles and fallback.",
+        "Treating a model or prompt update as routine maintenance instead of a controlled change.",
+        "Stopping at go-live. Without monitoring, the validated state drifts as inputs change."
+      ],
+      "check": [
+        "What does a test protocol for an AI drafting tool contain?",
+        "How should acceptance criteria differ between a high risk and a low risk field?",
+        "Name three signals you would monitor after go-live.",
+        "Which AI changes need change control, and what makes change control cheap to run?"
+      ],
+      "links": [
+        {"type": "docs", "title": "Computer Software Assurance for Production and Quality Management System Software", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software", "cost": "free"},
+        {"type": "docs", "title": "GAMP 5 Guide 2nd Edition", "source": "ISPE", "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition", "cost": "paid"},
+        {"type": "docs", "title": "Good Machine Learning Practice for Medical Device Development: Guiding Principles", "source": "FDA", "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/good-machine-learning-practice-medical-device-development-guiding-principles", "cost": "free"},
+        {"type": "docs", "title": "Define success criteria and build evaluations", "source": "Claude Platform Docs", "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests", "cost": "free"},
+        {"type": "docs", "title": "AI Risk Management Framework", "source": "NIST", "url": "https://www.nist.gov/itl/ai-risk-management-framework", "cost": "free"},
+        {"type": "video", "title": "Computer Software Assurance (CSA): Understanding the FDA's New Draft Guidance", "source": "Greenlight Guru", "url": "https://www.youtube.com/watch?v=bwGLh5-VTqE", "cost": "free"},
+        {"type": "course", "title": "Computer Software Assurance (CSA)", "source": "Udemy", "url": "https://www.udemy.com/course/computer-software-assurance-csa/", "cost": "paid"}
+      ],
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "Example scenario: the CSV lead says 'we validate software with scripted test steps, one expected result each; how do I script an AI?' A good answer: keep scripted tests for the controls (signature, audit trail, roles, fallback) and treat the AI output as a dataset test, where each case is one expected result and the protocol sets the pass rate per criterion. Most CSV teams accept this once they see the protocol written down."
+        ]
+      }
+    }
+  ]
+}

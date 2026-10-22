@@ -1,0 +1,1435 @@
+{
+  "title": "Start here: the basics",
+  "intro": "Before the modules, get the words straight. This page explains, in plain language, the terms you will hear every day as an FDE: what a model actually is, how Claude the app differs from the Anthropic API, what a harness and a context are, open versus closed models, networks and VPCs, and why data privacy and security matter so much. Skim it once now, and come back whenever a word in a lesson is unclear.",
+  "groups": [
+    {
+      "id": "fits-together",
+      "title": "How an AI system works, layer by layer",
+      "intro": "Six pictures, each showing what actually happens at one layer: what the model does with your text, how it was trained, what the harness around it does, how an agent loops, what observability watches, and finally how all of it comes together to automate a real process safely and cheaply. The rest of this page explains each word in detail.",
+      "diagrams": [
+        {
+          "type": "cycle",
+          "title": "1. What an LLM does with your text",
+          "caption": "An LLM writes one token at a time. Each new token is added to the text and the whole loop runs again until it decides to stop. Nothing is looked up in a database; every word is a prediction.",
+          "steps": [
+            {
+              "label": "Your text arrives",
+              "note": "Instructions, data and the question"
+            },
+            {
+              "label": "Split into tokens",
+              "note": "Words and word pieces, about 3/4 of a word each"
+            },
+            {
+              "label": "Tokens become numbers",
+              "note": "Each token turns into a long list of numbers"
+            },
+            {
+              "label": "Layers weigh the context",
+              "note": "Attention links each token to the ones that matter"
+            },
+            {
+              "label": "Score every next token",
+              "note": "A probability for each possible next piece"
+            },
+            {
+              "label": "Pick one and add it",
+              "note": "Temperature controls how adventurous the pick is"
+            }
+          ]
+        },
+        {
+          "type": "flow",
+          "title": "2. How a model is trained",
+          "caption": "The first two steps make a model that can continue text. The next three turn it into an assistant that follows instructions and refuses harmful requests. All of it happens once, at the AI lab, before you ever call the model.",
+          "steps": [
+            {
+              "label": "Collect a huge amount of text",
+              "note": "Public web, books, code, licensed data"
+            },
+            {
+              "label": "Pre-training",
+              "note": "Predict the next token billions of times; adjust weights"
+            },
+            {
+              "label": "Instruction tuning",
+              "note": "Learn from examples of good answers to requests"
+            },
+            {
+              "label": "Feedback training",
+              "note": "Prefer answers people or rules rate as better"
+            },
+            {
+              "label": "Safety testing",
+              "note": "Red-team for harmful, biased or false output"
+            },
+            {
+              "label": "Release",
+              "note": "Offered through an app and an API"
+            }
+          ]
+        },
+        {
+          "type": "swimlane",
+          "title": "3. What a harness does around the model",
+          "caption": "The model only reads text and writes text. The harness is everything else: it builds the context, decides which tools the model may use, runs them, and keeps the record. Claude Code, Codex and your own app code are all harnesses.",
+          "lanes": [
+            "User",
+            "Harness",
+            "Model",
+            "Tools"
+          ],
+          "steps": [
+            {
+              "lane": 0,
+              "label": "Asks for something"
+            },
+            {
+              "lane": 1,
+              "label": "Builds context: rules, history, files"
+            },
+            {
+              "lane": 2,
+              "label": "Replies, or asks to use a tool"
+            },
+            {
+              "lane": 1,
+              "label": "Checks the tool is allowed"
+            },
+            {
+              "lane": 3,
+              "label": "Tool runs: search, database, API"
+            },
+            {
+              "lane": 1,
+              "label": "Adds the result to the context"
+            },
+            {
+              "lane": 2,
+              "label": "Writes the final answer"
+            },
+            {
+              "lane": 1,
+              "label": "Logs it and returns the answer"
+            },
+            {
+              "lane": 0,
+              "label": "Reads, approves or corrects"
+            }
+          ]
+        },
+        {
+          "type": "cycle",
+          "title": "4. What an agent is: a model working in a loop",
+          "caption": "A plain call is one question and one answer. An agent repeats plan, act, check until the goal is met or it hits a limit, then hands over. Limits on steps, tools and spending keep it safe.",
+          "steps": [
+            {
+              "label": "Goal given",
+              "note": "For example: resolve this invoice exception"
+            },
+            {
+              "label": "Plan the next action",
+              "note": "The model decides what to do next"
+            },
+            {
+              "label": "Use a tool",
+              "note": "Read a record, search a policy, draft an email"
+            },
+            {
+              "label": "Look at the result",
+              "note": "Did it work? What is still missing?"
+            },
+            {
+              "label": "Done or stuck?",
+              "note": "Stop and hand over, or loop again within limits"
+            }
+          ]
+        },
+        {
+          "type": "cycle",
+          "title": "5. What observability watches",
+          "caption": "Observability is how you know the system is still doing its job after launch. Every call is traced, quality is scored, problems raise alerts, and the fixes are tested before release.",
+          "steps": [
+            {
+              "label": "Trace every call",
+              "note": "Input, output, tools used, tokens, time, cost"
+            },
+            {
+              "label": "Score quality",
+              "note": "Evals on real cases; spot checks by people"
+            },
+            {
+              "label": "Watch dashboards and alerts",
+              "note": "Error rate, cost per item, slow responses"
+            },
+            {
+              "label": "Read the failures",
+              "note": "Group them by cause"
+            },
+            {
+              "label": "Fix and re-test",
+              "note": "Prompt, tool, data or rule; run evals before release"
+            }
+          ]
+        },
+        {
+          "type": "swimlane",
+          "title": "6. All together: automating one process",
+          "caption": "Example: supplier invoice exceptions. Plain code does every step that follows a rule, the model only does the steps that need judgment, a person approves before anything is final, and every step is traced. That split is what keeps it secure, fast and cheap.",
+          "lanes": [
+            "Business system",
+            "Code",
+            "Model",
+            "Person",
+            "Observability"
+          ],
+          "steps": [
+            {
+              "lane": 0,
+              "label": "Invoice email arrives"
+            },
+            {
+              "lane": 1,
+              "label": "Saves attachment, masks bank details"
+            },
+            {
+              "lane": 2,
+              "label": "Reads the invoice into fields"
+            },
+            {
+              "lane": 1,
+              "label": "Checks fields against the PO"
+            },
+            {
+              "lane": 2,
+              "label": "Drafts a resolution for mismatches"
+            },
+            {
+              "lane": 3,
+              "label": "Clerk approves or edits"
+            },
+            {
+              "lane": 1,
+              "label": "Writes the result to the ERP"
+            },
+            {
+              "lane": 4,
+              "label": "Trace, cost and outcome logged"
+            },
+            {
+              "lane": 4,
+              "label": "Weekly evals; alerts on drift"
+            }
+          ]
+        },
+        {
+          "type": "compare",
+          "title": "What makes that system secure, fast and maintainable",
+          "caption": "Check every design against these three columns before you build.",
+          "columns": [
+            {
+              "title": "Secure",
+              "items": [
+                "Each tool gets only the access it needs",
+                "Personal data masked before the model sees it",
+                "A person approves anything that changes records",
+                "Every action written to an audit log",
+                "Text from documents is treated as data, never as instructions"
+              ]
+            },
+            {
+              "title": "Fast and low cost",
+              "items": [
+                "Plain code for every rule-based step",
+                "Smallest model that passes the evals for each step",
+                "Cache repeated instructions and documents",
+                "Batch work that does not need an instant answer",
+                "Timeouts and retries so one slow call does not block"
+              ]
+            },
+            {
+              "title": "Maintainable",
+              "items": [
+                "Model name, prompts and limits in config, not code",
+                "Evals run before every change goes live",
+                "Traces show exactly what happened",
+                "A runbook and a named owner",
+                "Builds on the client's existing systems"
+              ]
+            }
+          ]
+        }
+      ],
+      "terms": [],
+      "links": [
+        {
+          "type": "video",
+          "title": "Large Language Models explained briefly",
+          "source": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Intro to Large Language Models (1 hour talk)",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Building effective agents",
+          "source": "Anthropic Engineering",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Effective context engineering for AI agents",
+          "source": "Anthropic Engineering",
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Langfuse documentation (LLM tracing and evaluation)",
+          "source": "Langfuse",
+          "url": "https://langfuse.com/docs",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "source": "OWASP",
+          "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Elements of AI",
+          "source": "University of Helsinki and MinnaLearn",
+          "url": "https://www.elementsofai.com/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Introduction to Generative AI",
+          "source": "Google Skills",
+          "url": "https://www.skills.google/course_templates/536",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "title": "AI, models and LLMs",
+      "intro": "Most confusion starts here. A model is not a database and not a search engine. It is a trained pattern machine that writes the most likely next piece of text. Once that clicks, a lot of its behavior, good and bad, makes sense.",
+      "diagrams": [
+        {
+          "type": "flow",
+          "title": "How a model comes to exist, and how you use it",
+          "caption": "The first three steps happen once, at the AI lab. You only do the last two, every time you send a request.",
+          "steps": [
+            {
+              "label": "Collect huge amounts of text",
+              "note": "Public web, books, code, licensed data"
+            },
+            {
+              "label": "Pre-training",
+              "note": "Learn to predict the next token; weeks on thousands of chips"
+            },
+            {
+              "label": "Post-training",
+              "note": "Teach it to follow instructions and be safe"
+            },
+            {
+              "label": "Your prompt goes in",
+              "note": "Instructions, data, question"
+            },
+            {
+              "label": "Inference",
+              "note": "Model writes the answer one token at a time"
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Artificial intelligence (AI)",
+          "one": "Software that does tasks we used to think needed human judgment: reading, writing, recognizing images, making predictions.",
+          "why": "It is an umbrella word. When a client says AI, ask what they actually mean: a chatbot, a prediction, document reading or automation."
+        },
+        {
+          "term": "Machine learning",
+          "one": "Building software by letting it learn patterns from examples, instead of a person writing every rule.",
+          "like": "Showing a new clerk a thousand past invoices instead of handing them a rulebook for every supplier.",
+          "why": "Machine learning depends on data. The quality of the examples decides the quality of the result."
+        },
+        {
+          "term": "Model",
+          "one": "The product of training: a very large set of numbers that turns an input into an output. It does not look answers up in a stored table; it computes a likely answer from patterns it learned.",
+          "like": "A well-read person's trained intuition, not a filing cabinet.",
+          "why": "Because a model computes rather than retrieves, it can sound fluent and still be wrong. When exact facts matter, give it the source text.",
+          "vs": "A database stores records and returns exactly what was saved. A model stores patterns and generates new text."
+        },
+        {
+          "term": "Weights (parameters)",
+          "one": "The numbers inside a model that training adjusts. Model size is often quoted in billions of parameters, such as a 70B model.",
+          "why": "Bigger usually means more capable but slower and more expensive to run. It matters most when you host a model yourself."
+        },
+        {
+          "term": "Pre-training",
+          "one": "The large, one-time training run where the model reads a vast amount of text and learns to predict the next piece of it.",
+          "why": "This is done by AI labs at enormous cost. On a client project you use a trained model; you do not train one."
+        },
+        {
+          "term": "Post-training and fine-tuning",
+          "one": "Extra training after pre-training. Post-training turns a raw text predictor into a helpful assistant that follows instructions. Fine-tuning adapts a model to a narrow task with your own examples.",
+          "why": "Fine-tuning is rarely the first step. Good prompts and retrieval are cheaper, faster and easier to change."
+        },
+        {
+          "term": "Inference",
+          "one": "Using a trained model to produce an output. Every request you send is one inference.",
+          "why": "Inference is what you pay for, per use, and what decides how fast your solution responds."
+        },
+        {
+          "term": "Language model",
+          "one": "A model trained to predict the next piece of text from the text before it.",
+          "like": "The word suggestions on your phone keyboard, scaled up enormously.",
+          "why": "Answering questions, summarizing, translating and writing code all come from this one skill done extremely well."
+        },
+        {
+          "term": "Large language model (LLM)",
+          "one": "A language model with billions of parameters, trained on a very large amount of text and code. Examples: Claude (Anthropic), GPT (OpenAI), Gemini (Google), Llama (Meta), and models from Mistral, DeepSeek and Qwen.",
+          "why": "LLMs are general purpose. The same model can sort tickets, draft emails, read contracts and write SQL."
+        },
+        {
+          "term": "Token",
+          "one": "The unit an LLM reads and writes: a word, part of a word or a punctuation mark. A common rule of thumb for English is that 100 tokens is about 75 words.",
+          "why": "Prices, limits and speed are all measured in tokens, so you will estimate them in every business case."
+        },
+        {
+          "term": "Next-token prediction",
+          "one": "How an LLM writes: it predicts one token, adds it to the text, then predicts the next, until it decides to stop.",
+          "why": "There is no finished answer waiting inside. Clear instructions at the start shape every step that follows."
+        },
+        {
+          "term": "Temperature",
+          "one": "A setting that controls how much randomness goes into choosing each next token. Lower is more repeatable; higher is more varied.",
+          "why": "The same prompt can give different answers. For extraction and classification keep randomness low, and still test the output."
+        },
+        {
+          "term": "Hallucination",
+          "one": "When a model states something false with confidence, such as an invented citation or a policy clause that does not exist.",
+          "why": "It follows directly from predicting likely text without checking facts. Ground answers in sources and measure them on real cases."
+        },
+        {
+          "term": "Reasoning (thinking) models",
+          "one": "Models that work through intermediate steps before giving the final answer. Claude, OpenAI and Gemini all offer this mode.",
+          "why": "Better on multi-step problems, but it uses more tokens and takes longer. Turn it on where it earns its cost."
+        },
+        {
+          "term": "Multimodal",
+          "one": "A model that accepts more than text: images, PDFs and sometimes audio.",
+          "why": "Many client documents are scans, photos and screenshots. Multimodal models can read them directly."
+        },
+        {
+          "term": "Embedding",
+          "one": "A list of numbers that represents the meaning of a piece of text, so texts with similar meaning get similar numbers. Made by an embedding model.",
+          "why": "Embeddings let you search documents by meaning, not just keywords. That is the search step inside most RAG systems."
+        }
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "Large Language Models explained briefly",
+          "source": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+          "source": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Intro to Large Language Models (1 hour talk)",
+          "source": "Andrej Karpathy",
+          "url": "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Glossary",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/about-claude/glossary",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "AI For Everyone",
+          "source": "DeepLearning.AI on Coursera",
+          "url": "https://www.coursera.org/learn/ai-for-everyone",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Machine Learning Crash Course",
+          "source": "Google for Developers",
+          "url": "https://developers.google.com/machine-learning/crash-course",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "LLM Course",
+          "source": "Hugging Face",
+          "url": "https://huggingface.co/learn/llm-course/chapter1/1",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Generative AI for Everyone",
+          "source": "DeepLearning.AI",
+          "url": "https://www.deeplearning.ai/courses/generative-ai-for-everyone/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "title": "Companies, apps, APIs and harnesses",
+      "intro": "One company can offer the same model in several ways: a chat app for people, an API for programs, and ready-made tools such as coding agents. They share a model but differ in price, data terms and what you can build. When a client says we use Claude or we use ChatGPT, your first question is: which one?",
+      "diagrams": [
+        {
+          "type": "compare",
+          "title": "Same models, three different products",
+          "caption": "The pattern is the same at every major provider. Pick the column that matches what you are building.",
+          "columns": [
+            {
+              "title": "Chat app",
+              "items": [
+                "Claude app, ChatGPT, Gemini app",
+                "For people typing and reading",
+                "Paid per seat or subscription",
+                "Data terms depend on the plan",
+                "Great for thinking and drafting"
+              ]
+            },
+            {
+              "title": "API",
+              "items": [
+                "Anthropic (Claude) API, OpenAI API, Gemini API",
+                "For your own programs to call",
+                "Paid per token used",
+                "You build the harness around it",
+                "How you build client solutions"
+              ]
+            },
+            {
+              "title": "Coding agent",
+              "items": [
+                "Claude Code, Codex, Gemini CLI",
+                "For software work in a code repository",
+                "A ready-made harness on top of a model",
+                "Reads files, edits, runs commands",
+                "Review what it does before you trust it"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layers",
+          "title": "Where each piece sits",
+          "caption": "Read top to bottom: what the user touches first, down to the model and the hardware that runs it.",
+          "layers": [
+            {
+              "label": "Your app or workflow",
+              "note": "The screen, script or automation the client uses"
+            },
+            {
+              "label": "Harness",
+              "note": "Builds the prompt, keeps history, runs tools, decides when to stop"
+            },
+            {
+              "label": "API and SDK",
+              "note": "The order window your code sends requests to"
+            },
+            {
+              "label": "Model",
+              "note": "Claude, GPT, Gemini, Llama and others"
+            },
+            {
+              "label": "Infrastructure",
+              "note": "Chips and data centers run by the provider or a cloud"
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "AI lab (model provider)",
+          "one": "A company that trains and serves models. Anthropic makes Claude. OpenAI makes GPT and Codex. Google makes Gemini. Meta makes Llama. Mistral, DeepSeek and Alibaba (Qwen) also publish models.",
+          "why": "Each has its own prices, terms, regions and strengths. Clients often already have a contract with one, which can decide your choice."
+        },
+        {
+          "term": "Model family and version",
+          "one": "Providers release models in families and versions. Claude, for example, comes as Opus, Sonnet and Haiku, from most capable to fastest and cheapest. Old versions are retired over time.",
+          "why": "Pin the exact model name in your code so results do not change underneath you, and plan for upgrades."
+        },
+        {
+          "term": "Claude",
+          "one": "The name of Anthropic's family of models, and also of the Claude app (web, desktop and mobile) where people chat with those models.",
+          "why": "Because one word means two things, always clarify: the app people use, or the model called from a system through the API."
+        },
+        {
+          "term": "Chat app",
+          "one": "A finished product for people: you type, it answers. Examples: the Claude app, ChatGPT, Gemini, Microsoft Copilot. Sold as individual, team and enterprise plans.",
+          "why": "Excellent for research, drafting and learning. It is not how you build an automated process that runs without a person typing."
+        },
+        {
+          "term": "API",
+          "one": "Application Programming Interface: an agreed way for one program to ask another for data or actions over the network.",
+          "like": "A restaurant's order window. You hand in an order in the agreed format and get your food back; you never go into the kitchen.",
+          "why": "Everything you build talks to a model, and to the client's systems, through APIs."
+        },
+        {
+          "term": "Anthropic API (Claude API)",
+          "one": "The developer service for calling Claude models from your own code, paid per token, using an API key from the Claude Console. Claude models are also offered through Amazon Bedrock, Google Cloud Vertex AI and Microsoft Foundry.",
+          "why": "This is how a POC uses Claude inside a client process: your code sends the document and instructions, and gets structured results back.",
+          "vs": "The Claude app is a product for people chatting. The API is a service for programs. Same models, but different billing, different controls and often different data terms."
+        },
+        {
+          "term": "SDK",
+          "one": "Software Development Kit: a library that makes an API easy to call from a language such as Python or TypeScript. Anthropic, OpenAI and Google all publish official SDKs.",
+          "why": "Use the official SDK. It handles details such as retries and request formats so you write less code."
+        },
+        {
+          "term": "API key",
+          "one": "A secret string that identifies your account when you call an API.",
+          "why": "Anyone holding it can spend your money and reach whatever it can reach. Never put keys in code, chats, documents or screenshots."
+        },
+        {
+          "term": "Cloud model platforms",
+          "one": "Large clouds resell models inside their own accounts: Amazon Bedrock, Google Vertex AI and Microsoft Azure AI Foundry.",
+          "why": "Enterprises often must use their existing cloud for billing, security reviews, private networking and data residency."
+        },
+        {
+          "term": "Prompt and system prompt",
+          "one": "The prompt is everything you send: instructions, data, examples and the question. The system prompt is the builder's standing instructions for the whole conversation: role, rules and output format.",
+          "why": "Most quality gains on a POC come from clearer prompts, not from a different model."
+        },
+        {
+          "term": "Harness",
+          "one": "The software around a model that turns it into a working tool. It builds the prompt, keeps the conversation, offers tools, runs them when the model asks, and decides when to stop.",
+          "like": "The model is the engine. The harness is the rest of the car: steering, brakes, dashboard.",
+          "why": "Two products using the same model can behave very differently because of their harness. Claude Code, Codex, Cursor and your own agent code are all harnesses."
+        },
+        {
+          "term": "Tool use (function calling)",
+          "one": "A way for the model to ask the harness to run something: search, read a file, call an API. The model only asks; your code decides whether to run it and sends back the result.",
+          "why": "This is how an LLM touches real systems, so it is where permissions and approvals matter most."
+        },
+        {
+          "term": "Agent",
+          "one": "A model working in a loop: plan, use a tool, look at the result, continue, until the task is done.",
+          "why": "Powerful but harder to predict and test. Use a simple fixed workflow when that is enough."
+        },
+        {
+          "term": "MCP (Model Context Protocol)",
+          "one": "An open standard for connecting AI applications to tools and data. A system is exposed once as an MCP server, and any app that supports MCP can use it.",
+          "like": "A USB-C port for AI tools: one plug shape that many devices understand.",
+          "why": "Lets a client connect their systems once and reuse them across AI tools, instead of building a custom integration for each."
+        },
+        {
+          "term": "Coding agent",
+          "one": "A harness for software work. It reads your repository, edits files, runs tests and commands. Examples: Claude Code (Anthropic), Codex (OpenAI), Gemini CLI (Google), Cursor and GitHub Copilot.",
+          "why": "The fastest way to build a POC, as long as you review every change and understand what it ran."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Intro to Claude",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/intro",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Models overview",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/models/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Gemini API documentation",
+          "source": "Google AI for Developers",
+          "url": "https://ai.google.dev/gemini-api/docs",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Amazon Bedrock",
+          "source": "AWS",
+          "url": "https://aws.amazon.com/bedrock/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Claude Code overview",
+          "source": "Claude Code Docs",
+          "url": "https://code.claude.com/docs/en/overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Codex: lightweight coding agent that runs in your terminal",
+          "source": "OpenAI on GitHub",
+          "url": "https://github.com/openai/codex",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Gemini CLI",
+          "source": "Google on GitHub",
+          "url": "https://github.com/google-gemini/gemini-cli",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is the Model Context Protocol?",
+          "source": "modelcontextprotocol.io",
+          "url": "https://modelcontextprotocol.io/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "title": "Context: what the model can see",
+      "intro": "A model knows only two things: what it learned in training, and what is in front of it right now. That second part is the context. Most quality problems in a POC are context problems: the right fact was missing, buried or drowned in noise.",
+      "diagrams": [
+        {
+          "type": "flow",
+          "title": "What goes into one request",
+          "caption": "The harness assembles all of this, in order, every single time. The model sees nothing else.",
+          "steps": [
+            {
+              "label": "System prompt",
+              "note": "Role, rules, output format"
+            },
+            {
+              "label": "Conversation so far",
+              "note": "Resent by the harness each time"
+            },
+            {
+              "label": "Retrieved documents",
+              "note": "Policy pages, past cases, records"
+            },
+            {
+              "label": "Tool results",
+              "note": "What a search or API call returned"
+            },
+            {
+              "label": "Your new message",
+              "note": "The actual question or task"
+            },
+            {
+              "label": "Model answers",
+              "note": "Using only training plus this context"
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Context",
+          "one": "Everything the model can see for one request: the system prompt, conversation history, documents, tool results and your latest message.",
+          "like": "The papers on the desk of a very fast reader who remembers nothing from yesterday.",
+          "why": "If a fact is not in its training and not in the context, the model can only guess. Your job is to put the right facts on the desk."
+        },
+        {
+          "term": "Context window",
+          "one": "The maximum amount of text, in tokens, a model can take in one request, including its answer. Current large models handle hundreds of thousands of tokens, some up to a million.",
+          "why": "Large, but not free: every token costs money and time, and quality can drop when the key fact is buried in a huge pile."
+        },
+        {
+          "term": "Stateless",
+          "one": "The model itself does not remember earlier requests. Chat apps seem to remember because the harness resends the conversation each time.",
+          "why": "In your own build, you must send the history, or a summary of it, yourself."
+        },
+        {
+          "term": "Memory",
+          "one": "A harness feature that saves notes between sessions, such as preferences or past decisions, and adds them back into the context later.",
+          "why": "It is the harness storing text, not the model learning. Know what is saved and where, because it may hold client data."
+        },
+        {
+          "term": "Knowledge cutoff",
+          "one": "The date after which the model saw no training data.",
+          "why": "It does not know about later events, prices or policy changes unless you put them in the context."
+        },
+        {
+          "term": "RAG (retrieval-augmented generation)",
+          "one": "First search your documents for the passages that matter, then put them into the context with the question, and ask the model to answer from them.",
+          "why": "The standard way to answer from client documents with citations, without retraining anything."
+        },
+        {
+          "term": "Context engineering",
+          "one": "Deciding what goes into the context, in what order and how much, so the model has what it needs and nothing that distracts it.",
+          "why": "More is not always better. Irrelevant text raises cost and can lower quality."
+        },
+        {
+          "term": "Prompt caching",
+          "one": "Reusing the already-processed start of a prompt, such as a long policy document, across many requests so the repeated part is cheaper and faster.",
+          "why": "A simple cost and speed win when every request starts with the same large instructions or documents."
+        },
+        {
+          "term": "Output limit (max tokens)",
+          "one": "The cap you set on how long an answer can be.",
+          "why": "Too low and answers get cut off mid-sentence; too high and a runaway answer costs more."
+        },
+        {
+          "term": "Rate limit",
+          "one": "The maximum requests or tokens your account may use per minute.",
+          "why": "Batch jobs over thousands of client documents hit these limits. Plan for retries and pacing."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Context windows",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Effective context engineering for AI agents",
+          "source": "Anthropic Engineering",
+          "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Prompt caching",
+          "source": "Claude Platform Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "What is Retrieval-Augmented Generation (RAG)?",
+          "source": "IBM Technology",
+          "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is a context window?",
+          "source": "IBM",
+          "url": "https://www.ibm.com/think/topics/context-window",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "open",
+      "title": "Open-weight and closed models",
+      "intro": "Some models you can download and run on your own machines. Others you can only use through the provider's service. Neither is always better; the choice depends on capability, data rules, cost and who will run it.",
+      "diagrams": [
+        {
+          "type": "compare",
+          "title": "Closed versus open-weight, side by side",
+          "caption": "Most client POCs start on a closed model through an API, then revisit the choice if data rules or cost demand it.",
+          "columns": [
+            {
+              "title": "Closed (API only)",
+              "items": [
+                "Weights are never published",
+                "Use through the app, API or cloud partners",
+                "Usually the most capable models",
+                "Provider runs, scales and updates it",
+                "Data leaves your network, under contract terms"
+              ]
+            },
+            {
+              "title": "Open-weight",
+              "items": [
+                "Weights published for download",
+                "Run on your own cloud or servers",
+                "Strong, but often behind the frontier",
+                "You run, scale, patch and secure it",
+                "Data can stay fully inside your network"
+              ]
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Closed (proprietary) model",
+          "one": "A model whose weights are not published. You use it only through the provider's app or API, or a cloud partner. Examples: Claude, most GPT models, Gemini.",
+          "why": "Least effort to start and usually the most capable, but data goes to the provider under their terms."
+        },
+        {
+          "term": "Open-weight model",
+          "one": "A model whose trained weights are published, so anyone can download and run it under its license. Examples: Llama (Meta), Gemma (Google), gpt-oss (OpenAI), and models from Mistral, DeepSeek and Qwen.",
+          "why": "Can run entirely inside a client's network, but then you own hosting, scaling, updates and safety testing."
+        },
+        {
+          "term": "Open source (for AI)",
+          "one": "Strictly, a model is open source only when the weights, the code and enough detail about the training data to rebuild it are available under a license that allows any use. Many models called open are open-weight only.",
+          "why": "Licenses differ and some restrict commercial use or large companies. Read the license; the client's legal team will ask."
+        },
+        {
+          "term": "Frontier model",
+          "one": "The most capable models available at a given time, usually from the large labs and usually closed.",
+          "why": "A sensible default for a POC, because it shows what is possible before you optimize for cost."
+        },
+        {
+          "term": "Self-hosting",
+          "one": "Running a model on servers you control, in your own cloud account or data center.",
+          "why": "Useful when data must not leave, but it needs GPUs, engineering time and ongoing operations."
+        },
+        {
+          "term": "Local model",
+          "one": "A smaller model running on a laptop or a single server, using tools such as Ollama.",
+          "why": "Good for learning, offline demos and very sensitive tests. Usually less capable than frontier models."
+        },
+        {
+          "term": "Model license",
+          "one": "The legal terms for using a model's weights: commercial use, user limits and acceptable use rules.",
+          "why": "A model you cannot legally use in production is not an option, however good it is."
+        },
+        {
+          "term": "Benchmark",
+          "one": "A standard test used to compare models, such as a set of exam questions or coding tasks.",
+          "why": "Useful as a rough guide only. Your own evaluation on the client's real cases decides."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "The Open Source AI Definition 1.0",
+          "source": "Open Source Initiative",
+          "url": "https://opensource.org/ai/open-source-ai-definition",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Models hub",
+          "source": "Hugging Face",
+          "url": "https://huggingface.co/models",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Meta Llama models",
+          "source": "Hugging Face",
+          "url": "https://huggingface.co/meta-llama",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Introducing gpt-oss",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/introducing-gpt-oss/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Ollama: run AI models locally",
+          "source": "Ollama",
+          "url": "https://ollama.com/",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "title": "Networks and cloud",
+      "intro": "Every AI solution moves data across networks: from a user's laptop, through the company network, over the internet, into a cloud and out to a model. You do not need to be a network engineer. You do need to know where the data travels and who can reach it, because that is the first thing a client's security team will ask.",
+      "diagrams": [
+        {
+          "type": "flow",
+          "title": "The path of one request",
+          "caption": "Each hop is a place where data can be protected, logged or blocked.",
+          "steps": [
+            {
+              "label": "User's laptop",
+              "note": "Browser or app"
+            },
+            {
+              "label": "Company network or VPN",
+              "note": "Firewall rules apply"
+            },
+            {
+              "label": "Internet over HTTPS",
+              "note": "Encrypted in transit with TLS"
+            },
+            {
+              "label": "Cloud region and VPC",
+              "note": "Your app in a private network"
+            },
+            {
+              "label": "Model API",
+              "note": "Public endpoint or private link"
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Network",
+          "one": "Computers connected so they can send data to each other. Your office network, home Wi-Fi and the internet are all networks.",
+          "why": "Every integration question is really a network question: can system A reach system B?"
+        },
+        {
+          "term": "Internet",
+          "one": "The global network of networks. Traffic crosses many organizations' equipment on its way.",
+          "why": "Anything sent over it unencrypted can be read along the path."
+        },
+        {
+          "term": "IP address",
+          "one": "The numeric address of a device on a network, such as 203.0.113.10.",
+          "why": "Firewalls and allow-lists use IP addresses to decide who may connect."
+        },
+        {
+          "term": "DNS",
+          "one": "The internet's phone book. It turns names like api.example.com into IP addresses.",
+          "why": "When something cannot connect, a DNS problem is one of the first things to rule out."
+        },
+        {
+          "term": "Port",
+          "one": "A numbered door on a computer for one kind of service. HTTPS normally uses port 443.",
+          "why": "Corporate firewalls often block every port except a few, which can stop a tool from working."
+        },
+        {
+          "term": "HTTP and HTTPS",
+          "one": "HTTP is the format browsers and APIs use for requests and responses. HTTPS is HTTP encrypted with TLS so nobody on the path can read or change it.",
+          "why": "Client data must only travel over HTTPS. Plain HTTP is not acceptable."
+        },
+        {
+          "term": "Firewall",
+          "one": "Rules that allow or block traffic by address, port or application.",
+          "why": "Your POC may need a firewall change to reach a model API or a client system. Those requests take time; ask early."
+        },
+        {
+          "term": "VPN",
+          "one": "A Virtual Private Network: an encrypted tunnel from your device into a private network, so you can reach internal systems as if you were in the office.",
+          "why": "You will often need the client's VPN to reach their test systems."
+        },
+        {
+          "term": "Cloud",
+          "one": "Renting computing, storage and services from providers such as AWS, Microsoft Azure and Google Cloud instead of owning the hardware.",
+          "why": "Most client systems and most AI services now run in a cloud."
+        },
+        {
+          "term": "Region",
+          "one": "A geographic location where a cloud runs its data centers, such as Frankfurt or Virginia.",
+          "why": "Data residency rules can require data to stay in a country or region, which limits which services you can use."
+        },
+        {
+          "term": "VPC (Virtual Private Cloud)",
+          "one": "Your own isolated private network inside a public cloud. You decide its addresses, what can reach the internet and what cannot.",
+          "like": "A locked, private office floor inside a shared tower block.",
+          "why": "Client data usually lives inside a VPC. Your POC may need to run in the same VPC, or connect to it securely, to reach that data."
+        },
+        {
+          "term": "Subnet",
+          "one": "A slice of a VPC. Public subnets can reach the internet directly; private subnets cannot.",
+          "why": "Databases sit in private subnets on purpose. That is why your laptop cannot simply connect to them."
+        },
+        {
+          "term": "Private endpoint (private link)",
+          "one": "A way to reach a cloud service, including some model services, without traffic going over the public internet.",
+          "why": "Often a security requirement for enterprise AI, and a reason clients prefer models through their own cloud."
+        },
+        {
+          "term": "On-premises",
+          "one": "Systems running in the company's own data center instead of a cloud.",
+          "why": "Older core systems often live here. Reaching them from a cloud POC needs a secure connection."
+        },
+        {
+          "term": "Latency",
+          "one": "The delay between sending a request and getting the response.",
+          "why": "Distance, network hops and model size all add to it. Users notice anything over a few seconds."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "What is cloud computing?",
+          "source": "AWS",
+          "url": "https://aws.amazon.com/what-is-cloud-computing/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is a Virtual Private Cloud (VPC)?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/cloud/what-is-a-virtual-private-cloud/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is Amazon VPC?",
+          "source": "AWS Documentation",
+          "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is DNS?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/dns/what-is-dns/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is HTTPS?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/ssl/what-is-https/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is a firewall?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/security/what-is-a-firewall/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is a VPN?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/access-management/what-is-a-vpn/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Computer Networking Course - Network Engineering [CompTIA Network+ Exam Prep]",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=qiQR5rTSshw",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data, privacy and security",
+      "intro": "Clients hand you their most sensitive material: customer records, contracts, employee files, prices. Handling it carelessly can end an engagement, break the law and hurt real people. Learn these words, because the client's security and legal teams use them in every conversation.",
+      "points": [
+        "Trust: one leak or careless paste can end the engagement and the relationship.",
+        "Law: privacy laws such as the EU GDPR allow large fines, and they apply even to a test or a POC.",
+        "Contracts: client agreements often limit where data may go and who may see it.",
+        "AI tools: anything you paste into a tool may be stored or logged, and under some consumer plans used for training. Use only approved tools and accounts.",
+        "People: behind every record is a customer, patient or employee who never agreed to be in your demo."
+      ],
+      "diagrams": [
+        {
+          "type": "branch",
+          "title": "Can this data go to an AI service?",
+          "caption": "When in doubt, stop and ask the client's data owner. It is never your call alone.",
+          "start": "You want to send client data to a model",
+          "question": "What kind of data is it, and what is approved?",
+          "branches": [
+            {
+              "answer": "Personal or confidential, no approval",
+              "result": "Do not send it. Use synthetic or masked data until an approved setup exists."
+            },
+            {
+              "answer": "Approved account and terms",
+              "result": "Send only the fields the task needs, keep a log, follow the agreed retention."
+            },
+            {
+              "answer": "Public or synthetic",
+              "result": "Fine to use. Still keep keys, passwords and internal names out."
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Personal data (PII)",
+          "one": "Information that identifies a person directly or indirectly: name, email, phone number, ID numbers, and under many laws also location and online identifiers.",
+          "why": "Most privacy laws attach duties to personal data. Spot it before it goes anywhere."
+        },
+        {
+          "term": "Sensitive data",
+          "one": "Data that needs extra protection: health, financial, biometric and children's data, among others defined by law. Commercially sensitive data such as prices, contracts and source code also counts for clients.",
+          "why": "Sensitive data usually needs explicit approval, stronger controls and sometimes cannot leave the client at all."
+        },
+        {
+          "term": "Data privacy",
+          "one": "The rules about personal data: what may be collected, for what purpose, who may see it and how long it is kept.",
+          "why": "The question it answers is: are we allowed to use this data in this way?",
+          "vs": "Privacy is about the rules for using data. Security is about protecting data. You can be perfectly secure and still break privacy rules, for example by using data for a purpose people never agreed to."
+        },
+        {
+          "term": "Data security",
+          "one": "Protecting data from unauthorized access, change or loss, through encryption, access control and monitoring.",
+          "why": "The question it answers is: can anyone who should not see this data get to it?"
+        },
+        {
+          "term": "GDPR and similar laws",
+          "one": "The EU General Data Protection Regulation sets rules for personal data of people in the EU, including purpose limits, data minimization and individual rights. Many other places have similar laws, and some sectors have their own, such as HIPAA for health data in the US.",
+          "why": "Ask the client which laws apply before you touch any data."
+        },
+        {
+          "term": "Data minimization",
+          "one": "Use only the data the task actually needs, and remove or mask the rest.",
+          "why": "The simplest privacy control an FDE can apply, every day, without asking anyone."
+        },
+        {
+          "term": "Masking, anonymization and pseudonymization",
+          "one": "Ways to remove or replace identifiers. Anonymized data can no longer be linked to a person. Pseudonymized data replaces names with codes but can be linked back with a separate key.",
+          "why": "Under GDPR, pseudonymized data is still personal data. Do not call it anonymous."
+        },
+        {
+          "term": "Data residency",
+          "one": "Where data is physically stored and processed.",
+          "why": "Some clients require data to stay in one country or region, which rules out some services and regions."
+        },
+        {
+          "term": "Data retention",
+          "one": "How long data is kept, including copies in logs, backups and at the AI provider.",
+          "why": "Agree retention up front and delete POC data when the engagement ends."
+        },
+        {
+          "term": "Training on your data",
+          "one": "Whether a provider uses your inputs to improve its models. Business API and enterprise plans of the major providers generally do not by default; consumer apps may, depending on the plan and settings.",
+          "why": "Terms change. Check the current terms for the exact product and plan before any client data goes in."
+        },
+        {
+          "term": "Encryption in transit and at rest",
+          "one": "In transit means protected while moving, through HTTPS and TLS. At rest means protected while stored on disk.",
+          "why": "Both are basic expectations in every security review."
+        },
+        {
+          "term": "Access control and least privilege",
+          "one": "Give each person, service and AI tool only the access it needs, and nothing more.",
+          "why": "An assistant that only needs to read tickets must not be able to delete them or read payroll."
+        },
+        {
+          "term": "Secrets management",
+          "one": "Keeping API keys, passwords and tokens in a secret store or environment variables, never in code, documents or chats.",
+          "why": "Leaked keys are one of the most common and most avoidable incidents."
+        },
+        {
+          "term": "Audit log",
+          "one": "A record of who did what and when, including what the AI suggested and what a person approved.",
+          "why": "Required in regulated work, and the first thing anyone asks for when something goes wrong."
+        },
+        {
+          "term": "Prompt injection",
+          "one": "An attack where text inside a document, email or web page contains instructions meant to make the model do something else, such as reveal data or call a tool.",
+          "why": "Any content the model reads can try to steer it. Limit what tools and data it can reach, and keep a person in the loop for risky actions."
+        },
+        {
+          "term": "DPA and security review",
+          "one": "The checks a client runs before approving a vendor: a data processing agreement (DPA), a security questionnaire and certifications such as SOC 2 or ISO 27001.",
+          "why": "These can take weeks. Start them as early as possible on an engagement."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "What is data privacy?",
+          "source": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/privacy/what-is-data-privacy/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Data protection in the EU",
+          "source": "European Commission",
+          "url": "https://commission.europa.eu/law/law-topic/data-protection_en",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "UK GDPR guidance and resources",
+          "source": "ICO",
+          "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Privacy Framework",
+          "source": "NIST",
+          "url": "https://www.nist.gov/privacy-framework",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Anthropic Privacy Center",
+          "source": "Anthropic",
+          "url": "https://privacy.claude.com/en/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "source": "OWASP",
+          "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+          "cost": "free"
+        },
+        {
+          "type": "cert",
+          "title": "CIPP certification",
+          "source": "IAPP",
+          "url": "https://iapp.org/certify/cipp",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "CompTIA Security+",
+          "source": "CompTIA",
+          "url": "https://www.comptia.org/en-us/certifications/security/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Building and shipping software",
+      "intro": "Words you will hear in every engineering conversation. If you come from a business background, these are enough to follow along on day one; module 3 goes deeper.",
+      "diagrams": [
+        {
+          "type": "layers",
+          "title": "The parts of a typical application",
+          "caption": "Read top to bottom: what users see, down to what everything runs on.",
+          "layers": [
+            {
+              "label": "Frontend",
+              "note": "Screens and pages people click"
+            },
+            {
+              "label": "Backend",
+              "note": "Logic, API calls, keys kept here"
+            },
+            {
+              "label": "Database",
+              "note": "Where records are stored"
+            },
+            {
+              "label": "Infrastructure",
+              "note": "Servers, cloud, network"
+            }
+          ]
+        }
+      ],
+      "terms": [
+        {
+          "term": "Frontend",
+          "one": "The part of an application people see and click: a web page, a mobile screen.",
+          "why": "Never put secrets in the frontend. Anything sent to a browser can be read by its user."
+        },
+        {
+          "term": "Backend",
+          "one": "Server-side code that holds the logic, talks to databases and calls other APIs, including model APIs.",
+          "why": "This is where your model calls and API keys belong."
+        },
+        {
+          "term": "Database",
+          "one": "Organized storage for records. Relational databases such as Postgres and SQL Server store data in tables you query with SQL.",
+          "why": "Most client data you need sits in a database you will query or receive an export from."
+        },
+        {
+          "term": "JSON",
+          "one": "A plain-text format for structured data, made of names and values, used by almost every API.",
+          "why": "You will ask models to return JSON so your code can use the result reliably."
+        },
+        {
+          "term": "Git and repository",
+          "one": "Git records every change to code. A repository is a project folder with its full history. GitHub and GitLab host repositories online.",
+          "why": "Every POC lives in a repository so others can review, run and continue it."
+        },
+        {
+          "term": "Environment",
+          "one": "A separate copy of a system: development for building, test for checking, production for real users.",
+          "why": "Never test on production systems or production data without explicit permission."
+        },
+        {
+          "term": "Deployment",
+          "one": "Putting a version of software where its users can reach it.",
+          "why": "A POC is not finished until someone other than you can open it."
+        },
+        {
+          "term": "Container (Docker)",
+          "one": "A package of an application plus everything it needs to run, so it behaves the same on any machine.",
+          "why": "The usual way to hand a client something they can run inside their own cloud."
+        },
+        {
+          "term": "Serverless",
+          "one": "Running code without managing servers. The platform runs it when needed and charges per use.",
+          "why": "A quick, cheap way to host a small POC."
+        },
+        {
+          "term": "CI/CD",
+          "one": "Automated pipelines that test every change (continuous integration) and release it (continuous delivery or deployment).",
+          "why": "Keeps quality steady as the POC changes quickly."
+        },
+        {
+          "term": "POC, pilot and production",
+          "one": "A POC proves it can work on realistic data. A pilot proves it works for real users in real work. Production is the supported, monitored service.",
+          "why": "Be clear which one you are building. Each needs different quality, security and support."
+        },
+        {
+          "term": "Evaluation (eval)",
+          "one": "A set of test cases with expected results, used to measure how well an AI solution works.",
+          "why": "The difference between it seems to work and it works on 54 of 60 real cases."
+        }
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Overview of HTTP",
+          "source": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Get started",
+          "source": "Docker Docs",
+          "url": "https://docs.docker.com/get-started/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "The Missing Semester of Your CS Education",
+          "source": "MIT",
+          "url": "https://missing.csail.mit.edu/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "DevOps roadmap",
+          "source": "roadmap.sh",
+          "url": "https://roadmap.sh/devops",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Git and GitHub for Beginners - Crash Course",
+          "source": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "What is an API? (in 3 minutes)",
+          "source": "MuleSoft Videos",
+          "url": "https://www.youtube.com/watch?v=s7wmiS2mSXY",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

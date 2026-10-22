@@ -1,0 +1,1644 @@
+{
+  "id": "pharma-engineering-validation",
+  "title": "Engineering and Validation",
+  "category": "Pharma",
+  "track": "Pharma",
+  "level": 1,
+  "level_label": "Level 1: theory",
+  "summary": "How facilities, utilities, equipment, processes and computerised systems are commissioned, qualified and validated before they make medicine.",
+  "audience": "Engineers, validation specialists and quality staff new to commissioning, qualification and validation work, and FDEs who build or validate systems used in GMP operations.",
+  "sections": [
+    {
+      "id": "facility-and-equipment-cqv",
+      "title": "Facility and equipment CQV",
+      "summary": "What commissioning, qualification and verification mean, which rules ask for them, and how a piece of equipment goes from purchase order to GMP use.",
+      "outline": [
+        "Cleanroom and facility design assessment",
+        "FAT and SAT planning and coordination",
+        "Risk-based qualification strategies",
+        "HVAC, WFI and PW utility qualification",
+        "IQ, OQ and PQ protocol execution",
+        "Traceable qualification summary reports"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-cqv-basics",
+          "title": "Commissioning, qualification and verification (CQV) from start to handover",
+          "summary": "You will be able to explain each CQV stage, the document it produces, and the rule that asks for it, and plan a risk-based qualification for a simple piece of equipment.",
+          "why": "New equipment cannot make a GMP batch until it is shown, with documented evidence, to be installed correctly and to work as intended. CQV work is document heavy and full of handoffs between engineering, vendors, validation and quality, which makes it a common place for delay. If you understand the stages, you can plan tests once, reuse evidence where allowed, and see where a tool can save time without weakening the proof.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Commissioning is the good engineering practice work of bringing a system into service: installing, starting up, checking and adjusting it so it works. Qualification is the documented proof that the system is fit for its GMP purpose. Verification is a broader word used in risk-based approaches for confirming, with evidence, that a requirement is met.",
+                "The usual chain is: user requirements specification (URS), design qualification (DQ), factory acceptance test (FAT), site acceptance test (SAT), installation qualification (IQ), operational qualification (OQ) and performance qualification (PQ). Each stage traces back to the URS, so at the end you can show that every requirement was tested."
+              ]
+            },
+            {
+              "h": "What the rules ask for, in plain words",
+              "p": [
+                "21 CFR 211.63 says equipment used in drug manufacture must be of appropriate design, adequate size and suitably located for its intended use, cleaning and maintenance. 21 CFR 211.68 says automatic, mechanical and electronic equipment must be routinely calibrated, inspected or checked under a written program. These sections are why equipment needs documented qualification and a calibration and maintenance plan.",
+                "EU GMP Annex 15 on qualification and validation describes the stages in more detail: URS, DQ, FAT and SAT, IQ, OQ and PQ. It says the scope and extent of qualification should be based on a documented risk assessment, and that, where justified, some tests done at FAT need not be repeated on site if transport and installation cannot affect them. ICH Q9(R1) supports the same idea: effort follows risk to product quality and the patient.",
+                "The FDA guidance on process validation places equipment and utility qualification inside Stage 2, process qualification. In other words, the process cannot be qualified on equipment that is not qualified."
+              ]
+            },
+            {
+              "h": "The stages and what each produces",
+              "list": [
+                "URS: what the user needs the equipment to do, written so each line can be tested. Owned by the user and quality.",
+                "DQ: documented check that the chosen design meets the URS and GMP needs before it is built.",
+                "FAT: tests at the vendor's site before shipping. Finds problems when they are cheap to fix.",
+                "SAT and commissioning: tests after delivery and installation on site, under good engineering practice.",
+                "IQ: proof it is installed as designed: drawings, materials of construction, utilities connected, instruments calibrated, manuals and spare parts recorded.",
+                "OQ: proof it operates as intended across its operating ranges, including alarms and interlocks.",
+                "PQ: proof it performs consistently under real or simulated production conditions.",
+                "Qualification summary report: what was done, deviations found and closed, and the conclusion that the system is released for use, approved by quality."
+              ],
+              "p": [
+                "Each stage produces a document that someone else will rely on later, so it helps to know what each one is for. The list below follows the usual order. Some sites merge stages or use different names, such as a combined IQ and OQ protocol, so always read the site procedure first. What matters is that every requirement in the URS is covered by at least one stage, and that quality approves the result before the system is used for GMP work."
+              ]
+            },
+            {
+              "h": "Risk-based qualification",
+              "p": [
+                "Not every part of a system needs the same depth of testing. A risk-based approach, as described in the ISPE Baseline Guide on commissioning and qualification, starts by finding the critical aspects: the features and functions that can affect product quality, such as a temperature controller on a dryer or the filter integrity in a cleanroom air handler. Those get formal qualification with quality approval. Non-critical parts are commissioned under good engineering practice and documented, but with less formality.",
+                "Where equipment has software or a control system, the computerised part is also assessed under GAMP 5 and EU GMP Annex 11, and electronic records must meet 21 CFR Part 11. That work is covered in the computer system validation section of this topic."
+              ]
+            },
+            {
+              "h": "Where AI can help and where a person stays in control",
+              "p": [
+                "AI tools can help draft test scripts from a URS, build and check a traceability matrix, compare vendor documents against the URS, and flag missing signatures or calibration certificates in a protocol package. They cannot decide that a requirement is critical, judge whether a test result is acceptable, or approve a protocol or report. Those calls belong to qualified engineers and quality, who sign them. If an AI tool generates any part of a GMP document, the person who approves it is responsible for every line, so the draft must be reviewed as if written by a new team member."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "From requirement to GMP use",
+            "caption": "Read left to right; every stage traces back to the URS.",
+            "steps": [
+              {
+                "label": "URS",
+                "note": "Testable user requirements"
+              },
+              {
+                "label": "DQ",
+                "note": "Design meets URS and GMP"
+              },
+              {
+                "label": "FAT",
+                "note": "Tests at the vendor site"
+              },
+              {
+                "label": "SAT and commissioning",
+                "note": "Good engineering practice on site"
+              },
+              {
+                "label": "IQ",
+                "note": "Installed as designed"
+              },
+              {
+                "label": "OQ",
+                "note": "Works across operating ranges"
+              },
+              {
+                "label": "PQ",
+                "note": "Consistent under production conditions"
+              },
+              {
+                "label": "Summary report and release",
+                "note": "Quality approves use"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: qualifying a new tablet press (fictional)",
+            "p": [
+              "Imagine a site buying a rotary tablet press for an existing product. The process owner writes a URS: required output range, compression force range, punch type, product contact materials, cleanability, alarms for over-force, and electronic batch data with an audit trail.",
+              "The team runs a risk assessment with quality. Compression force control, product contact surfaces and the data recording function are judged critical. The paint finish on the cabinet and the lighting in the guard are not."
+            ],
+            "list": [
+              "DQ: the vendor drawings and material certificates are checked against the URS.",
+              "FAT: force control and alarms are tested at the vendor; with quality agreement these tests are not repeated in full on site.",
+              "IQ: installation, utilities, calibration of the force sensors and documents are verified.",
+              "OQ: the press runs across its force and speed range; alarms and interlocks are challenged.",
+              "PQ: placebo or product runs show tablets meet weight and hardness limits across the planned conditions.",
+              "The control software and its data are assessed under GAMP 5, Annex 11 and Part 11.",
+              "The summary report lists two deviations found in OQ and how each was closed, and quality approves release for use."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Write a URS and trace it",
+              "time": "60 min",
+              "goal": "Practise writing testable requirements and linking them to qualification stages.",
+              "steps": [
+                "Pick a simple GMP item such as a laboratory refrigerator or a balance.",
+                "Write 10 requirements in a spreadsheet. Each must be testable, for example 'holds 2 to 8 C' rather than 'keeps things cold'.",
+                "Mark each requirement critical or non-critical and write one line on why.",
+                "Add columns DQ, FAT, SAT, IQ, OQ and PQ and mark where each requirement will be tested.",
+                "Ask Claude to review your URS for vague or untestable lines, then decide yourself which suggestions to accept and note why."
+              ],
+              "done_when": "You have a 10-row traceability matrix where every requirement has a criticality, a reason and at least one test stage."
+            }
+          ],
+          "pitfalls": [
+            "Writing a vague URS. If a requirement cannot be tested, it cannot be qualified.",
+            "Repeating every FAT test on site by default. Use a documented risk assessment to decide what to leverage.",
+            "Starting IQ before calibration certificates and drawings are in hand.",
+            "Forgetting the software. A control system with electronic records needs computer system validation and Part 11 review.",
+            "Treating the summary report as a formality. Open deviations must be closed or justified before release."
+          ],
+          "check": [
+            "What is the difference between commissioning and qualification?",
+            "What does 21 CFR 211.63 ask of equipment?",
+            "What does EU GMP Annex 15 say should decide the scope of qualification?",
+            "What is proven in IQ, OQ and PQ?",
+            "Name one CQV task AI can help with and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 211: Current Good Manufacturing Practice for Finished Pharmaceuticals",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 15: Qualification and Validation (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/2015-10_annex15_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Process Validation: General Principles and Practices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "Baseline Guide Vol 5: Commissioning and Qualification 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/baseline-guide-vol-5-commissioning-qualification-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "book",
+              "title": "GAMP 5 Guide 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "Qualification in Pharma Explained | Validation Life Cycle Explained | DQ IQ OQ PQ Full Guide",
+              "source": "Pharmalytics",
+              "url": "https://www.youtube.com/watch?v=0o15fOWrdWw",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Understanding the Three Stages of Process Validation",
+              "source": "IVT Network",
+              "url": "https://www.youtube.com/watch?v=orhNIqvAg3E",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "pev-q01",
+          "lesson": "pharma-cqv-basics",
+          "q": "A URS line says 'the fridge must keep samples cold'. What is the main problem?",
+          "options": [
+            "It is too short to count as a proper URS line",
+            "It has no measurable limit, so it cannot be tested",
+            "It belongs in the IQ protocol, not in the URS",
+            "It should have been written by the equipment vendor"
+          ],
+          "answer": 1,
+          "why": "A requirement must be testable, for example 'holds 2 to 8 C', or it cannot be qualified."
+        },
+        {
+          "id": "pev-q02",
+          "lesson": "pharma-cqv-basics",
+          "q": "Which stage proves that equipment is installed as designed, with utilities connected and instruments calibrated?",
+          "options": [
+            "IQ",
+            "OQ",
+            "PQ",
+            "DQ"
+          ],
+          "answer": 0,
+          "why": "Installation qualification documents that the installation matches the approved design."
+        },
+        {
+          "id": "pev-q03",
+          "lesson": "pharma-cqv-basics",
+          "q": "Force control alarms were fully tested at the vendor FAT. Transport cannot affect them. What does Annex 15 allow?",
+          "options": [
+            "Repeat every one of them on site anyway",
+            "Skip all site testing for the whole press",
+            "Let the vendor approve the qualification summary report",
+            "Where justified, use the FAT results instead"
+          ],
+          "answer": 3,
+          "why": "Annex 15 allows FAT tests to be leveraged where justified and where transport and installation cannot affect them."
+        },
+        {
+          "id": "pev-q04",
+          "lesson": "pharma-cqv-basics",
+          "q": "Which US rule says automatic and electronic equipment must be routinely calibrated, inspected or checked under a written program?",
+          "options": [
+            "21 CFR 211.22",
+            "21 CFR 211.192",
+            "21 CFR 211.68",
+            "21 CFR Part 11"
+          ],
+          "answer": 2,
+          "why": "21 CFR 211.68 covers automatic, mechanical and electronic equipment."
+        },
+        {
+          "id": "pev-q05",
+          "lesson": "pharma-cqv-basics",
+          "q": "In a risk-based approach, which tablet press feature most likely needs formal qualification with quality approval?",
+          "options": [
+            "Cabinet paint finish and colour",
+            "Compression force control",
+            "Guard lighting brightness",
+            "Operator stool height and comfort"
+          ],
+          "answer": 1,
+          "why": "Critical aspects are those that can affect product quality, such as compression force."
+        },
+        {
+          "id": "pev-q06",
+          "lesson": "pharma-cqv-basics",
+          "q": "In the FDA process validation guidance, where does equipment and utility qualification sit?",
+          "options": [
+            "Stage 1, process design",
+            "Stage 3, continued process verification",
+            "Stage 2, process qualification",
+            "Outside the guidance"
+          ],
+          "answer": 2,
+          "why": "Stage 2 includes qualifying the facility, utilities and equipment, then the process performance qualification."
+        },
+        {
+          "id": "pev-q07",
+          "lesson": "pharma-cqv-basics",
+          "q": "Which stage shows the equipment performs consistently under real or simulated production conditions?",
+          "options": [
+            "PQ",
+            "SAT",
+            "IQ",
+            "DQ"
+          ],
+          "answer": 0,
+          "why": "Performance qualification shows consistent performance in production-like use."
+        },
+        {
+          "id": "pev-q08",
+          "lesson": "pharma-cqv-basics",
+          "q": "An AI tool drafts OQ test scripts from the URS. Who is responsible for the content of the approved protocol?",
+          "options": [
+            "The AI vendor that supplied the model",
+            "Nobody, since the text was machine generated",
+            "The IT team that installed and runs the tool",
+            "The people who review and sign it"
+          ],
+          "answer": 3,
+          "why": "Whoever approves a GMP document is responsible for every line in it, however it was drafted."
+        },
+        {
+          "id": "pev-q09",
+          "lesson": "pharma-cqv-basics",
+          "q": "Two OQ deviations are still open. The team wants to sign the summary report and release the press. What is right?",
+          "options": [
+            "Release now and close the deviations later",
+            "Close or justify them before release",
+            "Remove the open deviations from the report",
+            "Ask the vendor to sign the deviations off"
+          ],
+          "answer": 1,
+          "why": "The summary report must show deviations closed or justified before quality approves use."
+        },
+        {
+          "id": "pev-q10",
+          "lesson": "pharma-cqv-basics",
+          "q": "A new press records batch data electronically with an audit trail. What else is needed besides IQ, OQ and PQ?",
+          "options": [
+            "Nothing else, since IQ, OQ and PQ cover everything",
+            "A brand new URS written again for every batch",
+            "Computer system validation and a Part 11 review",
+            "A second FAT run back at the vendor site"
+          ],
+          "answer": 2,
+          "why": "Computerised parts are assessed under GAMP 5 and Annex 11, and electronic records must meet Part 11."
+        }
+      ]
+    },
+    {
+      "id": "process-and-product-validation",
+      "title": "Process and product validation",
+      "summary": "The three stages of process validation, how a PPQ is planned and judged, and how CPV keeps a validated process in control.",
+      "outline": [
+        "Process validation stages (FDA guidance, EU GMP Annex 15)",
+        "CQAs, CPPs and the control strategy",
+        "Planning and running PPQ",
+        "Continued process verification and change control",
+        "Specialist areas: media fills, SIP, CIP and cleaning validation",
+        "Where AI can help: trending CPV data; why acceptance decisions stay human"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-engineering-validation-process-and-product-validation",
+          "title": "Process validation across the lifecycle",
+          "summary": "You will be able to explain the three stages of process validation, read a PPQ plan critically, and tell the difference between a specification and a control limit.",
+          "why": "On a client site you will meet process validation through its records: PPQ protocols, batch data, CPV trend reports and change assessments. If you build a dashboard, a data pipeline or an AI assistant around those records, you need to know what each record is meant to prove, so your tool helps the evidence instead of hiding a gap in it.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Process validation is the documented evidence that a manufacturing process, run within its set ranges, consistently makes product that meets its quality attributes. The key word is consistently. One good batch shows the process can work. Validation has to show it keeps working, batch after batch, across the normal variation in materials, people, equipment and time.",
+                "The FDA guidance on process validation splits this into three stages. Stage 1, process design, builds process knowledge in development and scale-up. Stage 2, process qualification, confirms the design at commercial scale: it includes qualifying the facility, utilities and equipment, and then the process performance qualification (PPQ). Stage 3, continued process verification (CPV), keeps checking during routine production that the process stays in control. EU GMP Annex 15 covers the same ground and calls the routine monitoring ongoing process verification."
+              ]
+            },
+            {
+              "h": "The words you will meet",
+              "p": [
+                "A few terms appear in every validation document. Learn them first, because the whole logic hangs on how they connect."
+              ],
+              "list": [
+                "Critical quality attribute (CQA): a property of the product that must stay within a limit to ensure quality, for example assay, dissolution or content uniformity of a tablet.",
+                "Critical process parameter (CPP): a process setting whose variation affects a CQA, for example blend time or compression force. ICH Q8(R2) describes how development work finds these.",
+                "Control strategy: the planned set of controls, from material specifications to in-process checks, that keeps CQAs within limits.",
+                "PPQ: the protocol-driven runs at commercial scale, under normal conditions and with extra sampling, that confirm the process design.",
+                "Specification: the limits the product must meet to be released. Control limits: the statistical range the process normally runs within. They answer different questions."
+              ]
+            },
+            {
+              "h": "How a PPQ is planned and run",
+              "p": [
+                "A PPQ protocol is written and approved before any PPQ batch is made. It states the process and its set points, the CQAs and CPPs being studied, the sampling plan, the test methods, the acceptance criteria and how deviations will be handled. Everything that will decide pass or fail is fixed in advance. Writing criteria after seeing the data is not validation.",
+                "The number of batches and samples must have a written rationale based on process knowledge and risk. The FDA guidance does not set a fixed number of batches. A team that writes 'three batches because we always do three' without reasons has a weak plan, even if all three pass. Sampling must also be representative: across the batch, across time and at the points most likely to show a problem, such as the start and end of a compression run.",
+                "The equipment and utilities used in PPQ must already be qualified, and the analytical methods must already be validated. The PPQ report then compares results with the predefined criteria, explains every deviation, and gives a clear conclusion about whether the process is ready for commercial manufacture. Quality approves that conclusion. If a PPQ batch fails a criterion, the team investigates the cause before deciding anything; they do not simply make another batch and hope it passes."
+              ]
+            },
+            {
+              "h": "After PPQ: continued process verification",
+              "p": [
+                "PPQ is a snapshot. CPV is the ongoing check. The site trends CQAs and CPPs batch by batch, usually on control charts, and reviews them at a defined frequency. A process can meet every specification and still show a worrying signal, such as a slow drift in assay or a sudden rise in variability after a new raw material lot. CPV is there to see that early.",
+                "Changes keep coming: a new supplier, a new piece of equipment, a scale change, a revised method. Each one goes through change control, where the team asks whether the existing validation evidence still covers the new condition. Sometimes the answer is a short assessment; sometimes it is new PPQ batches."
+              ]
+            },
+            {
+              "h": "Specialist areas and where AI fits",
+              "p": [
+                "Several validation areas build on this foundation but need their own specialist training and supervised practice: aseptic process simulation (media fills), sterilisation and steam-in-place (SIP), clean-in-place (CIP) and cleaning validation. EU GMP Annex 1 and the FDA guidance on aseptic processing cover the sterile side. This lesson gives you the vocabulary to follow those discussions, not the readiness to design or approve those studies.",
+                "AI and analytics can help with CPV: pulling batch data together, drawing control charts, flagging trends and drafting the periodic report. They cannot decide whether a signal is significant for the patient, whether a batch is acceptable, or whether the process remains validated. Those are quality decisions made and signed by qualified people."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "Process validation lifecycle",
+            "caption": "Read left to right; CPV and change control keep feeding knowledge back into the process.",
+            "steps": [
+              {
+                "label": "Process design",
+                "note": "Stage 1: CQAs, CPPs, control strategy"
+              },
+              {
+                "label": "Facility and equipment qualified",
+                "note": "Stage 2a: IQ, OQ, PQ done first"
+              },
+              {
+                "label": "PPQ protocol approved",
+                "note": "Criteria and sampling fixed in advance"
+              },
+              {
+                "label": "PPQ batches and report",
+                "note": "Stage 2b: quality approves conclusion"
+              },
+              {
+                "label": "Continued process verification",
+                "note": "Stage 3: trend CQAs and CPPs"
+              },
+              {
+                "label": "Change control",
+                "note": "Ask if evidence still covers the change"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a blend uniformity gap (fictional)",
+            "p": [
+              "A team runs three PPQ batches of a direct-compression tablet. All three meet the final assay and content uniformity specifications, and the draft report concludes the process is validated.",
+              "A reviewer reads the sampling plan and finds that blend samples were taken only from the top of the blender, because that spot was easy to reach. The blend may not be uniform in the corners or at the bottom, and the tablet data only cover the middle of each compression run. The evidence does not support the claim that the blend is uniform across the batch."
+            ],
+            "list": [
+              "The team writes a deviation and assesses the risk to the three batches.",
+              "The sampling plan is revised with quality: several locations in the blender and tablets from the start, middle and end of compression.",
+              "The rationale for sample locations is written into the protocol, so the next reader understands it.",
+              "The CPV plan trends content uniformity by raw material lot and press, not just a monthly average.",
+              "Quality approves the revised plan before the conclusion is finalised. No number in this example is a real limit."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Review a PPQ plan",
+              "time": "45 min",
+              "goal": "Spot weak points in a process validation plan before execution.",
+              "steps": [
+                "Pick a simple fictional process, such as mixing a powder blend and filling it into sachets.",
+                "In a spreadsheet, list three CQAs and, for each, two process parameters that could affect it.",
+                "Write a PPQ sampling plan: where, when and how many samples, with one line of rationale per choice.",
+                "Write the acceptance criteria before you invent any results, and save the file with that date.",
+                "Ask Claude to challenge your sampling plan as a quality reviewer would, then accept or reject each point and note why."
+              ],
+              "done_when": "You have a one-page PPQ plan with CQAs, linked parameters, a justified sampling plan and predefined acceptance criteria, plus a list of review comments you accepted or rejected."
+            }
+          ],
+          "pitfalls": [
+            "Treating qualified equipment as proof of a validated process. Equipment qualification is a prerequisite, not the conclusion.",
+            "Copying a batch count from the last project without a written rationale based on process knowledge and risk.",
+            "Sampling only from easy places, so the data cannot show variation where it is most likely to happen.",
+            "Mixing up specifications and control limits, and ignoring a drift because every batch still passes.",
+            "Making a supplier or equipment change without asking whether the validation evidence still covers it."
+          ],
+          "check": [
+            "What happens in each of the three stages of process validation in the FDA guidance?",
+            "Why must PPQ acceptance criteria be fixed before execution?",
+            "What is the difference between a CQA and a CPP?",
+            "Why can a process meet specifications and still need attention in CPV?",
+            "Name one CPV task AI can help with and one decision it must not make."
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "Process Validation: General Principles and Practices",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/process-validation-general-principles-and-practices",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 15: Qualification and Validation (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/2015-10_annex15_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Process validation for finished products: information and data to be provided in regulatory submissions",
+              "source": "European Medicines Agency",
+              "url": "https://www.ema.europa.eu/en/scientific-guidelines/process-validation-finished-products-information-data-be-provided-regulatory-submissions",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Q8(R2) Pharmaceutical Development",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/q8r2-pharmaceutical-development",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Sterile Drug Products Produced by Aseptic Processing: Current Good Manufacturing Practice",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/sterile-drug-products-produced-aseptic-processing-current-good-manufacturing-practice",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Understanding the Three Stages of Process Validation",
+              "source": "IVT Network",
+              "url": "https://www.youtube.com/watch?v=orhNIqvAg3E",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Quality by Design (QbD) Explained | QTPP, CQA, CPP, Risk Assessment & Pharmaceutical Development",
+              "source": "PHARMEX SOLUTIONS",
+              "url": "https://www.youtube.com/watch?v=4Hlf4lPEick",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "process-and-product-validation-q01",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "A new tablet press passed IQ, OQ and PQ. A manager says the process is now validated. What is missing?",
+          "options": [
+            "Nothing, because equipment PQ and process validation are the same step",
+            "Proof the process consistently makes good product",
+            "A second factory acceptance test at the vendor site",
+            "A signed GMP training record for the manager"
+          ],
+          "answer": 1,
+          "why": "Equipment qualification is a prerequisite. Process performance qualification shows the process, not just the machine, works consistently."
+        },
+        {
+          "id": "process-and-product-validation-q02",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "Which stage of the FDA process validation guidance covers routine monitoring after commercial launch?",
+          "options": [
+            "Stage 3, continued process verification",
+            "Stage 1, process design and scale-up work",
+            "Stage 2, process performance qualification",
+            "None, validation ends at commercial launch"
+          ],
+          "answer": 0,
+          "why": "Stage 3 is continued process verification, the ongoing check that the process stays in control."
+        },
+        {
+          "id": "process-and-product-validation-q03",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "A team wants to write the PPQ acceptance criteria after the first batch, 'to see what is realistic'. What is the problem?",
+          "options": [
+            "Criteria should be set by the equipment vendor instead",
+            "Criteria are optional when the process is already well known",
+            "Criteria set after seeing data prove nothing",
+            "The first PPQ batch is never tested against criteria"
+          ],
+          "answer": 2,
+          "why": "Acceptance criteria must be fixed in an approved protocol before execution; otherwise the result proves nothing."
+        },
+        {
+          "id": "process-and-product-validation-q04",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "Someone writes 'three PPQ batches because we always do three'. What should a reviewer ask for?",
+          "options": [
+            "A fourth batch added as an extra safety margin",
+            "The equipment vendor's standard batch count",
+            "A reason based on process knowledge and risk",
+            "Approval from the regulator before the protocol is signed"
+          ],
+          "answer": 3,
+          "why": "The FDA guidance does not fix a number of batches; the number needs a documented rationale."
+        },
+        {
+          "id": "process-and-product-validation-q05",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "Blend samples were taken only from the top of the blender. Why is that a concern?",
+          "options": [
+            "Samples from the top of a blender are always out of specification",
+            "It may miss variation elsewhere in the blend",
+            "The top of the blender cannot be cleaned or inspected",
+            "Blend samples are not allowed in a PPQ protocol"
+          ],
+          "answer": 1,
+          "why": "Sampling must be representative of the whole batch for the conclusion to hold."
+        },
+        {
+          "id": "process-and-product-validation-q06",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "Every batch meets its assay specification, but the control chart shows a steady upward drift. What is the right reading?",
+          "options": [
+            "Ignore it, because every batch still passes its specification",
+            "Stop all production and recall every batch at once",
+            "Investigate it as a possible process change",
+            "Widen the control limits so the chart fits the data"
+          ],
+          "answer": 2,
+          "why": "Control limits describe normal process behaviour. A drift is a signal worth investigating even inside specification."
+        },
+        {
+          "id": "process-and-product-validation-q07",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "What is a critical process parameter (CPP)?",
+          "options": [
+            "A product property that is tested at batch release",
+            "A setting whose variation affects a CQA",
+            "Any parameter shown on the operator screen of the machine",
+            "A storage limit printed on the product label"
+          ],
+          "answer": 1,
+          "why": "A CPP is a process parameter whose variability has an impact on a critical quality attribute."
+        },
+        {
+          "id": "process-and-product-validation-q08",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "The site switches to a new supplier for a key excipient. What should happen to the validation status?",
+          "options": [
+            "It stays valid forever once the PPQ report is approved",
+            "It is cancelled and the full lifecycle restarts from Stage 1",
+            "The new supplier signs the existing PPQ report",
+            "Change control checks if the evidence still applies"
+          ],
+          "answer": 3,
+          "why": "Change control decides whether existing evidence still applies or new work is needed."
+        },
+        {
+          "id": "process-and-product-validation-q09",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "Your team is asked to design a media fill study for a new aseptic line after this course. What is the right response?",
+          "options": [
+            "Accept, because this lesson covered the basics of media fills",
+            "Say it needs a specialist and supervised practice",
+            "Copy a media fill protocol found on the internet",
+            "Ask an AI tool to design the study and approve it"
+          ],
+          "answer": 1,
+          "why": "Aseptic process simulation is a specialist area; introductory coverage is not readiness to design it."
+        },
+        {
+          "id": "process-and-product-validation-q10",
+          "lesson": "pharma-engineering-validation-process-and-product-validation",
+          "q": "An AI tool flags a trend in CPV data. Who decides if the process is still in a state of control?",
+          "options": [
+            "The AI tool, since it was the one that found the trend",
+            "The vendor who supplied the equipment and its software",
+            "Qualified quality and process staff",
+            "Whichever operator runs the next batch on the line"
+          ],
+          "answer": 2,
+          "why": "AI can find and present signals; the judgement and sign-off stay with qualified people."
+        }
+      ]
+    },
+    {
+      "id": "documentation-and-lifecycle",
+      "title": "Documentation and lifecycle management",
+      "summary": "The validation document chain from master plan to periodic review, and how traceability and deviation handling make it trustworthy.",
+      "outline": [
+        "Validation master plans (VMP)",
+        "URS, FS and DS",
+        "Traceability from requirement to test",
+        "Protocol execution and good documentation practice",
+        "Deviations during testing",
+        "Summary reports, periodic review and requalification",
+        "Where AI can help: drafting and gap checks; why approval stays human"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-engineering-validation-documentation-and-lifecycle",
+          "title": "Validation documents from plan to periodic review",
+          "summary": "You will be able to name the main validation lifecycle documents, explain what each one proves, and build a URS-to-test traceability matrix that a reviewer can follow.",
+          "why": "Validation work is judged by its documents. An inspector or auditor rarely watches a test being run; they read the plan, the protocol, the executed record and the report, and check that they agree. FDEs are often asked to build tools that generate, link or check these documents, so you need to know what makes them trustworthy and where a gap usually hides.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Validation documents form a chain. A plan says what will be validated and how. Specifications say what the system must do. Protocols say how each requirement will be tested and what result counts as a pass. Executed records hold the evidence. Reports draw the conclusion. Later, periodic review checks that the conclusion is still true.",
+                "If one link is missing or weak, the conclusion falls. A test with no requirement behind it wastes effort. A requirement with no test behind it is an untested claim. A deviation found during testing and never closed leaves the report open to challenge. EU GMP Annex 15 describes these documents and expects them to be approved, controlled and kept.",
+                "Think of it like a building inspection file. The drawings, the inspection checklist, the signed results and the final certificate must all describe the same building. If the certificate says the fire alarm works but no one tested it, the certificate is worth nothing, however neat it looks."
+              ]
+            },
+            {
+              "h": "The main documents and what each proves",
+              "p": [
+                "Names vary between companies, so always read the site procedure. The usual set looks like this."
+              ],
+              "list": [
+                "Validation master plan (VMP): the site or project level plan. It lists what needs qualification or validation, the approach, responsibilities and the schedule. Annex 15 describes what a VMP should cover.",
+                "User requirements specification (URS): what the user needs, written so each line can be tested.",
+                "Functional specification (FS) and design specification (DS): how the supplier's system will meet the URS, first by function, then by design detail.",
+                "Risk assessment: which requirements are critical to product quality and patient safety, which sets the depth of testing.",
+                "Protocols (IQ, OQ, PQ, or verification tests): the approved test steps, expected results and acceptance criteria, written before execution.",
+                "Executed protocol and raw data: the filled-in record with results, signatures, dates and attachments.",
+                "Deviations raised during testing, with investigation and resolution.",
+                "Summary report: what was done, what failed and how it was resolved, and the conclusion that the system is fit for use."
+              ]
+            },
+            {
+              "h": "Traceability: the thread that holds it together",
+              "p": [
+                "A traceability matrix links each URS line to the specification that meets it, the risk rating, the test that proves it and the result. It lets a reviewer start from any requirement and find its evidence in one step, and start from any test and see why it exists.",
+                "A good matrix answers three questions at a glance. Is every requirement tested, or justified as not needing a test? Is every critical requirement tested at the right depth? Did every test pass, or is each failure tied to a closed deviation? A matrix built at the end, by copying test numbers into a table, rarely answers these honestly. Build it as you write the URS and keep it current."
+              ]
+            },
+            {
+              "h": "Executing protocols and handling deviations",
+              "p": [
+                "During execution, the tester records actual results as they happen, attaches the evidence, and signs and dates each step. Good documentation practice applies: no blank fields, corrections made with a single line, a reason and a signature, and no pre-filling of results.",
+                "When a result does not meet its acceptance criterion, the tester stops and raises a deviation rather than changing the criterion or repeating the test until it passes. The deviation records what happened, the investigation finds the cause, and the resolution says what was done: a fix and retest, a justified change to the protocol through change control, or a decision that the system cannot be released. The summary report must reference every deviation and its outcome.",
+                "Protocols are also controlled documents. If a test step turns out to be wrong before execution, the protocol is revised and re-approved. If it turns out to be wrong during execution, the change is recorded through a deviation or a controlled amendment, so the record shows what was planned, what was done and why they differ."
+              ]
+            },
+            {
+              "h": "Staying validated and where AI fits",
+              "p": [
+                "A validated state does not last on its own. Annex 15 expects facilities, equipment, utilities and systems to be evaluated at a suitable frequency to confirm they remain in a state of control. Periodic review looks at changes, deviations, calibration, maintenance and performance since the last review, and decides whether requalification is needed. Change control assesses each change for its effect on the validated state.",
+                "AI can help draft a URS from meeting notes, propose test steps, build a first traceability matrix, and flag missing signatures or requirements with no test. A person must still check each link, because a plausible but wrong mapping is the most dangerous kind of error: it looks complete. Approval of protocols and reports stays with qualified, named people."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "flow",
+            "title": "The validation document chain",
+            "caption": "Read left to right; each document traces back to the one before it.",
+            "steps": [
+              {
+                "label": "Validation master plan",
+                "note": "What, how, who and when"
+              },
+              {
+                "label": "URS, FS and DS",
+                "note": "Needs, functions and design"
+              },
+              {
+                "label": "Risk assessment",
+                "note": "Sets depth of testing"
+              },
+              {
+                "label": "Approved protocols",
+                "note": "Steps and criteria fixed in advance"
+              },
+              {
+                "label": "Execution and deviations",
+                "note": "Evidence recorded at the time"
+              },
+              {
+                "label": "Summary report",
+                "note": "Conclusion approved by quality"
+              },
+              {
+                "label": "Periodic review",
+                "note": "Still in a state of control?"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a matrix that looked complete (fictional)",
+            "p": [
+              "A project validating a new purified water sampling system has 40 URS lines, 55 test steps and a traceability matrix in which every row shows 'Pass'. The summary report is ready for signature.",
+              "A reviewer picks five URS lines at random and follows each to its evidence. Two problems appear. URS line 12, 'alarm if conductivity exceeds the alert level', points to an OQ step that only checks the display shows conductivity; nobody tested the alarm. URS line 31 points to a test that failed on first execution and was repeated without a deviation."
+            ],
+            "list": [
+              "Line 12: a new test step is written and approved, then the alarm is challenged and the result recorded.",
+              "Line 31: a deviation is raised after the fact, explaining why the first result failed and why the retest is valid, and quality assesses it.",
+              "The matrix gains a column for deviation number, so failures cannot hide behind a final 'Pass'.",
+              "The report is updated to reference both deviations before quality signs it."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Build and audit a traceability matrix",
+              "time": "60 min",
+              "goal": "Link requirements to tests and find the gaps yourself.",
+              "steps": [
+                "Pick a simple GMP item such as a temperature-controlled cabinet or a label printer.",
+                "Write eight testable URS lines in a spreadsheet and rate each critical or non-critical with a one-line reason.",
+                "Add columns for test stage, test step ID, acceptance criterion, result and deviation number.",
+                "Fill in test steps for six of the eight lines only, and make one test result a failure.",
+                "Ask Claude to review the matrix as an auditor would, then check whether it found the two untested lines and the unexplained failure."
+              ],
+              "done_when": "Your matrix shows every URS line with a test or a written justification, and the failed test is linked to a deviation with a resolution."
+            }
+          ],
+          "pitfalls": [
+            "Building the traceability matrix at the end by copying test numbers, so it shows coverage that was never designed.",
+            "Repeating a failed test until it passes without raising a deviation. The first failure is evidence too.",
+            "Writing acceptance criteria that only restate the test step, such as 'screen shows value', instead of a measurable result.",
+            "Signing a summary report that does not reference every deviation and its outcome.",
+            "Assuming a system stays validated because nothing obvious broke. Periodic review and change control keep the evidence current."
+          ],
+          "check": [
+            "What does a validation master plan contain, and why is it written first?",
+            "What three questions should a traceability matrix answer at a glance?",
+            "What should a tester do when a result fails its acceptance criterion?",
+            "What does periodic review look at, and what decision does it lead to?",
+            "Why is a plausible but wrong AI-generated mapping dangerous?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 15: Qualification and Validation (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/2015-10_annex15_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EudraLex Volume 4: EU GMP guidelines",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR Part 211: Current Good Manufacturing Practice for Finished Pharmaceuticals",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "Baseline Guide Vol 5: Commissioning and Qualification 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/baseline-guide-vol-5-commissioning-qualification-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "Validation Master Plan Essentials I VMP's role in GMP compliance in 4m",
+              "source": "Scilife",
+              "url": "https://www.youtube.com/watch?v=lh5x7atE54g",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "GMP Training Course Free | Good Documentation Practices EXPLAINED",
+              "source": "GMP GUIDE",
+              "url": "https://www.youtube.com/watch?v=zc_TR-riUSQ",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "documentation-and-lifecycle-q01",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "Which document sets out, at site or project level, what will be validated, the approach and who is responsible?",
+          "options": [
+            "The OQ protocol for the main equipment",
+            "The validation master plan",
+            "The executed IQ record and attachments",
+            "The design specification from the supplier"
+          ],
+          "answer": 1,
+          "why": "The VMP is the top-level plan; Annex 15 describes its content."
+        },
+        {
+          "id": "documentation-and-lifecycle-q02",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "A traceability matrix shows a URS line with no linked test and no justification. What does that mean?",
+          "options": [
+            "The requirement is an untested claim",
+            "The requirement was obviously met during commissioning",
+            "The matrix format is wrong but the evidence is fine",
+            "The supplier must have tested it at their site"
+          ],
+          "answer": 0,
+          "why": "Every requirement needs a test or a written justification; otherwise there is no evidence for it."
+        },
+        {
+          "id": "documentation-and-lifecycle-q03",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "During OQ, a result fails its acceptance criterion. What should the tester do?",
+          "options": [
+            "Repeat the test quietly until it passes and record that",
+            "Edit the acceptance criterion to match the result",
+            "Stop and raise a deviation",
+            "Skip the step and complete the rest of the protocol"
+          ],
+          "answer": 2,
+          "why": "Failures are recorded and investigated through a deviation; criteria are not changed to fit results."
+        },
+        {
+          "id": "documentation-and-lifecycle-q04",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "An acceptance criterion reads 'screen shows conductivity'. What is weak about it?",
+          "options": [
+            "It is too long for a protocol table",
+            "It should be written by the operator",
+            "It belongs in the VMP, not a protocol",
+            "It has no measurable expected result"
+          ],
+          "answer": 3,
+          "why": "A criterion must state a measurable expected result tied to the requirement, such as an alarm at a set level."
+        },
+        {
+          "id": "documentation-and-lifecycle-q05",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "When should the traceability matrix be built?",
+          "options": [
+            "Only at the end, after all tests have passed",
+            "From the URS stage, and kept current",
+            "Only if an inspector asks for one",
+            "After the summary report is signed"
+          ],
+          "answer": 1,
+          "why": "Built from the start, the matrix shows design coverage; built at the end, it often hides gaps."
+        },
+        {
+          "id": "documentation-and-lifecycle-q06",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "A tester makes an error in an executed protocol. What is the right correction?",
+          "options": [
+            "Use correction fluid and rewrite the entry neatly",
+            "Tear out the page and redo it on a clean copy",
+            "Leave it and explain it verbally to the reviewer later",
+            "Single line through, reason, signature, date"
+          ],
+          "answer": 3,
+          "why": "Good documentation practice keeps the original visible and records who changed it, when and why."
+        },
+        {
+          "id": "documentation-and-lifecycle-q07",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "What does periodic review of a validated system decide?",
+          "options": [
+            "Whether it is still in control or needs requalification",
+            "Whether the supplier should be paid the final invoice",
+            "Whether the URS can be deleted to save space",
+            "Whether the system can skip change control from now on"
+          ],
+          "answer": 0,
+          "why": "Annex 15 expects systems to be evaluated at a suitable frequency to confirm they remain in control."
+        },
+        {
+          "id": "documentation-and-lifecycle-q08",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "Two failed tests are in the executed record, but the summary report does not mention them. What is the issue?",
+          "options": [
+            "Reports only need to describe passing tests",
+            "Nothing, the final results passed",
+            "The report must cover every deviation",
+            "Failed tests should be removed from the record"
+          ],
+          "answer": 2,
+          "why": "The report's conclusion depends on all evidence, including failures and how they were resolved."
+        },
+        {
+          "id": "documentation-and-lifecycle-q09",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "An AI tool drafts a traceability matrix that looks complete. What is the main risk?",
+          "options": [
+            "It may be too long to print on one page",
+            "A wrong link can look right and hide a gap",
+            "AI tools cannot open spreadsheet files at all",
+            "The matrix will have the wrong column colours"
+          ],
+          "answer": 1,
+          "why": "A plausible but wrong link hides a missing test; each link needs human checking."
+        },
+        {
+          "id": "documentation-and-lifecycle-q10",
+          "lesson": "pharma-engineering-validation-documentation-and-lifecycle",
+          "q": "Who approves a validation summary report?",
+          "options": [
+            "The AI tool that drafted the report",
+            "The supplier of the equipment",
+            "Any team member who ran a test",
+            "Named, qualified staff including quality"
+          ],
+          "answer": 3,
+          "why": "Approval of protocols and reports belongs to qualified, authorised people."
+        }
+      ]
+    },
+    {
+      "id": "computer-system-validation",
+      "title": "Computer system and software validation",
+      "summary": "How to decide if a system needs validation, size the work by risk with GAMP 5 thinking, and meet Part 11 and Annex 11 expectations for records.",
+      "outline": [
+        "GxP relevance and intended use",
+        "21 CFR 211.68, Part 11 and EU GMP Annex 11",
+        "GAMP 5 categories and risk-based testing; CSA and its scope",
+        "LIMS, MES, EBR and BAS weak spots",
+        "Data integrity and ALCOA+",
+        "Where AI can help, and when AI itself needs validation"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-engineering-validation-computer-system-validation",
+          "title": "Computerised system validation, risk first",
+          "summary": "You will be able to decide whether a system is GxP relevant, size its validation by risk using GAMP 5 thinking, and say what Part 11 and Annex 11 ask of its records.",
+          "why": "Almost every tool an FDE builds or connects in a drug company touches a computerised system: a LIMS, an MES, an electronic batch record, a QMS, a data lake fed from them. If your tool creates, changes or relies on GMP records, it may itself need validation. Knowing how CSV works lets you design for it from the first day, instead of discovering at go-live that nobody can prove the system does what it claims.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Computerised system validation (CSV) is documented evidence that a computerised system does what it is meant to do, consistently, and that the records it holds can be trusted. It applies when the system supports GMP work: it controls a process, holds quality data, or makes or records a decision that affects product quality or patient safety.",
+                "The core idea in current practice is that effort follows risk. A system that calculates a batch release result needs deep testing. A system that books meeting rooms needs none. Between those extremes, the team decides what to test, how deeply and with how much documentation, based on the system's intended use and what could go wrong. ISPE's GAMP 5 (second edition) is the main industry guide for this approach."
+              ]
+            },
+            {
+              "h": "What the rules ask for, in plain words",
+              "p": [
+                "In the US, 21 CFR 211.68 asks that automatic, mechanical and electronic equipment, including computers, be routinely calibrated, inspected or checked under a written program, with controls over changes and accuracy of inputs and outputs. 21 CFR Part 11 sets the rules for electronic records and electronic signatures: systems must be validated, limit access to authorised people, keep secure, computer-generated, time-stamped audit trails, and link each electronic signature to its record. FDA's Part 11 scope and application guidance explains how FDA applies these rules with a risk-based view.",
+                "In the EU, EU GMP Annex 11 covers computerised systems used in GMP work. It asks for risk management across the lifecycle, supplier assessment, validation, audit trails, change control, periodic evaluation, security, backup and business continuity.",
+                "FDA's guidance on computer software assurance (CSA) promotes critical thinking and less paperwork for low-risk functions. Note its scope: it was written for production and quality system software of medical device makers. Many pharma teams borrow its ideas, but you should not cite it as a pharma requirement. Check which rules apply to your client's system before you quote any of them."
+              ]
+            },
+            {
+              "h": "How a risk-based validation runs",
+              "list": [
+                "Decide if the system is GxP relevant, and write down its intended use.",
+                "Classify its software. GAMP 5 uses categories: infrastructure software (category 1), non-configured products (3), configured products (4) and custom applications (5). Custom code needs the most supplier and in-house verification.",
+                "Assess the supplier: their quality system, development and testing practice, and what documentation you can reuse.",
+                "Write the URS and do a functional risk assessment, so critical functions such as calculations, audit trails, interfaces and e-signatures get the deepest testing.",
+                "Test: configuration verification, functional tests of critical functions, and scripted or unscripted testing chosen by risk.",
+                "Release with a validation report, then operate under change control, periodic review, backup and access management."
+              ],
+              "p": [
+                "These steps are a common shape, not a fixed recipe. Site procedures set the exact documents and approvals.",
+                "For an FDE, the most useful habit is to write the intended use first and keep it short and specific. Most arguments about how much testing is enough are really arguments about what the system is for. When the intended use is clear, the critical functions are easier to name, and the test plan follows from them rather than from a template."
+              ]
+            },
+            {
+              "h": "Common GMP systems and their weak spots",
+              "p": [
+                "A LIMS (laboratory information management system) holds test results and specifications; weak spots are calculations, result reprocessing and who can change specifications. An MES (manufacturing execution system) and an EBR (electronic batch record) guide operators and record what happened; weak spots are interfaces to equipment and the logic that enforces sequence and limits. A building automation system (BAS) is often not GMP relevant in full, but parts that control or record GMP conditions, such as cleanroom pressure or temperature, may need validation, or a separate validated monitoring system.",
+                "Across all of them, data integrity is the test that matters most to inspectors. Records should follow ALCOA+: attributable, legible, contemporaneous, original and accurate, plus complete, consistent, enduring and available. Shared logins, disabled audit trails and the ability to delete or overwrite results are the classic failures. FDA's data integrity questions and answers guidance describes its expectations."
+              ]
+            },
+            {
+              "h": "Where AI fits, and where it becomes the system",
+              "p": [
+                "AI can help write a URS from process notes, draft test scripts, review audit trail exports for unusual patterns, and compare a configuration against its specification. Those uses still need a person to check the output.",
+                "If an AI model becomes part of a GMP workflow, for example classifying deviations or extracting values into a batch record, it is itself a computerised system. It needs a defined intended use, a risk assessment, testing against representative data, and change control when the model, prompt or data source changes. Specialist CSV work on complex systems and Part 11 assessments needs supervised practice beyond this lesson."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "branch",
+            "title": "How much validation does this system need?",
+            "caption": "Start with intended use; the answer sets the depth of work, not a yes or no for paperwork.",
+            "start": "A system is proposed for use",
+            "question": "Does it create, change or rely on GMP records or decisions?",
+            "branches": [
+              {
+                "answer": "No",
+                "result": "Record the decision; normal IT controls"
+              },
+              {
+                "answer": "Yes, low risk function",
+                "result": "Light testing; supplier evidence reused"
+              },
+              {
+                "answer": "Yes, high risk function",
+                "result": "Deep testing; Part 11 and Annex 11 checks"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: adding an instrument interface to a LIMS (fictional)",
+            "p": [
+              "A lab wants results from a new balance to flow straight into its validated LIMS, instead of being typed in by hand. The balance software is a configured product; the interface between them is custom code written by the site's IT team.",
+              "The team assesses risk. The weight value feeds an assay calculation used for batch release, so the interface is high risk. The balance's display settings are low risk."
+            ],
+            "list": [
+              "Change control is raised, because the LIMS is already validated.",
+              "Supplier documents for the balance software are reviewed and reused where suitable.",
+              "The custom interface gets full testing: correct value, correct units, correct sample ID, behaviour when the link drops, and no silent duplicate records.",
+              "The audit trail is checked to show who sent what, and when.",
+              "The LIMS calculation is retested with interface data, including values at the edges of the range.",
+              "A short report closes the change, and quality approves it before the interface is used for release testing."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Size the validation for three systems",
+              "time": "45 min",
+              "goal": "Practise deciding GxP relevance and depth of testing.",
+              "steps": [
+                "Write one paragraph of intended use for three systems: a room booking tool, a training records system, and a spreadsheet that calculates assay results.",
+                "For each, decide if it is GxP relevant and write one line on why.",
+                "For the relevant ones, pick a GAMP 5 software category and list the three functions with the highest risk.",
+                "For the highest-risk function, write two test cases with expected results.",
+                "Ask Claude to challenge your risk ratings, then keep or change each one and note why."
+              ],
+              "done_when": "You have a one-page table with GxP relevance, category, top risks and two test cases for each relevant system, plus your notes on the challenges you accepted or rejected."
+            }
+          ],
+          "pitfalls": [
+            "Validating everything to the same depth. Effort should follow the risk of each function, not the size of the system.",
+            "Citing the FDA CSA guidance as a pharma requirement without checking its stated scope.",
+            "Forgetting interfaces. The data flow between systems is often where values get lost, truncated or duplicated.",
+            "Allowing shared logins or switching off audit trails for convenience, which breaks attributability.",
+            "Changing a configuration, script or AI prompt in a validated system without change control."
+          ],
+          "check": [
+            "How do you decide whether a system is GxP relevant?",
+            "What are the GAMP 5 software categories, and why do they matter?",
+            "Name three things 21 CFR Part 11 asks of electronic records systems.",
+            "What does ALCOA+ stand for?",
+            "When does an AI tool itself become a system that needs validation?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR Part 11: Electronic Records; Electronic Signatures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Part 11, Electronic Records; Electronic Signatures - Scope and Application",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 11: Computerised Systems (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Computer Software Assurance for Production and Quality Management System Software",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-management-system-software",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers",
+              "source": "U.S. FDA",
+              "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "GAMP 5 Guide 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "Computer System Validation (CSV) Testing Explained | GAMP 5 (2nd Ed), FDA CSA & EU Annex 11",
+              "source": "Pharmalytics",
+              "url": "https://www.youtube.com/watch?v=qkKdbO9C9Yk",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Electronic records and electronic signatures according to 21 CFR Part 11",
+              "source": "Scilife",
+              "url": "https://www.youtube.com/watch?v=s6M6-PQsY8s",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "computer-system-validation-q01",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "A team proposes a tool to book meeting rooms in the plant office. Does it need GMP validation?",
+          "options": [
+            "Yes, every system on a GMP site must be fully validated",
+            "No, if it does not touch GMP records or decisions",
+            "Yes, but only the IQ part of the protocol",
+            "Only if it is hosted in the cloud by a vendor"
+          ],
+          "answer": 1,
+          "why": "Validation applies when a system supports GMP work. Record the decision either way."
+        },
+        {
+          "id": "computer-system-validation-q02",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "Which system function usually deserves the deepest testing?",
+          "options": [
+            "A calculation used for batch release",
+            "The colour scheme of the user interface",
+            "The logo shown on the login screen",
+            "The help text on a rarely used admin page"
+          ],
+          "answer": 0,
+          "why": "Testing depth follows risk to product quality, patient safety and data integrity."
+        },
+        {
+          "id": "computer-system-validation-q03",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "A colleague cites the FDA CSA guidance as the rule for a pharma LIMS. What should you point out?",
+          "options": [
+            "CSA has been withdrawn and must never be mentioned",
+            "CSA applies only to spreadsheets used in laboratories",
+            "Its scope is device makers' software",
+            "CSA replaces 21 CFR Part 11 for every industry"
+          ],
+          "answer": 2,
+          "why": "The ideas can be borrowed, but the guidance should not be cited as a pharma requirement without checking scope."
+        },
+        {
+          "id": "computer-system-validation-q04",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "Which is a Part 11 expectation for electronic records systems?",
+          "options": [
+            "Shared logins so the whole shift can use one account",
+            "Audit trails that users can switch off when busy",
+            "Paper copies of every screen printed each day",
+            "Secure, time-stamped audit trails"
+          ],
+          "answer": 3,
+          "why": "Part 11 asks for secure, computer-generated, time-stamped audit trails among other controls."
+        },
+        {
+          "id": "computer-system-validation-q05",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "In GAMP 5, which software category usually needs the most verification?",
+          "options": [
+            "Category 5, custom applications",
+            "Category 1, infrastructure software",
+            "Category 3, non-configured products",
+            "Category 4, configured products"
+          ],
+          "answer": 0,
+          "why": "Custom code has no wider user base or supplier testing to lean on, so it needs the most verification."
+        },
+        {
+          "id": "computer-system-validation-q06",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "Lab analysts share one login to save time. Which ALCOA+ principle is broken first?",
+          "options": [
+            "Legible, because records become hard to read",
+            "Attributable, nobody knows who did what",
+            "Enduring, because records will be lost",
+            "Available, because data cannot be retrieved"
+          ],
+          "answer": 1,
+          "why": "Attributable means each action can be traced to the person who did it."
+        },
+        {
+          "id": "computer-system-validation-q07",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "A new interface sends balance results into a validated LIMS. What should the testing include?",
+          "options": [
+            "Only a check that the balance switches on",
+            "Only the vendor's factory test report",
+            "Value, units, sample ID, link failure",
+            "A screenshot of the LIMS home page"
+          ],
+          "answer": 2,
+          "why": "Interfaces are a common source of lost, truncated or duplicated values and need targeted tests."
+        },
+        {
+          "id": "computer-system-validation-q08",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "Parts of a building automation system control cleanroom pressure. What is the usual approach?",
+          "options": [
+            "Ignore the BAS, it is never part of GMP",
+            "Validate only the BAS user manual and drawings",
+            "Ask the HVAC vendor to sign the batch record",
+            "Validate the GMP-relevant functions, or use a separate validated monitor"
+          ],
+          "answer": 3,
+          "why": "Only functions that control or record GMP conditions need validation, but those do."
+        },
+        {
+          "id": "computer-system-validation-q09",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "A validated AI tool classifies deviations. The team updates its prompt. What is needed?",
+          "options": [
+            "Nothing, prompts are not part of the system",
+            "Change control and testing sized to risk",
+            "A new vendor contract signed by purchasing",
+            "Only a note in the team chat channel"
+          ],
+          "answer": 1,
+          "why": "When a model, prompt or data source changes in a GMP system, change control applies."
+        },
+        {
+          "id": "computer-system-validation-q10",
+          "lesson": "pharma-engineering-validation-computer-system-validation",
+          "q": "Who signs the validation report for a GMP computerised system?",
+          "options": [
+            "The software supplier's sales team",
+            "The AI tool that ran the tests",
+            "Qualified owners and quality",
+            "Any user with an active login"
+          ],
+          "answer": 2,
+          "why": "Approval stays with the system owner and quality, as defined in site procedures."
+        }
+      ]
+    },
+    {
+      "id": "temperature-mapping-and-shipping",
+      "title": "Temperature mapping and shipping",
+      "summary": "How mapping finds hot and cold spots, how results set probe locations and remapping, and how shipping qualification and excursion assessment protect product.",
+      "outline": [
+        "Why mapping is needed: storage rules in 21 CFR 211.142 and EU GDP",
+        "Planning a mapping study and placing loggers",
+        "Seasonal mapping, challenge tests and remapping triggers",
+        "Shipping qualification: lab profiles and real lanes",
+        "Excursion handling and quality assessment",
+        "Where AI can help: data merging and analysis; who decides excursion impact"
+      ],
+      "lessons": [
+        {
+          "id": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "title": "Temperature mapping, monitoring and shipping qualification",
+          "summary": "You will be able to plan a basic temperature mapping study, use its results to place monitoring probes, and explain how shipping qualification and excursion assessment protect product on the move.",
+          "why": "Medicines must stay within their labelled storage conditions from the moment they are made until they reach the patient. Mapping and shipping studies produce large logger datasets, and teams often ask for help to analyse them, build monitoring dashboards or automate excursion alerts. To build that well, you need to know what the data is meant to prove and which decisions must stay with quality.",
+          "sections": [
+            {
+              "h": "The short version",
+              "p": [
+                "Temperature mapping measures how temperature actually varies across a storage space, such as a warehouse, cold room, refrigerator, freezer, incubator or stability chamber. A thermostat set to 5 C does not mean every shelf is at 5 C. Air flow, doors, lights, the outside weather and how the space is loaded all create warmer and colder spots.",
+                "A mapping study places many calibrated data loggers through the space, records for a defined period, and then shows whether every point stayed within the required range. It also finds the hot and cold spots, which tell you where to put the routine monitoring probes. Shipping qualification asks the same question for product on the move: does the packaging and transport lane keep product within range through a realistic journey?",
+                "The required range comes from the product label and its stability data, for example 2 to 8 C for many refrigerated products or a controlled room temperature for many tablets. Mapping does not set that range. It tests whether a space or a journey can hold it, and it tells you where to watch most closely once routine use begins."
+              ]
+            },
+            {
+              "h": "What the rules ask for, in plain words",
+              "p": [
+                "21 CFR 211.142 asks that drug products be stored under appropriate conditions of temperature, humidity and light so that their quality is not affected. 21 CFR 211.150 asks for written distribution procedures. Together, these mean a site must know that its storage and distribution conditions are right, not just assume it.",
+                "The EU Guidelines on Good Distribution Practice (GDP) expect an initial temperature mapping of storage areas before use, under representative conditions, with monitoring equipment placed according to the results, and repeat mapping based on risk or after significant changes. They also expect transport to keep products within their required conditions and expect deviations such as temperature excursions to be reported and assessed. EU GMP Annex 15 includes a short section on verification of transportation. ISPE good practice guides give practical detail on chambers and cold chain management."
+              ]
+            },
+            {
+              "h": "How a mapping study runs",
+              "list": [
+                "Define the space, its required range, how it is used and loaded, and the acceptance criteria, in an approved protocol.",
+                "Place calibrated loggers in a three-dimensional grid: top, middle and bottom levels, plus known risk points such as doors, walls exposed to sun, air outlets and near lights.",
+                "Record for a period long enough to cover normal operation, including working days, weekends and defrost cycles where they apply.",
+                "For chambers and cold rooms, add challenge tests where justified, such as a door left open or a power cut, to learn how long product stays in range.",
+                "Analyse the data: minimum, maximum and mean per logger, time out of range, and the hot and cold spots.",
+                "Report the result, place routine monitoring probes at the worst-case points, and set the remapping trigger."
+              ],
+              "p": [
+                "Spaces affected by outside weather, such as warehouses, are often mapped in both the hottest and coldest seasons, because one season alone does not show the worst case."
+              ]
+            },
+            {
+              "h": "Shipping qualification and excursions",
+              "p": [
+                "Shipping qualification usually has two parts. First, the packaging is tested in a lab against temperature profiles that represent hot and cold journeys, to show how long it holds the product in range. Then real shipments along the actual lanes confirm the performance, with loggers in the shipper. The study must use a realistic load and realistic durations, including delays at customs or over a weekend.",
+                "An excursion is any time the product, storage space or shipment was outside its range. The right response is never to delete the reading or quietly release the product. The excursion is recorded, the product is held, and quality assesses its impact, usually using stability data that show how the product behaves outside its labelled conditions. The assessment decides whether the product can still be used. Repeated excursions on the same lane or room point to a cause that needs a CAPA."
+              ]
+            },
+            {
+              "h": "Specialist limits and where AI fits",
+              "p": [
+                "Designing mapping and shipping studies for real products, and judging excursions against stability data, needs specialist training and supervised exercises beyond this lesson. Treat this as the foundation that lets you follow the work and support it with data.",
+                "AI and scripts are useful here: merging hundreds of logger files, checking that every logger was calibrated and in range for its calibration date, computing time out of range, plotting a heat map of the space, and drafting the report tables. They must not decide that an excursion is acceptable or that a room is qualified. Those decisions belong to quality, based on approved criteria and stability evidence."
+              ]
+            }
+          ],
+          "diagram": {
+            "type": "cycle",
+            "title": "Keeping a controlled space in control",
+            "caption": "Read clockwise; remapping triggers send the cycle back to a new study.",
+            "steps": [
+              {
+                "label": "Plan mapping study",
+                "note": "Range, load, logger grid, criteria"
+              },
+              {
+                "label": "Record with calibrated loggers",
+                "note": "Normal use, seasons, challenge tests"
+              },
+              {
+                "label": "Find hot and cold spots",
+                "note": "Per logger min, max, time out of range"
+              },
+              {
+                "label": "Place monitoring probes",
+                "note": "At worst-case points"
+              },
+              {
+                "label": "Monitor and assess excursions",
+                "note": "Quality decides product impact"
+              },
+              {
+                "label": "Remap on change or risk",
+                "note": "Layout, HVAC, season, trend"
+              }
+            ]
+          },
+          "example": {
+            "title": "Worked example: a cold room with a warm corner (fictional)",
+            "p": [
+              "A site maps a new 2 to 8 C cold room with loggers in a grid at three heights for one week. The protocol criteria say every logger must stay within 2 to 8 C during normal operation.",
+              "All loggers pass except one, high in the corner beside the door, which reaches 8.6 C for about 40 minutes on two mornings. The building log shows these were the times of the daily stock delivery, when the door is held open."
+            ],
+            "list": [
+              "A deviation is raised against the mapping protocol, rather than removing the logger from the data set.",
+              "Root cause: the door is open for long periods during deliveries, and warm air collects high near the door.",
+              "Actions: a strip curtain is fitted, the delivery procedure limits door-open time, and the top shelf near the door is marked as not for product storage.",
+              "A repeat mapping with the new controls shows all points in range.",
+              "A routine monitoring probe is placed at the former warm spot, because it is still the worst-case location.",
+              "Quality approves the report and the room's release for use. The numbers here are illustrative only."
+            ]
+          },
+          "practice": [
+            {
+              "title": "Analyse a mapping data set",
+              "time": "60 min",
+              "goal": "Turn raw logger data into a mapping conclusion and a probe placement.",
+              "steps": [
+                "In a spreadsheet, create a fictional data set: 9 loggers, readings every 15 minutes for 2 days, in a 2 to 8 C room. Make one logger drift warm for one hour.",
+                "Calculate minimum, maximum and mean for each logger, and the minutes each one spent out of range.",
+                "Draw a simple 3 by 3 grid and colour each cell by its maximum temperature to see the hot spot.",
+                "Write a half-page conclusion: does the room meet the criteria, where should the monitoring probe go, and what deviation is needed?",
+                "Ask Claude to check your calculations and conclusion, then note anything it got wrong or overstated."
+              ],
+              "done_when": "You have a table of per-logger results, a coloured grid that shows the hot spot, and a short conclusion that names the probe location and the deviation."
+            }
+          ],
+          "pitfalls": [
+            "Mapping an empty room and assuming the result holds when it is full. Load changes air flow, so map under representative conditions.",
+            "Mapping only in one season for a space that the outside weather affects.",
+            "Removing an awkward logger from the data set instead of raising a deviation and explaining it.",
+            "Placing the routine monitoring probe at the easiest point to reach rather than at the worst-case point found by mapping.",
+            "Releasing product after an excursion without a documented quality assessment against stability data."
+          ],
+          "check": [
+            "Why is a thermostat set point not enough to show a space is in range?",
+            "Where should loggers be placed in a mapping study, and why?",
+            "How are mapping results used to place routine monitoring probes?",
+            "What are the two usual parts of shipping qualification?",
+            "What must happen when an excursion is found, and who decides product impact?"
+          ],
+          "links": [
+            {
+              "type": "docs",
+              "title": "21 CFR 211.142: Warehousing procedures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-H/section-211.142",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "21 CFR 211.150: Distribution procedures",
+              "source": "eCFR",
+              "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-H/section-211.150",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "Guidelines on Good Distribution Practice of medicinal products for human use (2013/C 343/01)",
+              "source": "EUR-Lex",
+              "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52013XC1123(01)",
+              "cost": "free"
+            },
+            {
+              "type": "docs",
+              "title": "EU GMP Annex 15: Qualification and Validation (PDF)",
+              "source": "European Commission",
+              "url": "https://health.ec.europa.eu/system/files/2016-11/2015-10_annex15_0.pdf",
+              "cost": "free"
+            },
+            {
+              "type": "book",
+              "title": "Good Practice Guide: Controlled Temperature Chambers 2nd Edition",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/ispe-good-practice-guide-controlled-temperature-chambers-2nd-edition",
+              "cost": "paid"
+            },
+            {
+              "type": "book",
+              "title": "Good Practice Guide: Cold Chain Management",
+              "source": "ISPE",
+              "url": "https://ispe.org/publications/guidance-documents/good-practice-guide-cold-chain-management",
+              "cost": "paid"
+            },
+            {
+              "type": "video",
+              "title": "Temperature Mapping in Warehouse",
+              "source": "JSA VALIDATION SERVICES",
+              "url": "https://www.youtube.com/watch?v=quZp6KX7tzg",
+              "cost": "free"
+            },
+            {
+              "type": "video",
+              "title": "Guide for Temperature Mapping Study of Warehouse, Cold room, Van, Reefers as per WHO & GDP standards",
+              "source": "VackerGlobal",
+              "url": "https://www.youtube.com/watch?v=junx5aB8eQQ",
+              "cost": "free"
+            }
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "temperature-mapping-and-shipping-q01",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "A cold room thermostat reads 5 C. Why is a mapping study still needed?",
+          "options": [
+            "The thermostat display might be in Fahrenheit",
+            "Temperature varies across the room",
+            "Mapping is only needed for shipping lanes",
+            "Regulators require a new thermostat each year"
+          ],
+          "answer": 1,
+          "why": "Air flow, doors, load and weather create hot and cold spots that one sensor cannot show."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q02",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "Where should routine monitoring probes go after mapping?",
+          "options": [
+            "At the worst-case points found by mapping",
+            "Next to the thermostat, for an easy comparison",
+            "Wherever the staff can read them most easily",
+            "In the centre of the room, at a single height"
+          ],
+          "answer": 0,
+          "why": "Monitoring at the worst-case points gives the earliest warning that product may be at risk."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q03",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "A warehouse is affected by outside weather. What does good mapping practice suggest?",
+          "options": [
+            "Map once in spring and never again",
+            "Map only on the coolest day of the year",
+            "Map in both hot and cold seasons",
+            "Map with the HVAC system switched off"
+          ],
+          "answer": 2,
+          "why": "One season alone does not show the worst case for a space the weather affects."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q04",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "One logger in a mapping study shows a short rise above range. What is the right action?",
+          "options": [
+            "Delete it, because it spoils an otherwise good data set",
+            "Average it with nearby loggers to smooth the peak",
+            "Repeat the study until that logger behaves normally",
+            "Raise a deviation and explain it"
+          ],
+          "answer": 3,
+          "why": "Data that does not fit is evidence; it is recorded and investigated, not removed."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q05",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "Which of these is usually part of shipping qualification?",
+          "options": [
+            "Lab tests of packaging in hot and cold profiles",
+            "Checking the colour of the shipping labels",
+            "Mapping only the warehouse dock area in winter",
+            "Asking the courier to confirm the van was cool"
+          ],
+          "answer": 0,
+          "why": "Lab testing of the packaging, then real shipments on the lanes, are the usual two parts."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q06",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "A shipment arrives with a logger showing two hours above its range. What happens to the product?",
+          "options": [
+            "It is used, because two hours is too short to matter",
+            "It is destroyed at once, without any assessment",
+            "It is held and quality assesses impact",
+            "It is sent back to the courier to keep"
+          ],
+          "answer": 2,
+          "why": "Excursions are recorded, product is held, and quality decides impact using stability data."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q07",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "A mapping study was done with the room empty. Why might the result not hold in use?",
+          "options": [
+            "Empty rooms are always colder than full rooms",
+            "Product load changes air flow and temperature",
+            "Loggers do not work well in an empty room",
+            "Empty rooms do not need to be in range"
+          ],
+          "answer": 1,
+          "why": "Mapping should be done under representative conditions, including load."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q08",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "What does 21 CFR 211.142 ask about drug product storage?",
+          "options": [
+            "Storage only in rooms without any windows",
+            "Suitable temperature, humidity and light",
+            "Storage that is checked by a regulator every month",
+            "Storage on shelves of a fixed standard height"
+          ],
+          "answer": 1,
+          "why": "211.142 asks for storage conditions that do not affect product quality."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q09",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "A script merges 300 logger files and flags an excursion as 'acceptable'. What is wrong?",
+          "options": [
+            "Scripts cannot read logger data files",
+            "300 files are too many to analyse at once",
+            "The flag should be shown in a red colour",
+            "Only quality can judge excursion impact"
+          ],
+          "answer": 3,
+          "why": "Tools can compute and flag; the impact decision stays with quality, using approved criteria and stability data."
+        },
+        {
+          "id": "temperature-mapping-and-shipping-q10",
+          "lesson": "pharma-engineering-validation-temperature-mapping-and-shipping",
+          "q": "You are asked to design a shipping study for a new biologic after this lesson. What is the right answer?",
+          "options": [
+            "Copy a study design used for a tablet",
+            "Ask for a specialist to lead it",
+            "Let an AI tool design and sign it off",
+            "Skip the study and rely on courier data"
+          ],
+          "answer": 1,
+          "why": "Real study design and excursion assessment need specialist training and supervised exercises."
+        }
+      ]
+    }
+  ]
+}

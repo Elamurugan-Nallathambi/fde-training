@@ -1,0 +1,1102 @@
+{
+  "module": 5,
+  "title": "Discovery and requirements capture",
+  "intro": "A client says 'our returns process is a mess, can you automate it', but how people describe the work is rarely how it really happens. This module gives you the tools to find the real process through interviews, shadowing and logs, map it, find who decides, write a one-page brief with testable acceptance criteria, and plan for adoption from week one.",
+  "lessons": [
+    {
+      "id": "discovery-interviews",
+      "title": "Running discovery interviews",
+      "summary": "You will be able to run an interview that gets facts about real past cases instead of opinions and polite agreement.",
+      "why": "A quality manager tells you 'complaints are handled in two days, it's all in the procedure'. People are kind in interviews, they agree with your idea and describe the process as it should be. This lesson shows you how to ask about the last real case and listen, so you find the exceptions, workarounds and numbers that decide if your solution will work.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A discovery interview is a structured conversation to learn how someone does their work, what goes wrong, and what it costs them. The most useful single technique is to ask about the last real case: 'Walk me through the last invoice exception you handled.' A specific, recent case has real details, real systems and real time spent. A general question such as 'How do you handle exceptions?' gets the official version.",
+            "Rob Fitzpatrick's book The Mom Test gives three rules that fit discovery well. Talk about their life, not your idea. Ask about specifics in the past, not generics or opinions about the future. Talk less and listen more. The name comes from the idea that even your mother would lie to you about your idea to be kind, but she cannot mislead you about facts from her own week."
+          ]
+        },
+        {
+          "h": "Why opinions and future questions mislead",
+          "p": [
+            "Questions like 'Would you use a tool that does X?' or 'How much time would this save you?' ask people to predict their own behaviour. Most people answer yes to be helpful, and their estimates are guesses. Compliments ('That sounds really useful') feel like progress but carry no information.",
+            "Facts from the past are different. 'How many exceptions did you handle yesterday? Which one took longest? What did you do?' gives you things you can check against system data later. When someone says 'always' or 'usually', ask for the last time it happened."
+          ]
+        },
+        {
+          "h": "A simple interview structure",
+          "list": [
+            "Open (2 minutes): who you are, why you are here, that there are no wrong answers, and that you want to learn their work, not test them.",
+            "Context (5 minutes): their role, their day, the systems they use, who they get work from and hand it to.",
+            "Last real case (15 minutes): walk through one recent case step by step. Ask them to show you on screen if possible.",
+            "Dig into pain (10 minutes): which step was slowest, what went wrong, what they did about it, how often that happens.",
+            "Workarounds and numbers (5 minutes): spreadsheets, notes, personal tricks; volumes and times they can point to.",
+            "Close (3 minutes): ask for documents, a chance to shadow, and who else you should talk to."
+          ],
+          "p": [
+            "Forty minutes is enough for most interviews. Book an hour so you never rush the close, which is where you get access to the next source of evidence."
+          ]
+        },
+        {
+          "h": "Question bank",
+          "list": [
+            "Tell me about the last time you did this. When was it?",
+            "What happened just before it reached you? What happened after you were done?",
+            "Which system did you have open? Can you show me?",
+            "What took the longest? What were you waiting for?",
+            "What did you do when it did not fit the normal steps?",
+            "How did you know you had done it right?",
+            "Have you tried to fix this before? What happened?",
+            "If this problem disappeared tomorrow, what would you do with the time?",
+            "Who else deals with this, and who decides how it is done?"
+          ],
+          "p": [
+            "The question 'Have you tried to fix this before?' is especially telling. If someone has built a spreadsheet or asked IT for help, the pain is real. If they have never done anything about it, it may be a minor annoyance."
+          ]
+        },
+        {
+          "h": "Avoiding leading questions and taking good notes",
+          "p": [
+            "A leading question hints at the answer you want. 'Isn't it frustrating to chase buyers by email?' leads. 'What happens after you email the buyer?' does not. Avoid naming your solution until the end, if at all. When you hear something interesting, ask 'Tell me more about that' or 'Why?' and then stay quiet. Silence feels awkward, but people fill it with the most useful details.",
+            "Take notes in three kinds: facts (what happened, with numbers), quotes (their exact words, in quote marks), and your own interpretations, clearly marked as yours. Write up within an hour while memory is fresh. If you record, ask permission first, and follow the client's policy on recordings and transcripts. Interview in pairs when you can: one person asks, the other writes."
+          ],
+          "code": {
+            "lang": "text",
+            "text": "Interview: AP clerk, 12 min call, 2025-03-04\nCase: INV-102, price mismatch, raised 3 Mar\n\nFACT  Opened ERP exception queue, 41 items waiting\nFACT  Checked PO price vs invoice: 4 percent higher\nFACT  Searched shared mailbox for buyer approval, none found\nQUOTE \"I email the buyer and then just wait\"\nFACT  Emailed buyer twice (4 Mar, 6 Mar); reply 7 Mar\nFACT  Tracks open items in a personal spreadsheet\nMINE  Waiting on buyer may be most of elapsed time\nNEXT  Ask buyer how approvals are decided; get ERP log"
+          }
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "Shape of a discovery interview",
+        "caption": "Spend most of the time on the last real case and its pain points.",
+        "steps": [
+          {
+            "label": "Open and set expectations",
+            "note": "No wrong answers; learning their work"
+          },
+          {
+            "label": "Context",
+            "note": "Role, systems, who sends and receives work"
+          },
+          {
+            "label": "Last real case",
+            "note": "Step by step, on screen if possible"
+          },
+          {
+            "label": "Dig into pain",
+            "note": "Slowest step, what went wrong, how often"
+          },
+          {
+            "label": "Workarounds and numbers",
+            "note": "Spreadsheets, tricks, volumes, times"
+          },
+          {
+            "label": "Close with asks",
+            "note": "Documents, shadowing, next person"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: rewriting a weak interview",
+        "p": [
+          "A first-time interviewer asked an AP clerk: 'Would an AI that explains exceptions help you?' The clerk said 'Yes, definitely.' That answer is worthless: it is a prediction and a kindness.",
+          "Rewritten using the last real case, the same interview learned that the clerk handled 41 queued exceptions that week, that the longest one waited three days for a buyer reply, and that the clerk kept a personal spreadsheet to track chasers. Those facts point to a different problem than expected: the delay is waiting for approvals, not understanding the exception."
+        ],
+        "list": [
+          "Weak: 'Is the process slow?' Better: 'How long did the last one take from arrival to payment?'",
+          "Weak: 'Would you use this?' Better: 'What did you use last time to work out the cause?'",
+          "Weak: 'Do you find the ERP hard?' Better: 'Show me the screens you used for that case.'"
+        ]
+      },
+      "practice": [
+        {
+          "title": "Interview someone about their last expense claim",
+          "time": "40 min",
+          "goal": "Practise the last-real-case technique and fact, quote, interpretation notes.",
+          "steps": [
+            "Find a friend or colleague who has filed an expense claim, booked travel or submitted a timesheet recently.",
+            "Ask them to walk you through the last time they did it, using the structure and question bank from this lesson. Do not suggest any solution.",
+            "Take notes in FACT, QUOTE and MINE lines as in the example.",
+            "Within an hour, write up the case as a numbered list of steps with the time each took.",
+            "Paste your questions (not their personal details) into Claude and ask it to flag any that were leading or about the future, then rewrite those."
+          ],
+          "done_when": "You have a step list with times, at least three exact quotes, and a rewritten version of every leading question."
+        },
+        {
+          "title": "Fix ten bad questions",
+          "time": "15 min",
+          "goal": "Train your ear for leading and hypothetical questions.",
+          "steps": [
+            "Write ten questions you might naturally ask about a process you want to improve.",
+            "Mark each as past-specific, general, future or leading.",
+            "Rewrite every one that is not past-specific so that it asks about a real recent case."
+          ],
+          "done_when": "All ten questions ask about something that already happened and none hints at an answer."
+        }
+      ],
+      "pitfalls": [
+        "Pitching your solution during the interview. Once people know what you want, they tell you what you want to hear.",
+        "Accepting 'always', 'never' or 'usually' without asking for the last real case.",
+        "Interviewing only managers. They know the official process; the people doing the work know the real one.",
+        "Mixing your interpretations into the facts in your notes, so you later cannot tell what was said.",
+        "Ending without asking for documents, shadowing time and the next person to talk to."
+      ],
+      "check": [
+        "What are the three rules of The Mom Test, in your own words?",
+        "Why is 'Would you use this?' a poor discovery question?",
+        "Rewrite 'Isn't the approval step a pain?' so it is not leading.",
+        "What three kinds of notes should you keep apart, and why?"
+      ],
+      "links": [
+        {
+          "type": "video",
+          "title": "Eric Migicovsky - How to Talk to Users",
+          "source": "Y Combinator",
+          "url": "https://www.youtube.com/watch?v=MT4Ig2uqjTc",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "The Mom Test by Rob Fitzpatrick",
+          "source": "momtestbook.com",
+          "url": "https://www.momtestbook.com/",
+          "cost": "paid"
+        },
+        {
+          "type": "video",
+          "title": "Start-up advice & How to talk to customers with Rob Fitzpatrick (The Mom Test)",
+          "source": "Digital Product School",
+          "url": "https://www.youtube.com/watch?v=FG1Fa-t4AEQ",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Avoid Leading Questions to Get Better Insights from Participants",
+          "source": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/leading-questions/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "User Interviews 101",
+          "source": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/user-interviews/",
+          "cost": "free"
+        },
+        {
+          "type": "book",
+          "title": "Continuous Discovery Habits (the Book) is Finally Here!",
+          "source": "Product Talk",
+          "url": "https://www.producttalk.org/continuous-discovery-habits/",
+          "cost": "paid"
+        },
+        {
+          "type": "course",
+          "title": "Business Analysis Fundamentals - IIBA endorsed",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/business-analysis-ba/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "shadowing-evidence",
+      "title": "Shadowing and evidence from documents and logs",
+      "summary": "You will be able to watch real work, time real cases, read procedures and system logs, and work out what happens when they disagree.",
+      "why": "The team says purchase orders are approved the same day, but the system shows many waiting a week. What people say, what the procedure says and what the systems record are often three different stories. This lesson helps you collect the evidence for the real one, which gives you numbers for the business case and the exceptions your proof of concept must handle.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Shadowing means sitting with someone, in person or on a shared screen, while they do their normal work. You watch and ask short clarifying questions. In lean manufacturing this is called going to the gemba, the place where the work happens. In user research it is called a field study or, when you also interview, contextual inquiry.",
+            "Documents tell you the intended process. Standard operating procedures (SOPs), work instructions, policies and training slides describe how work should flow. System event logs tell you what actually happened, with timestamps. Together with interviews you get three views you can compare."
+          ]
+        },
+        {
+          "h": "How to shadow well",
+          "p": [
+            "Ask for a normal day, not a demo. Explain that you want to see real cases including messy ones. Sit where you can see the screen. Ask them to think aloud: say what they are looking at and why. Hold your bigger questions for natural pauses so you do not change how they work.",
+            "Note every system and screen used, every copy and paste between systems, every lookup in email or a spreadsheet, and every point where they wait or ask someone else. Those are the handoffs and workarounds that matter. Shadow at least two people, because individuals often have different methods for the same task, and at least one busy period such as month end if the work is seasonal."
+          ]
+        },
+        {
+          "h": "Timing real cases",
+          "p": [
+            "Use a simple timing sheet with columns for case ID, start time, end time, steps, systems used, and whether it was standard or an exception. Time at least 20 to 30 cases if you can, across more than one person, so one unusual case does not dominate.",
+            "Separate touch time from elapsed time. Touch time is how long someone actively works on the case. Elapsed time is from arrival to completion, including waiting. A case might take 12 minutes of touch time but five days elapsed because it waits for an approval. These lead to different solutions: one saves effort, the other removes waiting.",
+            "Record exceptions with the same care as standard cases, and note the reason each one became an exception. Over 20 or 30 cases a pattern usually appears, such as most exceptions coming from a few suppliers or one type of mismatch. That pattern tells you which cases your proof of concept should handle first."
+          ]
+        },
+        {
+          "h": "Reading SOPs and documents",
+          "p": [
+            "Ask for the SOP, any work instructions, the policy that governs the process (for example an approval limits policy), recent audit findings, and training material for new staff. Read them before shadowing so you can spot where practice differs.",
+            "Mark every rule that has a number or a condition, such as 'invoices more than 2 percent above PO price need buyer approval'. These rules are often exactly what an AI assistant must apply, and they become test cases for your evaluation.",
+            "Check the date and owner of each document. An SOP last updated years ago, or owned by someone who has left, is a sign that practice has moved on, and a gentle question about it often opens up the real process."
+          ]
+        },
+        {
+          "h": "Event logs from systems",
+          "p": [
+            "Most systems record events: case created, status changed, approved, paid. An event log needs three fields at minimum: a case ID, an activity name, and a timestamp. A resource field (who or what did it) is a bonus. With these you can compute elapsed time, count rework loops, and see which paths cases really take. The discipline of analysing these logs at scale is called process mining.",
+            "Ask IT for a read-only export of one or two months for the process you are studying, with personal data removed or masked as the client requires. Then you can query it in SQLite or a spreadsheet, as the example shows."
+          ]
+        },
+        {
+          "h": "When interviews and logs disagree",
+          "p": [
+            "Disagreement is a finding, not a failure. Common patterns: people describe touch time while logs show elapsed time; logs show steps repeated (rework) that people do not mention; the SOP has an approval step that logs show is often skipped; and some work never appears in logs because it happens in email or spreadsheets.",
+            "Take the difference back to the people involved without blame: 'The log shows about a third of cases are emailed to the buyer twice. Does that match what you see?' Their explanation usually reveals the real rule or the real pain."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "compare",
+        "title": "Four sources of evidence",
+        "caption": "Each source shows something the others miss; compare them before you design.",
+        "columns": [
+          {
+            "title": "Interviews",
+            "items": [
+              "Why people do things",
+              "Pains and workarounds",
+              "Blind spot: memory, tact"
+            ]
+          },
+          {
+            "title": "Shadowing",
+            "items": [
+              "Real screens and steps",
+              "Touch time per case",
+              "Blind spot: small sample"
+            ]
+          },
+          {
+            "title": "Documents",
+            "items": [
+              "Intended process",
+              "Rules with numbers",
+              "Blind spot: often outdated"
+            ]
+          },
+          {
+            "title": "Event logs",
+            "items": [
+              "Every case, timestamped",
+              "Elapsed time and rework",
+              "Blind spot: email work"
+            ]
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: querying an exception log in SQLite (fictional data)",
+        "p": [
+          "IT exports a small sample of exception events from the ERP. The clerk said exceptions 'take about ten minutes'. The query shows elapsed times of 54.5 and 167 hours, and one case where the buyer was emailed twice. Both are true: ten minutes is touch time; days is elapsed time spent waiting for buyers. The business case and the design now focus on approvals, not only on understanding exceptions.",
+          "Save the code as log.sql and run it with: sqlite3 :memory: < log.sql"
+        ],
+        "code": {
+          "lang": "sql",
+          "text": "CREATE TABLE events (case_id TEXT, activity TEXT, ts TEXT, resource TEXT);\nINSERT INTO events VALUES\n ('INV-101','Exception raised','2025-03-03 09:00','ERP'),\n ('INV-101','Clerk reviews','2025-03-03 14:10','Ana'),\n ('INV-101','Email buyer','2025-03-03 14:20','Ana'),\n ('INV-101','Buyer replies','2025-03-05 11:00','Raj'),\n ('INV-101','Payment released','2025-03-05 15:30','ERP'),\n ('INV-102','Exception raised','2025-03-03 10:00','ERP'),\n ('INV-102','Clerk reviews','2025-03-04 09:00','Ana'),\n ('INV-102','Email buyer','2025-03-04 09:15','Ana'),\n ('INV-102','Email buyer','2025-03-06 10:00','Ana'),\n ('INV-102','Buyer replies','2025-03-07 16:00','Raj'),\n ('INV-102','Payment released','2025-03-10 09:00','ERP');\n\n-- Elapsed hours and step count per case\nSELECT case_id,\n       ROUND((julianday(MAX(ts)) - julianday(MIN(ts))) * 24, 1) AS elapsed_hours,\n       COUNT(*) AS steps\nFROM events GROUP BY case_id;\n\n-- Rework: any activity repeated within a case\nSELECT case_id, activity, COUNT(*) AS times\nFROM events GROUP BY case_id, activity HAVING COUNT(*) > 1;"
+        }
+      },
+      "practice": [
+        {
+          "title": "Shadow yourself and build a log",
+          "time": "45 min",
+          "goal": "Feel the gap between touch time and elapsed time with real data.",
+          "steps": [
+            "Pick a task you do several times a week, such as answering a type of email or processing an online order.",
+            "For the next five cases, write a row each time something happens: case ID, activity, timestamp, who did it.",
+            "Load the rows into SQLite using the table from the example, or type them into a spreadsheet.",
+            "Run the two queries from the example and note elapsed time per case and any repeated activities.",
+            "Separately, note the minutes you actively worked on each case and compare with the elapsed time.",
+            "Write three sentences on what the log showed that you would not have said in an interview."
+          ],
+          "done_when": "You have a working SQLite table, both query results, and a written comparison of touch and elapsed time."
+        }
+      ],
+      "pitfalls": [
+        "Shadowing a demo instead of real work. Ask for real cases, including messy ones.",
+        "Timing only a handful of cases from one person and treating the average as fact.",
+        "Mixing touch time and elapsed time in the business case.",
+        "Trusting the SOP as the real process. Check it against shadowing and logs.",
+        "Asking for log exports with personal data you do not need. Ask for masked or minimal fields."
+      ],
+      "check": [
+        "What is the difference between touch time and elapsed time, and why does it change the solution?",
+        "What three fields does an event log need at minimum?",
+        "Name two blind spots of interviews that logs can expose.",
+        "How would you raise a disagreement between the SOP and the logs with the team?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "Field Studies",
+          "source": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/field-studies/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Field Studies Done Right: Fast and Observational",
+          "source": "Nielsen Norman Group",
+          "url": "https://www.nngroup.com/articles/field-studies-done-right-fast-and-observational/",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "What is a Gemba Walk?",
+          "source": "FlowPlus",
+          "url": "https://www.youtube.com/watch?v=74KQi8rwq44",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is Process Mining?",
+          "source": "IBM",
+          "url": "https://www.ibm.com/think/topics/process-mining",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is Process Mining? Definition and benefits",
+          "source": "Celonis",
+          "url": "https://www.celonis.com/insights/topics/what-is-process-mining",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Process Mining: Data science in Action",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/learn/process-mining",
+          "cost": "free"
+        }
+      ]
+    },
+    {
+      "id": "process-mapping",
+      "title": "Process mapping with swimlanes and BPMN basics",
+      "summary": "You will be able to draw a swimlane map of a real process with its steps, roles, systems, handoffs and exceptions.",
+      "why": "Ask three people how a new supplier gets set up and you get three different answers. A process map puts it on one page so everyone can argue over the same picture, and that argument is useful. This lesson helps you draw it, so you can see exactly where your solution plugs in and reuse the map for your brief, tests and handover.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A process map shows the steps of a piece of work in order. A swimlane map adds horizontal or vertical lanes, one per role or system, so you can see who does each step and where work passes from one lane to another. Every time a line crosses between lanes, there is a handoff, and handoffs are where delay and errors collect.",
+            "BPMN (Business Process Model and Notation) is a standard notation for these maps, maintained by the Object Management Group (OMG). You do not need the full standard. A handful of symbols covers most discovery work and makes your maps readable by business analysts and process teams who already know BPMN."
+          ]
+        },
+        {
+          "h": "The BPMN basics you need",
+          "list": [
+            "Pool: a whole participant, such as your client company or an outside supplier.",
+            "Lane: a role or system inside a pool, such as AP clerk, buyer or ERP.",
+            "Start event (thin circle): what triggers the process, such as 'invoice received'.",
+            "Task (rounded rectangle): a unit of work, named verb plus object, such as 'Check PO price'.",
+            "Exclusive gateway (diamond): a decision with one path taken, such as 'Price within tolerance?'.",
+            "Sequence flow (solid arrow): order of steps inside a pool.",
+            "Message flow (dashed arrow): communication between pools, such as an email to the supplier.",
+            "End event (thick circle): how the process finishes, such as 'payment released'. A process can have several end events."
+          ]
+        },
+        {
+          "h": "Building the map step by step",
+          "p": [
+            "Start from your evidence, not a blank whiteboard. Use your interview notes, shadowing timing sheet and event log. First, agree the start and end: what triggers the process and what counts as done. Second, list the steps of the standard path as verb plus object. Third, assign each step to a lane. Fourth, add decisions as gateways and the paths out of each. Fifth, add exceptions: what happens when a check fails, a reply never comes, or data is missing. Sixth, label each step with the system used and, where you have it, the typical time.",
+            "Draw the happy path first, then the exceptions. If you start with every exception the map becomes unreadable before anyone understands the main flow."
+          ]
+        },
+        {
+          "h": "Levels of detail",
+          "p": [
+            "Keep maps at the level of the conversation. A level one map fits a whole value chain stream such as procure to pay on one line. A level two map shows one process, such as invoice exception handling, in eight to twenty steps. A level three map details one step, such as how the clerk investigates a price mismatch, and is useful when that step is where your AI assistant will work.",
+            "Map the current state (as is) first. Draw the future state (to be) only after the client agrees the current state is right. The future state should show exactly which steps change, which disappear, and where a human still reviews AI output."
+          ]
+        },
+        {
+          "h": "Reviewing the map with the client",
+          "p": [
+            "Walk the map with the people who do the work, not only managers. Ask 'What is missing?' and 'Where does this usually go wrong?' rather than 'Is this right?'. Mark every disputed step and resolve it with evidence. Keep a version date on the map. Tools can be as simple as paper and sticky notes, or any free diagram tool; what matters is that the lanes and handoffs are clear.",
+            "A good test of a finished map: someone new to the process should be able to point at any step and say who does it, in which system, what triggers it and what happens next. If they cannot, the map needs another pass."
+          ]
+        },
+        {
+          "h": "From map to solution design",
+          "p": [
+            "Once the current state is agreed, the map becomes a design tool. Mark each step with its pain from your evidence: long waits, high touch time, frequent errors. Then ask, for each marked step, whether it can be removed, simplified, or supported by a tool. Removing a step beats automating it. Many approval loops exist only because information is missing when the request is made, so sending the right information up front can remove the loop entirely.",
+            "Where an AI assistant helps, draw it as its own lane in the future-state map, and show the human review step right after it. That makes it obvious to the client who decides, which matters for trust, audit and the acceptance criteria you will write next."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "swimlane",
+        "title": "Invoice price exception, current state",
+        "caption": "Each row is a role or system; every move between rows is a handoff.",
+        "lanes": [
+          "Supplier",
+          "ERP",
+          "AP clerk",
+          "Buyer"
+        ],
+        "steps": [
+          {
+            "lane": 0,
+            "label": "Sends invoice PDF by email"
+          },
+          {
+            "lane": 2,
+            "label": "Keys invoice into ERP"
+          },
+          {
+            "lane": 1,
+            "label": "3-way match fails on price"
+          },
+          {
+            "lane": 2,
+            "label": "Reviews exception and PO"
+          },
+          {
+            "lane": 2,
+            "label": "Emails buyer for approval"
+          },
+          {
+            "lane": 3,
+            "label": "Checks contract price list"
+          },
+          {
+            "lane": 3,
+            "label": "Approves or asks for credit"
+          },
+          {
+            "lane": 0,
+            "label": "Sends credit note if asked"
+          },
+          {
+            "lane": 2,
+            "label": "Updates invoice in ERP"
+          },
+          {
+            "lane": 1,
+            "label": "Releases payment"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: invoice exception handling (fictional)",
+        "p": [
+          "The diagram shows the current state for a price mismatch at the parts distributor. A three-way match compares the invoice, the purchase order (PO) and the goods receipt; if prices or quantities differ beyond a tolerance, the ERP raises an exception.",
+          "From the log you know the longest waits sit between 'Emails buyer' and 'Approves or asks for credit'. From shadowing you know the clerk spends most touch time in 'Reviews exception and PO', searching email for context. Those two points are where a proof of concept could help: drafting the cause and evidence for the clerk, and sending the buyer a structured approval request instead of a free-text email."
+        ],
+        "list": [
+          "Exception path not shown: buyer does not reply within three days, clerk chases by phone.",
+          "Exception path not shown: quantity mismatch, which goes to the warehouse instead of the buyer.",
+          "Gateway in BPMN: 'Price within tolerance?' after the match, with 'yes' going straight to payment."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Map a process you know as a swimlane",
+          "time": "45 min",
+          "goal": "Produce a level two current-state map with handoffs and exceptions.",
+          "steps": [
+            "Pick a process with at least three roles, such as a new employee's first day, a refund request, or ordering office equipment.",
+            "Write the start event and end event first.",
+            "On paper or in any free diagram tool, draw one lane per role or system and place eight to twelve steps named verb plus object.",
+            "Add at least one decision gateway and two exception paths.",
+            "Circle every handoff between lanes and note which one you think causes the most delay.",
+            "Describe your map in text to Claude and ask it which steps or exceptions seem to be missing, then check those against your own knowledge."
+          ],
+          "done_when": "Your map has a clear start and end, at least three lanes, one gateway, two exceptions and circled handoffs."
+        }
+      ],
+      "pitfalls": [
+        "Mapping the SOP instead of the real process. Build from interview, shadowing and log evidence.",
+        "Drawing every exception at once so nobody can read the main path.",
+        "Vague step names like 'Process invoice'. Use a verb and an object that someone could do.",
+        "Leaving out systems. Each step should say which system is used, since that is where data lives.",
+        "Jumping to the future state before the client agrees the current state."
+      ],
+      "check": [
+        "What does a lane represent, and why do lane crossings matter?",
+        "What is the difference between a sequence flow and a message flow in BPMN?",
+        "In what order should you draw the happy path and the exceptions, and why?",
+        "When would you draw a level three map?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "BPMN Specification - Business Process Model and Notation",
+          "source": "BPMN.org",
+          "url": "https://www.bpmn.org/",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "About the Business Process Model and Notation Specification Version 2.0.2",
+          "source": "Object Management Group",
+          "url": "https://www.omg.org/spec/BPMN/2.0.2/About-BPMN",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is Business Process Modeling and Notation (BPMN)?",
+          "source": "IBM",
+          "url": "https://www.ibm.com/think/topics/bpmn",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "BPMN Process Map Tutorial and EXAMPLE",
+          "source": "The Business Analysis Doctor - IIBA Certification",
+          "url": "https://www.youtube.com/watch?v=BFeHAONDDtw",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Business Analysis & Process Management (Short Course)",
+          "source": "Coursera",
+          "url": "https://www.coursera.org/projects/business-analysis-process-management",
+          "cost": "free"
+        },
+        {
+          "type": "cert",
+          "title": "Business Analysis Certification, ECBA",
+          "source": "IIBA",
+          "url": "https://www.iiba.org/business-analysis-certifications/ecba/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "stakeholders-raci",
+      "title": "Stakeholders and RACI",
+      "summary": "You will be able to find everyone who can help or block your work and write down who does, owns, advises and hears about each decision.",
+      "why": "Two weeks before demo, security says 'nobody told us this tool reads customer data'. Most proofs of concept that stall do not fail on technology, they stall on people who were not asked or decisions nobody owned. This lesson helps you map stakeholders and agree who decides what early, so those surprises do not happen.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A stakeholder is anyone who affects or is affected by your work. RACI is a simple table that lists tasks or decisions down the side and people or roles across the top. Each cell holds one letter: R for Responsible (does the work), A for Accountable (owns the outcome and signs off), C for Consulted (gives input before the decision, two-way), and I for Informed (told after, one-way).",
+            "The most important rule: exactly one A per row. If two people are accountable, nobody is. If nobody is, the decision will drift."
+          ]
+        },
+        {
+          "h": "The usual stakeholders on an FDE engagement",
+          "list": [
+            "Executive sponsor: funds the work, sets the goal, removes blockers. Cares about outcomes and risk.",
+            "Process owner: the manager responsible for how the process runs day to day, such as the AP manager. Decides what changes in the process. Your most important ally.",
+            "Users: the people who will use the solution, such as AP clerks. They know the real process and decide, in practice, whether it gets used.",
+            "IT and data owners: control access to systems, environments and data exports. Will support whatever is left behind.",
+            "Security: reviews data flows, vendors such as LLM providers, access and logging.",
+            "Compliance, legal and privacy: check regulatory rules, contracts, personal data and record retention.",
+            "Others who touch the process: buyers, suppliers, internal audit, works councils or unions in some countries."
+          ]
+        },
+        {
+          "h": "Finding and ranking stakeholders",
+          "p": [
+            "Start with the process map: every lane is a stakeholder group. Add the people who own each system the process touches. Then ask in every interview 'Who else should I talk to?' and 'Who could stop this?'.",
+            "A power and interest grid helps you plan effort. High power and high interest (sponsor, process owner): manage closely, meet often. High power, lower interest (security, IT leadership): keep satisfied, involve at clear checkpoints. Lower power, high interest (users): keep informed and involve in design. Lower power and lower interest: inform occasionally.",
+            "Positions on the grid change during an engagement. Security may have low interest until you propose sending data to an outside API, and then become the most important approver, so review the grid every couple of weeks."
+          ]
+        },
+        {
+          "h": "Building the RACI",
+          "p": [
+            "List the real tasks and decisions of your engagement, not generic ones: approve scope, grant data access, approve the LLM vendor, build the proof of concept, define acceptance criteria, run user testing, approve go-live, own support after handover. Put roles across the top using names where possible. Fill it as a draft, then review it with the sponsor and process owner and change it until they agree.",
+            "Check each column too. A person with many Rs may be a bottleneck. A person with no letters may be someone you have forgotten. Too many Cs slows everything down, so consult only those whose input genuinely changes the decision."
+          ]
+        },
+        {
+          "h": "Using it during the work",
+          "p": [
+            "Put the RACI in the project folder and refer to it when a question comes up: 'Per the RACI, the process owner signs off acceptance criteria.' Update it when roles change, such as when a new IT contact joins. At handover the RACI changes: the FDE drops out of R and the client team takes over support, so draw a handover version too.",
+            "When a disagreement comes up that the RACI does not cover, add a row, agree the A, and move on. The table is a living tool, not a one-time deliverable, and keeping it current takes minutes."
+          ]
+        },
+        {
+          "h": "Meeting security and compliance early",
+          "p": [
+            "Security and compliance teams are often the slowest approvals, and they are much easier to work with when they hear about the work at the start rather than the week before a pilot. In the first two weeks, send them a short note: what the proof of concept does, which data it reads, where that data goes (for example to an LLM provider's API), who can see the results, and how long anything is kept. Ask what their review process is and how long it usually takes.",
+            "Treat their questions as design input. If they require that no personal data leaves the company, you may need to mask fields before sending them to a model. If they require logs of every AI suggestion, build that in from the first version. Finding these rules in week one costs a day; finding them in week eight can cost the pilot."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "layers",
+        "title": "Who to involve, from goal to guardrails",
+        "caption": "Read top to bottom: who sets direction, who owns the work, and who sets limits.",
+        "layers": [
+          {
+            "label": "Executive sponsor",
+            "note": "Goal, budget, removes blockers"
+          },
+          {
+            "label": "Process owner",
+            "note": "Decides process changes; signs off acceptance"
+          },
+          {
+            "label": "Users",
+            "note": "Know the real work; decide adoption in practice"
+          },
+          {
+            "label": "IT and data owners",
+            "note": "Access, environments, long-term support"
+          },
+          {
+            "label": "Security and compliance",
+            "note": "Data flows, vendors, regulation, privacy"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: RACI for the invoice exception proof of concept (fictional)",
+        "p": [
+          "Roles are the sponsor (finance director), process owner (AP manager), AP team lead, IT, security, compliance and the FDE. Each row has exactly one A."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "Task                         Sponsor ProcOwner APLead IT  Security Compliance FDE\n---------------------------- ------- --------- ------ --- -------- ---------- ---\nApprove scope and goal          A       C        I     I     I        I       R\nGrant read-only ERP export      I       C        I     A     C        I       R\nApprove LLM vendor and data     I       C        I     C     A        C       R\nDefine acceptance criteria      I       A        R     I     I        C       R\nBuild and evaluate the PoC      I       C        C     C     I        I       A\nRun user testing                I       A        R     I     I        I       R\nApprove pilot go-live           A       R        C     C     C        C       C\nOwn support after handover      I       A        R     R     I        I       C"
+        },
+        "list": [
+          "Defining acceptance criteria has two Rs (AP lead and FDE) and one A (process owner): shared work, single owner.",
+          "Security is A for the vendor decision because the client's policy gives them that authority; ask, do not assume.",
+          "The FDE is only C after handover, which forces a real support plan."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Build a RACI for a project you know",
+          "time": "30 min",
+          "goal": "Practise single accountability and spot gaps.",
+          "steps": [
+            "Pick a real or recent project, such as an office move, a system upgrade or an event.",
+            "List eight real tasks or decisions down the side of a spreadsheet and the roles across the top.",
+            "Fill each cell with R, A, C, I or leave it blank.",
+            "Add a formula or check by eye that every row has exactly one A.",
+            "Look down each column and note any role with too many Rs or no letters at all.",
+            "Write two sentences on which row you expect the most disagreement about and why."
+          ],
+          "done_when": "Every row has exactly one A, and you have notes on bottlenecks and gaps."
+        }
+      ],
+      "pitfalls": [
+        "Two As on one row, or none. Always exactly one.",
+        "Leaving security and compliance until the end. Involve them in week one.",
+        "Consulting everyone on everything. Too many Cs slow decisions.",
+        "Using generic tasks copied from a template instead of the engagement's real decisions.",
+        "Forgetting the handover RACI, so support defaults to the FDE who is leaving."
+      ],
+      "check": [
+        "What do R, A, C and I mean, and how is C different from I?",
+        "Why must each row have exactly one A?",
+        "Why is the process owner often more important day to day than the sponsor?",
+        "How does the RACI change at handover?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "RACI Chart: What is it & How to Use",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/work-management/project-management/raci-chart",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "RACI Charts Explained | How to use a RACI Matrix as a Project Manager",
+          "source": "The Digital Project Manager",
+          "url": "https://www.youtube.com/watch?v=fL13ItoQu9U",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "RACI Matrix Basics Explained with Examples | TeamGantt",
+          "source": "TeamGantt",
+          "url": "https://www.youtube.com/watch?v=xc5NbJ8VgTI",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Business Analysis Global Standards of Practice",
+          "source": "IIBA",
+          "url": "https://www.iiba.org/career-resources/a-business-analysis-professionals-foundation-for-success/babok/",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Business Analysis Fundamentals - IIBA endorsed",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/business-analysis-ba/",
+          "cost": "paid"
+        },
+        {
+          "type": "cert",
+          "title": "Business Analysis Certification, ECBA",
+          "source": "IIBA",
+          "url": "https://www.iiba.org/business-analysis-certifications/ecba/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "one-page-brief",
+      "title": "Writing the one-page brief and acceptance criteria",
+      "summary": "You will be able to turn discovery into a one-page brief with user stories and acceptance criteria the client signs off and you can test against.",
+      "why": "At the end of a proof of concept the sponsor says 'this isn't what we asked for'. Without a written agreement, scope grows and success gets argued about. This lesson helps you write one page that says what the proof of concept will do and how everyone will know it worked.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "A one-page brief states the problem, who has it, how it works today, what will change, how success is measured, what is in and out of scope, and what constraints apply. User stories describe what each user needs in their own terms. Acceptance criteria are the specific, testable conditions that must be true for a story to count as done.",
+            "Write the brief at the end of discovery, review it with the process owner and sponsor, and get explicit sign-off before you build. Revisit it whenever the scope is challenged."
+          ]
+        },
+        {
+          "h": "The template, field by field",
+          "list": [
+            "Title: short and plain, naming the process and the change.",
+            "Problem: two or three sentences in the user's words, based on evidence.",
+            "Who is affected: user groups and rough numbers of people.",
+            "Current process and baseline: the key steps and today's measured numbers, such as volume, touch time, elapsed time, error rate, with sources.",
+            "Goal and success metrics: the target change in those numbers, plus any quality threshold the AI output must meet.",
+            "In scope: what the proof of concept will do.",
+            "Out of scope: what it will not do, stated explicitly so nobody assumes it.",
+            "User stories: three to six, each with acceptance criteria.",
+            "Data and systems: what it reads, what it writes, and access needed.",
+            "Constraints: security, privacy, compliance, human review rules, budget, timeline.",
+            "Risks and assumptions: what could make it fail and what you are taking as true.",
+            "Owners and sign-off: sponsor, process owner, and the date agreed."
+          ]
+        },
+        {
+          "h": "User stories",
+          "p": [
+            "A user story has the form: As a (role), I want (capability), so that (benefit). The benefit part matters most because it explains why, which lets the team find better ways to meet the need. Write stories from evidence: each should trace back to a pain you heard or saw.",
+            "Good stories are small enough to build and test in days, and independent enough to deliver one at a time. The INVEST checklist is a common test: Independent, Negotiable, Valuable, Estimable, Small, Testable."
+          ]
+        },
+        {
+          "h": "Acceptance criteria",
+          "p": [
+            "Acceptance criteria turn a story into checks. A common format is Given (a starting situation), When (an action or event), Then (an observable result). Another is a plain checklist of rules. Both must be specific enough that two people would agree whether they pass.",
+            "For AI features, add criteria about quality across a set of cases, not just one: for example 'On the 50-case evaluation set, the stated cause matches the AP lead's judgement in at least 45 cases.' Also add safety criteria: what the system must never do, such as approving a payment by itself, and what it should do when unsure, such as saying it cannot tell and showing the evidence it found."
+          ]
+        },
+        {
+          "h": "Writing criteria for AI behaviour",
+          "p": [
+            "AI features need three kinds of criteria that ordinary software often does not. Quality on a set: measured over a fixed set of real, representative cases, ideally labelled by the process owner's team, so you can rerun it after every change. Behaviour when unsure: what the system says when evidence is missing or conflicting, such as stating that it cannot tell and showing what it found. Boundaries: actions it must never take on its own, such as approving, paying or emailing a supplier.",
+            "Agree how the evaluation set is built before you build the solution. If the team picks the cases after seeing results, the test is no longer fair. A simple rule works: take every case from a chosen recent week, remove ones out of scope, and keep the rest, including the messy ones."
+          ]
+        },
+        {
+          "h": "Getting sign-off",
+          "p": [
+            "Send the brief in advance, then walk it through in a 30-minute meeting with the process owner and sponsor. Read the out-of-scope list out loud; it prevents more arguments than anything else on the page. Record the agreed version with a date. If something changes later, change the brief and get it agreed again rather than letting scope drift by email.",
+            "Sign-off does not need ceremony. A short email reply saying 'Agreed' from the process owner and sponsor, saved in the project folder with the brief, is enough. What matters is that the agreed version is clear and easy to find when someone asks later what was promised."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "From discovery to a signed brief",
+        "caption": "Each step narrows the work; sign-off fixes what will be built and tested.",
+        "steps": [
+          {
+            "label": "Discovery evidence",
+            "note": "Interviews, shadowing, documents, logs"
+          },
+          {
+            "label": "Problem and baseline",
+            "note": "Measured numbers with sources"
+          },
+          {
+            "label": "Scope in and out",
+            "note": "Out of scope written explicitly"
+          },
+          {
+            "label": "User stories",
+            "note": "As a, I want, so that"
+          },
+          {
+            "label": "Acceptance criteria",
+            "note": "Given, when, then; plus quality on a case set"
+          },
+          {
+            "label": "Sign-off",
+            "note": "Process owner and sponsor, dated"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: brief for invoice exception assistant (fictional, numbers are examples)",
+        "p": [
+          "This is the kind of brief you would put on one page for the distributor."
+        ],
+        "code": {
+          "lang": "text",
+          "text": "Title: Explain price exceptions for AP clerks\nProblem: Clerks search email and contracts to learn why an invoice failed\n  the price match, then wait days for buyer approval.\nAffected: 8 AP clerks, 25 buyers\nBaseline (Mar, ERP log + 30 timed cases): 2,000 exceptions/month,\n  12 min touch time, median elapsed 3 days\nGoal: touch time 5 min; elapsed 1.5 days; cause correct in 90% of eval set\nIn scope: price exceptions; draft cause + evidence; draft buyer request\nOut of scope: quantity exceptions, approving or paying, supplier emails\nData: ERP export (read only), contract price list, AP mailbox (read only)\nConstraints: human approves every action; no data stored outside tenant\nRisks: contract list out of date; buyers ignore new request format\nOwners: Sponsor Finance Director; Process owner AP Manager; agreed 2025-03-14\n\nStory 1: As an AP clerk, I want the likely cause of a price exception\n  with links to evidence, so that I do not search email by hand.\n  Given an exception with a PO and contract price on file\n  When the clerk opens it\n  Then the assistant shows the cause, the prices compared and source links\n  And on the 50-case eval set the cause matches the AP lead in 45+ cases\n  And if no contract price is found it says so and makes no guess"
+        }
+      },
+      "practice": [
+        {
+          "title": "Write a one-page brief",
+          "time": "50 min",
+          "goal": "Practise every field and testable criteria.",
+          "steps": [
+            "Use the expense claim interview or the process you mapped earlier as your evidence.",
+            "Copy the template fields from this lesson into a document and fill each one in a sentence or two.",
+            "Write three user stories in the As a, I want, so that form.",
+            "Give each story at least two Given, When, Then criteria and one criterion about what the system must never do.",
+            "Check the page length: if it is longer than one page, cut scope, not detail.",
+            "Ask Claude to act as a sceptical process owner and list the three questions it would raise before signing, then answer them in the brief."
+          ],
+          "done_when": "The brief fits on one page, every story has testable criteria, and out of scope has at least two items."
+        }
+      ],
+      "pitfalls": [
+        "Skipping the out-of-scope list. It is the field that prevents the most disputes.",
+        "Writing criteria that cannot be tested, such as 'the assistant is accurate'.",
+        "Stories with no 'so that', which hide the reason for the feature.",
+        "Baseline numbers without sources, which will be challenged at the end.",
+        "Starting the build before sign-off because time is short."
+      ],
+      "check": [
+        "Name the fields of a one-page brief and say why out of scope matters.",
+        "Write a user story for a support agent who wants ticket summaries.",
+        "Turn 'the summary should be good' into a testable acceptance criterion.",
+        "Why do AI features need criteria over a set of cases rather than one example?"
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "User Stories With Examples and a Template",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/agile/project-management/user-stories",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "What is Acceptance Criteria? Definition, Examples, & Tips",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/work-management/project-management/acceptance-criteria",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Epics, Stories, and Initiatives",
+          "source": "Atlassian",
+          "url": "https://www.atlassian.com/agile/project-management/epics-stories-themes",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "How I Write Great User Stories with Strong Acceptance Criteria",
+          "source": "Angelo the BA",
+          "url": "https://www.youtube.com/watch?v=rh3AUDS_bMA",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "Agile User Stories Made Easy | INVEST, Acceptance Criteria & Examples",
+          "source": "PM Aspirant",
+          "url": "https://www.youtube.com/watch?v=quzHJMtLDl8",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Product Manager",
+          "source": "roadmap.sh",
+          "url": "https://roadmap.sh/product-manager",
+          "cost": "free"
+        },
+        {
+          "type": "course",
+          "title": "Become a Product Manager | Learn the Skills, Get the Job",
+          "source": "Udemy",
+          "url": "https://www.udemy.com/course/become-a-product-manager-learn-the-skills-get-the-job/",
+          "cost": "paid"
+        }
+      ]
+    },
+    {
+      "id": "change-adoption",
+      "title": "Change and adoption from day one",
+      "summary": "You will be able to explain why people resist new tools, plan adoption with the ADKAR model, and bring the process owner along from the start.",
+      "why": "A team gets a working tool for checking supplier invoices, and three months later they are back on spreadsheets. A tool that works but is not used has no value, and people decide that, not accuracy scores. This lesson helps you plan for adoption from the first week, so what you leave behind keeps running.",
+      "sections": [
+        {
+          "h": "The short version",
+          "p": [
+            "Change management is the work of helping people move from the current way of working to a new one. ADKAR is a model from Prosci that breaks individual change into five stages: Awareness of the need to change, Desire to take part, Knowledge of how to change, Ability to do it in practice, and Reinforcement so the change sticks. If someone is stuck, find the first stage they have not reached and work on that.",
+            "For an FDE, the most important person is the process owner. If they see the solution as theirs, their team will follow. If they see it as something done to them, it will quietly fade."
+          ]
+        },
+        {
+          "h": "Why people resist",
+          "p": [
+            "Resistance is usually a reasonable response, not stubbornness, and it tells you which part of the change is missing. Listen for the reason behind it before trying to answer it. Common reasons:"
+          ],
+          "list": [
+            "Fear for their job or status, especially with AI. People whose expertise is knowing where things are may feel that is being taken away.",
+            "Extra work during the transition: learning a tool while still clearing the normal queue.",
+            "Past tools that were promised and failed, so they wait to see if this one lasts.",
+            "Unclear benefit to them personally, as opposed to the company.",
+            "Lack of trust in AI output, especially after one visible mistake.",
+            "Not being asked: the tool was designed without them and misses their real exceptions."
+          ]
+        },
+        {
+          "h": "ADKAR applied to an FDE engagement",
+          "list": [
+            "Awareness: share the baseline numbers and pain from discovery with the team, so the reason for change is their reality, not a slogan.",
+            "Desire: show what is in it for them, such as fewer chasing emails or leaving on time at month end. Be honest about job impact; if the sponsor has said there are no cuts, say so clearly.",
+            "Knowledge: short, hands-on training on their own cases, plus a one-page guide covering when to trust the output and when to check.",
+            "Ability: a pilot period with you available, a simple way to report problems, and time freed to practise.",
+            "Reinforcement: share results, fix reported issues quickly, recognise champions, and have the process owner build use into the standard procedure."
+          ]
+        },
+        {
+          "h": "Bringing the process owner along",
+          "p": [
+            "Involve the process owner from the first week. Ask them to choose who you interview and shadow. Review the process map and brief with them before anyone else. Let them name the exceptions that matter and approve the acceptance criteria; they are accountable for those in the RACI.",
+            "Show early, rough versions on real cases, and let their team break it. Each problem they find and you fix builds trust. Agree with them how adoption will be measured, such as the share of exceptions where the assistant's draft was used, and review it together weekly during the pilot.",
+            "If the process owner is too busy to engage, treat that as a risk to raise with the sponsor early, not something to work around. A solution built without its owner rarely survives the FDE leaving."
+          ]
+        },
+        {
+          "h": "Signs adoption is working or failing",
+          "p": [
+            "Working: usage grows week by week without reminders; users ask for new features; the team starts describing exceptions in the tool's terms; the process owner presents results themselves. Failing: usage spikes after training then falls; people use the tool only when you are in the room; workarounds such as the old spreadsheet stay in use; feedback stops. When you see failing signs, go back to ADKAR and ask which stage is missing, then talk to two users about their last real case with the tool."
+          ]
+        },
+        {
+          "h": "Designing for adoption in the build",
+          "p": [
+            "Adoption is partly a design problem. Put the assistant where people already work, such as inside the ERP screen or the ticket view, rather than in a new window they must remember to open. Show the evidence behind each suggestion, so users can check it in seconds and build trust. Make it easy to correct the output and capture those corrections, since they become your best source of improvement and show users their input matters.",
+            "Keep the first version narrow and reliable. One task done well on most cases earns more trust than five tasks done unevenly. Add scope only after usage and quality are stable."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "ADKAR stages for one person",
+        "caption": "Each stage builds on the one before; find the first stage a person has not reached.",
+        "steps": [
+          {
+            "label": "Awareness",
+            "note": "Why change is needed, in their own numbers"
+          },
+          {
+            "label": "Desire",
+            "note": "What is in it for them; honest about impact"
+          },
+          {
+            "label": "Knowledge",
+            "note": "How to use it, on their own cases"
+          },
+          {
+            "label": "Ability",
+            "note": "Practice in real work with support"
+          },
+          {
+            "label": "Reinforcement",
+            "note": "Results shared, fixes made, built into SOP"
+          }
+        ]
+      },
+      "example": {
+        "title": "Worked example: adoption plan for the AP team (fictional)",
+        "p": [
+          "Two weeks into the pilot, usage of the exception assistant is high for four clerks and near zero for two of the most experienced. In short conversations about their last cases, both say they already know the causes and the tool slows them down. They have Awareness and Knowledge, but not Desire.",
+          "The FDE and AP manager change approach: the experienced clerks are asked to review the assistant's drafts on hard cases and to write the rules it misses. Their expertise becomes the source of the improvements. Within two weeks they are the champions who train new staff."
+        ],
+        "list": [
+          "Week 1: process owner picks interviewees; baseline shared with team (Awareness).",
+          "Week 3: clerks test an early version on their own cases (Desire, Knowledge).",
+          "Week 5: pilot with daily office hour and a feedback form (Ability).",
+          "Week 7: results shared by AP manager; usage added to SOP (Reinforcement)."
+        ]
+      },
+      "practice": [
+        {
+          "title": "ADKAR review of a change you lived",
+          "time": "25 min",
+          "goal": "Use ADKAR to diagnose a real adoption success or failure.",
+          "steps": [
+            "Think of a tool or process change at work or school that you or others resisted.",
+            "Write one line for each ADKAR stage saying whether it was reached and how you know.",
+            "Identify the first stage that was missing.",
+            "Write two concrete actions that would have addressed that stage.",
+            "Ask Claude to challenge your diagnosis and suggest one stage you might have misjudged."
+          ],
+          "done_when": "You have a five-line ADKAR assessment, a named missing stage, and two specific actions."
+        },
+        {
+          "title": "Draft an adoption plan for a proof of concept",
+          "time": "30 min",
+          "goal": "Plan adoption alongside the build.",
+          "steps": [
+            "Take the brief you wrote in the previous lesson.",
+            "List the user groups and, for each, the most likely reason for resistance.",
+            "Write one action per ADKAR stage with a week number.",
+            "Define one adoption metric and how the process owner will review it."
+          ],
+          "done_when": "Your plan has a dated action for each stage and one measurable adoption metric owned by the process owner."
+        }
+      ],
+      "pitfalls": [
+        "Leaving adoption until after the build. Plan it from week one.",
+        "Treating resistance as stubbornness instead of information about what is missing.",
+        "Training once and leaving. Ability and Reinforcement need follow-up.",
+        "Avoiding the job question. Be honest within what the sponsor has agreed.",
+        "Making the FDE the face of the tool instead of the process owner."
+      ],
+      "check": [
+        "What do the five letters of ADKAR stand for?",
+        "Give three reasons people resist an AI tool and how you would respond to each.",
+        "Why is the process owner more important for adoption than the sponsor?",
+        "Name two signs that adoption is failing and what you would do next."
+      ],
+      "links": [
+        {
+          "type": "docs",
+          "title": "The Prosci ADKAR Model",
+          "source": "Prosci",
+          "url": "https://www.prosci.com/methodology/adkar",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Change Management | What is Change Management",
+          "source": "Prosci",
+          "url": "https://www.prosci.com/change-management",
+          "cost": "free"
+        },
+        {
+          "type": "docs",
+          "title": "Why Change Management Is Important",
+          "source": "Prosci",
+          "url": "https://www.prosci.com/blog/why-change-management",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "The Prosci ADKAR Change Management Model",
+          "source": "Prosci",
+          "url": "https://www.youtube.com/watch?v=zYe2fG8m4Ow",
+          "cost": "free"
+        },
+        {
+          "type": "video",
+          "title": "The Prosci ADKAR Model | Tim Creasey Interview",
+          "source": "Prosci",
+          "url": "https://www.youtube.com/watch?v=L_7I03LOyyk",
+          "cost": "free"
+        }
+      ]
+    }
+  ]
+}

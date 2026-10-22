@@ -1,0 +1,122 @@
+{
+  "module": 5,
+  "overlay": true,
+  "add": [
+    {
+      "id": "pharma-deviation-discovery",
+      "title": "Worked discovery in pharma: the six-step improvement method on deviation investigations",
+      "summary": "You will be able to run discovery on a GMP process with a six-step improvement method, from interviews to an LLM step, using deviation investigation as the worked case.",
+      "why": "Discovery in a GMP plant is different from discovery in an office. The process is written in SOPs, but people work around them. The data sits in validated systems you cannot change on a whim. Every improvement must survive QA review. A clear, repeatable method keeps you honest: you understand and simplify the process first, check the data and the systems, and only then add an LLM where it fits.",
+      "sections": [
+        {
+          "h": "The method in one paragraph",
+          "p": [
+            "The six steps are: interview the people, map the process, systems and activities, remove redundant and duplicated steps, validate the data, validate the system, and connect the systems and apply an LLM where it fits. The order matters. Most of the value often comes from steps 3 and 4, before any AI is involved. And the LLM step at the end is far easier to validate when the process and data under it are already clean.",
+            "The worked case in this lesson is deviation investigation at a fictional oral solid dose site. A deviation is any departure from an approved instruction or standard. 21 CFR 211.100 requires that deviations from written procedures be recorded and justified, and 21 CFR 211.192 requires unexplained discrepancies to be thoroughly investigated."
+          ]
+        },
+        {
+          "h": "Step 1: interview the people",
+          "p": [
+            "Talk to everyone who touches a deviation: the operator who finds it, the supervisor who reports it, the investigator who writes it up, the lab analyst who runs extra tests, the QA reviewer who approves it, and the QA head who reports trends in management review. Ask each one to walk you through a real, recently closed deviation, not the SOP version.",
+            "Useful questions: where do you look first? Which past deviations do you search for, and how? What makes QA send a report back? What do you copy from one system into another? What would you stop doing if you were allowed to?"
+          ]
+        },
+        {
+          "h": "Step 2: map process, systems and activities",
+          "p": [
+            "Draw a swimlane map with one lane per role and mark the system used at each step: MES for the event, eQMS for the record, LIMS for test results, the historian for process data, ERP for batch status. Add the activities people do outside systems: email, spreadsheets, printed copies. Put the SOP version beside the real version and mark where they differ.",
+            "Then time it. Pull open and close dates for a sample of deviations from the eQMS and mark where work waits."
+          ]
+        },
+        {
+          "h": "Steps 3 and 4: remove duplication, then validate the data",
+          "p": [
+            "Step 3 looks for work that adds no value. Common finds: the same event description typed into the MES, an email and the eQMS; an impact assessment written twice, once by the investigator and once by QA; a spreadsheet tracker kept alongside the eQMS. Propose removals through change control, since the SOP will need to change.",
+            "Step 4 checks whether the data in the systems is fit to use. Profile a sample: missing fields, inconsistent root cause categories, free text that is too short to be useful, deviations not linked to a batch. This is also a data integrity check against ALCOA+. The SQL below shows the kind of checks to run on an export, using SQLite."
+          ],
+          "code": {
+            "lang": "sql",
+            "text": "CREATE TABLE deviations (id TEXT, opened TEXT, closed TEXT, area TEXT, root_cause TEXT, batch TEXT);\nINSERT INTO deviations VALUES\n ('DEV-001','2026-01-05','2026-02-20','Granulation','Equipment','B1001'),\n ('DEV-002','2026-01-09','2026-03-30','Compression','human error','B1002'),\n ('DEV-003','2026-01-12',NULL,'Compression','Machine','B1003'),\n ('DEV-004','2026-01-20','2026-02-02','Packaging','',NULL),\n ('DEV-005','2026-02-01','2026-04-15','Compression','Human Error','B1005');\n-- 1. Missing fields that an investigator or a model would need\nSELECT id, root_cause, batch FROM deviations\nWHERE root_cause IS NULL OR TRIM(root_cause) = '' OR batch IS NULL;\n-- 2. Category spellings that should be one value\nSELECT LOWER(TRIM(root_cause)) AS cause, COUNT(*) AS n,\n       GROUP_CONCAT(DISTINCT root_cause) AS spellings\nFROM deviations WHERE TRIM(root_cause) <> '' GROUP BY cause;\n-- 3. Days to close, open items shown as NULL\nSELECT id, area, JULIANDAY(closed) - JULIANDAY(opened) AS days_open\nFROM deviations ORDER BY days_open DESC;"
+          }
+        },
+        {
+          "h": "Steps 5 and 6: validate the system, then connect and apply an LLM",
+          "p": [
+            "Step 5 checks the systems themselves. Is the eQMS validated for the way it is now used? Is the audit trail on and reviewed? Do the MES, LIMS and eQMS have interfaces you can read from, and who owns their change control? Under EU GMP Annex 11 and GAMP 5, any new interface or tool must fit into this validated landscape.",
+            "Step 6 connects the systems and adds the LLM where it fits. For deviations, a good fit is an assistive step: when a deviation is opened, gather the MES event, related LIMS results and historian trend, search past deviations for similar cases, and draft a first summary and candidate root cause categories. The investigator reviews and edits. The draft and the final text are both kept and attributed, so QA and an inspector can see what the tool proposed and what the person decided."
+          ]
+        }
+      ],
+      "diagram": {
+        "type": "flow",
+        "title": "The six-step improvement method",
+        "caption": "Read left to right; do not skip to the last step before the earlier ones are done.",
+        "steps": [
+          {"label": "Interview the people", "note": "Operators, investigators, lab, QA"},
+          {"label": "Map process and systems", "note": "Swimlanes plus MES, eQMS, LIMS, ERP"},
+          {"label": "Remove duplicate steps", "note": "Through change control and SOP update"},
+          {"label": "Validate the data", "note": "Missing fields, categories, ALCOA+"},
+          {"label": "Validate the system", "note": "Annex 11, GAMP 5, audit trail on"},
+          {"label": "Connect systems, add LLM", "note": "AI drafts, investigator decides"}
+        ]
+      },
+      "example": {
+        "title": "Worked example: what each step found (fictional site, example figures)",
+        "p": [
+          "The site closes a few hundred deviations a year and many close late. The client asked for an AI report writer. Here is what the six steps found, in order."
+        ],
+        "list": [
+          "Interviews: investigators spend much of their time searching for similar past deviations by keyword in the eQMS, and chasing lab results by email.",
+          "Map: the event is typed three times (MES, email to QA, eQMS). The SOP says the supervisor assesses impact; in practice the investigator does it again.",
+          "Remove duplication: the email step is dropped and the MES event is linked to the eQMS record. The double impact assessment becomes one, owned by the investigator.",
+          "Validate the data: the export shows two spellings of 'human error', 'Equipment' and 'Machine' used for the same thing, and some records with no batch link. QA merges the categories and makes batch link a required field.",
+          "Validate the system: the eQMS is validated and the audit trail is on, but nobody reviews it. An audit trail review is added to the SOP. The eQMS has a read API; the LIMS export is a nightly file.",
+          "Connect and apply an LLM: an assistant reads the linked MES event, LIMS results and the five most similar past deviations, and drafts a summary and candidate root causes into a separate, attributed field. The investigator writes the final text and signs."
+        ]
+      },
+      "field": {
+        "title": "From the field (example scenario)",
+        "p": [
+          "A common finding in step 2 is that the real expert on similar past deviations is one senior investigator who remembers them. When that person is on leave, investigations slow down. A search over past deviations helps everyone, and it is a low-risk first use of AI."
+        ]
+      },
+      "practice": [
+        {
+          "title": "Run the six steps on a paper case",
+          "time": "60 min",
+          "goal": "Practise each step of the improvement method on a GMP process before touching any AI.",
+          "steps": [
+            "Choose a process: deviation investigation, batch record review or change control.",
+            "Write five interview questions for an operator and five for a QA reviewer.",
+            "Draw a swimlane map with at least four roles and mark the system at each step.",
+            "Circle every duplicated entry or double review and propose one removal.",
+            "Copy the SQL from this lesson into SQLite (sqlite3 on your machine or an online SQLite tool), run it, then add one more check of your own.",
+            "Write one paragraph on where an LLM fits, who approves its output, and where the output is stored."
+          ],
+          "done_when": "You have interview questions, a swimlane map, one removed step, a working data check and a one-paragraph LLM proposal with a named approver."
+        }
+      ],
+      "pitfalls": [
+        "Jumping to step 6. An LLM on top of duplicated steps and messy categories automates the mess.",
+        "Interviewing only managers. Operators and investigators know where the real time goes.",
+        "Removing a step without change control. In GMP, a process change needs an approved SOP update.",
+        "Writing AI output straight into the signed record. Keep the AI draft separate and attributed, and let the person write the final version."
+      ],
+      "check": [
+        "List the six steps in order and say why the order matters.",
+        "Which two regulations require deviations to be recorded and investigated?",
+        "Give two data checks you would run on a deviation export before building any AI.",
+        "Where should an AI draft be stored so an inspector can see what the tool proposed?"
+      ],
+      "links": [
+        {"type": "docs", "title": "21 CFR 211.100 - Written procedures; deviations", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-F/section-211.100", "cost": "free"},
+        {"type": "docs", "title": "21 CFR 211.192 - Production record review", "source": "eCFR", "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211/subpart-J/section-211.192", "cost": "free"},
+        {"type": "docs", "title": "Data Integrity and Compliance With Drug CGMP: Questions and Answers", "source": "FDA", "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/data-integrity-and-compliance-drug-cgmp-questions-and-answers", "cost": "free"},
+        {"type": "docs", "title": "BPMN Specification - Business Process Model and Notation", "source": "BPMN.org", "url": "https://www.bpmn.org/", "cost": "free"},
+        {"type": "video", "title": "Deviation Investigation in the Pharmaceutical Industry", "source": "GMP-SOP Videos", "url": "https://www.youtube.com/watch?v=ukeUUiZ0Sc8", "cost": "free"},
+        {"type": "video", "title": "Basics of GMP: Deviations, Root Cause Analysis (RCA) Tools and Corrective and Preventive Action", "source": "Biology Lectures", "url": "https://www.youtube.com/watch?v=jJ4rN0JgFP4", "cost": "free"}
+      ]
+    }
+  ]
+}
